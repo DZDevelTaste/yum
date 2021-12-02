@@ -3,4 +3,13 @@
 **/.settings
 **/target
 **/build
-/yum_project/
+**/node_modules
+**/public/assets
+**/public/bundle.js
+/bin/
+
+
+**/.mvn
+mvnw*
+
+/document
