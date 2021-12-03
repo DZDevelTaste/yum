@@ -13,7 +13,7 @@
 	</select>
 	<insert id="addMedicine" parameterType="medicinevo">
 		<![CDATA[
-			INSERT INTO "medicine" VALUES (#{no}, #{code}, #{name}, #{company}, #{ingredient}, #{efficacy}, #{precaution}, #{caution}, #{sideeffect})
+			INSERT INTO "medicine" VALUES (DEFAULT, #{code}, #{name}, #{company}, #{ingredient}, #{efficacy}, #{precaution}, #{caution}, #{sideeffect})
 		]]>
 	</insert>
 	<update id="updateMedicine" parameterType="medicinevo">

@@ -18,19 +18,16 @@ public class ScheduleRepository {
 	public List<Object> findBySchedule() {
 		return sqlSession.selectList("schedule.findBySchedule");
 	}
-
 	public boolean updateSchedule(int userNo) {
 		int count = sqlSession.update("schedule.updateSchedule", userNo);
 		return count == 1;
 	}
-
 	public boolean deleteSchedule(int userNo) {
 		int count = sqlSession.delete("schedule.deleteSchedule", userNo);
 		return count == 1;
 	}
-
 	public boolean addSchedule(@Valid ScheduleVo vo) {
-		return sqlSession.selectOne("disease.addDisease", vo);
+		return sqlSession.selectOne("schedule.addDisease", vo);
 	}
 
 }

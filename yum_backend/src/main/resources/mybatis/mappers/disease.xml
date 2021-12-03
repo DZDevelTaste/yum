@@ -8,7 +8,7 @@
 	</delete>
 	<select id="findByDisease" resultType="diseasevo">
 		<![CDATA[
-			SELECT code, name, engName FROM "disease"
+			SELECT code, name, "engName" FROM "disease";
 		]]>
 	</select>
 	<insert id="addDisease" parameterType="diseasevo">
@@ -18,7 +18,7 @@
 	</insert>
 	<update id="updateDisease" parameterType="diseasevo">
 		<![CDATA[
-			 UPDATE "disease" SET name = #{name}, engName = #{engName} WHERE code = #{code}
+			 UPDATE "disease" SET name = #{name}, "engName" = #{engName} WHERE code = #{code}
 		]]>
 	</update>
 </mapper>
