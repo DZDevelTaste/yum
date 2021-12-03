@@ -1,0 +1,10 @@
+{
+    "devDependencies": {
+        "concurrently": "^6.4.0"
+    },
+    "scripts": {
+        "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" --kill-others",
+        "dev:backend": "cd yum_backend && mvn spring-boot:run",
+        "dev:frontend": "cross-env NODE_ENV=development webpack serve --config yum_frontend/config/webpack.config.js --mode development --progress"
+    }
+}
