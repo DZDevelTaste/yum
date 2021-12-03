@@ -1,7 +1,13 @@
 package ant.yum.vo;
 
-public class PresClinicVo {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-	private int cNo;
-	private int dNo;
+@Getter
+@Setter
+@ToString
+public class PresClinicVo {
+	private int clinicNo;
+	private int diagnosisNo;
 }

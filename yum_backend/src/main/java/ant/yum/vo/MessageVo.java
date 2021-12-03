@@ -1,10 +1,16 @@
 package ant.yum.vo;
 
-public class MessageVo {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-	private int mNo;
-	private int uNo;
-	private int pNo;
-	private int osNo;
-	private String mState;
+@Getter
+@Setter
+@ToString
+public class MessageVo {
+	private int no;
+	private int userNo;
+	private int patientNo;
+	private int orderstateNo;
+	private String state;
 }

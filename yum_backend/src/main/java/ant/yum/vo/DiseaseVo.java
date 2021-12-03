@@ -1,8 +1,14 @@
 package ant.yum.vo;
 
-public class DiseaseVo {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-	private String diCode;
-	private String diName;
-	private String diEngName;
+@Getter
+@Setter
+@ToString
+public class DiseaseVo {
+	private String code;
+	private String name;
+	private String engName;
 }

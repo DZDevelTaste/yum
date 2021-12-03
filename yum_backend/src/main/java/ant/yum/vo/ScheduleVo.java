@@ -1,10 +1,16 @@
 package ant.yum.vo;
 
-public class ScheduleVo {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-	private int sNo;
-	private String sReason;
-	private String sDesc;
-	private String uNo;
-	private String caNo;
+@Getter
+@Setter
+@ToString
+public class ScheduleVo {
+	private int no;
+	private String reason;
+	private String desc;
+	private int userNo;
+	private int calendarNo;
 }
