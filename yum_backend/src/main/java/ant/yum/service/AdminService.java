@@ -13,7 +13,6 @@ import ant.yum.vo.MedicineVo;
 
 @Service
 public class AdminService {
-	
 	@Autowired
 	private AdminRepository adminRepository;
 

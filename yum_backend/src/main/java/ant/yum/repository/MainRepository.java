@@ -13,7 +13,6 @@ import ant.yum.vo.UserVo;
 
 @Repository
 public class MainRepository {
-	
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -21,14 +20,12 @@ public class MainRepository {
 		int count = sqlSession.insert("main.insert", vo);
 		return count == 1;
 	}
-
 	public UserVo findId(String name, String rrn) {
 		Map<String, String> map = new HashMap<>();
 		map.put("n", name);
 		map.put("r", rrn);
 		return sqlSession.selectOne("main.findId", map);
 	}
-
 	public UserVo findIdByEmail(String name, String email, String rrn) {
 		Map<String, String> map = new HashMap<>();
 		map.put("n", name);
@@ -36,7 +33,6 @@ public class MainRepository {
 		map.put("r", rrn);
 		return sqlSession.selectOne("main.findIdByEmail", map);
 	}
-
 	public boolean updatePw(String password, String name) {
 		Map<String, String> map = new HashMap<>();
 		map.put("n", name);

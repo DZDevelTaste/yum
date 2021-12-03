@@ -13,7 +13,6 @@ import ant.yum.vo.MedicineVo;
 
 @Repository
 public class AdminRepository {
-	
 	@Autowired
 	private SqlSession sqlSession;
 	

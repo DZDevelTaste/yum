@@ -23,5 +23,4 @@ public class UserVo {
 	private String phone1;
 	private String phone2;
 	private String gender;
-	
 }

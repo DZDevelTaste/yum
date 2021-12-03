@@ -26,16 +26,13 @@ public class MainService {
 		vo.setPhone(phone);
 		mainRepository.insert(vo);
 	}
-
 	public UserVo findId(String name, String rrn) {
 		return mainRepository.findId(name,rrn);
 		
 	}
-
 	public UserVo findIdByEmail(String name, String email, String rrn) {
 		return mainRepository.findIdByEmail(name,email, rrn);
 	}
-
 	public void updatePw(String password, String name) {
 		mainRepository.updatePw(password, name);
 	}

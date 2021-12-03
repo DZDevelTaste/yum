@@ -20,5 +20,5 @@
 		<![CDATA[
 			 UPDATE "medicine" SET code = #{code}, name = #{name}, company = #{company}, ingredient = #{ingredient}, efficacy = #{efficacy}, precaution = #{precaution}, caution = #{caution}, sideeffect = #{sideeffect} WHERE no = #{no}
 		]]>
-	</update>
+	</update> 
 </mapper>
