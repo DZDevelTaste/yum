@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DiagnosisVo {
-
 	private int no;
 	private String date;
 	private String desc;
