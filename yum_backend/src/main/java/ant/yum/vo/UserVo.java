@@ -8,13 +8,19 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserVo {
-	
-	private int uNo;
-	private String uPassword;
-	private String Uname;
-	private String uRRN;
-	private String uJob;
-	private String uAuth;
-	private String uPhone;
-	private String uGender;
+	private int no;
+	private String email;
+	private String email1;
+	private String password;
+	private String name;
+	private String rrn;
+	private String rrn1;
+	private String address;
+	private String addressDetail;
+	private String job;
+	private String auth;
+	private String phone;
+	private String phone1;
+	private String phone2;
+	private String gender;
 }
