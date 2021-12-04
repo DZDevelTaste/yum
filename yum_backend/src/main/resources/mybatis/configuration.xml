@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
 	<typeAliases>
 		<typeAlias type="ant.yum.vo.UserVo" alias="uservo"/>
+		<typeAlias type="ant.yum.vo.OrderVo" alias="ordervo"/>
+		<typeAlias type="ant.yum.vo.PatientVo" alias="patientvo"/>
+		<typeAlias type="ant.yum.vo.DiagnosisVo" alias="diagnosisvo"/>
+		<typeAlias type="ant.yum.vo.presClinicVo" alias="presclinicvo"/>
+		<typeAlias type="ant.yum.vo.presDiseaseVo" alias="presdiseasevo"/>
+		<typeAlias type="ant.yum.vo.presMedicineVo" alias="presmedicinevo"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/order.xml" />
+		<mapper resource="mybatis/mappers/patient.xml" />
+		<mapper resource="mybatis/mappers/diagnosis.xml" />
+		<mapper resource="mybatis/mappers/prescription.xml" />
 	</mappers>
 </configuration>
