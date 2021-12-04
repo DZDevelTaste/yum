@@ -1,12 +1,19 @@
 package ant.yum.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class OrderVo {
 
-	private int oNo;
-	private String oDate;
-	private int oExpenses;
-	private String oDesc;
-	private int uNo;
-	private int osNo;
-	private int pNo;
+	private int no;
+	private String date;
+	private int expenses;
+	private String desc;
+	private int userNo;
+	private int orderstateNo;
+	private int patientNo;
 }

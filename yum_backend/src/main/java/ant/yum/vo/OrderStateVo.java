@@ -1,7 +1,13 @@
 package ant.yum.vo;
 
-public class OrderStateVo {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-	private int osNo;
-	private String osState;
+@Getter
+@Setter
+@ToString
+public class OrderStateVo {
+	private int no;
+	private String state;
 }

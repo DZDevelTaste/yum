@@ -1,17 +1,21 @@
 package ant.yum.vo;
 
-public class PatientVo {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-	private int pNo;
-	private String pName;
-	private String pGender;
-	private String pRRN;
-	private String pInsuarance;
-	private String pPhone;
-	private String pAddress;
-	private double pLength;
-	private double pWeight;
-	private String pDesc;
-	
-	
+@Getter
+@Setter
+@ToString
+public class PatientVo {
+	private int no;
+	private String name;
+	private String gender;
+	private String rrn;
+	private String insuarance;
+	private String phone;
+	private String address;
+	private double length;
+	private double weight;
+	private String desc;
 }
