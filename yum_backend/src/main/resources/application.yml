@@ -1,97 +1,100 @@
-# 기준은 스페이스바 3번씩
 # active spring boot profile
-spring: 
-   profile:
+spring:
+   profiles:
+      # default: dev
       active: dev
 
 ---
-# common - spring boot configuration
+
+# common - spring configuration
 spring:
    # devtools - live reload
    devtools:
       livereload:
          enabled: true
+
    # mvc
    mvc:
       view:
          prefix: /WEB-INF/views/
          suffix: .jsp
-   # http
-   http:
-      encoding:
-         charset: UTF-8
-         enabled: true
-         forced: false
-         forced-request: false
-         forced-response: false
-   
+
    # message resource(Internationalization)
-   messages: 
-      always-message-format: true
+   messages:
+      always-use-message-format: true
       basename: messages/messages_ko
       encoding: UTF-8
+
    # multipart
-   servlet: 
-      multipart: 
+   servlet:
+      multipart:
          enabled: true
          max-file-size: 50MB
          max-request-size: 50MB
-   
+
    # aop(@EnableAspectJAutoProxy)
-   aop: 
+   aop:
       auto: true
       proxy-target-class: true
----
-# production profile - spring boot configuration
 
-spring:
-   config:
-      active:
-         profile: production
-
-   # datasource
-   datasource: 
-      driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://227.8.9.1:3306/webdb?characterEncoding=utf8
-      username: webdb
-      password: webdb?!@#yammi123
-      initialSize: 100
-      maxActive: 200
 ---
+
 # dev profile - spring boot configuration
-
 spring:
    config:
-      active:
-         profile: dev
+      activate:
+         on-profile: dev
 
    # datasource
-   datasource: 
-      driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/webdb?characterEncoding=utf8
-      username: webdb
-      password: webdb
-      initialSize: 10
-      maxActive: 20
----
-# server
-server: 
-   port: 8080
-   servlet: 
-      context-path: /yum
-      enconding: 
-         charset: utf-8
-         enabled: true
-         force: false
-         force-request: false
-         force-response: false
+   datasource:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://34.64.204.254:3306/yum?characterEncoding=utf8
+      username: yum
+      password: ant-yum
+      hikari:
+         minimum-idle: 10
+         maximum-pool-size: 20
 
 ---
+
+# production profile - spring boot configuration
+spring:
+   config:
+      activate:
+         on-profile: production
+
+   # datasource
+   datasource:
+      username: yum
+      password: yum?!@#yammi123
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://34.64.204.254:3306/yum?characterEncoding=utf8
+      hikari:
+         minimum-idle: 100
+         maximum-pool-size: 200
+
+---
+
+# server
+server:
+   port: 8080
+   servlet:
+      context-path: /yum
+   encoding:
+      charset: utf-8
+      enabed: true
+      force: false
+      force-request: false
+      force-response: false
+
+---
+
 # mybatis
-mybatis: 
+mybatis:
    config-location: classpath:mybatis/configuration.xml
 
 ---
+
 # logging
-logging: 
+logging:
    config: classpath:logback.xml
