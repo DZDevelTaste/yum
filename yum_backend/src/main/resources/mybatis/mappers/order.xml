@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+
+	<insert id="insert" parameterType="ordervo" >
+		<![CDATA[
+		INSERT INTO "order" 
+		VALUES (DEFAULT, now(), 7000, #{desc}, #{userNo}, #{orderstateNo}, #{patientVo.no})
+		]]>
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			<![CDATA[ SELECT CURRVAL('order_no_seq') ]]>
+		</selectKey>
+	</insert>
+</mapper>

@@ -15,5 +15,5 @@ public class OrderVo {
 	private String desc;
 	private int userNo;
 	private int orderstateNo;
-	private int patientNo;
+	private PatientVo patientVo;
 }

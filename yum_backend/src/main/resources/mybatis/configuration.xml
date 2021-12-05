@@ -3,9 +3,13 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="ant.yum.vo.UserVo" alias="uservo"/>
+		<typeAlias type="ant.yum.vo.PatientVo" alias="patientvo"/>
+		<typeAlias type="ant.yum.vo.OrderVo" alias="ordervo"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/patient.xml" />
+		<mapper resource="mybatis/mappers/order.xml" />
 	</mappers>
 </configuration>
