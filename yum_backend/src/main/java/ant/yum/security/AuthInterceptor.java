@@ -56,19 +56,19 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		String role = auth.role();
 		
 		//8. @Auth의 role이 "USER" 인 경우, authUser의 role은 상관없다.
-		if("USER".equals(role)) {
+		if("N".equals(role) && "D".equals(role)) {
 			return true;
 		}
 		
 		//9.@Auth의 role이 "ADMIN" 인 경우, authUser의 role은 "ADMIN" 이어야 한다.
-		//if("ADMIN".equals(authUser.getUJob()) == false) {
+		//if("A".equals(authUser.getUJob()) == false) {
 		//	response.sendRedirect(request.getContextPath());
 		//	return false;
 		//}
 		
 		// 옳은 관리자 권한
-		// @Auth의 role: "ADMIN"
-		// authUser의 role: "ADMIN"
+		// @Auth의 role: "A"
+		// authUser의 role: "A"
 		return true;
 	}
 }
