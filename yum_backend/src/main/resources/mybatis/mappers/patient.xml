@@ -10,4 +10,24 @@
 			<![CDATA[ SELECT CURRVAL('patient_p_no') ]]>
 		</selectKey>
 	</insert>
+
+	<select id="findAll" parameterType="string" resultType="uservo">
+		<![CDATA[
+		SELECT p.no, name, gender, rrn, age, insuarance phone, address, length, weight, "desc" 
+		FROM patient p,
+			(SELECT
+				no, 
+				extract(year from age(CURRENT_DATE, 
+										to_date(concat('19', SUBSTRING(rrn, 1, 2), '-', SUBSTRING(rrn, 3, 2), '-', SUBSTRING(rrn, 5, 2)), 'YYYY-MM-DD'))) + 2 as age
+			FROM patient
+			WHERE rrn LIKE '%-1%' or rrn LIKE '%-2%'
+			UNION
+			SELECT
+				no, extract(year from age(CURRENT_DATE, to_date(concat('20', SUBSTRING(rrn, 1, 2), '-', SUBSTRING(rrn, 3, 2), '-', SUBSTRING(rrn, 5, 2)), 'YYYY-MM-DD'))) + 2 as age
+			FROM patient
+			WHERE rrn LIKE '%-3%' or rrn LIKE '%-4%') tAge
+		WHERE p.no = tAge.no
+		ORDER BY name, age, rrn
+		]]>
+	</select>
 </mapper>
