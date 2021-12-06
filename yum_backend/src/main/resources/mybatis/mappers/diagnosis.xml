@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="diagnosis">
+	<insert id="insert" parameterType="diagnosisvo">
+		<![CDATA[
+			insert into diagnosis
+			values (DEFAULT, now(), '', ?, ?)
+		]]>
+			<selectKey keyProperty="no" resultType="int" order="AFTER">
+	        select currval('diagnosis_no_seq')
+	    	</selectKey>
+	</insert>
+</mapper>

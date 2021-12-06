@@ -17,6 +17,11 @@ public class PatientService {
     @Autowired
     private OrderRepository orderRepository;
 
+    public PatientVo findByNo(int patientNo) {
+        System.out.println("service " + patientNo);
+        return patientRepository.findByNo(patientNo);
+    }
+    
     @Transactional
     public void addOrder(OrderVo orderVo) {
         if(orderVo.getPatientVo().getNo() == 0) {
@@ -26,5 +31,5 @@ public class PatientService {
         
         orderRepository.addOrder(orderVo);
     }
-    
+
 }

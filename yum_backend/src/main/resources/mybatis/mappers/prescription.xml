@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prescription">
+	<insert id="presMedicineInsert" parameterType="presmedicinevo">
+		<![CDATA[
+			insert into prescription_m
+			values(#{diagnosisNo}, #{medicineNo}, #{PresmedicineCount}, #{PresmedicineDay})
+		]]>
+	</insert>
+	
+	<insert id="presDiseaseInsert" parameterType="presdiseasevo">
+		<![CDATA[
+			insert into prescription_d
+			values (#{diagnosisNo}, #{diseaseCode})
+		]]>
+	</insert>
+	
+	<insert id="presClinicInsert" parameterType="presclinicvo">
+		<![CDATA[
+			insert into prescription_c
+			values (#{diagnosisNo}, #{clinicNo})
+		]]>
+	</insert>
+	
+</mapper>
