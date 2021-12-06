@@ -5,7 +5,7 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	
-	<typeAliases>
+	<typeAliases> 
 		<typeAlias type="ant.yum.vo.UserVo" alias="uservo"/>
 		<typeAlias type="ant.yum.vo.OrderVo" alias="ordervo"/>
 		<typeAlias type="ant.yum.vo.PatientVo" alias="patientvo"/>
