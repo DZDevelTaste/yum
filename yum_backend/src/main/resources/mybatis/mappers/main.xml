@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+			INSERT INTO "user" VALUES (DEFAULT, #{email}, #{password}, #{name}, #{rrn}, #{address}, #{job}, DEFAULT, #{phone}, #{gender})
+		]]>
+	</insert>
+	<select id="findId" parameterType="map" resultType="uservo">
+		<![CDATA[
+			SELECT email, name FROM "user" WHERE "name" = #{n} and "rrn" = #{r}
+		]]>
+	</select>
+	<select id="findIdByEmail" parameterType="map" resultType="uservo">
+		<![CDATA[
+			SELECT email, name FROM "user" WHERE "name" = #{n} and "rrn" = #{r} and "email" = #{e}
+		]]>
+	</select>
+	<update id="updatePw" parameterType="uservo">
+		<![CDATA[
+			 UPDATE "user" SET password = #{p} WHERE name = #{n}
+		]]>
+	</update>
+	<select id="findByAll" resultType="uservo">
+		<![CDATA[
+			SELECT no, email, name, gender, auth, address, rrn, job, phone FROM "user"
+		]]>
+	</select>
+	<delete id="deleteByNo" parameterType="uservo">
+		<![CDATA[
+			DELETE FROM "user" WHERE no = #{no}
+		]]>
+	</delete>
+	<update id="updateAuth" parameterType="uservo">
+		<![CDATA[
+			 UPDATE "user" SET auth = 'Y' WHERE no = #{no}
+		]]>
+	</update>
+</mapper>

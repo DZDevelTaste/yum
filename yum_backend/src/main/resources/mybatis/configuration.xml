@@ -13,6 +13,9 @@
 		<typeAlias type="ant.yum.vo.presClinicVo" alias="presclinicvo"/>
 		<typeAlias type="ant.yum.vo.presDiseaseVo" alias="presdiseasevo"/>
 		<typeAlias type="ant.yum.vo.presMedicineVo" alias="presmedicinevo"/>
+		<typeAlias type="ant.yum.vo.DiseaseVo" alias="diseasevo"/>
+		<typeAlias type="ant.yum.vo.MedicineVo" alias="medicinevo"/>
+		<typeAlias type="ant.yum.vo.ScheduleVo" alias="schedulevo"/>
 	</typeAliases>
 	
 	<mappers>
@@ -21,5 +24,9 @@
 		<mapper resource="mybatis/mappers/patient.xml" />
 		<mapper resource="mybatis/mappers/diagnosis.xml" />
 		<mapper resource="mybatis/mappers/prescription.xml" />
+		<mapper resource="mybatis/mappers/main.xml" />
+		<mapper resource="mybatis/mappers/disease.xml" />
+		<mapper resource="mybatis/mappers/medicine.xml" />
+		<mapper resource="mybatis/mappers/schedule.xml" />
 	</mappers>
 </configuration>
