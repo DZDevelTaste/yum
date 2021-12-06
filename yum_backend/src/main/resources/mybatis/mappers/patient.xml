@@ -12,23 +12,12 @@
 		</selectKey>
 	</insert>
 
-	<select id="findAll" parameterType="string" resultType="uservo">
+	<select id="findAll" resultType="patientvo">
 		<![CDATA[
-			SELECT p.no, name, gender, rrn, age, insuarance phone, address, length, weight, "desc" 
-			FROM patient p,
-				(SELECT
-					no, 
-					extract(year from age(CURRENT_DATE, 
-											to_date(concat('19', SUBSTRING(rrn, 1, 2), '-', SUBSTRING(rrn, 3, 2), '-', SUBSTRING(rrn, 5, 2)), 'YYYY-MM-DD'))) + 2 as age
-				FROM patient
-				WHERE rrn LIKE '%-1%' or rrn LIKE '%-2%'
-				UNION
-				SELECT
-					no, extract(year from age(CURRENT_DATE, to_date(concat('20', SUBSTRING(rrn, 1, 2), '-', SUBSTRING(rrn, 3, 2), '-', SUBSTRING(rrn, 5, 2)), 'YYYY-MM-DD'))) + 2 as age
-				FROM patient
-				WHERE rrn LIKE '%-3%' or rrn LIKE '%-4%') tAge
-			WHERE p.no = tAge.no
-			ORDER BY name, age, rrn
+			SELECT no, name, gender, rrn, insuarance phone, address, length, weight, "desc"
+					, extract(year from age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2 as age
+			FROM patient
+			ORDER BY name, age, rrn;
 		]]>
 	</select>
 
