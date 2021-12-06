@@ -31,7 +31,7 @@ module.exports = (env) => {
         devServer: {
             host: '0.0.0.0',
             port: 9999,
-            proxy:{ '/api': 'http://localhost:8080/yum'},
+            proxy:{'/api': 'http://localhost:8080/yum'},
             liveReload: true,
             hot: false,
             compress: true,
