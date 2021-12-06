@@ -1,3 +1,4 @@
+package ant.yum;
 
 
 import org.springframework.boot.SpringApplication;

@@ -1,3 +1,4 @@
+package ant.yum;
 
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -8,4 +9,4 @@ public class BootInitializer extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(YumApplication.class);
 	}	
-}
+} 

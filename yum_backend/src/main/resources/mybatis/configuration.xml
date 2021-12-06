@@ -10,16 +10,15 @@
 		<typeAlias type="ant.yum.vo.OrderVo" alias="ordervo"/>
 		<typeAlias type="ant.yum.vo.PatientVo" alias="patientvo"/>
 		<typeAlias type="ant.yum.vo.DiagnosisVo" alias="diagnosisvo"/>
-		<typeAlias type="ant.yum.vo.presClinicVo" alias="presclinicvo"/>
-		<typeAlias type="ant.yum.vo.presDiseaseVo" alias="presdiseasevo"/>
-		<typeAlias type="ant.yum.vo.presMedicineVo" alias="presmedicinevo"/>
+		<typeAlias type="ant.yum.vo.PresClinicVo" alias="presclinicvo"/>
+		<typeAlias type="ant.yum.vo.PresDiseaseVo" alias="presdiseasevo"/>
+		<typeAlias type="ant.yum.vo.PresMedicineVo" alias="presmedicinevo"/>
 		<typeAlias type="ant.yum.vo.DiseaseVo" alias="diseasevo"/>
 		<typeAlias type="ant.yum.vo.MedicineVo" alias="medicinevo"/>
 		<typeAlias type="ant.yum.vo.ScheduleVo" alias="schedulevo"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/order.xml" />
 		<mapper resource="mybatis/mappers/patient.xml" />
 		<mapper resource="mybatis/mappers/diagnosis.xml" />
