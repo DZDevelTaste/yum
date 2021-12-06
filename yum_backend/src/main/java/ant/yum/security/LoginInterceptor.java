@@ -7,14 +7,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import ant.yum.service.UserService;
 import ant.yum.vo.UserVo;
 
 
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
-	private UserService userService;
+	// private UserService userService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -22,21 +21,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		UserVo authUser = userService.getUser(email, password);
-		if(authUser == null) {
-			request.setAttribute("result", "fail");
-			request
-				.getRequestDispatcher("/WEB-INF/views/user/login.jsp")
-				.forward(request, response);
-			return false;
-		}
+		//UserVo authUser = userService.getUser(email, password);
+		//if(authUser == null) {
+		//	request.setAttribute("result", "fail");
+		//	request
+		//		.getRequestDispatcher("/WEB-INF/views/user/login.jsp")
+		//		.forward(request, response);
+		//	return false;
+		//}
 		
 		// session 처리
-		System.out.println(authUser);
+		//System.out.println(authUser);
 		
-		HttpSession session = request.getSession(true);
-		session.setAttribute("authUser", authUser);
-		response.sendRedirect(request.getContextPath());
+		//HttpSession session = request.getSession(true);
+		//session.setAttribute("authUser", authUser);
+		//response.sendRedirect(request.getContextPath());
 
 		return false;
 	}

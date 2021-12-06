@@ -27,7 +27,7 @@
 		</triggeringPolicy>
 	</appender>
 
-	<!-- com.douzone.logex2 아래 패키지 로그들만 \logex\logex2.log 파일에만 출력하는 로거 -->
+	<!-- ant.yum.logex2 아래 패키지 로그들만 \logex\logex2.log 파일에만 출력하는 로거 -->
 	<logger name="ant.yum.exception" level="error" additivity="false">
 		<appender-ref ref="fileAppender" />
 		<appender-ref ref="consoleAppender" />
