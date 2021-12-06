@@ -14,7 +14,7 @@
 
 	<select id="findAll" resultType="patientvo">
 		<![CDATA[
-			SELECT no, name, gender, rrn, insuarance phone, address, length, weight, "desc"
+			SELECT no, name, gender, rrn, insuarance, phone, address, length, weight, "desc"
 					, extract(year from age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2 as age
 			FROM patient
 			ORDER BY name, age, rrn;

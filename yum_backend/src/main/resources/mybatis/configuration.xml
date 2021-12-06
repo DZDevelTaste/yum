@@ -11,9 +11,9 @@
 		<typeAlias type="ant.yum.vo.MedicineVo" alias="medicinevo"/>
 		<typeAlias type="ant.yum.vo.OrderVo" alias="ordervo"/>
 		<typeAlias type="ant.yum.vo.PatientVo" alias="patientvo"/>
-		<typeAlias type="ant.yum.vo.presClinicVo" alias="presclinicvo"/>
-		<typeAlias type="ant.yum.vo.presDiseaseVo" alias="presdiseasevo"/>
-		<typeAlias type="ant.yum.vo.presMedicineVo" alias="presmedicinevo"/>
+		<typeAlias type="ant.yum.vo.PresClinicVo" alias="presclinicvo"/>
+		<typeAlias type="ant.yum.vo.PresDiseaseVo" alias="presdiseasevo"/>
+		<typeAlias type="ant.yum.vo.PresMedicineVo" alias="presmedicinevo"/>
 		<typeAlias type="ant.yum.vo.ScheduleVo" alias="schedulevo"/>
 		<typeAlias type="ant.yum.vo.UserVo" alias="uservo"/>
 	</typeAliases>
