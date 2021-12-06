@@ -9,5 +9,8 @@
                 "opera": "76",
                 "safari": "15"
             }
-        }], "@babel/preset-react"]
+        }], "@babel/preset-react"],
+        "plugins": [
+            "@babel/plugin-transform-runtime"
+        ]
 }
