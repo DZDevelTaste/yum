@@ -12,9 +12,5 @@
         }], "@babel/preset-react"],
         "plugins": [
             "@babel/plugin-transform-runtime"
-<<<<<<< HEAD
        ]
-=======
-        ]
->>>>>>> master
 }
