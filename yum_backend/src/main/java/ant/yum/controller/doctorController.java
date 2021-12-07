@@ -15,7 +15,6 @@ import ant.yum.service.OrderService;
 import ant.yum.service.PatientService;
 import ant.yum.service.PrescriptionService;
 import ant.yum.vo.DiagnosisVo;
-import ant.yum.vo.MedicineVo;
 import ant.yum.vo.OrderVo;
 import ant.yum.vo.PatientVo;
 import ant.yum.vo.PresClinicVo;
