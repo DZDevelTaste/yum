@@ -6,19 +6,19 @@
 			INSERT INTO "user" VALUES (DEFAULT, #{email}, #{password}, #{name}, #{rrn}, #{address}, #{job}, DEFAULT, #{phone}, #{gender})
 		]]>
 	</insert>
-	<select id="findId" parameterType="map" resultType="uservo">
+	<select id="findId" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			SELECT email, name FROM "user" WHERE "name" = #{n} and "rrn" = #{r}
+			SELECT email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn}
 		]]>
 	</select>
-	<select id="findIdByEmail" parameterType="map" resultType="uservo">
+	<select id="findIdByEmail" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			SELECT email, name FROM "user" WHERE "name" = #{n} and "rrn" = #{r} and "email" = #{e}
+			SELECT email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn} and "email" = #{email}
 		]]>
 	</select>
 	<update id="updatePw" parameterType="uservo">
 		<![CDATA[
-			 UPDATE "user" SET password = #{p} WHERE name = #{n}
+			 UPDATE "user" SET password = #{password} WHERE name = #{name}
 		]]>
 	</update>
 	<select id="findByAll" resultType="uservo">

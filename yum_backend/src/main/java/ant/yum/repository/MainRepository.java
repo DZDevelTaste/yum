@@ -1,8 +1,5 @@
 package ant.yum.repository;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,24 +17,15 @@ public class MainRepository {
 		int count = sqlSession.insert("main.insert", vo);
 		return count == 1;
 	}
-	public UserVo findId(String name, String rrn) {
-		Map<String, String> map = new HashMap<>();
-		map.put("n", name);
-		map.put("r", rrn);
-		return sqlSession.selectOne("main.findId", map);
+	public UserVo findId(UserVo userVo) {
+		
+		return sqlSession.selectOne("main.findId", userVo);
 	}
-	public UserVo findIdByEmail(String name, String email, String rrn) {
-		Map<String, String> map = new HashMap<>();
-		map.put("n", name);
-		map.put("e", email);
-		map.put("r", rrn);
-		return sqlSession.selectOne("main.findIdByEmail", map);
+	public UserVo findIdByEmail(UserVo userVo) {
+		return sqlSession.selectOne("main.findIdByEmail", userVo);
 	}
-	public boolean updatePw(String password, String name) {
-		Map<String, String> map = new HashMap<>();
-		map.put("n", name);
-		map.put("p", password);
-		int count = sqlSession.update("main.updatePw", map);
+	public boolean updatePw(UserVo userVo) {
+		int count = sqlSession.update("main.updatePw", userVo);
 		return count == 1;
 	}
 }

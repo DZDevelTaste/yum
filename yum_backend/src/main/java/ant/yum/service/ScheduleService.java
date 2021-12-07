@@ -2,8 +2,6 @@ package ant.yum.service;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +14,16 @@ public class ScheduleService {
 	@Autowired
 	private ScheduleRepository scheduleRepository;
 	
-	public List<Object> findByAll() {
+	public List<ScheduleVo> findByAll() {
 		return scheduleRepository.findBySchedule();
 	}
-	public boolean deleteSchedule(int userNo) {
-		return scheduleRepository.deleteSchedule(userNo);
+	public boolean deleteSchedule(ScheduleVo scheduleVo) {
+		return scheduleRepository.deleteSchedule(scheduleVo);
 	}
-	public boolean addSchedule(@Valid ScheduleVo vo) {
-		return scheduleRepository.addSchedule(vo);
+	public boolean addSchedule(ScheduleVo scheduleVo) {
+		return scheduleRepository.addSchedule(scheduleVo);
 	}
-	public void updateSchedule(int userNo) {
-		scheduleRepository.updateSchedule(userNo);
+	public void updateSchedule(ScheduleVo scheduleVo) {
+		scheduleRepository.updateSchedule(scheduleVo);
 	}
 }

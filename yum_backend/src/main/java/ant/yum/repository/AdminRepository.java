@@ -2,58 +2,57 @@ package ant.yum.repository;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ant.yum.vo.DiseaseVo;
 import ant.yum.vo.MedicineVo;
+import ant.yum.vo.UserVo;
 
 @Repository
 public class AdminRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Object> findByAll() {
+	public List<UserVo> findByAll() {
 		return sqlSession.selectList("main.findByAll");
 	}
-	public List<Object> findByDisease() {
+	public List<DiseaseVo> findByDisease() {
 		return sqlSession.selectList("disease.findByDisease");
 	}
-	public List<Object> findByMedicine() {
+	public List<MedicineVo> findByMedicine() {
 		return sqlSession.selectList("medicine.findByMedicine");
 	}
-	public boolean deleteByNo(int no) {
-		int count = sqlSession.delete("main.deleteByNo", no);
+	public boolean deleteByNo(UserVo userVo) {
+		int count = sqlSession.delete("main.deleteByNo", userVo);
 		return count == 1;
 	}
-	public boolean deleteByDisease(String code) {
-		int count = sqlSession.delete("disease.deleteByDisease", code);
+	public boolean deleteByDisease(DiseaseVo diseaseVo) {
+		int count = sqlSession.delete("disease.deleteByDisease", diseaseVo);
 		return count == 1;
 	}
-	public boolean deleteByMedicine(int no) {
-		int count = sqlSession.delete("medicine.deleteByMedicine", no);
+	public boolean deleteByMedicine(MedicineVo medicineVo) {
+		int count = sqlSession.delete("medicine.deleteByMedicine", medicineVo);
 		return count == 1;
 	}
-	public boolean updateAuth() {
-		int count = sqlSession.update("main.updateAuth");
+	public boolean updateAuth(UserVo userVo) {
+		int count = sqlSession.update("main.updateAuth", userVo);
 		return count == 1;
 	}
-	public boolean updateDisease() {
-		int count = sqlSession.update("disease.updateDisease");
+	public boolean updateDisease(DiseaseVo diseaseVo) {
+		int count = sqlSession.update("disease.updateDisease", diseaseVo);
 		return count == 1;
 	}
-	public boolean updateMedicine() {
-		int count = sqlSession.update("medicine.updateMedicine");
+	public boolean updateMedicine(MedicineVo medicineVo) {
+		int count = sqlSession.update("medicine.updateMedicine", medicineVo);
 		return count == 1;
 	}
-	public boolean addDisease(@Valid DiseaseVo vo) {
-		return sqlSession.selectOne("disease.addDisease", vo);
+	public boolean addDisease(DiseaseVo diseaseVo) {
+		return sqlSession.selectOne("disease.addDisease", diseaseVo);
 	}
-	public boolean addMedicine(@Valid MedicineVo vo) {
-		return sqlSession.selectOne("medicine.addMedicine", vo);
+	public boolean addMedicine(MedicineVo medicineVo) {
+		return sqlSession.selectOne("medicine.addMedicine", medicineVo);
 	}
 	
 	

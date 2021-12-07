@@ -77,8 +77,8 @@ const Join = () => {
     }
     // 이메일 유효성 검사
     const checkEmail = (e) => {
-        var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
-    
+        var regExp = /^[a-zA-Z0-9+-\_.]/i;
+        
         if(!regExp.test(e.target.value)) {
             alert("잘못된 이메일 형식입니다.");
         }

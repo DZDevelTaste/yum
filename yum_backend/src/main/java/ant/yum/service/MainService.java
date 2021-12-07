@@ -22,16 +22,25 @@ public class MainService {
 		vo.setRrn(rrn);
 		vo.setAddress(address);
 		vo.setPhone(phone);
+
 		mainRepository.insert(vo);
 	}
-	public UserVo findId(String name, String rrn) {
-		return mainRepository.findId(name,rrn);
+	public UserVo findId(UserVo userVo) {
+		String rrn = userVo.getRrn() +"-"+ userVo.getRrn1();
+		userVo.setRrn(rrn);
+
+		return mainRepository.findId(userVo);
 		
 	}
-	public UserVo findIdByEmail(String name, String email, String rrn) {
-		return mainRepository.findIdByEmail(name,email, rrn);
+	public UserVo findIdByEmail(UserVo userVo) {
+		String rrn = userVo.getRrn() +"-"+ userVo.getRrn1();
+		String email = userVo.getEmail() + "@"+ userVo.getEmail1();
+		userVo.setEmail(email);
+		userVo.setRrn(rrn);
+
+		return mainRepository.findIdByEmail(userVo);
 	}
-	public void updatePw(String password, String name) {
-		mainRepository.updatePw(password, name);
+	public void updatePw(UserVo userVo) {
+		mainRepository.updatePw(userVo);
 	}
 }

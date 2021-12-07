@@ -1,8 +1,47 @@
 package ant.yum.controller;
 
-import org.springframework.stereotype.Controller;
+import java.util.List;
 
-@Controller
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ant.yum.dto.JsonResult;
+import ant.yum.service.ScheduleService;
+import ant.yum.vo.ScheduleVo;
+
+@RestController
+@RequestMapping("/api/schedule")
 public class ScheduleController {
 
+    @Autowired
+    private ScheduleService scheduleService;
+
+    @GetMapping("")
+    public JsonResult main() {
+        List<ScheduleVo> list = scheduleService.findByAll();
+
+        return JsonResult.success(list);
+    }
+    @PostMapping("/add")
+    public JsonResult add(@RequestBody ScheduleVo scheduleVo) {
+        scheduleService.addSchedule(scheduleVo);
+
+        return JsonResult.success(scheduleVo);
+    }
+    @PostMapping("/update")
+    public JsonResult update(@RequestBody ScheduleVo scheduleVo) {
+        scheduleService.updateSchedule(scheduleVo);
+        
+        return JsonResult.success(scheduleVo);
+    }
+    @PostMapping("/delete")
+    public JsonResult delete(@RequestBody ScheduleVo scheduleVo) {
+        scheduleService.deleteSchedule(scheduleVo);
+        
+        return JsonResult.success(scheduleVo);
+    }
 }
