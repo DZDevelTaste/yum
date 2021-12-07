@@ -1,15 +1,18 @@
 import React from 'react';
-import patient from './patient';
 
-const patientInfo = (patients) => {
+const patientInfo = (patientNo) => {
+    const patient;
     return (
-        <ul>
-            <li>
-                {
-                    patients.map( (patient) => <patient name={name} state={state}/>)
-                }
-            </li>
-        </ul>
+        <div id='patientInfo'>
+            환자 정보
+            <div>
+                이름: {patient.No}
+                주민등록번호: {patient.rrn}
+                키: {patient.height}
+                몸무게: {patient.weight}
+                주소: {patient.address}
+            </div>
+        </div>
     );
 };
 

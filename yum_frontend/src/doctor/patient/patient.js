@@ -1,9 +1,10 @@
 import React from 'react';
+import patientList from './patientList'
 
-const patient = (name, state) => {
+const patient = () => {
     return (
-        <div>
-            {name}, {state}
+        <div id='patientView'>
+            <patientList />
         </div>
     );
 };

@@ -6,9 +6,12 @@ import memo from './memo';
 const diagnosis = () => {
     return (
         <div>
-            <disease />
-            <clinic />
-            <memo />
+            <form action='/do/no/post' method='POST'>
+                {disease}
+                {clinic}
+                {memo}
+            </form>
+
         </div>
     );
 };

@@ -4,7 +4,7 @@
 
 	<select id="findByState" resultType="ordervo">
 		<![CDATA[
-			select no, date, expenses, 'desc' as desc, user_no, orderstate_no, patient_no 
+			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no 
 			from "order"
 			where orderstate_no = 2
 		]]>
@@ -12,7 +12,7 @@
 
 	<select id="findByNo" parameterType="integer" resultType="ordervo">
 		<![CDATA[
-			select no, date, expenses, 'desc' as desc, user_no, orderstate_no, patient_no
+			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no
 			from "order"
 			where patient_no = #{patientNo }
 		]]>
