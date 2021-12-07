@@ -25,11 +25,12 @@ public class NurseController {
     private OrderService orderService;
 
     @GetMapping("")
-    public JsonResult main(@RequestParam String date){
+    public JsonResult main(@RequestParam String date, @RequestParam(name="osn", required=true, defaultValue="0") int orderstateNo){
         /* Main Controller Api 
-            - 접수 환자 리스트: 검색 날짜를 통해 해당 날짜에 접수되어 있는 환자 리스트를 받아옴 */
-        System.out.println("request date ======== " + date);   // 받아온 날짜
-        List<OrderVo> patientList = orderService.findByOrderPatient(date);
+            접수 환자 리스트: 해당 날짜에 접수되어 있는 환자 리스트를 받아옴
+            - date: 검색하는 날짜
+            - osn(orderstateNo): 진료 현황 별 환자 리스트를 받아오기 위함. default로 0이며 0일 경우 전체 리스트 출력 */
+        List<OrderVo> patientList = orderService.findByOrderPatient(date, orderstateNo);
         
         return JsonResult.success(patientList);
     }

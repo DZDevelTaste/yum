@@ -26,10 +26,11 @@ public class OrderRepository {
 		return sqlSession.selectList("order.findByNo", patientNo);
 	}
 
-    public List<OrderVo> findByOrderPatient(String date) {
-        System.out.println("service date ======== " + date);
-        List<OrderVo> list = sqlSession.selectList("order.findByOrderPatient", date);
-        System.out.println(list);
+    public List<OrderVo> findByOrderPatient(String date, int orderstateNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("date", date);
+		map.put("orderstateNo", orderstateNo);
+        List<OrderVo> list = sqlSession.selectList("order.findByOrderPatient", map);
         return list;
     }
 
