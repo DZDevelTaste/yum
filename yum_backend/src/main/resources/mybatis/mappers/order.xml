@@ -29,8 +29,8 @@
 	<update id="updateState" parameterType="map">
 		<![CDATA[
 			update "order"
-			set orderstate_no = #{orderStateNo }
-			where no = #{orderNo }
+			set orderstate_no = #{orderstateNo }
+			where no = #{no }
 		]]>
 	</update>
 	

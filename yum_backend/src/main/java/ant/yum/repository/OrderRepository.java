@@ -1,8 +1,6 @@
 package ant.yum.repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +24,9 @@ public class OrderRepository {
 		return sqlSession.selectList("order.findByPatientNo", patientNo);
 	}
 
-	public void updateState(int orderNo, int orderStateNo) {
+	public void updateState(OrderVo orderVo) {
 
-		Map<String, Integer> map = new HashMap<>();
-		map.put("orderNo", orderNo);
-		map.put("orderStateNo", orderStateNo);
-		sqlSession.update("order.updateState", map);
+		sqlSession.update("order.updateState", orderVo);
 	}
 
 	public OrderVo findByOrderNo(int orderNo) {

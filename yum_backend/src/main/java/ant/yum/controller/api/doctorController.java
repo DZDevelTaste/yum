@@ -2,10 +2,7 @@ package ant.yum.controller.api;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +18,6 @@ import ant.yum.service.PrescriptionService;
 import ant.yum.vo.DiagnosisVo;
 import ant.yum.vo.OrderVo;
 import ant.yum.vo.PatientVo;
-import ant.yum.vo.PresClinicVo;
-import ant.yum.vo.PresDiseaseVo;
-import ant.yum.vo.PresMedicineVo;
 
 @RestController
 @RequestMapping("/doctor/api")
@@ -79,30 +73,35 @@ public class doctorController {
 	}
 
 	@GetMapping("/updateState")
-	public String updateState(@RequestParam int orderNo) {
+	public void updateState(@RequestBody OrderVo orderVo) {
 
 		// 환자의 상태를 진료 대기중에서 진료중으로 변경
-		int orderStateNo_3 = 3;
-		orderService.updateState(orderNo, orderStateNo_3);
-		System.out.println(orderNo);
-		return "redirect:/doctor";
+		orderService.updateState(orderVo);
 	}
 
 	@PostMapping("/finishDiagnosis")
-	public String finishDiagnosis(@RequestBody DiagnosisVo diagnosisVo) {
+	public void finishDiagnosis(@RequestBody DiagnosisVo diagnosisVo) {
 
 		OrderVo orderVo = orderService.findByOrderNo(diagnosisVo.getOrderNo());
 
-		// 수납 대기중으로 상태 변경
+		// 1. 해당 진료를 수납 대기중으로 상태 변경
 		orderService.updateState(orderVo);
 
-		// 진료(diagnosis) 데이터 insert
-		diagnosisVo.setOrderNo(orderNo);
+		// 2. 진료(diagnosis) 데이터 insert
 		DiagnosisVo lastDiagnosis = diagnosisService.insert(diagnosisVo);
 
 		// 마지막 insert된 Diagnosis.no 값
 		int lastDiagnosisNo = lastDiagnosis.getNo();
 
-		return "redirect:/doctor";
+		// 3. 처방 기록 데이터 insert
+
+		// 병명 진단(prescription_d) insert
+		prescriptionService.presDiseaseInsert(diagnosisVo.getPresDiseaseList(), lastDiagnosisNo);
+
+		// 약품 처방(prescription_m) insert
+		prescriptionService.presMedicineInsert(diagnosisVo.getPresMedicineList(), lastDiagnosisNo);
+
+		// 클리닉 처방(prescription_c) insert
+		prescriptionService.presClinicInsert(diagnosisVo.getPresClinicList(), lastDiagnosisNo);
 	}
 }
