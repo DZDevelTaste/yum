@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="patient">
-<<<<<<< HEAD
 	<insert id="insert" parameterType="patientvo">
 		<![CDATA[
 			INSERT INTO patient 
@@ -15,9 +14,9 @@
 	<select id="findAll" resultType="patientvo">
 		<![CDATA[
 			SELECT no, name, gender, rrn, insuarance, phone, address, length, weight, "desc"
-					, extract(year from age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2 as age
+					, EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age
 			FROM patient
-			ORDER BY name, age, rrn;
+			ORDER BY name, age, rrn
 		]]>
 	</select>
 

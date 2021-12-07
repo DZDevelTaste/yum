@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="order">
+	<resultMap type="ordervo" id="resultMapList">
+		<result column="no" property="no" />
+		<result column="date" property="date" />
+		<result column="name" property="patientVo.name" />
+		<result column="age" property="patientVo.age" />
+		<result column="desc" property="desc" />
+		<result column="orderstate_no" property="orderstateNo" />
+		<result column="patient_no" property="patientVo.no" />
+	</resultMap>
+
+	<select id="findByOrderPatient" resultMap="resultMapList" resultType="ordervo">
+		<!-- ORDER BY (CASE WHEN o.orderstate_no = 5 THEN 2 ELSE 1 END)
+				: orderstate_no = 5일 경우(수납 완료) 뒤에 출력(우선순위를 후위로 설정) -->
+		<![CDATA[
+			SELECT o.no, to_char(o."date", 'HH24:MI') as date, p.name, 
+					EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
+					o."desc", o.orderstate_no, o.patient_no
+			FROM patient p, "order" o
+			WHERE p.no = o.patient_no
+				AND to_char(o."date", 'YYYY-MM-DD')= #{date}
+			ORDER BY (CASE WHEN o.orderstate_no = 5 THEN 2 ELSE 1 END)
+					, o."date"
+		]]>
+	</select>
 
 	<select id="findByState" resultType="ordervo">
 		<![CDATA[
@@ -33,6 +57,22 @@
 			update "order"
 			set orderstate_no = #{orderStateNo }
 			where no = #{orderNo }
+		]]>
+	</update>
+
+	<update id="updateStateNurse" parameterType="ordervo">
+		<![CDATA[
+			update "order"
+			set orderstate_no = #{orderstateNo }
+			where no = #{no }
+		]]>
+	</update>
+
+	<update id="updateOrderDesc" parameterType="ordervo">
+		<![CDATA[
+			update "order"
+			set "desc" = #{desc }
+			where no = #{no }
 		]]>
 	</update>
 </mapper>

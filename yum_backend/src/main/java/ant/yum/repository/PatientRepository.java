@@ -15,7 +15,7 @@ public class PatientRepository {
         
         return sqlSession.selectOne("patient.findByNo", patientNo);
 	}
-
+    
     public void addPatient(PatientVo patientVo) {
         sqlSession.insert("patient.insert", patientVo);
     }

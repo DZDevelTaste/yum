@@ -28,9 +28,21 @@ public class OrderService {
 		return orderRepository.findByNo(patientNo);
 	}
 
+    public List<OrderVo> findByOrderPatient(String date) {
+        return orderRepository.findByOrderPatient(date);
+    }
+
 	public void updateState(int orderNo, int orderStateNo) {
 		
 		orderRepository.updateState(orderNo, orderStateNo);
+	}
+
+	public void updateState(OrderVo orderVo) {
+		orderRepository.updateState(orderVo);
+	}
+
+	public void updateDesc(OrderVo orderVo) {
+		orderRepository.updateDesc(orderVo);
 	}
 
 }

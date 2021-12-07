@@ -3,11 +3,13 @@
 **/.settings
 **/target
 **/build
+
 **/node_modules
 **/public/assets
 **/public/bundle.js
-/bin/
+**/public/main.js
 
+/bin/
 
 **/.mvn
 mvnw*

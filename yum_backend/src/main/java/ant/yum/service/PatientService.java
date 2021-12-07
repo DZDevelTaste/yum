@@ -1,5 +1,7 @@
 package ant.yum.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ant.yum.repository.OrderRepository;
 import ant.yum.repository.PatientRepository;
 import ant.yum.vo.OrderVo;
+import ant.yum.vo.PatientVo;
 
 @Service
 public class PatientService {
