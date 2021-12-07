@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DaumPostcode from 'react-daum-postcode';
 
 const Join = () => {
-    
+
     // 전부 입력되었는지 검사
     const login = () => {
         var id = document.getElementById('id').value;
@@ -107,9 +107,20 @@ const Join = () => {
         }
     };
     // 주소찾기 API
-    const kakao = () => {
-               
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    window.onload = function(){
+        document.getElementById("kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+            //카카오 지도 발생
+            new daum.Postcode({
+                oncomplete: function(data) { //선택시 입력값 세팅
+                    document.getElementById("zonecode_kakao").value = data.zonecode;
+                    document.getElementById("address_kakao").value = data.address; // 주소 넣기
+                    document.getElementById("addressDetail").focus(); //상세입력 포커싱
+                }
+            }).open();
+        })
     }
+    
     // 이메일 select박스 값 집어넣기
     const email_check = () => {
         var email1 = document.getElementById('id1').value;
@@ -178,7 +189,7 @@ const Join = () => {
                 <input type="number" name="phone2" id="phone3" maxLength='4'/>
                 <label>우편번호</label>
                 <input type="text" id="zonecode_kakao" name="zonecode" placeholder="우편번호" />
-                <input type='button' id="kakao" value='우편번호 입력' onClick={kakao}/>
+                <input type='button' id="kakao" value='우편번호 입력'/>
                 <label>주소</label>
                 <input type="text" id="address_kakao" name="address" placeholder="주소" />
                 <label>상세 주소</label>
