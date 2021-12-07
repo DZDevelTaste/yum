@@ -12,26 +12,30 @@ import ant.yum.vo.OrderVo;
 
 @Repository
 public class OrderRepository {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 
 	public List<OrderVo> findByState() {
-		
+
 		return sqlSession.selectList("order.findByState");
 	}
 
-	public List<OrderVo> findByNo(int patientNo) {
-		
-		return sqlSession.selectList("order.findByNo", patientNo);
+	public List<OrderVo> findByPatientNo(int patientNo) {
+
+		return sqlSession.selectList("order.findByPatientNo", patientNo);
 	}
-	
+
 	public void updateState(int orderNo, int orderStateNo) {
-		
+
 		Map<String, Integer> map = new HashMap<>();
 		map.put("orderNo", orderNo);
 		map.put("orderStateNo", orderStateNo);
 		sqlSession.update("order.updateState", map);
+	}
+
+	public OrderVo findByOrderNo(int orderNo) {
+		return sqlSession.selectOne("order.findByOrderNo", orderNo);
 	}
 
 }

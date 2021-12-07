@@ -10,11 +10,19 @@
 		]]>
 	</select>
 
-	<select id="findByNo" parameterType="integer" resultType="ordervo">
+	<select id="findByPatientNo" parameterType="integer" resultType="ordervo">
 		<![CDATA[
 			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no
 			from "order"
 			where patient_no = #{patientNo }
+		]]>
+	</select>
+
+	<select id="findByOrderNo" parameterType="integer" resultType="ordervo">
+		<![CDATA[
+			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no
+			from "order"
+			where no = #{orderNo }
 		]]>
 	</select>
 	
