@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,15 +48,15 @@ public class doctorController {
 		return JsonResult.success(orderList);
 	}
 
-	@GetMapping("/patientInfo")
-	public JsonResult patientInfo(@RequestParam int patientNo) {
+	@GetMapping("/patientInfo/{patientNo}")
+	public JsonResult patientInfo(@PathVariable int patientNo) {
 
 		/*
 		 * 선택된 환자의 정보(PatientVo)를 찾는다
 		 * 
 		 */
 
-		PatientVo patient = patientService.findByNo(patientNo);
+		PatientVo patient = patientService.findInfoAndLogByPatientNo(patientNo);
 
 		return JsonResult.success(patient);
 	}
@@ -64,12 +65,9 @@ public class doctorController {
 	public JsonResult orderLog(@RequestParam int patientNo) {
 
 		// 선택된 환자의 진료이력(PatientVo)을 반환한다.
-		List<OrderVo> orderList = orderService.findByPatientNo(patientNo);
-		for (OrderVo OrderList : orderList) {
-			System.out.println(OrderList);
-		}
+		List<DiagnosisVo> diagnosisList = diagnosisService.findListByPatientNo(patientNo);
 
-		return JsonResult.success(orderList);
+		return JsonResult.success(diagnosisList);
 	}
 
 	@GetMapping("/updateState")
@@ -86,6 +84,7 @@ public class doctorController {
 
 		// 1. 해당 진료를 수납 대기중으로 상태 변경
 		orderService.updateState(orderVo);
+		// 진료비도 업데이트 해야함, 클리닉 발생 시 2000 추가!
 
 		// 2. 진료(diagnosis) 데이터 insert
 		DiagnosisVo lastDiagnosis = diagnosisService.insert(diagnosisVo);

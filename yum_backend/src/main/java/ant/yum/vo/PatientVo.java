@@ -1,5 +1,7 @@
 package ant.yum.vo;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,4 +20,5 @@ public class PatientVo {
 	private double length;
 	private double weight;
 	private String desc;
+	private List<DiagnosisVo> diagnosisVo;
 }

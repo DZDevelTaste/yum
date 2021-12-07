@@ -48,7 +48,7 @@ spring:
    # datasource
    datasource:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://34.64.204.254:3306/yum?characterEncoding=utf8
+      url: jdbc:postgresql://34.64.204.254:5432/yum?characterEncoding=utf8
       username: yum
       password: ant-yum
       hikari:
@@ -68,7 +68,7 @@ spring:
       username: yum
       password: yum?!@#yammi123
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://34.64.204.254:3306/yum?characterEncoding=utf8
+      url: jdbc:postgresql://34.64.204.254:5432/yum?characterEncoding=utf8
       hikari:
          minimum-idle: 100
          maximum-pool-size: 200

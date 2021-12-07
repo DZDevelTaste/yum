@@ -1,5 +1,4 @@
 import React from 'react';
-import diagnosis from './diagnosis/diagnosis';
 import patient from './patient/patient';
 
 const App = () => {

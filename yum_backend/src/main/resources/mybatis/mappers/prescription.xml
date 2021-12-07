@@ -3,22 +3,22 @@
 <mapper namespace="prescription">
 	<insert id="presMedicineInsert" parameterType="presmedicinevo">
 		<![CDATA[
-			insert into prescription_m
-			values(#{diagnosisNo}, #{medicineNo}, #{PresmedicineCount}, #{PresmedicineDay})
+			insert into prescription_m(diagnosis_no, medicine_no, presmedicine_count, presmedicine_day)
+			values(#{diagnosisNo}, #{medicineNo}, #{presmedicineCount}, #{presmedicineDay})
 		]]>
 	</insert>
 	
 	<insert id="presDiseaseInsert" parameterType="presdiseasevo">
 		<![CDATA[
-			insert into prescription_d
-			values (#{diagnosisNo}, #{diseaseCode})
+			insert into prescription_d(disease_no, diagnosis_no)
+			values (#{diseaseNo}, #{diagnosisNo})
 		]]>
 	</insert>
 	
 	<insert id="presClinicInsert" parameterType="presclinicvo">
 		<![CDATA[
-			insert into prescription_c
-			values (#{diagnosisNo}, #{clinicNo})
+			insert into prescription_c(clinic_no, diagnosis_no)
+			values ( #{clinicNo}, #{diagnosisNo} )
 		]]>
 	</insert>
 	
