@@ -36,6 +36,9 @@ module.exports = (env) => {
             watchContentBase: true,
             host: "0.0.0.0",
             port: 9999,
+            proxy: {
+                '/api/': 'http://localhost:8080'
+            },
             inline: true,
             liveReload: true,
             hot: false,
