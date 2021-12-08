@@ -10,4 +10,12 @@
 	        select currval('diagnosis_no_seq')
 	    	</selectKey>
 	</insert>
+
+	<select id="findByOrderNo" resultType="diagnosisvo">
+		<![CDATA[
+			SELECT no, date, "desc", order_no, user_no
+			FROM diagnosis
+			WHERE no=#{orderNo}
+		]]>
+	</select>
 </mapper>

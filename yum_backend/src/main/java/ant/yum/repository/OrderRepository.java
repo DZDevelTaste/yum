@@ -26,13 +26,17 @@ public class OrderRepository {
 		return sqlSession.selectList("order.findByNo", patientNo);
 	}
 
-    public List<OrderVo> findByOrderPatient(String date, int orderstateNo) {
+    public List<OrderVo> findByDateAndOrderstateNo(String date, int orderstateNo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("date", date);
 		map.put("orderstateNo", orderstateNo);
-        List<OrderVo> list = sqlSession.selectList("order.findByOrderPatient", map);
+        List<OrderVo> list = sqlSession.selectList("order.findByDateAndOrderstateNo", map);
         return list;
     }
+
+	public OrderVo findByOrderNo(int orderNo) {
+		return sqlSession.selectOne("order.findByOrderNo", orderNo);
+	}
 
 	public void addOrder(OrderVo orderVo) {
 		sqlSession.insert("order.insert", orderVo);
@@ -54,4 +58,5 @@ public class OrderRepository {
     public void updateDesc(OrderVo orderVo) {
 		sqlSession.update("order.updateOrderDesc", orderVo);
     }
+
 }

@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="order">
 	<resultMap type="ordervo" id="resultMapList">
-		<result column="no" property="no" />
-		<result column="date" property="date" />
-		<result column="name" property="patientVo.name" />
-		<result column="age" property="patientVo.age" />
-		<result column="desc" property="desc" />
-		<result column="orderstate_no" property="orderstateNo" />
 		<result column="patient_no" property="patientVo.no" />
+		<result column="name" property="patientVo.name" />
+		<result column="gender" property="patientVo.gender" />
+		<result column="rrn" property="patientVo.rrn" />
+		<result column="age" property="patientVo.age" />
+		<result column="insuarance" property="patientVo.insuarance" />
+		<result column="phone" property="patientVo.phone" />
 	</resultMap>
 
-	<select id="findByOrderPatient" parameterType="map" resultMap="resultMapList" resultType="ordervo">
+	<select id="findByDateAndOrderstateNo" parameterType="map" resultMap="resultMapList" resultType="ordervo">
 		<choose>
 			<when test="orderstateNo != 0">
 			<!-- orderstateNo가 0으로 넘어왔을 경우 진료현황 관계 없이 날짜에 맞는 접수 전체 출력 -->
@@ -40,6 +40,15 @@
 				]]>
 			</otherwise>
 		</choose>
+	</select>
+
+	<select id="findByOrderNo" resultMap="resultMapList" resultType="ordervo">
+		<![CDATA[
+			SELECT o.no, o.patient_no, o.expenses, p.name, p.gender, p.rrn, p.insuarance, p.phone
+			FROM patient p, "order" o
+			WHERE o.patient_no=p.no
+				AND o.no=#{orderNo}
+		]]>
 	</select>
 
 	<select id="findByState" resultType="ordervo">

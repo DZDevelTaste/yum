@@ -19,4 +19,8 @@ public class DiagnosisRepository {
 		return diagnosisVo;
 		
 	}
+
+    public DiagnosisVo findByOrderNo(int orderNo) {
+        return sqlSession.selectOne("diagnosis.findByOrderNo", orderNo);
+    }
 }

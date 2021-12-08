@@ -8,6 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PresDiseaseVo {
-	private String diseaseCode;
+	private int diseaseNo;
 	private int diagnosisNo;
+	private String code;
+	private String name;
 }
