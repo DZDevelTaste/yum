@@ -69,8 +69,8 @@ public class NurseController {
         return JsonResult.success(orderVo);
 	}
 
-    @GetMapping("/paymentInfo/{orderNo}")
-    public JsonResult paymentInfo(@PathVariable int orderNo){
+    @GetMapping("/payment/{orderNo}")
+    public JsonResult payment(@PathVariable int orderNo){
         /* 
             수납 정보 가져오기
             [가져오는 정보]
@@ -82,5 +82,12 @@ public class NurseController {
         */
         Map<String,Object> paymentInfoMap = orderService.paymentInfo(orderNo);
         return JsonResult.success(paymentInfoMap);
+    }
+    
+    @GetMapping("/patientInfo/{no}")
+    public JsonResult patientInfo(@PathVariable(value="no") int patientNo){
+        // System.out.println("api patientNo: " + patientNo);
+        Map<String,Object> patientInfoMap = patientService.patientInfo(patientNo);
+        return JsonResult.success(patientInfoMap);
     }
 }

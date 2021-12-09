@@ -40,7 +40,7 @@ public class PrescriptionRepository {
 			Map<String, Object> map = new HashMap<>();
 			
 			map.put("diagnosisNo", lastDiagnosisNo);
-			map.put("diseaseCode", presdiseaseList.getDiseaseCode());
+			map.put("diseaseNo", presdiseaseList.getDiseaseNo());
 			
 			sqlSession.insert("prescription.presDiseaseInsert", map);
 		}
@@ -59,15 +59,15 @@ public class PrescriptionRepository {
 		}
 	}
 
-	public List<PresDiseaseVo> presDiseaseFindByOrderNo(int orderNo) {
-		return sqlSession.selectList("prescription.presDiseaseFindByOrderNo", orderNo);
+	public List<PresDiseaseVo> presDiseaseFindByDiagnosisNo(int diagnosisNo) {
+		return sqlSession.selectList("prescription.presDiseaseFindByDiagnosisNo", diagnosisNo);
 	}
 
-    public List<PresMedicineVo> presMedicineFindByOrderNo(int orderNo) {
-		return sqlSession.selectList("prescription.presMedicineFindByOrderNo", orderNo);
+    public List<PresMedicineVo> presMedicineFindByDiagnosisNo(int diagnosisNo) {
+		return sqlSession.selectList("prescription.presMedicineFindByDiagnosisNo", diagnosisNo);
     }
 
-    public List<PresClinicVo> presClinicFindByOrderNo(int orderNo) {
-		return sqlSession.selectList("prescription.presClinicFindByOrderNo", orderNo);
+    public List<PresClinicVo> presClinicFindByDiagnosisNo(int diagnosisNo) {
+		return sqlSession.selectList("prescription.presClinicFindByDiagnosisNo", diagnosisNo);
     }
 }

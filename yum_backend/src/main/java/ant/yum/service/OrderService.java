@@ -72,9 +72,10 @@ public class OrderService {
 		*/
 		OrderVo orderVo = orderRepository.findByOrderNo(orderNo);
 		DiagnosisVo diagnosisVo = diagnosisRepository.findByOrderNo(orderNo);
-		List<PresDiseaseVo> presDiseaseList = prescriptionRepository.presDiseaseFindByOrderNo(orderNo);
-		List<PresMedicineVo> presMedicineList = prescriptionRepository.presMedicineFindByOrderNo(orderNo);
-		List<PresClinicVo> presClinicList = prescriptionRepository.presClinicFindByOrderNo(orderNo);
+		int diagnosisNo = diagnosisVo.getNo();
+		List<PresDiseaseVo> presDiseaseList = prescriptionRepository.presDiseaseFindByDiagnosisNo(diagnosisNo);
+		List<PresMedicineVo> presMedicineList = prescriptionRepository.presMedicineFindByDiagnosisNo(diagnosisNo);
+		List<PresClinicVo> presClinicList = prescriptionRepository.presClinicFindByDiagnosisNo(diagnosisNo);
 
 		diagnosisVo.setPresDiseaseList(presDiseaseList);
 		diagnosisVo.setPresMedicineList(presMedicineList);

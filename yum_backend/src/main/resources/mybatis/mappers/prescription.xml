@@ -3,49 +3,49 @@
 <mapper namespace="prescription">
 	<insert id="presMedicineInsert" parameterType="presmedicinevo">
 		<![CDATA[
-			insert into prescription_m
-			values(#{diagnosisNo}, #{medicineNo}, #{PresmedicineCount}, #{PresmedicineDay})
+			insert into prescription_m(diagnosis_no, medicine_no, presmedicine_count, presmedicine_day)
+			values(#{diagnosisNo}, #{medicineNo}, #{presmedicineCount}, #{presmedicineDay})
 		]]>
 	</insert>
 	
 	<insert id="presDiseaseInsert" parameterType="presdiseasevo">
 		<![CDATA[
-			insert into prescription_d
-			values (#{diagnosisNo}, #{diseaseCode})
+			insert into prescription_d(disease_no, diagnosis_no)
+			values (#{diseaseNo}, #{diagnosisNo})
 		]]>
 	</insert>
 	
 	<insert id="presClinicInsert" parameterType="presclinicvo">
 		<![CDATA[
-			insert into prescription_c
-			values (#{diagnosisNo}, #{clinicNo})
+			insert into prescription_c(clinic_no, diagnosis_no)
+			values ( #{clinicNo}, #{diagnosisNo} )
 		]]>
 	</insert>
 
-	<select id="presDiseaseFindByOrderNo" resultType="PresDiseaseVo">
+	<select id="presDiseaseFindByDiagnosisNo" resultType="presdiseasevo">
 		<![CDATA[
 			SELECT pd.diagnosis_no, pd.disease_no, d.code, d.name 
 			FROM prescription_d pd, disease d
 			WHERE pd.disease_no = d.no
-				AND pd.diagnosis_no=#{orderNo}
+				AND pd.diagnosis_no=#{diagnosisNo}
 		]]>
 	</select>
 
-	<select id="presMedicineFindByOrderNo" resultType="PresMedicineVo">
+	<select id="presMedicineFindByDiagnosisNo" resultType="presmedicinevo">
 		<![CDATA[
 			SELECT pm.diagnosis_no, pm.medicine_no, m.code, m.name ,pm.presmedicine_count, pm.presmedicine_day 
 			FROM prescription_m pm, medicine m
 			WHERE pm.medicine_no = m.no
-				AND pm.diagnosis_no=#{orderNo}
+				AND pm.diagnosis_no=#{diagnosisNo}
 		]]>
 	</select>
 
-	<select id="presClinicFindByOrderNo" resultType="PresClinicVo">
+	<select id="presClinicFindByDiagnosisNo" resultType="presclinicvo">
 		<![CDATA[
 			SELECT pc.diagnosis_no, pc.clinic_no, c.kind, c.name 
 			FROM prescription_c pc, clinic c
 			WHERE c.no = pc.clinic_no
-				AND pc.diagnosis_no=#{orderNo}
+				AND pc.diagnosis_no=#{diagnosisNo}
 		]]>
 	</select>
 	

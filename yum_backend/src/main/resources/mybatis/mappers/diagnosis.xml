@@ -13,9 +13,21 @@
 
 	<select id="findByOrderNo" resultType="diagnosisvo">
 		<![CDATA[
-			SELECT no, date, "desc", order_no, user_no
-			FROM diagnosis
-			WHERE no=#{orderNo}
+			SELECT d.no, d.date, u.name, d."desc", d.order_no, d.user_no
+			FROM diagnosis d, "user" u
+			WHERE d.user_no=u.no
+				AND d.order_no=#{orderNo}
+		]]>
+	</select>
+
+	<select id="findByNo" resultType="diagnosisvo">
+		<![CDATA[
+			SELECT d.no, d.date, u.name, d."desc", d.order_no, d.user_no
+			FROM diagnosis d, "user" u, "order" o, patient p
+			WHERE d.user_no=u.no
+				AND o.no=d.order_no
+				AND o.patient_no=p.no
+				AND p.no=#{patientNo}
 		]]>
 	</select>
 </mapper>

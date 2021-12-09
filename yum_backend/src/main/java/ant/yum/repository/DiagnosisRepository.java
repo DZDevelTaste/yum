@@ -1,5 +1,7 @@
 package ant.yum.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,4 +25,8 @@ public class DiagnosisRepository {
     public DiagnosisVo findByOrderNo(int orderNo) {
         return sqlSession.selectOne("diagnosis.findByOrderNo", orderNo);
     }
+
+	public List<DiagnosisVo> findByNo(int patientNo) {
+		return sqlSession.selectList("diagnosis.findByNo", patientNo);
+	}
 }
