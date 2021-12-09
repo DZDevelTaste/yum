@@ -70,7 +70,7 @@
 	<insert id="insert" parameterType="ordervo" >
 		<![CDATA[
 		INSERT INTO "order" 
-		VALUES (DEFAULT, now(), 7000, #{desc}, #{userNo}, #{orderstateNo}, #{patientVo.no})
+		VALUES (DEFAULT, CAST(to_char(now(), 'YYYY-MM-DD HH24:MI:SS') AS TIMESTAMP), 7000, #{desc}, #{userNo}, #{orderstateNo}, #{patientVo.no})
 		]]>
 		<selectKey keyProperty="no" resultType="int" order="AFTER">
 			<![CDATA[ SELECT CURRVAL('order_no_seq') ]]>
