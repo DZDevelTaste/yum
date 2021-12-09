@@ -8,7 +8,7 @@
 	</insert>
 	<select id="findId" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			SELECT email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn}
+			SELECT "no", email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn}
 		]]>
 	</select>
 	<select id="findIdByEmail" parameterType="uservo" resultType="uservo">
@@ -18,12 +18,12 @@
 	</select>
 	<update id="updatePw" parameterType="uservo">
 		<![CDATA[
-			 UPDATE "user" SET password = #{password} WHERE name = #{name}
+			UPDATE "user" SET password = #{password} WHERE "no" = #{no}
 		]]>
 	</update>
 	<select id="findByAll" resultType="uservo">
 		<![CDATA[
-			SELECT no, email, name, gender, auth, address, rrn, job, phone FROM "user"
+			SELECT no, email, name, gender, auth, address, rrn, job, phone FROM "user" ORDER BY auth, no
 		]]>
 	</select>
 	<delete id="deleteByNo" parameterType="uservo">
@@ -33,7 +33,7 @@
 	</delete>
 	<update id="updateAuth" parameterType="uservo">
 		<![CDATA[
-			 UPDATE "user" SET auth = 'Y' WHERE no = #{no}
+			 UPDATE "user" SET auth = 'Y' WHERE "no" = #{no}
 		]]>
 	</update>
 </mapper>

@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="medicine">
-	<delete id="deleteByMedicine" parameterType="medicinevo">
-		<![CDATA[
-			DELETE FROM "medicine" WHERE no = #{no}
-		]]>
-	</delete>
 	<select id="findByMedicine" resultType="medicinevo">
 		<![CDATA[
-			SELECT no, code, name, company, ingredient, efficacy, precaution, caution, sideeffect FROM "medicine"
+			SELECT no, code, name, company, ingredient, efficacy, precaution, caution, "sideEffect" FROM "medicine"
 		]]>
 	</select>
 	<insert id="addMedicine" parameterType="medicinevo">
 		<![CDATA[
-			INSERT INTO "medicine" VALUES (DEFAULT, #{code}, #{name}, #{company}, #{ingredient}, #{efficacy}, #{precaution}, #{caution}, #{sideeffect})
+			INSERT INTO "medicine" VALUES (DEFAULT, #{code}, #{name}, #{company}, #{ingredient}, #{efficacy}, #{precaution}, #{caution}, #{"sideEffect"})
 		]]>
 	</insert>
 	<update id="updateMedicine" parameterType="medicinevo">
 		<![CDATA[
-			 UPDATE "medicine" SET code = #{code}, name = #{name}, company = #{company}, ingredient = #{ingredient}, efficacy = #{efficacy}, precaution = #{precaution}, caution = #{caution}, sideeffect = #{sideeffect} WHERE no = #{no}
+			 UPDATE "medicine" SET code = #{code}, name = #{name}, company = #{company}, ingredient = #{ingredient}, efficacy = #{efficacy}, precaution = #{precaution}, caution = #{caution}, "sideEffect" = #{"sideEffect"} WHERE no = #{no}
 		]]>
 	</update> 
 </mapper>

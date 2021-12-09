@@ -27,17 +27,8 @@ public class AdminService {
 	public boolean deleteByNo(UserVo userVo) {
 		return adminRepository.deleteByNo(userVo);
 	}
-	public boolean deleteByDisease(DiseaseVo diseaseVo) {
-		return adminRepository.deleteByDisease(diseaseVo);
-	}
-	public boolean deleteByMedicine(MedicineVo medicineVo) {
-		return adminRepository.deleteByMedicine(medicineVo);
-	}
 	public boolean updateAuth(UserVo userVo) {
 		return adminRepository.updateAuth(userVo);
-	}
-	public boolean updateDisease(DiseaseVo diseaseVo) {
-		return adminRepository.updateDisease(diseaseVo);
 	}
 	public boolean updateMedicine(MedicineVo medicineVo) {
 		return adminRepository.updateMedicine(medicineVo);
@@ -48,4 +39,5 @@ public class AdminService {
 	public void addMedicine(MedicineVo medicineVo) {
 		adminRepository.addMedicine(medicineVo);
 	}
+    
 }

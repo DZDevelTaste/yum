@@ -3,7 +3,7 @@
 <mapper namespace="schedule">
 	<select id="findBySchedule" resultType="schedulevo">
 		<![CDATA[
-			SELECT s."no", reason, "desc", user_no, calendar_no FROM "user" u, "schedule" s, "calendar" c WHERE u."no" = s.user_no and s.calendar_no = c."no";
+			SELECT s."no", reason, s."desc", user_no, calendar_no FROM "user" u, "schedule" s, "calendar" c WHERE u."no" = s.user_no and s.calendar_no = c."no"
 		]]>
 	</select>
 		<insert id="addSchedule" parameterType="schedulevo">

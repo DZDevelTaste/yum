@@ -13,8 +13,8 @@ public class MainRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public boolean insert(@Valid UserVo vo) {
-		int count = sqlSession.insert("main.insert", vo);
+	public boolean insert(@Valid UserVo userVo) {
+		int count = sqlSession.insert("main.insert", userVo);
 		return count == 1;
 	}
 	public UserVo findId(UserVo userVo) {

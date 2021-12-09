@@ -3,6 +3,7 @@ package ant.yum.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import ant.yum.vo.DiseaseVo;
 import ant.yum.vo.MedicineVo;
 import ant.yum.vo.UserVo;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -33,7 +35,8 @@ public class AdminController {
         adminService.updateAuth(userVo);
 
         return JsonResult.success(userVo);
-    }
+    } 
+    
     @PostMapping("/delete")
     public JsonResult delete(@RequestBody UserVo userVo) {
         adminService.deleteByNo(userVo);
@@ -52,18 +55,6 @@ public class AdminController {
 
         return JsonResult.success(diseaseVo);
     }
-    @PostMapping("/disease/update")
-    public JsonResult updateDisease(@RequestBody DiseaseVo diseaseVo) {
-        adminService.updateDisease(diseaseVo);
-
-        return JsonResult.success(diseaseVo);
-    }
-    @PostMapping("/disease/delete")
-    public JsonResult deleteDisease(@RequestBody DiseaseVo diseaseVo) {
-        adminService.deleteByDisease(diseaseVo);
-
-        return JsonResult.success(diseaseVo);
-    }
     @GetMapping("/medicine")
     public JsonResult medicineList() {
         List<MedicineVo> list = adminService.findByMedicine();
@@ -79,12 +70,6 @@ public class AdminController {
     @PostMapping("/medicine/update")
     public JsonResult updateMedicine(@RequestBody MedicineVo medicineVo) {
         adminService.updateMedicine(medicineVo);
-
-        return JsonResult.success(medicineVo);
-    }
-    @PostMapping("/medicine/delete")
-    public JsonResult deleteMedicine(@RequestBody MedicineVo medicineVo) {
-        adminService.deleteByMedicine(medicineVo);
 
         return JsonResult.success(medicineVo);
     }

@@ -28,20 +28,8 @@ public class AdminRepository {
 		int count = sqlSession.delete("main.deleteByNo", userVo);
 		return count == 1;
 	}
-	public boolean deleteByDisease(DiseaseVo diseaseVo) {
-		int count = sqlSession.delete("disease.deleteByDisease", diseaseVo);
-		return count == 1;
-	}
-	public boolean deleteByMedicine(MedicineVo medicineVo) {
-		int count = sqlSession.delete("medicine.deleteByMedicine", medicineVo);
-		return count == 1;
-	}
 	public boolean updateAuth(UserVo userVo) {
 		int count = sqlSession.update("main.updateAuth", userVo);
-		return count == 1;
-	}
-	public boolean updateDisease(DiseaseVo diseaseVo) {
-		int count = sqlSession.update("disease.updateDisease", diseaseVo);
 		return count == 1;
 	}
 	public boolean updateMedicine(MedicineVo medicineVo) {
@@ -54,6 +42,7 @@ public class AdminRepository {
 	public boolean addMedicine(MedicineVo medicineVo) {
 		return sqlSession.selectOne("medicine.addMedicine", medicineVo);
 	}
+    
 	
 	
 

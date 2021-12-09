@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DiseaseVo {
+	private int no;
 	private String code;
 	private String name;
 	private String engName;
