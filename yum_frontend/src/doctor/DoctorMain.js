@@ -8,9 +8,9 @@ const App = () => {
             <div id='patient'>
                 <Patient />
             </div>
-            {/* <div id='diagnosis'>
+            <div id='diagnosis'>
                 <Diagnosis />
-            </div> */}
+            </div>
         </div>
     );
 };

@@ -8,7 +8,7 @@
 	</delete>
 	<select id="findByDisease" resultType="diseasevo">
 		<![CDATA[
-			SELECT code, name, "engName" FROM "disease";
+			SELECT code, name, eng_Name FROM "disease";
 		]]>
 	</select>
 	<insert id="addDisease" parameterType="diseasevo">

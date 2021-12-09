@@ -1,7 +1,5 @@
 package ant.yum.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +16,5 @@ public class DiagnosisService {
 
 		return diagnosisRepository.insert(diagnosisVo);
 
-	}
-
-	public List<DiagnosisVo> findListByPatientNo(int patientNo) {
-
-		return diagnosisRepository.findListByPatientNo(patientNo);
 	}
 }

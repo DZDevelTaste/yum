@@ -58,4 +58,16 @@ public class PrescriptionRepository {
 			sqlSession.insert("prescription.presClinicInsert", map);
 		}
 	}
+
+	public List<PresDiseaseVo> presDiseaseFindByDiagnosisNo(int diagnosisNo) {
+		return sqlSession.selectList("prescription.presDiseaseFindByDiagnosisNo", diagnosisNo);
+	}
+
+	public List<PresMedicineVo> presMedicineFindByDiagnosisNo(int diagnosisNo) {
+		return sqlSession.selectList("prescription.presMedicineFindByDiagnosisNo", diagnosisNo);
+	}
+
+	public List<PresClinicVo> presClinicFindByDiagnosisNo(int diagnosisNo) {
+		return sqlSession.selectList("prescription.presClinicFindByDiagnosisNo", diagnosisNo);
+	}
 }

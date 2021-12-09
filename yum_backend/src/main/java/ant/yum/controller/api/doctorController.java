@@ -1,6 +1,7 @@
 package ant.yum.controller.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,17 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ant.yum.dto.JsonResult;
 import ant.yum.service.DiagnosisService;
+import ant.yum.service.DiseaseService;
 import ant.yum.service.OrderService;
 import ant.yum.service.PatientService;
 import ant.yum.service.PrescriptionService;
 import ant.yum.vo.DiagnosisVo;
+import ant.yum.vo.DiseaseVo;
 import ant.yum.vo.OrderVo;
-import ant.yum.vo.PatientVo;
 
 @CrossOrigin
 @RestController
@@ -38,6 +39,9 @@ public class doctorController {
 	@Autowired
 	private PrescriptionService prescriptionService;
 
+	@Autowired
+	private DiseaseService diseaseService;
+
 	@GetMapping("")
 	public JsonResult doctorMain() {
 
@@ -50,25 +54,11 @@ public class doctorController {
 		return JsonResult.success(orderList);
 	}
 
-	@GetMapping("/patientInfo/{patientNo}")
-	public JsonResult patientInfo(@PathVariable int patientNo) {
-
-		/*
-		 * 선택된 환자의 정보(PatientVo)를 찾는다
-		 * 
-		 */
-		PatientVo patient = patientService.findInfoAndLogByPatientNo(patientNo);
-
-		return JsonResult.success(patient);
-	}
-
-	@GetMapping("/orderLog")
-	public JsonResult orderLog(@RequestParam int patientNo) {
-
-		// 선택된 환자의 진료이력(PatientVo)을 반환한다.
-		List<DiagnosisVo> diagnosisList = diagnosisService.findListByPatientNo(patientNo);
-
-		return JsonResult.success(diagnosisList);
+	@GetMapping("/patientInfo/{no}")
+	public JsonResult patientInfo(@PathVariable(value = "no") int patientNo) {
+		// System.out.println("api patientNo: " + patientNo);
+		Map<String, Object> patientInfoMap = patientService.patientInfo(patientNo);
+		return JsonResult.success(patientInfoMap);
 	}
 
 	@GetMapping("/updateState")
@@ -104,4 +94,12 @@ public class doctorController {
 		// 클리닉 처방(prescription_c) insert
 		prescriptionService.presClinicInsert(diagnosisVo.getPresClinicList(), lastDiagnosisNo);
 	}
+
+	@GetMapping("/searchDisease")
+	public JsonResult searchDisease() {
+		List<DiseaseVo> diseaseList = diseaseService.findByDisease();
+
+		return JsonResult.success(diseaseList);
+	}
+
 }

@@ -10,19 +10,14 @@
 	        select currval('diagnosis_no_seq')
 	    	</selectKey>
 	</insert>
-	<select id="findListByPatientNo" resultType="diagnosisvo">
+	<select id="findByNo" resultType="diagnosisvo">
 		<![CDATA[
-			select t1.no, t1.date, t1.desc, t1.user_no, t7."name" as medicineName, t4.presmedicine_count, t4.presmedicine_day, t5.kind as clinicKind, t5."name" as clinicName, t6."name" as diseaseName, t9."name" as patientName, t9."no" as patientNo
-			from diagnosis t1, prescription_c t2, prescription_d t3, prescription_m t4, clinic t5, disease t6, medicine t7, "order" t8, patient t9
-			where t1."no" = t2.diagnosis_no
-				and t1."no" = t3.diagnosis_no
-				and t1."no" = t4.diagnosis_no
-				and t2.clinic_no = t5."no"
-				and t3.disease_no = t6."no"
-				and t4.medicine_no = t7."no"
-				and t1.order_no = t8."no"
-				and t8.patient_no = t9."no"
-				and t9."no" = #{patientNo}
+			SELECT d.no, d.date, u.name, d."desc", d.order_no, d.user_no
+			FROM diagnosis d, "user" u, "order" o, patient p
+			WHERE d.user_no=u.no
+				AND o.no=d.order_no
+				AND o.patient_no=p.no
+				AND p.no=#{patientNo}
 		]]>
 	</select>
 </mapper>

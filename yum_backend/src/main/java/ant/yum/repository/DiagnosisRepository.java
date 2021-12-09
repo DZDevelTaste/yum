@@ -22,8 +22,8 @@ public class DiagnosisRepository {
 
 	}
 
-	public List<DiagnosisVo> findListByPatientNo(int patientNo) {
+	public List<DiagnosisVo> findByNo(int patientNo) {
 
-		return sqlSession.selectList("diagnosis.findListByPatientNo", patientNo);
+		return sqlSession.selectList("diagnosis.findByNo", patientNo);
 	}
 }

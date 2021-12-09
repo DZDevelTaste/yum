@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PatientState from './PatientState';
 import PatientInfo from './PatientInfo';
+import PatientPastOrder from './PatientPastOrder';
 
 const patientList = () => {
 
@@ -34,44 +34,55 @@ const patientList = () => {
             if(json.result !== 'success') {
                 throw json.message;
             }
-            console.log(orders);
+            
             setOrders([...json.data,...orders]);
-            console.log(orders);
             
 
-        } catch (error) {
+        } catch (error) { 
             console.error(error);
         }
     }
-
+    
     useEffect(() => {
         updatePatientNo;
-        console.log("patientList:", patientNo);
     }, [patientNo])
 
     const updatePatientNo = (changedPatientNo) => {
         setPatientNo(changedPatientNo);
     }
 
+    const divStyle ={
+        display: 'inline-block',
+        border: '1px solid black',
+        width: 300,
+        height: 300,
+        float: 'left'
+    }
+
     return (
-        <div id='patientList'>
+        <div>
+        <div id='patientList' style={divStyle}>
             환자 리스트
             {
                 orders.map(order => {
                     return (
                         <div onClick={() => updatePatientNo(order.patientNo) }>
                             <p>{order.no} {order.patientName}</p>
-                            
                         </div>
                     )
             })
                 
             }
-            <PatientState />
+            
+        </div>
+        <div>
             <PatientInfo patientNo={ patientNo } />
-            {/* <PatientPastOrder patientNo={patientNo} /> */}
+        </div>
+        <div>
+            <PatientPastOrder patientNo={ patientNo } />
+        </div>
         </div>
     );
 };
-1
+
 export default patientList;
