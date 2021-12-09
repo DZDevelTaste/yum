@@ -20,6 +20,7 @@ public class OrderService {
 		 * 현재 진료 대기중인 환자 리스트를 반환한다.
 		 * 
 		 */
+
 		return orderRepository.findByState();
 	}
 

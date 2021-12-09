@@ -16,4 +16,7 @@ public class OrderVo {
 	private int userNo;
 	private int orderstateNo;
 	private int patientNo;
+
+	// 조인해서 받아오는 값..
+	private String patientName;
 }
