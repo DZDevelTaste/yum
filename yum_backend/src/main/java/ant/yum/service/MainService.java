@@ -43,4 +43,7 @@ public class MainService {
 	public void updatePw(UserVo userVo) {
 		mainRepository.updatePw(userVo);
 	}
+    public UserVo findByNo(int no) {
+        return mainRepository.findByNoMedicine(no);
+    }
 }

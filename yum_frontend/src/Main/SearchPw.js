@@ -78,7 +78,9 @@ const SearchPw = () => {
                 return false;
             }
 
-            alert(`${json.data.name}님의 아이디는 ${json.data.email}입니다.`);
+            let no = json.data.no;
+
+            location.href = 'successPw/' + no;
             
         } catch (error) {
             console.error(error);

@@ -3,17 +3,22 @@
 <mapper namespace="medicine">
 	<select id="findByMedicine" resultType="medicinevo">
 		<![CDATA[
-			SELECT no, code, name, company, ingredient, efficacy, precaution, caution, "sideEffect" FROM "medicine"
+			SELECT "no", code, name, company, ingredient, efficacy, precaution, caution, "sideEffect" FROM "medicine"
+		]]>
+	</select>
+	<select id="findByNoMedicine" resultType="medicinevo">
+		<![CDATA[
+			SELECT code, name, company, ingredient, efficacy, precaution, caution, "sideEffect" FROM "medicine" WHERE "no" = #{no}
 		]]>
 	</select>
 	<insert id="addMedicine" parameterType="medicinevo">
 		<![CDATA[
-			INSERT INTO "medicine" VALUES (DEFAULT, #{code}, #{name}, #{company}, #{ingredient}, #{efficacy}, #{precaution}, #{caution}, #{"sideEffect"})
+			INSERT INTO "medicine" VALUES (DEFAULT, #{code}, #{name}, #{company}, #{ingredient}, #{efficacy}, #{precaution}, #{caution}, #{sideEffect})
 		]]>
 	</insert>
 	<update id="updateMedicine" parameterType="medicinevo">
 		<![CDATA[
-			 UPDATE "medicine" SET code = #{code}, name = #{name}, company = #{company}, ingredient = #{ingredient}, efficacy = #{efficacy}, precaution = #{precaution}, caution = #{caution}, "sideEffect" = #{"sideEffect"} WHERE no = #{no}
+			 UPDATE "medicine" SET code = #{code}, name = #{name}, company = #{company}, ingredient = #{ingredient}, efficacy = #{efficacy}, precaution = #{precaution}, caution = #{caution}, "sideEffect" = #{sideEffect} WHERE "no" = #{no}
 		]]>
 	</update> 
 </mapper>

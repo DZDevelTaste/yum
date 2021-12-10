@@ -39,5 +39,8 @@ public class AdminService {
 	public void addMedicine(MedicineVo medicineVo) {
 		adminRepository.addMedicine(medicineVo);
 	}
+    public MedicineVo findByNoMedicine(int no) {
+        return adminRepository.findByNoMedicine(no);
+    }
     
 }

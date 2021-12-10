@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {Link, NavLink} from 'react-router-dom';
+
 const SearchId = () => {
     const [name, setName] = useState('');
     const [rrn, setRrn] = useState('');
     const [rrn1, setRrn1] = useState('');
+
     const nameChange = (e) => {
         setName(e.target.value);
     }
@@ -31,7 +33,6 @@ const SearchId = () => {
             return false;
         }
         fetchJoin();
-        return true;
     };
     
     const fetchJoin = async() => {
@@ -59,7 +60,11 @@ const SearchId = () => {
                 return false;
             }
 
-            location.href= '/successId';
+            console.log(json.data);
+            
+            let no = json.data.no;
+            
+            location.href= '/successId/' + no;
 
         } catch (error) {
             console.error(error);
@@ -91,7 +96,6 @@ const SearchId = () => {
     return (
         <div>
             <h1>아이디 찾기</h1>
-                
                 <form method="post" onSubmit={login1} >
                     <label>이름</label>
                     <input type="text" name="name" id="name" placeholder="이름" onChange={nameChange}/>

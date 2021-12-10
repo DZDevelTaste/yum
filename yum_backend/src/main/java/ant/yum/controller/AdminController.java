@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,12 @@ public class AdminController {
         List<MedicineVo> list = adminService.findByMedicine();
 
         return JsonResult.success(list);
+    }
+    @GetMapping("/medicine/medicineInfo/{no}")
+    public JsonResult medicineInfo(@PathVariable(value= "no") int no) {
+        MedicineVo medicineVo = adminService.findByNoMedicine(no);
+
+        return JsonResult.success(medicineVo);
     }
     @PostMapping("/medicine/add")
     public JsonResult addMedicine(@RequestBody MedicineVo medicineVo) {

@@ -28,4 +28,7 @@ public class MainRepository {
 		int count = sqlSession.update("main.updatePw", userVo);
 		return count == 1;
 	}
+    public UserVo findByNoMedicine(int no) {
+        return sqlSession.selectOne("main.findByNo", no);
+    }
 }

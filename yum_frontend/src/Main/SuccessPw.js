@@ -1,12 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 const SuccessPw = () => {
+    const [users, setUsers] = useState([]);
     const [password, setPassword] = useState('');
-
+    const current = decodeURI(window.location.href);
+    const search = current.split("/")[4];
+    var no = parseInt(search);
+    
     const passwordChange = (e) => {
         setPassword(e.target.value);
     }
     let user = {
+        no: no,
         password: password
     }
     const login1 = (e) => {
@@ -20,7 +25,37 @@ const SuccessPw = () => {
         alert("정상적으로 비밀번호가 재설정되었습니다.");
         fetchJoin();
     };
-    
+    useEffect(() => {
+        fetchPW(no);
+    }, [no]); 
+    const fetchPW = async() => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/successId/${no}`, {
+                method: 'get',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: null
+            });
+
+            if(!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+
+            const json = await response.json();
+
+            if(json.result !== 'success') {
+                throw json.message;
+            }
+            
+            setUsers(json.data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
     const fetchJoin = async() => {
         try {
             const response = await fetch(`http://localhost:8080/api/updatePw`, {
@@ -38,7 +73,7 @@ const SuccessPw = () => {
 
             const json = await response.json();
             
-            location.href('/');
+            location.href= '/';
         } catch (error) {
             console.error(error);
         }
@@ -68,7 +103,7 @@ const SuccessPw = () => {
         <div>
             <h1>비밀번호 재설정</h1>
             <form method="post" onSubmit={login1} >
-                <label>{name}님의 {email}는 집가고싶어요입니다.</label>
+                <label>{users.name}님의 {users.email}는 입니다.</label>
                 <label>비밀번호</label>
                 <input type="password" name="password" id="pw" placeholder="PW" onBlur={checkPassword} onChange={passwordChange}/>
                 <label>비밀번호 확인</label>

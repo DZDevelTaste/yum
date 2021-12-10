@@ -42,6 +42,9 @@ public class AdminRepository {
 	public boolean addMedicine(MedicineVo medicineVo) {
 		return sqlSession.selectOne("medicine.addMedicine", medicineVo);
 	}
+    public MedicineVo findByNoMedicine(int no) {
+		return sqlSession.selectOne("medicine.findByNoMedicine", no);
+    }
     
 	
 	

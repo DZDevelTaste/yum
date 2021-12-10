@@ -20,8 +20,8 @@ const App = () => {
                 <Route path='/join' element={<Join />}/>
                 <Route path='/searchId' element={<SearchId />}/>
                 <Route path='/searchPw' element={<SearchPw />}/>
-                <Route path='/successId' element={<SuccessId />}/>
-                <Route path='/successPw' element={<SuccessPw />}/>
+                <Route path='/successId/:no' element={<SuccessId />}/>
+                <Route path='/successPw/:no' element={<SuccessPw />}/>
                 <Route path='/admin' element={<AdminMain/>}/>
                 <Route path='/admin/disease' element={<DiseaseMain/>}/>
                 <Route path='/admin/medicine' element={<MedicineMain/>}/>

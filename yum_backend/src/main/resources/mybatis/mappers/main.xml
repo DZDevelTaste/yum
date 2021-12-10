@@ -11,9 +11,14 @@
 			SELECT "no", email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn}
 		]]>
 	</select>
+	<select id="findByNo" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			SELECT email, "name" FROM "user" WHERE "no" = #{ no }
+		]]>
+	</select>
 	<select id="findIdByEmail" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			SELECT email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn} and "email" = #{email}
+			SELECT "no", email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn} and "email" = #{email}
 		]]>
 	</select>
 	<update id="updatePw" parameterType="uservo">

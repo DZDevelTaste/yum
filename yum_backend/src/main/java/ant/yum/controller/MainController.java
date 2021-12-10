@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,12 @@ public class MainController {
 		
 		return JsonResult.success(vo);
 	}
+	@GetMapping("/successId/{no}")
+    public JsonResult medicineInfo(@PathVariable(value= "no") int no) {
+        UserVo userVo = mainService.findByNo(no);
+
+        return JsonResult.success(userVo);
+    }
 	@PostMapping("/successPw")
 	public JsonResult search_password_su(@RequestBody UserVo userVo) {
 		UserVo vo = mainService.findIdByEmail(userVo);

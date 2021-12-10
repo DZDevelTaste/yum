@@ -5,10 +5,12 @@ import MedicineSearch from './MedicineSearch';
 const MedicineMain = () => {
     const [medicines, setMedicines] = useState([]);
     const [keyword, setKeyword] = useState('');
+    const [no, setNo] = useState(0);
     
     const notifyKeywordChanged = (keyword) => {
         setKeyword(keyword);
       };
+      
     useEffect(() => {
         fetchMedicine();
     }, []);
@@ -40,12 +42,11 @@ const MedicineMain = () => {
             console.error(error);
         }
     }
-
-
+    
     return (
         <div>
             <h1>관리자 약품 리스트</h1>
-            <MedicineSearch  keyword={keyword} callback={notifyKeywordChanged} />
+            <MedicineSearch  keyword={keyword} callback={notifyKeywordChanged}  />
             <div>
             {
             /*
@@ -67,15 +68,18 @@ const MedicineMain = () => {
                     .map(medicine => {
                         return (
                             <div>
-                                <label>{`${medicine.code}`} </label>
-                                <label>{`${medicine.name}`} </label>
+                                <div onClick={() => setNo(medicine.no)}>
+                                    <label>{`${medicine.no}`} </label>
+                                    <label>{`${medicine.code}`} </label>
+                                    <label>{`${medicine.name}`} </label>
+                                </div>
                             </div>
                         )
             })
             }
         </div>
         <div>
-            <MedicineInfo />
+            <MedicineInfo no={no}/>
         </div>
     </div>
     
