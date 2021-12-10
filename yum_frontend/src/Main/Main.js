@@ -16,6 +16,7 @@ const Main = () => {
                     <li><NavLink to={'/admin'}>관리자</NavLink></li>
                     <li><NavLink to={'/admin/disease'}>관리자(병)</NavLink></li>
                     <li><NavLink to={'/admin/medicine'}>관리자(약품)</NavLink></li>
+                    <li><NavLink to={'/Schedule'}>스케쥴 관리</NavLink></li>
                 </ul>
 		    </form>
         </div>

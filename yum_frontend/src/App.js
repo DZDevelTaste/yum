@@ -11,6 +11,7 @@ import AdminMain from './Admin/AdminMain';
 import DiseaseMain from './Admin/Disease/DiseaseMain';
 import MedicineMain from './Admin/Medicine/MedicineMain';
 import MedicineInfo from './Admin/Medicine/MedicineInfo';
+import Schedule from './Schedule/Schedule';
 
 const App = () => {
     return (
@@ -26,6 +27,7 @@ const App = () => {
                 <Route path='/admin/disease' element={<DiseaseMain/>}/>
                 <Route path='/admin/medicine' element={<MedicineMain/>}/>
                 <Route path='/admin/medicine1' element={<MedicineInfo/>}/>
+                <Route path='/Schedule' element={<Schedule />} />
             </Routes>
         </Router>
     );
