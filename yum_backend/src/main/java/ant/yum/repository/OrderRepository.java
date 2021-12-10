@@ -39,9 +39,13 @@ public class OrderRepository {
 	}
 
 	public void addOrder(OrderVo orderVo) {
-		sqlSession.insert("order.insert", orderVo);
+		sqlSession.insert("order.insertOrder", orderVo);
 
 	}
+
+	// public void addReservation(OrderVo orderVo) {
+	// 	sqlSession.insert("order.insertReservation", orderVo);
+	// }
 	
 	public void updateState(int orderNo, int orderStateNo) {
 		
@@ -58,5 +62,13 @@ public class OrderRepository {
     public void updateDesc(OrderVo orderVo) {
 		sqlSession.update("order.updateOrderDesc", orderVo);
     }
+
+	public void updateDate(OrderVo orderVo) {
+		sqlSession.update("order.updateDate", orderVo);
+	}
+
+	public int deleteOrder(int orderNo) {
+		return sqlSession.delete("order.deleteOrder", orderNo);
+	}
 
 }

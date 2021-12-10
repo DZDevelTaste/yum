@@ -14,8 +14,18 @@
 	<select id="findAll" resultType="patientvo">
 		<![CDATA[
 			SELECT no, name, gender, rrn, insuarance, phone, address, length, weight, "desc"
-					, EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age
+					, EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2 AS age
 			FROM patient
+			ORDER BY name, age, rrn
+		]]>
+	</select>
+
+	<select id="findByKeyword" resultType="patientvo">
+		<![CDATA[
+			SELECT no, name, gender, rrn, insuarance, phone, address, length, weight, "desc"
+					, EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2 AS age
+			FROM patient
+			WHERE name LIKE #{keyword}
 			ORDER BY name, age, rrn
 		]]>
 	</select>

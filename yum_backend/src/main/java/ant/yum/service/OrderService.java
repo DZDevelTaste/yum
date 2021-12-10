@@ -58,7 +58,10 @@ public class OrderService {
 	public void updateDesc(OrderVo orderVo) {
 		orderRepository.updateDesc(orderVo);
 	}
-
+	
+	public void updateDate(OrderVo orderVo) {
+		orderRepository.updateDate(orderVo);
+    }
 	public Map<String, Object> paymentInfo(int orderNo) {
 		/* 
 			1. 접수 정보/환자 정보
@@ -86,5 +89,11 @@ public class OrderService {
 		paymentInfoMap.put("diagnosisVo", diagnosisVo);
 		return paymentInfoMap;
 	}
+
+	public int deleteOrder(int orderNo) {
+		return orderRepository.deleteOrder(orderNo);
+	}
+
+
 
 }

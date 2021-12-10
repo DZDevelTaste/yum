@@ -67,15 +67,39 @@
 		]]>
 	</select>
 	
-	<insert id="insert" parameterType="ordervo" >
-		<![CDATA[
-		INSERT INTO "order" 
-		VALUES (DEFAULT, CAST(to_char(now(), 'YYYY-MM-DD HH24:MI:SS') AS TIMESTAMP), 7000, #{desc}, #{userNo}, #{orderstateNo}, #{patientVo.no})
-		]]>
+	<insert id="insertOrder" parameterType="ordervo" >
+		<choose>
+			<when test="orderstateNo == 2">
+				<![CDATA[
+					INSERT INTO "order" 
+					VALUES (DEFAULT, CAST(to_char(now(), 'YYYY-MM-DD HH24:MI:SS') AS TIMESTAMP), 7000, #{desc}, #{userNo}, #{orderstateNo}, #{patientVo.no})
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					INSERT INTO "order" 
+					VALUES (DEFAULT, CAST(to_char(#{date}, 'YYYY-MM-DD HH24:MI:SS') AS TIMESTAMP), 7000, '', #{userNo}, #{orderstateNo}, #{patientVo.no})
+				]]>
+			</otherwise>
+		</choose>
+
 		<selectKey keyProperty="no" resultType="int" order="AFTER">
 			<![CDATA[ SELECT CURRVAL('order_no_seq') ]]>
 		</selectKey>
 	</insert>
+	
+	<!--
+	<insert id="insertReservation" parameterType="ordervo" >
+		<![CDATA[
+			INSERT INTO "order" 
+			VALUES (DEFAULT, to_timestamp(#{date}, 'YYYY-MM-DD HH24:MI:SS'), 7000, '', #{userNo}, 1, #{patientVo.no})
+		]]>
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			<![CDATA[ SELECT CURRVAL('order_no_seq') ]]>
+		</selectKey>
+	</insert> 
+	-->
+	
 
 	<update id="updateState" parameterType="map">
 		<![CDATA[
@@ -87,17 +111,34 @@
 
 	<update id="updateStateNurse" parameterType="ordervo">
 		<![CDATA[
-			update "order"
-			set orderstate_no = #{orderstateNo }
-			where no = #{no }
+			UPDATE "order"
+			SET orderstate_no = #{orderstateNo }
+			WHERE no = #{no }
 		]]>
 	</update>
 
 	<update id="updateOrderDesc" parameterType="ordervo">
 		<![CDATA[
-			update "order"
-			set "desc" = #{desc }
-			where no = #{no }
+			UPDATE "order"
+			SET "desc" = #{desc }
+			WHERE no = #{no }
 		]]>
 	</update>
+
+	<update id="updateDate" parameterType="ordervo">
+		<![CDATA[
+			UPDATE "order"
+			SET date = #{date }
+			WHERE no = #{no }
+		]]>
+	</update>
+
+	<delete id="deleteOrder" parameterType="int">
+		<![CDATA[
+			DELETE
+			FROM "order"
+			WHERE no = #{orderNo}
+				AND orderstate_no IN (1, 2)
+		]]>
+	</delete>
 </mapper>

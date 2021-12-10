@@ -38,13 +38,26 @@ public class PatientService {
     
     @Transactional
     public void addOrder(OrderVo orderVo) {
-        if(orderVo.getPatientVo().getNo() == 0) {
-            // patient의 no를 받아오지 못했으면 신규 환자이므로 환자 정보를 등록
+        int osn = orderVo.getOrderstateNo();
+        int pno = orderVo.getPatientVo().getNo();
+        
+        if((osn != 1) && (pno == 0)){
+            // orderstateNo가 1이 아니고(예약 x, 당일 접수) patient의 no를 받아오지 못했으면 신규 환자이므로 환자 정보를 등록
             patientRepository.addPatient(orderVo.getPatientVo());
+        } else if((osn == 1) && (pno == 0)) {
+            // 내원 이력이 없는 환자(환자 등록이 안 되어 있는 사람)는 예약 불가
+            return;
         }
         
         orderRepository.addOrder(orderVo);
     }
+    
+    // public void addReservation(OrderVo orderVo) {
+    //     if(orderVo.getPatientVo().getNo() == 0) {
+    //         return;
+    //     }
+    //     orderRepository.addReservation(orderVo);
+    // }
 
     public Map<String, Object> patientInfo(int patientNo) {
         // System.out.println("service patientNo : " + patientNo);
@@ -76,5 +89,10 @@ public class PatientService {
 
         return patientInfoMap;
     }
+
+    public List<PatientVo> findByAll() {
+        return patientRepository.findByAll();
+    }
+
 
 }
