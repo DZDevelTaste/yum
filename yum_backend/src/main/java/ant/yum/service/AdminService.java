@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ant.yum.repository.AdminRepository;
+import ant.yum.repository.DiseaseRepository;
+import ant.yum.repository.MedicineRepository;
 import ant.yum.vo.DiseaseVo;
 import ant.yum.vo.MedicineVo;
 import ant.yum.vo.UserVo;
@@ -14,15 +16,19 @@ import ant.yum.vo.UserVo;
 public class AdminService {
 	@Autowired
 	private AdminRepository adminRepository;
+	@Autowired
+	private DiseaseRepository diseaseRepository;
+	@Autowired
+	private MedicineRepository medicineRepository;
 
 	public List<UserVo> findByAll() {
 		return adminRepository.findByAll();
 	}
 	public List<DiseaseVo> findByDisease() {
-		return adminRepository.findByDisease();
+		return diseaseRepository.findByDisease();
 	}
 	public List<MedicineVo> findByMedicine() {
-		return adminRepository.findByMedicine();
+		return medicineRepository.findByMedicine();
 	}
 	public boolean deleteByNo(UserVo userVo) {
 		return adminRepository.deleteByNo(userVo);
@@ -31,16 +37,16 @@ public class AdminService {
 		return adminRepository.updateAuth(userVo);
 	}
 	public boolean updateMedicine(MedicineVo medicineVo) {
-		return adminRepository.updateMedicine(medicineVo);
+		return medicineRepository.updateMedicine(medicineVo);
 	}
 	public void addDisease(DiseaseVo diseaseVo) {
-		adminRepository.addDisease(diseaseVo);
+		diseaseRepository.addDisease(diseaseVo);
 	}
 	public void addMedicine(MedicineVo medicineVo) {
-		adminRepository.addMedicine(medicineVo);
+		medicineRepository.addMedicine(medicineVo);
 	}
     public MedicineVo findByNoMedicine(int no) {
-        return adminRepository.findByNoMedicine(no);
+        return medicineRepository.findByNoMedicine(no);
     }
     
 }
