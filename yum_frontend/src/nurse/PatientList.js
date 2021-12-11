@@ -10,6 +10,7 @@ const PatientList = () => {
     const [patients, setPatients] = useState([]);
     const [keyword, setKeyword] = useState('');
     const [selectNo, setSelectNo] = useState('');
+    const [changeInfo, setChangeInfo] = useState(false);
 
     const notifyKeywordChange = (keyword) => {
         setKeyword(keyword);
@@ -17,6 +18,10 @@ const PatientList = () => {
 
     const notifyNoChange = (selectNo) => {
         setSelectNo(selectNo);
+    }
+    
+    const notifyInfoChange = (chkResult) => {
+        setChangeInfo(chkResult);
     }
     
     useEffect(async () => {
@@ -48,7 +53,7 @@ const PatientList = () => {
         } catch (err) {
             console.error(err)
         }
-    }, []);
+    }, [changeInfo]);
 
     return (
         <SiteLayout>
@@ -81,7 +86,9 @@ const PatientList = () => {
                 </table>
             </div>
             <div className={styles.rightBox}>
-                <PatientInfo no={selectNo} />
+                <PatientInfo 
+                    callback={notifyInfoChange}
+                    no={selectNo} />
             </div>
         </SiteLayout>
     );

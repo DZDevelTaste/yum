@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-const PatientInfo = ({no}) => {
+const PatientInfo = ({no, callback}) => {
     const [chooseButton, setChooseButton] = useState(false);
     const [patientInfo, setPatientInfo] = useState({});
     const [diagnosisList, setDiagnosisList] = useState([]);
@@ -11,6 +11,7 @@ const PatientInfo = ({no}) => {
     useEffect(() => {
         if(no != 0 || no != '') {
             selectPatient();
+            setChooseButton(false);
         }
     }, [no]);
 
@@ -105,6 +106,7 @@ const PatientInfo = ({no}) => {
 
             setPatientInfo(updateInfo);
             changeEditForm();
+            callback(true);
         } catch (err) {
             console.error(err);
         }
