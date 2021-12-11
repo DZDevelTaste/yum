@@ -37,4 +37,12 @@
 			where no = #{patientNo }
 		]]>
 	</select>
+
+	<update id='updatePatientInfo' parameterType='patientVo'>
+		<![CDATA[
+			UPDATE patient
+			SET name=#{name}, rrn=#{rrn}, insuarance=#{insuarance}, phone=#{phone}, address=#{address}, length=#{length}, weight=#{weight}, "desc"=#{desc}
+			WHERE no = #{no}
+		]]>
+	</update>
 </mapper>

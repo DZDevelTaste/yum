@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -129,4 +130,12 @@ public class NurseController {
         List<PatientVo> patientList = patientService.findByAll();
         return JsonResult.success(patientList);
     }
+
+    @PutMapping("/updatePatientInfo")
+    public JsonResult updatePatientInfo(@RequestBody PatientVo patientVo) {
+        /* 환자 정보 업데이트 */
+        patientService.updatePatientInfo(patientVo);
+        return JsonResult.success(patientVo);
+    }
+    
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import {Routes, Route} from 'react-router';
 
 import Main from './nurse/Main';
-import Patient from './nurse/Patient';
 import Order from './nurse/Order';
 import Reservation from './nurse/Reservation';
 import PatientList from './nurse/PatientList';
@@ -10,10 +9,10 @@ import PatientList from './nurse/PatientList';
 const App = () => {
     return (
         <Routes>
-            <Route path='/nurse' element={<Main />}/>
+            <Route exact path='/nurse' element={<Main />}/>
             <Route path='/nurse/patients' element={<PatientList />}/>
-            {/* <Route path='/nurse/order' element={<Order />}/> */}
-            {/* <Route path='/nurse/reservation' element={<Reservation />}/> */}
+            <Route path='/nurse/order' element={<Order />}/>
+            <Route path='/nurse/reservation' element={<Reservation />}/>
         </Routes>
     );
 };

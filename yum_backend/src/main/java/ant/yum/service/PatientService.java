@@ -94,5 +94,9 @@ public class PatientService {
         return patientRepository.findByAll();
     }
 
+    public void updatePatientInfo(PatientVo patientVo) {
+        patientRepository.updatePatientInfo(patientVo);
+    }
+
 
 }

@@ -29,4 +29,8 @@ public class PatientRepository {
     public void addPatient(PatientVo patientVo) {
         sqlSession.insert("patient.insert", patientVo);
     }
+
+    public void updatePatientInfo(PatientVo patientVo) {
+        sqlSession.update("patient.updatePatientInfo", patientVo);
+    }
 }
