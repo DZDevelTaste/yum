@@ -14,7 +14,7 @@ public class PatientRepository {
     private SqlSession sqlSession;
 
     public List<PatientVo> findByAll() {
-        return sqlSession.selectList("patient.findByAll");
+        return sqlSession.selectList("patient.findAll");
     }
     
 	public PatientVo findByNo(int patientNo) {
