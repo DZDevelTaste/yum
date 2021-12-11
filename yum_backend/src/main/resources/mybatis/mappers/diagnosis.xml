@@ -13,7 +13,7 @@
 
 	<select id="findByOrderNo" resultType="diagnosisvo">
 		<![CDATA[
-			SELECT d.no, d.date, u.name, d."desc", d.order_no, d.user_no
+			SELECT d.no, to_char(d.date, 'YY/MM/DD') as date, u.name, d."desc", d.order_no, d.user_no
 			FROM diagnosis d, "user" u
 			WHERE d.user_no=u.no
 				AND d.order_no=#{orderNo}
@@ -22,7 +22,7 @@
 
 	<select id="findByNo" resultType="diagnosisvo">
 		<![CDATA[
-			SELECT d.no, d.date, u.name, d."desc", d.order_no, d.user_no
+			SELECT d.no, to_char(d.date, 'YY/MM/DD') as date, u.name, d."desc", d.order_no, d.user_no
 			FROM diagnosis d, "user" u, "order" o, patient p
 			WHERE d.user_no=u.no
 				AND o.no=d.order_no
