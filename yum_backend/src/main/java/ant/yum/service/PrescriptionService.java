@@ -9,15 +9,16 @@ import ant.yum.repository.PrescriptionRepository;
 import ant.yum.vo.PresClinicVo;
 import ant.yum.vo.PresDiseaseVo;
 import ant.yum.vo.PresMedicineVo;
+import ant.yum.vo.PresVo;
 
 @Service
 public class PrescriptionService {
-	
+
 	@Autowired
 	private PrescriptionRepository prescriptionRepository;
 
 	public void presMedicineInsert(List<PresMedicineVo> presMedicineList, int lastDiagnosisNo) {
-		
+
 		prescriptionRepository.presMedicineInsert(presMedicineList, lastDiagnosisNo);
 	}
 
@@ -29,6 +30,10 @@ public class PrescriptionService {
 	public void presClinicInsert(List<PresClinicVo> presClinicList, int lastDiagnosisNo) {
 
 		prescriptionRepository.presClinicInsert(presClinicList, lastDiagnosisNo);
+	}
+
+	public List<PresVo> findPrescription() {
+		return prescriptionRepository.findPrescription();
 	}
 
 }

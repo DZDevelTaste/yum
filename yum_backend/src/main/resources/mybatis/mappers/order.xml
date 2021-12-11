@@ -4,9 +4,10 @@
 
 	<select id="findByState" resultType="ordervo">
 		<![CDATA[
-		select t1.no as "no",  t1.date as "date", t1.expenses as "expenses", t1.desc as "desc", t1.user_no as "user_no", t1.orderstate_no as "orderstate_no", t1.patient_no as "patient_no", t2.name as "patient_name"
-		from "order" t1, patient t2
+		select t1.no as "no",  t1.date as "date", t1.expenses as "expenses", t1.desc as "desc", t1.user_no as "user_no", t1.orderstate_no as "orderstate_no", t1.patient_no as "patient_no", t2.name as "patient_name", t3."state"
+		from "order" t1, patient t2, order_state t3
 		where t1.patient_no = t2."no"
+			and t1.orderstate_no = t3."no"
 			and orderstate_no = 2
 		]]>
 	</select>

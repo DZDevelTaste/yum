@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-const patientOrderList = ({diagnosisList}) => {
+const  patientOrderList = ({diagnosisList}) => {
     const [lists, setLists] = useState([]);
     
     useEffect(()=> {
         setLists(diagnosisList)
-        console.log(lists)
     }, [diagnosisList])
-    
     
     return (
         <div>
@@ -16,10 +14,19 @@ const patientOrderList = ({diagnosisList}) => {
                     lists.map(list => {
                         return(<>
                             <p>
-                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>{list.date}</div>
-                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>{list.userNo}</div>
-                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>{list.presDiseaseList.diseaseNo}</div>
-                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>{list.presMedicineList.medicineNo}, {list.presClinicList.Clinic}</div>
+                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>
+                                    {list.date}
+                                </div>
+                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>
+                                    {list.name}
+                                </div>
+                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>
+                                    {list.presDiseaseList.map(presDisease => presDisease.name)}
+                                </div>
+                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>
+                                    {list.presMedicineList.map(presMedicine => presMedicine.name)} 
+                                    {list.presClinicList.map(presClinic => presClinic.name)}
+                                </div>
                             </p>
                         </> 
                         )

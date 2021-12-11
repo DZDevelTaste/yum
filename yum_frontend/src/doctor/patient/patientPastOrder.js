@@ -31,7 +31,7 @@ const patientPastOrder = ({patientNo}) => {
             if(json.result !== 'success') {
                 throw json.message;
             }
-            setDiagnosisList(json.data.diagnosisList);     
+            setDiagnosisList(json.data.diagnosisList);   
 
         } catch (error) {
             console.error(error);

@@ -21,6 +21,8 @@ import ant.yum.service.PrescriptionService;
 import ant.yum.vo.DiagnosisVo;
 import ant.yum.vo.DiseaseVo;
 import ant.yum.vo.OrderVo;
+import ant.yum.vo.PresDiseaseVo;
+import ant.yum.vo.PresVo;
 
 @CrossOrigin
 @RestController
@@ -100,6 +102,20 @@ public class doctorController {
 		List<DiseaseVo> diseaseList = diseaseService.findByDisease();
 
 		return JsonResult.success(diseaseList);
+	}
+
+	@GetMapping("/findPrescription")
+	public JsonResult findPrescription() {
+		List<PresVo> presVoList = prescriptionService.findPrescription();
+
+		return JsonResult.success(presVoList);
+	}
+
+	@PostMapping("/insertDisease")
+	public void insertDisease(@RequestBody List<PresDiseaseVo> presDiseaseVo) {
+		System.out.println(presDiseaseVo);
+		prescriptionService.presDiseaseInsert(presDiseaseVo, 1);
+
 	}
 
 }

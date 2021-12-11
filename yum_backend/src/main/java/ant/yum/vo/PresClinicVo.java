@@ -10,4 +10,6 @@ import lombok.ToString;
 public class PresClinicVo {
 	private int clinicNo;
 	private int diagnosisNo;
+	private String kind;
+	private String name;
 }

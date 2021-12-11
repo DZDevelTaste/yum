@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
-const disease = () => {
+const disease = ({callback}) => {
     const [modalData, setModalData] = useState({isOpen: false})
     const [diseases, setDiseases] = useState([]);
     const [keyword, setKeyword] = useState('');
-    var presDiseases = [];
+    const [presDiseases, setPresDiseases] = useState([]);
+    const [diseaseNo, setDiseaseNo] = useState([]);     //value for insert
 
-    const divStyle ={
+    const divStyle = {
         display: 'inline-block',
         border: '1px solid black',
         width: 400,
@@ -19,6 +20,10 @@ const disease = () => {
     useEffect(() => {
         fetchDisease();
     }, [keyword])
+
+    useEffect(() => {
+        callback(diseaseNo);
+    }, [diseaseNo])
 
     const fetchDisease = async() => {
         try {
@@ -38,9 +43,7 @@ const disease = () => {
 
             const json = await response.json();
 
-            console.log(json.data)
             setDiseases([...json.data,...diseases]);
-            
 
         } catch (error) {
             console.error(error);
@@ -60,18 +63,17 @@ const disease = () => {
             </div>
             <div>
                 {
+                    presDiseases.length > 0 &&
                     presDiseases.map(presDisease => {
                         return(
-                            <>
-                                <span>${presDisease.code}</span>
-                            </>
+                            <div>
+                                <span>{presDisease.no}</span>
+                                <span>{presDisease.code}</span>
+                                <span>{presDisease.name}</span>
+                            </div>
                         )
-                    })
+                    }) 
                 }
-            </div>
-            <div>
-                증상
-                <input type='text' />
             </div>
             <Modal isOpen={modalData.isOpen} 
                 ariaHideApp={false} 
@@ -87,12 +89,20 @@ const disease = () => {
                         <div>
                             {
                                 diseases
-                                    .filter(disease => disease.name.indexOf(keyword) !== -1 || disease.code.indexOf(keyword) !== -1 || disease.engName.indexOf(keyword) !== -1)
+                                    .filter(disease => disease.name.indexOf(keyword) !== -1 || disease.code.indexOf(keyword) !== -1)
                                     .map(disease => {
                                         return (
                                             <div onClick={ () => {
-                                                setModalData({isOpen: false},
-                                                    presDiseases.push(disease))}}>
+                                                    if(presDiseases.includes(disease)){
+                                                        console.log(presDiseases);
+                                                        alert('이미 선택된 질병입니다');
+                                                    } else{
+                                                        setModalData({isOpen: false});
+                                                        setPresDiseases([...presDiseases, disease]);
+                                                        setDiseaseNo([...diseaseNo, disease.no]);
+                                                        // console.log(diseaseNo)
+                                                    }
+                                                    }}>
                                                 <label>{`${disease.code}`}</label>
                                                 <label>{`${disease.name}`}</label>
                                             </div>
@@ -100,7 +110,6 @@ const disease = () => {
                                     })
                             }
                         </div>
-                        {/* 주형이 코드 받아오자 */}
                         
                     </div>
                 </div>

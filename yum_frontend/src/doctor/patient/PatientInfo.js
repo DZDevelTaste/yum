@@ -3,12 +3,10 @@ import React, { useEffect, useState } from 'react';
 const patientInfo = ({patientNo}) => {
     
     const [patient, setPatient] = useState([]);
-    var [patientVo, setPatientVo] = useState({});
-    const [diagnosisList, setDiagnosisList] = useState({});
+    const [patientVo, setPatientVo] = useState({});
 
     useEffect(() => {
         setPatientVo(patient.patientVo);
-        setDiagnosisList(patient.diagnosisList);
     }, [patient]);
 
     useEffect(()=>{

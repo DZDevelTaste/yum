@@ -16,6 +16,7 @@
 		<typeAlias type="ant.yum.vo.DiseaseVo" alias="diseasevo"/>
 		<typeAlias type="ant.yum.vo.MedicineVo" alias="medicinevo"/>
 		<typeAlias type="ant.yum.vo.ScheduleVo" alias="schedulevo"/>
+		<typeAlias type="ant.yum.vo.PresVo" alias="presvo"/>
 	</typeAliases>
 	
 	<mappers>

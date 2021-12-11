@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ant.yum.vo.PresClinicVo;
 import ant.yum.vo.PresDiseaseVo;
 import ant.yum.vo.PresMedicineVo;
+import ant.yum.vo.PresVo;
 
 @Repository
 public class PrescriptionRepository {
@@ -69,5 +70,9 @@ public class PrescriptionRepository {
 
 	public List<PresClinicVo> presClinicFindByDiagnosisNo(int diagnosisNo) {
 		return sqlSession.selectList("prescription.presClinicFindByDiagnosisNo", diagnosisNo);
+	}
+
+	public List<PresVo> findPrescription() {
+		return sqlSession.selectList("prescription.findPrescription");
 	}
 }

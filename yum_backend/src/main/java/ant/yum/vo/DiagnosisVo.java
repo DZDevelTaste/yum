@@ -12,6 +12,7 @@ import lombok.ToString;
 public class DiagnosisVo {
 	private int no;
 	private String date;
+	private String name;
 	private String desc;
 	private int orderNo;
 	private int userNo;

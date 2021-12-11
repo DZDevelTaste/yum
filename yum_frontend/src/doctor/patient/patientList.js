@@ -2,14 +2,19 @@ import React, { useEffect, useState } from 'react';
 import PatientInfo from './PatientInfo';
 import PatientPastOrder from './PatientPastOrder';
 
-const patientList = () => {
+const patientList = ({callback}) => {
 
     const [orders, setOrders] = useState([]);
     const [patientNo, setPatientNo] = useState(0);
+    const [orderNo, setOrderNo] = useState(0);      // value for insert
 
     useEffect(() => {
         fetchOrders();
     }, []);
+
+    useEffect(() => {
+        callback(orderNo);
+    }, [orderNo])
 
     const fetchOrders = async() => {
 
@@ -66,11 +71,13 @@ const patientList = () => {
             {
                 orders.map(order => {
                     return (
-                        <div onClick={() => updatePatientNo(order.patientNo) }>
-                            <p>{order.no} {order.patientName}</p>
+                        <div onClick={() => {
+                                updatePatientNo(order.patientNo) 
+                                setOrderNo(order.no)}}>
+                            <p>{order.patientName} {order.state}</p>
                         </div>
                     )
-            })
+                })
                 
             }
             

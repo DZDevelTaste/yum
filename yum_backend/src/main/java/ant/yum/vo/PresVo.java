@@ -7,9 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DiseaseVo {
-	private int no;
-	private String code;
-	private String name;
-	private String engName;
+public class PresVo {
+
+    private int no;
+    private String kind;
+    private String name;
 }

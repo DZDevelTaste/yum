@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const memo = () => {
+const memo = ({callback}) => {
+    const [Memo, setMemo] = useState('');     //value for insert
 
     const divStyle ={
         display: 'inline-block',
@@ -10,11 +11,14 @@ const memo = () => {
         float: 'left'
     }
 
+    useEffect(() => {
+        callback(Memo);
+    }, [Memo])
+
     return (
         <div style={divStyle}>
-            진료 메모
-            <input type='text'/>
-            <input type='submit' value='진료 완료'/>
+            증상 및 메모
+            <textarea onChange={ e => setMemo(e.target.value)}></textarea>
         </div>
     );
 };

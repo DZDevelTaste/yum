@@ -48,4 +48,15 @@
 				AND pc.diagnosis_no=#{diagnosisNo}
 		]]>
 	</select>
+
+	<select id="findPrescription" resultType="presvo">
+		<![CDATA[
+			select no, '약품' as "kind", name from medicine 
+
+			union
+
+			select no, kind, name from clinic
+			order by kind, no ASC
+		]]>
+	</select>
 </mapper>
