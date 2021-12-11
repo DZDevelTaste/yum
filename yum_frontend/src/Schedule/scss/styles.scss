@@ -28,8 +28,9 @@
   flex-direction: column;
   font-size: 1em;
   box-sizing: border-box;
-
+  
   * {
+    z-index: 0;
     box-sizing: border-box;
 
     &:before, &:after {

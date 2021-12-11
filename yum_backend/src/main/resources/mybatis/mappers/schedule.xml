@@ -3,17 +3,17 @@
 <mapper namespace="schedule">
 	<select id="findBySchedule" resultType="schedulevo">
 		<![CDATA[
-			SELECT s."no", reason, s."desc", user_no, calendar_no FROM "user" u, "schedule" s, "calendar" c WHERE u."no" = s.user_no and s.calendar_no = c."no"
+			SELECT id, title, START, "end", user_no, u.name as "name" from schedule s, "user" u WHERE s.user_no = u.no
 		]]>
 	</select>
 		<insert id="addSchedule" parameterType="schedulevo">
 		<![CDATA[
-			INSERT INTO "schedule" VALUES (DEFAULT, #{reason}, #{desc}, #{userNo}, #{calendarNo})
+			INSERT INTO "schedule" VALUES (DEFAULT, #{title}, #{userNo}, to_date(#{start}, 'YYYY-MM-DD'), to_date(#{end}, 'YYYY-MM-DD'))
 		]]>
 	</insert>
 	<update id="updateSchedule" parameterType="schedulevo">
 		<![CDATA[
-			 UPDATE "schedule" SET reason = #{reason}, "desc" = #{desc} WHERE user_no = #{userNo}
+			 UPDATE "schedule" SET title = #{title}, start = #{start}, "end" = #{end} WHERE user_no = #{userNo}
 		]]>
 	</update>
 	<delete id="deleteSchedule" parameterType="schedulevo">

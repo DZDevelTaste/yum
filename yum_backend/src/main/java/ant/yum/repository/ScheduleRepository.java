@@ -25,7 +25,9 @@ public class ScheduleRepository {
 		return count == 1;
 	}
 	public boolean addSchedule(ScheduleVo scheduleVo) {
-		return sqlSession.selectOne("schedule.addDisease", scheduleVo);
+		System.out.println("================"+scheduleVo);
+		int count = sqlSession.insert("schedule.addSchedule", scheduleVo);
+		return count == 1;
 	}
 
 }

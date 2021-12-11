@@ -18,7 +18,6 @@ public class MainRepository {
 		return count == 1;
 	}
 	public UserVo findId(UserVo userVo) {
-		
 		return sqlSession.selectOne("main.findId", userVo);
 	}
 	public UserVo findIdByEmail(UserVo userVo) {

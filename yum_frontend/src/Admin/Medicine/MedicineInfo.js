@@ -153,8 +153,8 @@ const MedicineInfo = ({no}) => {
 
             const json = await response.json();
 
-            console.log(json.data)
-            location.href= '/admin/medicine'            
+            console.log(json.data);
+            location.href= '/admin/medicine';            
 
         } catch (error) {
             console.error(error);

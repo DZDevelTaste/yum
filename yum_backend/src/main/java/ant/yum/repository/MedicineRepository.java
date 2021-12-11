@@ -21,7 +21,8 @@ public class MedicineRepository {
 		return count == 1;
 	}
     public boolean addMedicine(MedicineVo medicineVo) {
-		return sqlSession.selectOne("medicine.addMedicine", medicineVo);
+		int count = sqlSession.insert("medicine.addMedicine", medicineVo);
+		return count == 1;
 	}
     public MedicineVo findByNoMedicine(int no) {
 		return sqlSession.selectOne("medicine.findByNoMedicine", no);

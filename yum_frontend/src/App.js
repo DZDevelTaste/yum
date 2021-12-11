@@ -23,10 +23,10 @@ const App = () => {
                 <Route path='/searchPw' element={<SearchPw />}/>
                 <Route path='/successId/:no' element={<SuccessId />}/>
                 <Route path='/successPw/:no' element={<SuccessPw />}/>
-                <Route path='/admin' element={<AdminMain/>}/>
-                <Route path='/admin/disease' element={<DiseaseMain/>}/>
-                <Route path='/admin/medicine' element={<MedicineMain/>}/>
-                <Route path='/admin/medicine1' element={<MedicineInfo/>}/>
+                <Route path='/admin' element={<AdminMain />}/>
+                <Route path='/admin/disease' element={<DiseaseMain />}/>
+                <Route path='/admin/medicine' element={<MedicineMain />}/>
+                <Route path='/admin/medicine1' element={<MedicineInfo />}/>
                 <Route path='/Schedule' element={<Schedule />} />
             </Routes>
         </Router>

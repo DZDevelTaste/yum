@@ -17,6 +17,7 @@ public class DiseaseRepository {
 		return sqlSession.selectList("disease.findByDisease");
 	}
     public boolean addDisease(DiseaseVo diseaseVo) {
-		return sqlSession.selectOne("disease.addDisease", diseaseVo);
+		int count = sqlSession.insert("disease.addDisease", diseaseVo);
+		return count == 1;
 	}
 }
