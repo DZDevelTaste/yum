@@ -255,7 +255,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     }
 
     &:not(:disabled) {
-      &:active, &.fc-button-active {
+      &:active, &:global(.fc-button-active) {
         color: #fff;
         color: var(--fc-button-text-color, #fff);
         background-color: #1a252f;
@@ -264,7 +264,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
         border-color: var(--fc-button-active-border-color, #151e27);
       }
 
-      &:active:focus, &.fc-button-active:focus {
+      &:active:focus, &:global(.fc-button-active:focus) {
         box-shadow: 0 0 0 0.2rem rgba(76, 91, 106, 0.5);
       }
     }
@@ -284,7 +284,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     display: inline-flex;
     vertical-align: middle;
 
-    > .fc-button {
+    > :global(.fc-button) {
       position: relative;
       flex: 1 1 auto;
 
@@ -327,11 +327,11 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     justify-content: space-between;
     align-items: center;
 
-    &.fc-header-toolbar {
+    &:global(.fc-header-toolbar) {
       margin-bottom: 1.5em;
     }
 
-    &.fc-footer-toolbar {
+    &:global(.fc-footer-toolbar) {
       margin-top: 1.5em;
     }
   }
@@ -615,7 +615,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     opacity: 0.75;
   }
 
-  &.fc-event-selected {
+  &:global(.fc-event-selected) {
     /* TOUCH */
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
   }
@@ -693,7 +693,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   bottom: 0;
 }
 
-.fc-event-selected, .fc-event:focus {
+:global(.fc-event-selected, .fc-event:focus) {
   /* dimmer effect */
 }
 
@@ -719,7 +719,7 @@ A HORIZONTAL event
 
 :global(.fc-h-event) {
   /* allowed to be top-level */
-  display: block;
+  display: flex;
   border: 1px solid #3788d8;
   border: 1px solid var(--fc-event-border-color, #3788d8);
   background-color: #3788d8;
@@ -731,8 +731,7 @@ A HORIZONTAL event
   }
 
   :global(.fc-event-main-frame) {
-    display: flex;
-
+    display: inline-flex;
     /* for make fc-event-title-container expand */
   }
 
@@ -768,15 +767,16 @@ A HORIZONTAL event
     max-width: 100%;
 
     /* clip overflow on this element */
-    overflow: hidden;
+    overflow: auto;
   }
 
-  &.fc-event-selected:before {
+  &:global(.fc-event-selected:before) {
     /* expand hit area */
     top: -10px;
     bottom: -10px;
   }
 }
+   
 
 /* adjust border and border-radius (if there is any) for non-start/end */
 

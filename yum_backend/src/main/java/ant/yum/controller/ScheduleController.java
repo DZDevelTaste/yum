@@ -28,6 +28,12 @@ public class ScheduleController {
 
         return JsonResult.success(list);
     }
+    @PostMapping("/id")
+    public JsonResult id(@RequestBody ScheduleVo scheduleVo) {
+        ScheduleVo scVo = scheduleService.findByIdSchedule(scheduleVo);
+
+        return JsonResult.success(scVo);
+    }
     @PostMapping("/add")
     public JsonResult add(@RequestBody ScheduleVo scheduleVo) {
         scheduleService.addSchedule(scheduleVo);

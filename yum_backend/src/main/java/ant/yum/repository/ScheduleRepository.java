@@ -29,5 +29,8 @@ public class ScheduleRepository {
 		int count = sqlSession.insert("schedule.addSchedule", scheduleVo);
 		return count == 1;
 	}
+	public ScheduleVo findByIdSchedule(ScheduleVo scheduleVo) {
+		return sqlSession.selectOne("schedule.findByIdSchedule", scheduleVo);
+	}
 
 }

@@ -4,7 +4,7 @@
   
   /* help things clear margins of inner content */
   
-  .fc-daygrid-day-frame, .fc-daygrid-day-events, .fc-daygrid-event-harness {
+  :global(.fc-daygrid-day-frame, .fc-daygrid-day-events, .fc-daygrid-event-harness) {
     /* for event top/bottom margins */
   }
   
@@ -27,7 +27,8 @@
       background-color: rgba(255, 220, 40, 0.15);
       background-color: var(--fc-today-bg-color, rgba(255, 220, 40, 0.15));
     }
-  
+    :global(.fc-daygrid-number.fc-sat.fc-past) { color:#0000ff; }
+    :global(.fc-daygrid-number.fc-sun.fc-past) { color:#FF0000; }
     :global(.fc-daygrid-day-frame) {
       position: relative;
       min-height: 100%;
@@ -134,7 +135,7 @@
       z-index: 6;
       margin-top: 1px;
   
-      &.fc-event-mirror {
+      &:global(.fc-event-mirror) {
         z-index: 7;
       }
     }
@@ -248,11 +249,11 @@
       font-weight: bold;
     }
   
-    &:hover, &.fc-event-mirror {
+    &:hover, &:global(.fc-event-mirror) {
       background: rgba(0, 0, 0, 0.1);
     }
   
-    &.fc-event-selected:before {
+    &:global(.fc-event-selected:before) {
       /* expand hit area */
       top: -10px;
       bottom: -10px;

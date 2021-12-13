@@ -9,13 +9,21 @@ import './scss/style1.scss';
 import './scss/style2.scss';
 
 const Schedule = () => {
-  const [modalData, setModalData] = useState({isOpen: false})
-  const [schedules, setSchedules] = useState([]);
+  const [scheduleVo, setScheduleVo] = useState([]);
+  const [schedule1Vo, setSchedule1Vo] = useState([]);
+  const [modalData, setModalData] = useState({isOpen: false});
+  const [modal1Data, setModal1Data] = useState({isOpen: false});
   const [title, setTitle] = useState('');
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const no = 16;
-  const i = 0;
+  
+  useEffect(() => {
+      setTitle(schedule1Vo ? schedule1Vo.title : '')
+      setStart(schedule1Vo ? schedule1Vo.start : '')
+      setEnd(schedule1Vo ? schedule1Vo.end : '')
+  }, [schedule1Vo])
+  
   const titleValueChange = (e) => {
     setTitle(e.target.value);
   }
@@ -25,20 +33,16 @@ const Schedule = () => {
   const endValueChange = (e) => {
     setEnd(e.target.value);
   }
- 
   let MySchedule = {
       title: title,
       start: start,
       end: end,
       userNo: no
     }
-
   useEffect(() => {
       fetchSchedule();
   }, []);
-
   const fetchSchedule = async() => {
-
       try {
           const response = await fetch('http://localhost:8080/api/schedule', {
               method: 'get',
@@ -56,16 +60,42 @@ const Schedule = () => {
 
           const json = await response.json();
 
-          console.log(json.data)
+          setScheduleVo([...json.data,...scheduleVo]);
 
-          setSchedules([...json.data,...schedules]);
-          
       } catch (error) {
           console.error(error);
       }
   }
+ 
+  const selectScheduler = async(id) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/schedule/id`, {
+            method: 'post',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              id: id
+            })
+        });
+
+        if(!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+        }
+
+        const json = await response.json();
+
+        console.log(json.data);
+
+        setSchedule1Vo(json.data);
+        console.log(schedule1Vo);
+    } catch (error) {
+        console.error(error);
+    }
+}
   const pushSchedule = (e) => {
-    console.log(typeof no);
     e.preventDefault();
     alert("휴가 등록이 완료되었습니다.");
     fetchScheduleAdd();
@@ -92,6 +122,61 @@ const Schedule = () => {
         console.error(error);
     }
   }
+  
+  const update = (e) => {
+    e.preventDefault();
+    alert("수정 되었습니다.");
+    fetchUpdate();
+  }
+  const fetchUpdate = async() => {
+      try {
+          const response = await fetch('http://localhost:8080/api/schedule/update', {
+              method: 'post',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              },
+              body: JSON.stringify(MySchedule)
+          });
+
+          if(!response.ok) {
+              throw new Error(`${response.status} ${response.statusText}`);
+          }
+
+          const json = await response.json();
+
+          location.href='/schedule';
+      } catch (error) {
+          console.error(error);
+      }
+  }
+  const scheduleDelete = (e) => {
+    e.preventDefault();
+    alert("삭제 되었습니다.");
+    fetchdelete();
+}
+const fetchdelete = async() => {
+    try {
+        const response = await fetch('http://localhost:8080/api/schedule/delete', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(MySchedule)
+        });
+
+        if(!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+        }
+
+        const json = await response.json();
+
+        location.href= '/schedule';
+    } catch (error) {
+        console.error(error);
+    }
+}
   const titleChange = () => {
     var title1 = document.getElementById('title').value;
     var title2 = document.getElementById('title1').value;
@@ -110,6 +195,10 @@ const Schedule = () => {
     <div className="App">
       <FullCalendar 
         themeSystem="themeSystem"
+        headerToolbar={{
+          center: 'dayGridMonth,timeGridWeek,timeGridDay',
+        }
+        }
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]} 
         initialView="dayGridMonth" 
         customButtons={{
@@ -118,12 +207,37 @@ const Schedule = () => {
             click: () => console.log('new event')
           },
         }}
-        events={schedules}
+        events={scheduleVo}
         eventColor="black"
-        editable={true}
         nowIndicator
-        dateClick={() => setModalData({isOpen: true})}
-        eventClick={(e) => console.log(e.event.id)}/>
+        dateClick={(e) => {setStart(e.dateStr); setEnd(e.dateStr); setModalData({isOpen: true})} }
+        eventClick={(e) => {
+            selectScheduler(parseInt(e.event.id));
+            setModal1Data({isOpen: true});
+          } }/>
+          <Modal isOpen={modal1Data.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+          휴가 수정
+          <button onClick={() => setModal1Data({isOpen: false})}>X</button>
+            <form method='post' onSubmit={update}>
+              <div style={{zIndex: '9999'}}>
+                  <input type="text" id="title" name="title" value={title} onChange={titleValueChange}/>
+                  <label><select id="title1" name="title1" onChange={titleChange}>
+                      <option value="1">직접입력</option>
+                      <option value="병가">병가</option>
+                      <option value="휴가">휴가</option>
+                      <option value="연차">연차</option>
+                      <option value="공가">공가</option>
+                      <option value="백신 휴가">백신휴가</option>
+                  </select></label>
+                  <br></br>
+                  <label><input type='date' value={start} onChange={startValueChange}/>시작일</label>
+                  <br></br>
+                  <label><input type='date' value={end} onChange={endValueChange}/>종료일</label>
+              </div>
+              <input type="submit" value="수정" />
+              <input type="button" value="삭제" onClick={scheduleDelete}/>
+            </form>
+        </Modal> 
         <Modal isOpen={modalData.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
           휴가 등록
           <button onClick={() => setModalData({isOpen: false})}>X</button>
@@ -147,8 +261,6 @@ const Schedule = () => {
             </form>
         </Modal>
     </div>
-   
-      
   );
 }
 

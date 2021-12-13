@@ -26,4 +26,7 @@ public class ScheduleService {
 	public void updateSchedule(ScheduleVo scheduleVo) {
 		scheduleRepository.updateSchedule(scheduleVo);
 	}
+    public ScheduleVo findByIdSchedule(ScheduleVo scheduleVo) {
+        return scheduleRepository.findByIdSchedule(scheduleVo);
+    }
 }

@@ -3,22 +3,27 @@
 <mapper namespace="schedule">
 	<select id="findBySchedule" resultType="schedulevo">
 		<![CDATA[
-			SELECT id, title, START, "end", user_no, u.name as "name" from schedule s, "user" u WHERE s.user_no = u.no
+			SELECT id, (u.name || ' ' || u.job || ' ' || title)  as title, START, "end", user_no from schedule s, "user" u WHERE s.user_no = u.no
 		]]>
 	</select>
-		<insert id="addSchedule" parameterType="schedulevo">
+	<select id="findByIdSchedule" resultType="schedulevo">
+		<![CDATA[
+			SELECT title, start, "end", user_no from schedule WHERE id =#{id}
+		]]>
+	</select>
+	<insert id="addSchedule" parameterType="schedulevo">
 		<![CDATA[
 			INSERT INTO "schedule" VALUES (DEFAULT, #{title}, #{userNo}, to_date(#{start}, 'YYYY-MM-DD'), to_date(#{end}, 'YYYY-MM-DD'))
 		]]>
 	</insert>
 	<update id="updateSchedule" parameterType="schedulevo">
 		<![CDATA[
-			 UPDATE "schedule" SET title = #{title}, start = #{start}, "end" = #{end} WHERE user_no = #{userNo}
+			 UPDATE "schedule" SET title = #{title}, start = to_date(#{start}, 'YYYY-MM-DD'), "end" = to_date(#{end}, 'YYYY-MM-DD') WHERE user_no = #{userNo}
 		]]>
 	</update>
 	<delete id="deleteSchedule" parameterType="schedulevo">
 		<![CDATA[
-			DELETE FROM "schedule" WHERE user_no = #{userNo}
+			DELETE FROM "schedule" WHERE user_no = #{userNo}, start = to_date(#{start}, 'YYYY-MM-DD'), "end" = to_date(#{end}, 'YYYY-MM-DD')
 		]]>
 	</delete>
 </mapper>

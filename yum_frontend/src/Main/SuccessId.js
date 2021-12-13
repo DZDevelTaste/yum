@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Link, NavLink, useParams} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 const SuccessId = () => {
     const [users, setUsers] = useState([]);
     const current = decodeURI(window.location.href);

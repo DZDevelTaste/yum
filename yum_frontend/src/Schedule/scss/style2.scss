@@ -60,7 +60,7 @@ A VERTICAL event
       border-bottom-right-radius: 0;
     }
   
-    &.fc-event-selected:before {
+    &:global(.fc-event-selected:before) {
       /* expand hit area */
       left: -10px;
       right: -10px;
@@ -99,7 +99,7 @@ A VERTICAL event
   
     /* resizer for TOUCH (when event is "selected") */
   
-    &.fc-event-selected {
+    &:global(.fc-event-selected) {
         :global(.fc-event-resizer) {
         left: 50%;
         margin-left: -4px;
@@ -238,7 +238,7 @@ A VERTICAL event
     bottom: 0;
     left: 0;
   }
-  
+ 
   :global(.fc) {
     :global(.fc-timegrid-col.fc-day-today) {
       background-color: rgba(255, 220, 40, 0.15);
@@ -254,7 +254,7 @@ A VERTICAL event
   }
   
   :global(.fc-media-screen) {
-    &.fc-liquid-hack .fc-timegrid-col-frame {
+    &:global(.fc-liquid-hack .fc-timegrid-col-frame) {
       height: auto;
       position: absolute;
       top: 0;
@@ -346,7 +346,7 @@ A VERTICAL event
   :global(.fc-timegrid-event-harness) {
     position: absolute;
   
-    > .fc-timegrid-event {
+    > :global(.fc-timegrid-event) {
       position: absolute;
   
       /* absolute WITHIN the harness */
