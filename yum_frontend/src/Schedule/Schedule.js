@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import './scss/styles.scss';
 import './scss/style1.scss';
 import './scss/style2.scss';
+import moment from 'moment';
 
 const Schedule = () => {
   const [scheduleVo, setScheduleVo] = useState([]);
@@ -16,6 +17,8 @@ const Schedule = () => {
   const [title, setTitle] = useState('');
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
+  const nowTime = moment().format('YYYY-MM-DD');
+  
   const no = 16;
   
   useEffect(() => {
@@ -192,7 +195,7 @@ const fetchdelete = async() => {
     }
 };
   return (
-    <div className="App">
+    <div>
       <FullCalendar 
         themeSystem="themeSystem"
         headerToolbar={{
@@ -207,10 +210,11 @@ const fetchdelete = async() => {
             click: () => console.log('new event')
           },
         }}
+        selectable= "true"
         events={scheduleVo}
-        eventColor="black"
+        locale="ko"
         nowIndicator
-        dateClick={(e) => {setStart(e.dateStr); setEnd(e.dateStr); setModalData({isOpen: true})} }
+        dateClick={(e) => {setStart(e.dateStr > nowTime ? e.dateStr : nowTime); setEnd(e.dateStr > nowTime ? e.dateStr : nowTime); setModalData({isOpen: true})} }
         eventClick={(e) => {
             selectScheduler(parseInt(e.event.id));
             setModal1Data({isOpen: true});
@@ -220,6 +224,7 @@ const fetchdelete = async() => {
           <button onClick={() => setModal1Data({isOpen: false})}>X</button>
             <form method='post' onSubmit={update}>
               <div style={{zIndex: '9999'}}>
+                  
                   <input type="text" id="title" name="title" value={title} onChange={titleValueChange}/>
                   <label><select id="title1" name="title1" onChange={titleChange}>
                       <option value="1">직접입력</option>
@@ -230,9 +235,9 @@ const fetchdelete = async() => {
                       <option value="백신 휴가">백신휴가</option>
                   </select></label>
                   <br></br>
-                  <label><input type='date' value={start} onChange={startValueChange}/>시작일</label>
+                  <label><input type='date' min={nowTime} value={start} onChange={startValueChange}/>시작일</label>
                   <br></br>
-                  <label><input type='date' value={end} onChange={endValueChange}/>종료일</label>
+                  <label><input type='date' min={nowTime} value={end} onChange={endValueChange}/>종료일</label>
               </div>
               <input type="submit" value="수정" />
               <input type="button" value="삭제" onClick={scheduleDelete}/>
@@ -243,7 +248,7 @@ const fetchdelete = async() => {
           <button onClick={() => setModalData({isOpen: false})}>X</button>
             <form method='post' onSubmit={pushSchedule}>
               <div style={{zIndex: '9999'}}>
-                  <input type="text" id="title" name="title" onChange={titleValueChange}/>
+                  <input type="text" id="title" name="title" onChange={titleValueChange} required/>
                   <label><select id="title1" name="title1" onChange={titleChange}>
                       <option value="1">직접입력</option>
                       <option value="병가">병가</option>
@@ -253,9 +258,9 @@ const fetchdelete = async() => {
                       <option value="백신 휴가">백신휴가</option>
                   </select></label>
                   <br></br>
-                  <label><input type='date' value={start} onChange={startValueChange}/>시작일</label>
+                  <label><input type='date' min={nowTime} value={start} onChange={startValueChange}/>시작일</label>
                   <br></br>
-                  <label><input type='date' value={end} onChange={endValueChange}/>종료일</label>
+                  <label><input type='date' min={nowTime} value={end} onChange={endValueChange}/>종료일</label>
               </div>
               <input type="submit" value="등록" />
             </form>

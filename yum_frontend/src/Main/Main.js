@@ -5,9 +5,8 @@ const Main = () => {
     return (
         <div>
             <form id="join" name="join" method="post" action="${pageContext.request.contextPath}">
-                <label>이메일</label><input type="text" name="email" />
-                <label>비밀번호</label>
-                <input type="text" name="password" />
+                <label>이메일<input type="text" name="email" placeholder='ID'/></label>
+                <label>비밀번호<input type="text" name="password" placeholder='PASSWORD'/></label>
                 <input type="submit" value="로그인" />
                 <ul>
                     <li><NavLink to={'/join'}>회원가입</NavLink></li>

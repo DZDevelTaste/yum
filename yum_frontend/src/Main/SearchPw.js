@@ -142,7 +142,7 @@ const SearchPw = () => {
                     <label>이름</label>
                     <input type="text" name="name" id="name" placeholder="이름" onChange={nameChange}/>
                     <label>아이디</label>
-                    <input type="text" name ="email" id="id" placeholder="아이디" onBlur={checkEmail} onChange={emailChange}/>
+                    <input type="text" name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={emailChange}/>
                     <label>@</label>
                     <input type="text" id="id1" name="email1" onChange={email1Change}/>
                     <label><select id="id2" name="email1" onChange={email_check}>

@@ -12,6 +12,7 @@ import DiseaseMain from './Admin/Disease/DiseaseMain';
 import MedicineMain from './Admin/Medicine/MedicineMain';
 import MedicineInfo from './Admin/Medicine/MedicineInfo';
 import Schedule from './Schedule/Schedule';
+import Timer from './Timer';
 
 const App = () => {
     return (
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path='/admin/medicine' element={<MedicineMain />}/>
                 <Route path='/admin/medicine1' element={<MedicineInfo />}/>
                 <Route path='/Schedule' element={<Schedule />} />
+                <Route path='/time' element={<Timer />} />
             </Routes>
         </Router>
     );

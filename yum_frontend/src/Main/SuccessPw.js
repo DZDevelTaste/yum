@@ -105,7 +105,7 @@ const SuccessPw = () => {
             <form method="post" onSubmit={login1} >
                 <label>{users.name}님의 {users.email}는 입니다.</label>
                 <label>비밀번호</label>
-                <input type="password" name="password" id="pw" placeholder="PW" onBlur={checkPassword} onChange={passwordChange}/>
+                <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={passwordChange}/>
                 <label>비밀번호 확인</label>
                 <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword}/>&nbsp;<span id="check" />
                 <input type="submit" value="비밀번호 변경" />

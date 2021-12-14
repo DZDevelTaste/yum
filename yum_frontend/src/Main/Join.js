@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import style from './yammi.scss';
 
 const Join = () => {
         const [email, setEmail] = useState('');
@@ -197,7 +198,7 @@ const Join = () => {
         document.getElementById("kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
             //카카오 지도 발생
             new daum.Postcode({
-                oncomplete: function(data) { //선택시 입력값 세팅
+                onComplete: function(data) { //선택시 입력값 세팅
                     document.getElementById("zonecode_kakao").value = data.zonecode;
                     document.getElementById("address_kakao").value = data.address; // 주소 넣기
                     setAddress(document.getElementById("address_kakao").value);
@@ -238,62 +239,81 @@ const Join = () => {
     };
 
     return (
-        <div>
+        <div className={style.yammi}>
             <form method="post" onSubmit={login1} >
-                <label>아이디</label>
-                <input type="text" name ="email" id="id" placeholder="아이디" onBlur={checkEmail} onChange={emailChange}/>
-                <label>@</label>
-	            <input type="text" id="id1" name="email1" onChange={email1Change}/>
-				<label><select id="id2" name="email1" onChange={email_check}>
-						<option value="1">직접입력</option>
-						<option value="naver.com">naver.com</option>
-						<option value="nate.com">nate.com</option>
-						<option value="gmail.com">gmail.com</option>
-						<option value="yahoo.com">yahoo.com</option>
-						<option value="hanmail.net">hanmail.net</option>
-				</select></label>
-                <label>비밀번호</label>
-                <input type="password" name="password" id="pw" placeholder="PW" onBlur={checkPassword} onChange={passwordChange}/>
-                <label>비밀번호 확인</label>
-                <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword}/>&nbsp;<span id="check" />
-                <label>이름</label>
-                <input type="text" name="name" id="name" placeholder="이름" onChange={nameChange}/>
-                <label>주민등록번호</label>
-                <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={rrnChange}/>
-                <label>-</label>
-                <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={rrn1Change}/>
-                <label>직급</label>
-                <label>간호사</label> <input type="radio" name="job" id="job" value='N' onChange={jobChange}/>
-                <label>의사</label> <input type="radio" name="job" id="job" value='D' onChange={jobChange}/>
-                <label>전화번호</label>
-                <input type="text" name="phone" id="phone1"  onChange={phoneChange}/>
-                <select id="phone" name="phone" onChange={phone_check}>
+                <div className={email}>
+                    <label>아이디
+                    <input type="text" name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={emailChange}/>
+                    @
+                    <input type="text" id="id1" name="email1" onChange={email1Change}/>
+                    <select id="id2" name="email1" onChange={email_check}>
                             <option value="1">직접입력</option>
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="012">012</option>
-                            <option value="013">013</option>
-                            <option value="014">014</option>
-                            <option value="015">015</option>
-                            <option value="016">016</option>
-                            <option value="017">017</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
-                </select>
+                            <option value="naver.com">naver.com</option>
+                            <option value="nate.com">nate.com</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="yahoo.com">yahoo.com</option>
+                            <option value="hanmail.net">hanmail.net</option>
+                    </select>
+                    </label>
+                </div>
+                <div className={style.password}>
+                <label>비밀번호</label>
+                    <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={passwordChange}/>
+                </div>
+                <div className={style.check}>
+                    <label>비밀번호 확인</label>
+                    <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword}/>&nbsp;<span id="check" />
+                </div>
+                <div className={style.name}>
+                    <label>이름</label>
+                    <input type="text" name="name" id="name" placeholder="이름" onChange={nameChange}/>
+                </div>
+                <div className={style.rrn}>
+                    <label>주민등록번호</label>
+                        <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={rrnChange}/>
+                        -
+                        <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={rrn1Change}/>
+                </div>
+                <div className={style.job}>
+                    <label>직급</label>
+                        <label>간호사</label> <input type="radio" name="job" id="job" value='N' onChange={jobChange}/>
+                        <label>의사</label> <input type="radio" name="job" id="job" value='D' onChange={jobChange}/>
+                </div>
+                <div className={style.phone}>
+                <label>전화번호</label>
+                    <input type="text" name="phone" id="phone1"  onChange={phoneChange} placeholder='전화번호'/>
+                        <select id="phone" name="phone" onChange={phone_check}>
+                                    <option value="1">직접입력</option>
+                                    <option value="010">010</option>
+                                    <option value="011">011</option>
+                                    <option value="012">012</option>
+                                    <option value="013">013</option>
+                                    <option value="014">014</option>
+                                    <option value="015">015</option>
+                                    <option value="016">016</option>
+                                    <option value="017">017</option>
+                                    <option value="018">018</option>
+                                    <option value="019">019</option>
+                        </select>
                 <label>-</label>
-                <input type="number" name="phone1" id="phone2" maxLength='4' onChange={phone1Change}/>
+                    <input type="text" name="phone1" id="phone2" maxLength='4' onChange={phone1Change}/>
                 <label>-</label>
-                <input type="number" name="phone2" id="phone3" maxLength='4' onChange={phone2Change}/>
-                <label>우편번호</label>
-                <input type="text" id="zonecode_kakao" name="zonecode" placeholder="우편번호" />
-                <input type='button' id="kakao" value="우편번호 입력"/>
-                <label>주소</label>
-                <input type="text" id="address_kakao" name="address" placeholder="주소" onChange={addressChange}/>
-                <label>상세 주소</label>
-                <input type="text" name="addressDetail" id="addressDetail" placeholder="상세주소" onChange={addressdetailChange}/>
-                <label>성별</label>
-                <label>남</label> <input type="radio" name="gender" id="gender" value='M' onChange={genderChange}/>
-                <label>여</label> <input type="radio" name="gender" id="gender" value='F'  onChange={genderChange}/>
+                    <input type="text" name="phone2" id="phone3" maxLength='4' onChange={phone2Change}/>
+                </div>
+                <div className={style.address}>
+                    <label>우편번호</label>
+                        <input type="text" id="zonecode_kakao" name="zonecode" placeholder="우편번호" />
+                        <input type='button' id="kakao" value="우편번호 입력"/>
+                    <label>주소</label>
+                        <input type="text" id="address_kakao" name="address" placeholder="주소" onChange={addressChange}/>
+                    <label>상세 주소</label>
+                        <input type="text" name="addressDetail" id="addressDetail" placeholder="상세주소" onChange={addressdetailChange}/>
+                </div>
+                <div className={style.gender}>
+                    <label>성별</label>
+                    남 <input type="radio" name="gender" id="gender" value='M' onChange={genderChange}/>
+                    여 <input type="radio" name="gender" id="gender" value='F'  onChange={genderChange}/>
+                </div>
                 <input type="submit" value="가입하기" />
 		    </form>        
         </div>

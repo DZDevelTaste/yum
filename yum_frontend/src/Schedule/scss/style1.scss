@@ -1,5 +1,7 @@
 :root {
     --fc-daygrid-event-dot-width:8px;
+    height: 500px;
+    width: 1200px;
   }
   
   /* help things clear margins of inner content */
@@ -31,8 +33,7 @@
     :global(.fc-daygrid-number.fc-sun.fc-past) { color:#FF0000; }
     :global(.fc-daygrid-day-frame) {
       position: relative;
-      min-height: 100%;
-  
+      height: 200px;
       /* seems to work better than `height` because sets height after rows/cells naturally do it */
     }
   
