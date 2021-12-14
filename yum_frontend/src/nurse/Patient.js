@@ -1,14 +1,14 @@
 import React from 'react';
 
-const Patient = ({no, name, gender, rrn, phone, callback}) => {
+const Patient = ({patient, callback}) => {
     return (
         <tr 
             className='patient'
-            onClick={(e) => callback(no)}>
-            <td>{name}</td>
-            <td>{gender === 'M' ? '남' : '여'}</td>
-            <td>{rrn}</td>
-            <td>{phone}</td>
+            onClick={(e) => callback(patient.no)}>
+            <td>{patient.name}</td>
+            <td>{patient.gender === 'M' ? '남' : '여'}</td>
+            <td>{patient.rrn}</td>
+            <td>{patient.phone}</td>
         </tr>
     );
 };

@@ -56,6 +56,7 @@ const PatientInfo = ({no, callback}) => {
                     }
                 )
             )
+            // console.log(jsonResult.data)
             setDiagnosisList(jsonResult.data.diagnosisList);
         } catch (err) {
             console.error(err);

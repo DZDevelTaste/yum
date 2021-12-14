@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import SiteLayout from '../layout/SiteLayout';
+import React, { Fragment, useEffect, useState } from 'react';
+import styles2 from '../assets/scss/PatientList.scss';
 import SearchBar from '../SearchBar';
 import Patient from './Patient';
 
-import styles1 from '../assets/scss/Content.scss';
-import styles2 from '../assets/scss/PatientList.scss';
-import OrderForm from './OrderForm';
-import Patients from './Patients';
 
-const Order = () => {
+
+const Patients = ({updateInfo, callback}) => {
     const [patients, setPatients] = useState([]);
     const [keyword, setKeyword] = useState('');
-    const [selectNo, setSelectNo] = useState('');
-    const [changeInfo, setChangeInfo] = useState(false);
-
+    
     const notifyKeywordChange = (keyword) => {
         setKeyword(keyword);
     }
 
     const notifyNoChange = (selectNo) => {
-        console.log(selectNo);
-        setSelectNo(selectNo);
-    }
-    
-    const notifyResetForm = (resetNo) => {
-        setSelectNo(resetNo);
+        // setSelectNo(selectNo);
+        callback(selectNo);
     }
 
     useEffect(async () => {
@@ -56,23 +47,34 @@ const Order = () => {
         } catch (err) {
             console.error(err)
         }
-    }, [changeInfo]);
+    }, [updateInfo]);
 
     return (
-        <SiteLayout>
-            <div className={styles1.leftBox}>
-                <Patients 
-                    callback={notifyNoChange}/>
-            </div>
-            <div className={styles1.rightBox}>
-                <OrderForm 
-                    callback={notifyResetForm}
-                    no={selectNo} />
-            </div>
-
-
-        </SiteLayout>
+        <Fragment>
+            <SearchBar callback={notifyKeywordChange} />
+            <table className={styles2.ListTable}>
+                <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>성별</th>
+                    <th>주민등록번호</th>
+                    <th>연락처</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {
+                        patients
+                            .filter( patient => patient.name.indexOf(keyword) !== -1)
+                            .map( patient => <Patient
+                                                    callback={notifyNoChange}
+                                                    key={patient.no}
+                                                    patient={patient}
+                                                />)
+                    }
+                </tbody>
+            </table>
+        </Fragment>
     );
 };
 
-export default Order;
+export default Patients;

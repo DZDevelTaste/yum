@@ -32,7 +32,7 @@
 
 	<select id="findByNo" parameterType="integer" resultType="patientvo">
 		<![CDATA[
-			select no, name, gender, rrn, insuarance, phone, address, length, weight, 'desc' as desc
+			select no, name, gender, rrn, insuarance, phone, address, length, weight, "desc" as desc
 			from patient 
 			where no = #{patientNo }
 		]]>

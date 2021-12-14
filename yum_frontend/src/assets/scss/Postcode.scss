@@ -1,0 +1,61 @@
+@charset 'utf-8';
+
+    .Zonecode {
+        cursor: default
+    }
+    
+    .addr {
+        flex-wrap: wrap;
+    }
+    .AddrBtn{
+        margin: 0 10px;
+        border: 1px solid #ccc;
+        border-color: #dbdbdb #d2d2d2 #b2b2b2 #d2d2d3;
+        cursor: pointer;
+        color: #464646;
+        border-radius: 0.2em;
+        font-size: 1em;
+        line-height: 30px;
+     }
+     .Address{
+        cursor: default;
+        margin: 5px 0;
+     }
+
+     .Address, .DetailAddr {
+        display: block;
+        width: 100%;
+     }
+
+.Modal {
+    position: fixed;
+    top: 400px;
+    right: 400px;
+    // transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    border: 1px solid #c5c5c5;
+    border-radius: 3px;
+    background: #fff;
+    color: #333;
+    padding: 0.2em;
+    outline: 0;
+
+    .Close {
+        position: absolute;
+        right: -36px;
+        padding: 5px 10px;
+        background-color: #fff;
+        font-size: 20px;
+        color: #737373;
+        border: 1px solid #c5c5c5;
+        border-left: none;
+        cursor: pointer;
+    }
+    
+    
+}
+
+.Overlay {
+    position: unset;
+}

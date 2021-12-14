@@ -2,4 +2,24 @@
 
 .Content{
     display: flex;
+
+    .leftBox {
+        box-sizing: border-box;
+        background-color: #F9F9F9;
+        text-align: center;
+        width: 750px;
+        // height: 850px;
+        padding: 10px;
+        margin: 10px 20px;
+    }
+
+    .rightBox {
+        display: flex;
+        flex-direction: column;
+        width: 750px;
+        // height: 850px;
+        padding: 10px;
+        margin: 10px 20px;
+        border: 1px solid #737373;
+    }
 }

@@ -1,14 +1,7 @@
 @charset "utf-8";
+@import "Content";
 
-.leftBox {
-    box-sizing: border-box;
-    background-color: #F9F9F9;
-    text-align: center;
-    width: 750px;
-    // height: 850px;
-    padding: 10px;
-    margin: 10px 20px;
-    
+.ListTable {    
     thead, tbody {
         box-sizing: border-box;
         display: block;
@@ -30,6 +23,7 @@
     
     tr {
         width: 100%;
+        cursor: pointer;
         th, td{
             padding: 10px;
             
@@ -46,12 +40,3 @@
     }
 }
 
-.rightBox {
-    display: flex;
-    flex-direction: column;
-    width: 750px;
-    // height: 850px;
-    padding: 10px;
-    margin: 10px 20px;
-    border: 1px solid #737373;
-}
