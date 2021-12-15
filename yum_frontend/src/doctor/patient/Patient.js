@@ -3,6 +3,7 @@ import PatientList from './PatientList';
 
 const patient = ({callback}) => {
     const [orderNo, setOrderNo] = useState(0);
+    
     const getOrderNo = (orderNo) => {
         setOrderNo(orderNo);
     }

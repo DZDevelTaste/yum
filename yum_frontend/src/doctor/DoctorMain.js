@@ -1,61 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Diagnosis from './diagnosis/Diagnosis';
 import Patient from './patient/Patient';
 
 const App = () => {
-    
-    const [orderNo, setOrderNo] = useState(0);
-    const [diseaseNo, setDiseaseNo] = useState([{}]);
+
+    const [diseaseNo, setDiseaseNo] = useState([]);
     const [clinicNo, setClinicNo] = useState([]);
     const [medicineInfo, setMedicineInfo] = useState([]);
+    const [orderNo, setOrderNo] = useState(0);
     const [memo, setMemo] = useState('');;
+    const [data, setData] = useState([]);
 
-    const [data, setData] = useState({
-        desc: '',
-        orderNo: '',
-        userNo: '',
-        presDiseaseList: [],
-        presMedicineList: [],
-        presClinicList: []
-    });
-    
-    const [data1, setData1] = useState([]);
+    // 자식 컴포넌트에서 값 받아오기
+        const getOrderNo = (orderNo) => {
+            setOrderNo(orderNo);
+        }
 
-    const getOrderNo = (orderNo) => {
-        setOrderNo(orderNo);
-    }
+        const getDiseaseNo = (diseaseNo) => {
+            setDiseaseNo(diseaseNo);
+        }
 
-    const getDiseaseNo = (diseaseNo) => {
-        setDiseaseNo(diseaseNo);
-    }
+        const getClinicNo = (clinicNo) => {
+            setClinicNo(clinicNo);
+        }
 
-    const getClinicNo = (clinicNo) => {
-        setClinicNo(clinicNo);
-    }
+        const getMedicineInfo = (medicineInfo) => {
+            setMedicineInfo(medicineInfo);
+        }
 
-    const getMedicineInfo = (medicineInfo) => {
-        setMedicineInfo(medicineInfo);
-    }
-
-    const getMemo = (memo) => {
-        setMemo(memo);
-    }
+        const getMemo = (memo) => {
+            setMemo(memo);
+        }
 
     useEffect(() => {
-        console.log(orderNo);
-        console.log(diseaseNo);
-        console.log(clinicNo);
-        console.log(medicineInfo);
-        console.log(memo);
         setData({
-            desc: memo,
+            desc: String(memo),
             orderNo: orderNo,
-            userNo: 1,
-            presDiseaseList: [{
-                'diseaseNo': diseaseNo
-            }],
-            presMedicineList: [clinicNo],
-            presClinicList: [medicineInfo]
+            userNo: 5,
+            presDiseaseList: diseaseNo,
+            presMedicineList: medicineInfo,
+            presClinicList: clinicNo
         })
 
     }, [orderNo, diseaseNo, clinicNo, medicineInfo, memo])
@@ -63,14 +47,13 @@ const App = () => {
 
 
     const submitDiagnosis = () => {
-        // console.log(orderNo);
-        // console.log(diagnosisInfo);
-        fetchJoin();
+        // fetchJoin();
+        console.log(data);
     }
     
     const fetchJoin = async() => {
         try {
-            const response = await fetch(`/api/doctor/insertDisease`, {
+            const response = await fetch(`/api/doctor/finishDiagnosis`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,10 +65,10 @@ const App = () => {
             if(!response.ok) {
                 throw new Error(`${response.status} ${response.statusText}`);
             }
-            const json = await response.json();
+            // const json = await response.json();
             
-            
-            location.href='/';
+            window.location.href='/';
+
         } catch (error) {
             console.error(error);
         }
@@ -94,6 +77,8 @@ const App = () => {
 
     return (
         <div id='body'>
+            
+
             <div id='patient'>
                 <Patient callback={getOrderNo}/>
             </div>

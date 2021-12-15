@@ -6,7 +6,8 @@ const clinic = ({callback1, callback2}) => {
     const [preses, setPreses] = useState([]);
     const [keyword, setKeyword] = useState('');
     const [kind, setKind] = useState('');
-    const [presClinicAndMedi, setPresClinicAndMedi] = useState([]);
+    const [changeValue, setChangeValue] = useState(0);
+
     const [clinicNo, setClinicNo] = useState([]);                   // value for insert
     const [medicineInfo, setMedicineInfo] = useState([]);           // value for insert
 
@@ -67,14 +68,32 @@ const clinic = ({callback1, callback2}) => {
             </div>
             <div>
                 {
-                    presClinicAndMedi.map(prescription => { 
-                        return(
-                            prescription.kind === '약품' ?
+                    clinicNo.map( clinic => {
+                        return (
+                            <div>
+                                <span>{clinic.kind}</span>
+                                <span>{clinic.name}</span>
+                                <button onClick={ () => {
+                                    if(confirm(`${clinic.name} 처방을 삭제하시겠습니까?`) == true){
+                                        setChangeValue(changeValue + 1)
+                                        clinicNo.splice(clinicNo.indexOf(clinic), 1)}
+                                    }}>
+                                    삭제
+                                </button>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div>
+                {
+                    medicineInfo.map( medicineinfo => {
+                        return (
                                 <div>
-                                    <span>{prescription.kind}</span>
-                                    <span>{prescription.name}</span>
+                                    <span>{medicineinfo.kind}</span>
+                                    <span>{medicineinfo.name}</span>
                                     <span>
-                                        <select onChange={e => prescription.day = e.target.value}>
+                                        <select onChange={e => medicineinfo.presmedicineDay = e.target.value}>
                                             <option value='1'>1</option>
                                             <option value='2'>2</option>
                                             <option value='3'>3</option>
@@ -88,8 +107,8 @@ const clinic = ({callback1, callback2}) => {
                                         </select>
                                     </span>
                                     <span>
-                                        <select  onChange={e => prescription.count = e.target.value}>
-                                        <option value='1'>1</option>
+                                        <select onChange={e => medicineinfo.presmedicineCount = e.target.value}>
+                                            <option value='1'>1</option>
                                             <option value='2'>2</option>
                                             <option value='3'>3</option>
                                             <option value='4'>4</option>
@@ -101,17 +120,19 @@ const clinic = ({callback1, callback2}) => {
                                             <option value='10'>10</option>
                                         </select>
                                     </span>
-                                </div>
-                                :
-                                <div>    
-                                    <span>{prescription.kind}</span>
-                                    <span>{prescription.name}</span>
+                                    <button onClick={ () => {
+                                        if(confirm(`${medicineinfo.name} 처방을 삭제하시겠습니까?`) == true){
+                                            setChangeValue(changeValue + 1)
+                                            medicineInfo.splice(medicineInfo.indexOf(medicineinfo), 1)}
+                                        }}>
+                                        삭제
+                                    </button>
                                 </div>
                         )
                     })
                 }
             </div>
-            <Modal isOpen={modalData.isOpen} style={{position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+            <Modal isOpen={modalData.isOpen} style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
                 <div>처방 <button onClick={() => setModalData({isOpen: false})}>X</button></div>
                 <div>
                     <label><input type='radio' name='selectPres' value='약품' onChange={ e => setKind(e.target.value) }/>약품</label>
@@ -121,8 +142,8 @@ const clinic = ({callback1, callback2}) => {
                     <label><input type='radio' name='selectPres' value='물리치료' onChange={ e => setKind(e.target.value) }/>물리치료</label>
                     <label><input type='radio' name='selectPres' value='X-Ray' onChange={ e => setKind(e.target.value) }/>X-Ray</label>
                 </div>
-                <div><input type='text' onChange={ e => setKeyword(e.target.value) } /></div>
-                
+                <div>
+                    <input type='text' onChange={ e => setKeyword(e.target.value) } /></div>
                 <div>
                     <div>
                         <div>분류 처방</div>
@@ -132,15 +153,21 @@ const clinic = ({callback1, callback2}) => {
                             .map( pres => {
                                 return (
                                     <div onClick={() => {
-                                        if(presClinicAndMedi.includes(pres)){
-                                            alert('이미 선택된 처방입니다');
+                                        
+                                        if(pres.kind == '약품'){
+                                            pres.medicineNo = pres.no;
+                                            delete pres.no;
+                                            medicineInfo.includes(pres) ?
+                                            alert('이미 선택된 처방입니다') : (
+                                            setModalData({isOpen: false}),
+                                            setMedicineInfo([...medicineInfo, pres]))
                                         } else {
-                                            setModalData({isOpen: false});
-                                            setPresClinicAndMedi([...presClinicAndMedi, pres]);
-                                            pres.kind == '약품' ?
-                                            setMedicineInfo([pres, ...medicineInfo]) :
-                                            setClinicNo( [pres.no, ...clinicNo]);
-                                            
+                                            pres.clinicNo = pres.no;
+                                            delete pres.no;
+                                            clinicNo.includes(pres) ?
+                                            alert('이미 선택된 처방입니다') : (
+                                            setModalData({isOpen: false}),
+                                            setClinicNo( [...clinicNo,  pres]))
                                         }
                                     }}>
                                         <lable>{pres.kind}</lable>

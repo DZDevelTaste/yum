@@ -5,8 +5,9 @@ const disease = ({callback}) => {
     const [modalData, setModalData] = useState({isOpen: false})
     const [diseases, setDiseases] = useState([]);
     const [keyword, setKeyword] = useState('');
-    const [presDiseases, setPresDiseases] = useState([]);
-    const [diseaseNo, setDiseaseNo] = useState([]);     //value for insert
+    const [changeValue, setChangeValue] = useState(0);
+
+    const [presDiseases, setPresDiseases] = useState([]); // value for insert
 
     const divStyle = {
         display: 'inline-block',
@@ -22,8 +23,13 @@ const disease = ({callback}) => {
     }, [keyword])
 
     useEffect(() => {
-        callback(diseaseNo);
-    }, [diseaseNo])
+        callback(presDiseases);
+        // setPresDiseases(presDiseases);
+    }, [presDiseases])
+
+    useEffect(()=>{
+        setPresDiseases(presDiseases)
+    }, [changeValue])
 
     const fetchDisease = async() => {
         try {
@@ -43,13 +49,12 @@ const disease = ({callback}) => {
 
             const json = await response.json();
 
-            setDiseases([...json.data,...diseases]);
+            setDiseases([...json.data, ...diseases]);
 
         } catch (error) {
             console.error(error);
         }
     }
-
 
     return (
         <div style={divStyle}>
@@ -70,6 +75,15 @@ const disease = ({callback}) => {
                                 <span>{presDisease.no}</span>
                                 <span>{presDisease.code}</span>
                                 <span>{presDisease.name}</span>
+                                <button onClick={() => {
+                                    if(confirm(`${presDisease.name} 병명을 삭제하시겠습니까?`) == true){
+                                        console.log(presDiseases.indexOf(presDisease));
+                                        presDiseases.splice(presDiseases.indexOf(presDisease), 1)
+                                        setChangeValue(changeValue + 1);
+                                    }
+                                }}>
+                                        삭제
+                                </button>
                             </div>
                         )
                     }) 
@@ -78,7 +92,7 @@ const disease = ({callback}) => {
             <Modal isOpen={modalData.isOpen} 
                 ariaHideApp={false} 
                 overlayClassName="overlay"
-                style={{position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+                style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
                 
                 <div>병명 <button onClick={() => setModalData({isOpen: false})}>X</button></div>
                 <div><input type='text'  onChange={ e => setKeyword(e.target.value)}  /></div>
@@ -94,15 +108,13 @@ const disease = ({callback}) => {
                                         return (
                                             <div onClick={ () => {
                                                     if(presDiseases.includes(disease)){
-                                                        console.log(presDiseases);
                                                         alert('이미 선택된 질병입니다');
                                                     } else{
                                                         setModalData({isOpen: false});
+                                                        disease.diseaseNo = disease.no;
+                                                        delete disease.no;
                                                         setPresDiseases([...presDiseases, disease]);
-                                                        setDiseaseNo([...diseaseNo, disease.no]);
-                                                        // console.log(diseaseNo)
-                                                    }
-                                                    }}>
+                                                    }}}>
                                                 <label>{`${disease.code}`}</label>
                                                 <label>{`${disease.name}`}</label>
                                             </div>
