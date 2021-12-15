@@ -18,12 +18,12 @@
 	</insert>
 	<update id="updateSchedule" parameterType="schedulevo">
 		<![CDATA[
-			 UPDATE "schedule" SET title = #{title}, start = to_date(#{start}, 'YYYY-MM-DD'), "end" = to_date(#{end}, 'YYYY-MM-DD') WHERE user_no = #{userNo}
+			 UPDATE "schedule" SET title = #{title} and start = to_date(#{start}, 'YYYY-MM-DD') and "end" = to_date(#{end}, 'YYYY-MM-DD') WHERE user_no = #{userNo}
 		]]>
 	</update>
 	<delete id="deleteSchedule" parameterType="schedulevo">
 		<![CDATA[
-			DELETE FROM "schedule" WHERE user_no = #{userNo}, start = to_date(#{start}, 'YYYY-MM-DD'), "end" = to_date(#{end}, 'YYYY-MM-DD')
+			DELETE FROM "schedule" WHERE user_no = #{userNo} and start = to_date(#{start}, 'YYYY-MM-DD') and "end" = to_date(#{end}, 'YYYY-MM-DD')
 		]]>
 	</delete>
 </mapper>

@@ -19,7 +19,7 @@ const Schedule = () => {
   const [end, setEnd] = useState('');
   const nowTime = moment().format('YYYY-MM-DD');
   
-  const no = 16;
+  const no = parseInt(sessionStorage.getItem("no"));
   
   useEffect(() => {
       setTitle(schedule1Vo ? schedule1Vo.title : '')

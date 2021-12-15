@@ -37,7 +37,7 @@ const SearchId = () => {
     
     const fetchJoin = async() => {
         try {
-            const response = await fetch(`http://localhost:8080/api/successId`, {
+            const response = await fetch('/api/successId', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const SearchId = () => {
             }
 
             console.log(json.data);
-            
+              
             let no = json.data.no;
             
             location.href= '/successId/' + no;

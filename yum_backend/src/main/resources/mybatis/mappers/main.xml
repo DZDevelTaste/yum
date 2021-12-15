@@ -21,6 +21,11 @@
 			SELECT "no", email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn} and "email" = #{email}
 		]]>
 	</select>
+	<select id="getUser" parameterType="map" resultType="uservo">
+		<![CDATA[
+			SELECT "no", name, job FROM "user" WHERE "email" = #{email} and password = #{password}
+		]]>
+	</select>
 	<update id="updatePw" parameterType="uservo">
 		<![CDATA[
 			UPDATE "user" SET password = #{password} WHERE "no" = #{no}

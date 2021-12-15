@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ant.yum.dto.JsonResult;
+import ant.yum.security.AuthUser;
 import ant.yum.service.MainService;
 import ant.yum.vo.UserVo;
 
@@ -52,5 +53,15 @@ public class MainController {
 		
 		return JsonResult.success(userVo);
 	}
+	
+	@PostMapping("/user/auth")
+	public JsonResult auth(@AuthUser UserVo authUser) {
+		System.out.println(authUser);
 
+		return JsonResult.success(authUser);
+	}
+
+	@GetMapping("/user/logout")
+	public void logout() {
+	}
 }

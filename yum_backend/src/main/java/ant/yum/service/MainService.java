@@ -46,4 +46,7 @@ public class MainService {
     public UserVo findByNo(int no) {
         return mainRepository.findByNoMedicine(no);
     }
+    public UserVo getUser(String email, String password) {
+        return mainRepository.getUser(email, password);
+    }
 }

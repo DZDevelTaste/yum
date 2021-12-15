@@ -1,5 +1,8 @@
 package ant.yum.repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,5 +32,11 @@ public class MainRepository {
 	}
     public UserVo findByNoMedicine(int no) {
         return sqlSession.selectOne("main.findByNo", no);
+    }
+    public UserVo getUser(String email, String password) {
+        Map<String, String> map = new HashMap<>();
+		map.put("email", email);
+		map.put("password", password);
+		return sqlSession.selectOne("main.getUser", map);
     }
 }

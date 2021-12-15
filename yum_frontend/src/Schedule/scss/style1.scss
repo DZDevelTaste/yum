@@ -29,8 +29,7 @@
       background-color: rgba(255, 220, 40, 0.15);
       background-color: var(--fc-today-bg-color, rgba(255, 220, 40, 0.15));
     }
-    :global(.fc-daygrid-number.fc-sat.fc-past) { color:#0000ff; }
-    :global(.fc-daygrid-number.fc-sun.fc-past) { color:#FF0000; }
+    
     :global(.fc-daygrid-day-frame) {
       position: relative;
       height: 200px;
@@ -54,8 +53,20 @@
       position: relative;
       z-index: 4;
       padding: 4px;
+      
     }
-  
+    :global(.fc-daygrid-day.fc-day.fc-day-sat) {
+      position: relative;
+      z-index: 4;
+      padding: 4px;
+      color: #0000FF
+    }
+    :global(.fc-daygrid-day.fc-day.fc-day-sun) {
+      position: relative;
+      z-index: 4;
+      padding: 4px;
+      color: #FF0000
+    }
     /* event container */
   
     :global(.fc-daygrid-day-events) {
