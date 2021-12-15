@@ -4,9 +4,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import Modal from 'react-modal';
-import './scss/styles.scss';
-import './scss/style1.scss';
-import './scss/style2.scss';
+import '../assets/scss/schedule/styles.scss';
+import '../assets/scss/schedule/style1.scss';
+import '../assets/scss/schedule/style2.scss';
 import moment from 'moment';
 
 const Schedule = () => {

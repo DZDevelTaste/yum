@@ -11,6 +11,10 @@ const Main = () => {
         password : password
     }
     
+    console.log(sessionStorage.getItem("no"));
+    console.log(sessionStorage.getItem("name"));
+    console.log(sessionStorage.getItem("job"));
+
     // 이메일 유효성 검사
     const checkEmail = (e) => {
         var regExp = /^[a-zA-Z0-9+-\_.]/i;
@@ -68,6 +72,9 @@ const Main = () => {
             sessionStorage.setItem("name", json.data.name);
             sessionStorage.setItem("job", json.data.job);
 
+            console.log(sessionStorage.getItem("no"));
+            console.log(sessionStorage.getItem("name"));
+            console.log(sessionStorage.getItem("job"));
             if(json.data.job == 'N') {
                 
                 location.href = '/nurse'
@@ -101,6 +108,7 @@ const Main = () => {
                 </label>
                 <label>비밀번호<input type="password" name="password" placeholder='PASSWORD' onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)}/></label>
                 <input type="submit" value="로그인"/>
+                
             </form>
                 <ul>
                     <li><NavLink to={'/join'}>회원가입</NavLink></li>
