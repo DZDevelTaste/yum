@@ -8,7 +8,8 @@
 		from "order" t1, patient t2, order_state t3
 		where t1.patient_no = t2."no"
 			and t1.orderstate_no = t3."no"
-			and orderstate_no = 2
+			and orderstate_no in (2, 3)
+		order by orderstate_no desc
 		]]>
 	</select>
 
@@ -28,11 +29,11 @@
 		]]>
 	</select>
 	
-	<update id="updateState" parameterType="map">
+	<update id="updateState" parameterType="ordervo">
 		<![CDATA[
 			update "order"
-			set orderstate_no = #{orderstateNo }
-			where no = #{no }
+			set orderstate_no = #{orderstateNo}
+			where no = #{no}
 		]]>
 	</update>
 	

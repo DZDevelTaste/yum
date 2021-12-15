@@ -29,8 +29,8 @@ public class OrderService {
 		return orderRepository.findByPatientNo(patientNo);
 	}
 
-	public void updateState(OrderVo orderVo) {
-		orderRepository.updateState(orderVo);
+	public void updateState(OrderVo updateOrderVo) {
+		orderRepository.updateState(updateOrderVo);
 	}
 
 	public OrderVo findByOrderNo(int orderNo) {

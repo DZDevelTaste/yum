@@ -63,9 +63,10 @@ public class doctorController {
 		return JsonResult.success(patientInfoMap);
 	}
 
-	@GetMapping("/updateState")
+	@PostMapping("/updateState")
 	public void updateState(@RequestBody OrderVo orderVo) {
-
+		System.out.println(orderVo);
+		orderVo.setOrderstateNo(3);
 		// 환자의 상태를 진료 대기중에서 진료중으로 변경
 		orderService.updateState(orderVo);
 	}
@@ -73,7 +74,10 @@ public class doctorController {
 	@PostMapping("/finishDiagnosis")
 	public void finishDiagnosis(@RequestBody DiagnosisVo diagnosisVo) {
 
+		System.out.println(diagnosisVo);
+
 		OrderVo orderVo = orderService.findByOrderNo(diagnosisVo.getOrderNo());
+		orderVo.setOrderstateNo(4);
 
 		// 1. 해당 진료를 수납 대기중으로 상태 변경
 		orderService.updateState(orderVo);
