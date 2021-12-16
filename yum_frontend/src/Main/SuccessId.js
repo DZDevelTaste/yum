@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import style from '../assets/scss/main/successId.scss';
 const SuccessId = () => {
     const [users, setUsers] = useState([]);
     const current = decodeURI(window.location.href);
@@ -41,11 +42,12 @@ const SuccessId = () => {
     }
     return (
         <div>
-            <h1>아이디 찾기 완료</h1>
-		    <label>{`${users.name}님의 아이디는 ${users.email}입니다.`}</label>
-            <li><NavLink to={'/'}>로그인</NavLink></li>
-            <li><NavLink to={'/join'}>회원가입</NavLink></li>
-            <li><NavLink to={'/searchPw'}>비밀번호 찾기</NavLink></li>
+            <div className={style.header}>아이디 찾기 완료</div>
+		    <div className={style.bodyy}>{`${users.name}님의 아이디는 ${users.email}입니다.`}</div>
+            <ul>
+                <li className={style.login}><NavLink to={'/'}>로그인</NavLink></li>
+                <li className={style.searchPw}><NavLink to={'/searchPw'}>비밀번호 찾기</NavLink></li>
+            </ul>
         </div>
     );
 };

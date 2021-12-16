@@ -8,6 +8,7 @@ import '../assets/scss/schedule/styles.scss';
 import '../assets/scss/schedule/style1.scss';
 import '../assets/scss/schedule/style2.scss';
 import moment from 'moment';
+import Navigation from '../layout/Navigation'
 
 const Schedule = () => {
   const [scheduleVo, setScheduleVo] = useState([]);
@@ -27,15 +28,6 @@ const Schedule = () => {
       setEnd(schedule1Vo ? schedule1Vo.end : '')
   }, [schedule1Vo])
   
-  const titleValueChange = (e) => {
-    setTitle(e.target.value);
-  }
-  const startValueChange = (e) => {
-    setStart(e.target.value);
-  }
-  const endValueChange = (e) => {
-    setEnd(e.target.value);
-  }
   let MySchedule = {
       title: title,
       start: start,
@@ -187,16 +179,15 @@ const fetchdelete = async() => {
     if(title2 == 1) {
         document.getElementById('title').disabled = false;
         document.getElementById('title').value='';
-        setTitle(document.getElementById('title').value);
     } else {
         document.getElementById('title').disabled = true;
         document.getElementById('title').value=title2;
-        setTitle(document.getElementById('title').value);
     }
 };
   return (
     <div>
-      <FullCalendar 
+        <Navigation />
+        <FullCalendar 
         themeSystem="themeSystem"
         headerToolbar={{
           center: 'dayGridMonth,timeGridWeek,timeGridDay',
@@ -225,7 +216,7 @@ const fetchdelete = async() => {
             <form method='post' onSubmit={update}>
               <div style={{zIndex: '9999'}}>
                   
-                  <input type="text" id="title" name="title" value={title} onChange={titleValueChange}/>
+                  <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
                   <label><select id="title1" name="title1" onChange={titleChange}>
                       <option value="1">직접입력</option>
                       <option value="병가">병가</option>
@@ -235,9 +226,9 @@ const fetchdelete = async() => {
                       <option value="백신 휴가">백신휴가</option>
                   </select></label>
                   <br></br>
-                  <label><input type='date' min={nowTime} value={start} onChange={startValueChange}/>시작일</label>
+                  <label><input type='date' min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>시작일</label>
                   <br></br>
-                  <label><input type='date' min={nowTime} value={end} onChange={endValueChange}/>종료일</label>
+                  <label><input type='date' min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>종료일</label>
               </div>
               <input type="submit" value="수정" />
               <input type="button" value="삭제" onClick={scheduleDelete}/>
@@ -248,7 +239,7 @@ const fetchdelete = async() => {
           <button onClick={() => setModalData({isOpen: false})}>X</button>
             <form method='post' onSubmit={pushSchedule}>
               <div style={{zIndex: '9999'}}>
-                  <input type="text" id="title" name="title" onChange={titleValueChange} required/>
+                  <input type="text" id="title" name="title" onChange={(e) => setTitle(e.target.value)} required/>
                   <label><select id="title1" name="title1" onChange={titleChange}>
                       <option value="1">직접입력</option>
                       <option value="병가">병가</option>
@@ -258,9 +249,9 @@ const fetchdelete = async() => {
                       <option value="백신 휴가">백신휴가</option>
                   </select></label>
                   <br></br>
-                  <label><input type='date' min={nowTime} value={start} onChange={startValueChange}/>시작일</label>
+                  <label><input type='date' min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>시작일</label>
                   <br></br>
-                  <label><input type='date' min={nowTime} value={end} onChange={endValueChange}/>종료일</label>
+                  <label><input type='date' min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>종료일</label>
               </div>
               <input type="submit" value="등록" />
             </form>

@@ -11,30 +11,6 @@ const MedicineInfo = ({no}) => {
     const [caution, setCaution] = useState('');
     const [sideEffect, setSideEffect] = useState('');
 
-    const codeChange = (e) => {
-        setCode(e.target.value);
-    }
-    const nameChange = (e) => {
-        setName(e.target.value);
-    }
-    const companyChange = (e) => {
-        setCompany(e.target.value);
-    }
-    const ingredientChange = (e) => {
-        setIngredient(e.target.value);
-    }
-    const efficacyChange = (e) => {
-        setEfficacy(e.target.value);
-    }
-    const precautionChange = (e) => {
-        setPrecaution(e.target.value);
-    }
-    const cautionChange = (e) => {
-        setCaution(e.target.value);
-    }
-    const sideEffectChange = (e) => {
-        setSideEffect(e.target.value);
-    }
 
     useEffect(() => {
         setCode(medicineVo ? medicineVo.code : '')
@@ -68,6 +44,7 @@ const MedicineInfo = ({no}) => {
         caution: caution,
         sideEffect: sideEffect
     }
+
     useEffect(() => {
         fetchInfo(no);
     }, [no]); 
@@ -105,11 +82,7 @@ const MedicineInfo = ({no}) => {
         alert("의약품 정보가 수정되었습니다");
         fetchupdate();
     } 
-    const addMedicine = (e) => {
-        e.preventDefault();
-        alert("의약품이 등록되었습니다.");
-        fetchadd();
-    }
+    
     const fetchupdate = async() => {
 
         try {
@@ -135,6 +108,13 @@ const MedicineInfo = ({no}) => {
             console.error(error);
         }
     }
+
+    const addMedicine = (e) => {
+        e.preventDefault();
+        alert("의약품이 등록되었습니다.");
+        fetchadd();
+    }
+
     const fetchadd = async() => {
 
         try {
@@ -160,49 +140,50 @@ const MedicineInfo = ({no}) => {
             console.error(error);
         }
     }
+    
     return (
         <div>
             의약품 정보
             { medicineVo ?
                 <form method='post' onSubmit={updateMedicine} >
                     <label>의약품 코드</label>
-                    <input type="text" onChange={codeChange} value={code}/>
+                    <input type="text" onChange={(e) => setCode(e.target.value)} value={code}/>
                     <label>의약품 명</label>
-                    <input type="text" onChange={nameChange} value={name}/>
+                    <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
                     <label>제조사</label>
-                    <input type="text" onChange={companyChange} value={company}/>
+                    <input type="text" onChange={(e) => setCompany(e.target.value)} value={company}/>
                     <label>성분</label>
-                    <input type="text" onChange={ingredientChange} value={ingredient}/>
+                    <input type="text" onChange={(e) => setIngredient(e.target.value)} value={ingredient}/>
                     <label>상세 설명
                         <label>① 효능</label>
-                        <input type="text" onChange={efficacyChange} value={efficacy}/>
+                        <input type="text" onChange={(e) => setEfficacy(e.target.value)} value={efficacy}/>
                         <label>② 복용 전 주의사항</label>
-                        <input type="text" onChange={precautionChange} value={precaution}/>
+                        <input type="text" onChange={(e) => setPrecaution(e.target.value)} value={precaution}/>
                         <label>③ 복용 시 주의사항</label>
-                        <input type="text" onChange={cautionChange} value={caution}/>
+                        <input type="text" onChange={(e) => setCaution(e.target.value)} value={caution}/>
                         <label>④ 부작용</label>
-                        <input type="text" onChange={sideEffectChange} value={sideEffect}/>
+                        <input type="text" onChange={(e) => setSideEffect(e.target.value)} value={sideEffect}/>
                     </label>
                     <input type="submit" value="수정" />
                 </form> : 
                 <form method='post' onSubmit={addMedicine} >
                 <label>의약품 코드</label>
-                <input type="text" onChange={codeChange} />
+                <input type="text" onChange={(e) => setCode(e.target.value)} />
                 <label>의약품 명</label>
-                <input type="text" onChange={nameChange} />
+                <input type="text" onChange={(e) => setName(e.target.value)} />
                 <label>제조사</label>
-                <input type="text" onChange={companyChange} />
+                <input type="text" onChange={(e) => setCompany(e.target.value)} />
                 <label>성분</label>
-                <input type="text" onChange={ingredientChange} />
+                <input type="text" onChange={(e) => setIngredient(e.target.value)} />
                 <label>상세 설명
                     <label>① 효능</label>
-                    <input type="text" onChange={efficacyChange} />
+                    <input type="text" onChange={(e) => setEfficacy(e.target.value)} />
                     <label>② 복용 전 주의사항</label>
-                    <input type="text" onChange={precautionChange} />
+                    <input type="text" onChange={(e) => setPrecaution(e.target.value)} />
                     <label>③ 복용 시 주의사항</label>
-                    <input type="text" onChange={cautionChange} />
+                    <input type="text" onChange={(e) => setCaution(e.target.value)} />
                     <label>④ 부작용</label>
-                    <input type="text" onChange={sideEffectChange} />
+                    <input type="text" onChange={(e) => setSideEffect(e.target.value)} />
                 </label>
                 <input type="submit" value="등록" />
             </form>

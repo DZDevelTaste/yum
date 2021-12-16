@@ -48,16 +48,7 @@ const MedicineMain = () => {
             <h1>관리자 약품 리스트</h1>
             <MedicineSearch  keyword={keyword} callback={notifyKeywordChanged}  />
             <div>
-            {
-            /*
-            <form method='post' onSubmit={push}>
-                <input type='text' onChange={codeChange} placeholder='질병 코드'/>
-                <input type='text' onChange={nameChange} placeholder='질병 명'/>
-                <input type='text' onChange={engNameChange} placeholder='질병 명 (영문)'/>
-                <input type="submit" value="질병 추가" />
-            </form>
-            */
-            }
+    
             <div>
                 <label>의약품 코드 </label>
                 <label>의약품 명 </label>
@@ -69,7 +60,6 @@ const MedicineMain = () => {
                         return (
                             <div>
                                 <div onClick={() => setNo(medicine.no)}>
-                                    <label>{`${medicine.no}`} </label>
                                     <label>{`${medicine.code}`} </label>
                                     <label>{`${medicine.name}`} </label>
                                 </div>

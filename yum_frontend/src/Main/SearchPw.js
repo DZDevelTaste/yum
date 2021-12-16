@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import style from '../assets/scss/main/searchPw.scss'
 // 이메일 유효성 검사
 
 const SearchPw = () => {
@@ -9,27 +10,10 @@ const SearchPw = () => {
     const [email, setEmail] = useState('');
     const [email1, setEmail1] = useState('');
 
-    const emailChange = (e) => {
-        setEmail(e.target.value);
-    }
-    const email1Change = (e) => {
-        setEmail1(e.target.value);
-    }
-    const nameChange = (e) => {
-        setName(e.target.value);
-    }
-    const rrnChange = (e) => {
-        setRrn(e.target.value);
-    }
-    const rrn1Change = (e) => {
-        setRrn1(e.target.value);
-    }
     let user = {
-        email: email,
-        email1: email1,
+        email: email +"@"+ email1,
         name: name,
-        rrn: rrn,
-        rrn1: rrn1
+        rrn: rrn + "-" + rrn1,
     }
     const login1 = (e) => {
         e.preventDefault();
@@ -43,8 +27,7 @@ const SearchPw = () => {
         }  if(rrn === ''){
             alert('주민등록번호를 입력해주세요');
             return false;
-        }
-        if(email === ''){
+        }  if(email === ''){
             alert('아이디를 입력해주세요');
             return false;
         }
@@ -52,6 +35,7 @@ const SearchPw = () => {
         
     };
     const fetchJoin = async() => {
+        alert(user.email + "===" + user.name + "==="+ user.rrn)
         try {
             const response = await fetch(`http://localhost:8080/api/successPw`, {
                 method: 'post',
@@ -72,6 +56,7 @@ const SearchPw = () => {
                 alert("잘못된 정보입니다.");
                 document.getElementById('id').value='';
                 document.getElementById('id1').value='';
+                document.getElementById('id2').value='1';
                 document.getElementById('name').value='';
                 document.getElementById('rrn').value='';
                 document.getElementById('rrn1').value='';
@@ -105,11 +90,10 @@ const SearchPw = () => {
         if(email2 == 1) {
             document.getElementById('id1').disabled = false;
             document.getElementById('id1').value='';
-            setEmail1(document.getElementById('id1').value);
         } else {
             document.getElementById('id1').disabled = true;
             document.getElementById('id1').value=email2;
-            setEmail1(document.getElementById('id1').value);
+            setEmail1(email2);
         }
     };
     // 주민등록번호 유효성
@@ -137,31 +121,37 @@ const SearchPw = () => {
     };
     return (
         <div>
-            <h1>비밀번호 찾기</h1>
+            <div className={style.header}>
+                비밀번호 찾기
+            </div>
             <form method="post" onSubmit={login1} >
+                <div className={style.name}>
                     <label>이름</label>
-                    <input type="text" name="name" id="name" placeholder="이름" onChange={nameChange}/>
-                    <label>아이디</label>
-                    <input type="text" name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={emailChange}/>
-                    <label>@</label>
-                    <input type="text" id="id1" name="email1" onChange={email1Change}/>
-                    <label><select id="id2" name="email1" onChange={email_check}>
+                    <input type="text" name="name" id="name" placeholder="이름" onChange={(e) => setName(e.target.value)}/>
+                </div>
+                <div className={style.email}>
+                    <label>이메일</label>
+                    <input type="text" className={style.email1} name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={(e) => setEmail(e.target.value)}/>
+                    <span>@</span>
+                    <input type="text" className={style.email2} id="id1" name="email1" onChange={(e) => setEmail1(e.target.value)}/>
+                    <select id="id2" name="email1" defaultValue="1" onChange={email_check}>
                             <option value="1">직접입력</option>
                             <option value="naver.com">naver.com</option>
                             <option value="nate.com">nate.com</option>
                             <option value="gmail.com">gmail.com</option>
                             <option value="yahoo.com">yahoo.com</option>
                             <option value="hanmail.net">hanmail.net</option>
-                    </select></label>
+                    </select>
+                </div>
+                <div className={style.rrn}>
                     <label>주민등록번호</label>
-                    <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={rrnChange}/>
-                    <label>-</label>
-                    <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={rrn1Change}/>
+                    <input type="text" className={style.rrn1} name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={(e) => setRrn(e.target.value)}/>
+                    <span>-</span>
+                    <input type="password" className={style.rrn2} name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={(e) => setRrn1(e.target.value)}/>
                     <input type="submit" value="비밀번호 찾기"/>
+                </div>
             </form>      
-            <li><NavLink to={'/'}>로그인</NavLink></li>
-            <li><NavLink to={'/join'}>회원가입</NavLink></li>
-            <li><NavLink to={'/searchId'}>아이디 찾기</NavLink></li>
+            <ui className={style.login}><NavLink to={'/'}>로그인</NavLink></ui>
         </div>
     );
 };

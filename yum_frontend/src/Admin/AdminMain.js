@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AdminSearch from './AdminSearch';
+import Navigation from '../layout/Navigation';
 const AdminMain = () => {
     const [users, setUsers] = useState([]);
     const [check, setCheck] = useState([]);
@@ -8,10 +9,7 @@ const AdminMain = () => {
     const notifyKeywordChanged = (keyword) => {
         setKeyword(keyword);
       };
-    const checkChange = (e) => {
-        setCheck(e.target.value);
-    }
-
+    
     let Check ={
         no: check
     }
@@ -103,6 +101,7 @@ const AdminMain = () => {
     
     return (
         <div>
+            <Navigation />
             <h1>관리자 유저 리스트</h1>
             <AdminSearch keyword={keyword} callback={notifyKeywordChanged}/>
             <div>
@@ -121,7 +120,7 @@ const AdminMain = () => {
                     .map(user => {
                     return (
                         <div>
-                            <input type="checkbox" name="checkList" value={`${user.no}`}  onChange={checkChange}/>
+                            <input type="checkbox" name="checkList" value={`${user.no}`}  onChange={(e) => setCheck(e.target.value)}/>
                             <label>{`${user.no}`}   </label>
                             <label>{`${user.name}`} </label>
                             <label>{`${user.email}`}    </label>

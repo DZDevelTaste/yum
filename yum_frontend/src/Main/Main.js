@@ -1,59 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import React, {useState} from 'react';
+import {NavLink} from 'react-router-dom';
+import style from '../assets/scss/main/main.scss'
 
 const Main = () => {
     const [email, setEmail] = useState('');
-    const [email1, setEmail1] = useState('');
     const [password, setPassword] = useState('');
 
     let InfomationUser = {
-        email : email + "@" + email1,
+        email : email,
         password : password
     }
-    
-    console.log(sessionStorage.getItem("no"));
-    console.log(sessionStorage.getItem("name"));
-    console.log(sessionStorage.getItem("job"));
 
-    // 이메일 유효성 검사
-    const checkEmail = (e) => {
-        var regExp = /^[a-zA-Z0-9+-\_.]/i;
-        
-        if(!regExp.test(e.target.value)) {
-            alert("잘못된 이메일 형식입니다.");
-            document.getElementById('id').focus;
-        }
-    };
-    // 이메일 select박스 값 집어넣기
-    const email_check = () => {
-        var email1 = document.getElementById('id1').value;
-        var email2 = document.getElementById('id2').value;
-
-        if(email2 == 1) {
-            document.getElementById('id1').disabled = false;
-            document.getElementById('id1').value='';
-            setEmail1(document.getElementById('id1').value);
-        } else {
-            document.getElementById('id1').disabled = true;
-            document.getElementById('id1').value=email2;
-            setEmail1(document.getElementById('id1').value);
-        }
-    };
-    //비밀번호 유효성 검사
-    const checkPassword = (e) => {
-        //  8 ~ 10자 영문, 숫자 조합
-        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
-
-        if(!regExp.test(e.target.value)) {
-            alert("잘못된 비밀번호 형식입니다.");
-        }
-        
-    };
-   
     const LoginSuccess = async(e) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/user/auth', {
+            const response = await fetch('http://localhost:8080/api/user/auth', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,6 +22,7 @@ const Main = () => {
                 },
                 body: JSON.stringify(InfomationUser)
             });
+            console.log(response);
             if(!response.ok) {
                 throw new Error(`${response.status} ${response.statusText}`);
             }
@@ -81,7 +43,7 @@ const Main = () => {
             } else if(json.data.job == 'D') {
                 
                 location.href = '/doctor'
-            } else {
+            } else if(json.data.job == 'A'){
               
                 location.href = '/admin'
             }
@@ -91,33 +53,17 @@ const Main = () => {
         }
     }
     return (
-        <div>
+        <div className={style.main}>
             <form method="post" onSubmit={LoginSuccess}>
-                <label>아이디
-                    <input type="text" name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={(e) => setEmail(e.target.value)}/>
-                    @
-                    <input type="text" id="id1" name="email1" onChange={(e) => setEmail1(e.target.value)}/>
-                    <select id="id2" name="email1" onChange={email_check}>
-                        <option value="1">직접입력</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="nate.com">nate.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="yahoo.com">yahoo.com</option>
-                        <option value="hanmail.net">hanmail.net</option>
-                    </select>
-                </label>
-                <label>비밀번호<input type="password" name="password" placeholder='PASSWORD' onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)}/></label>
-                <input type="submit" value="로그인"/>
+                <input type="text" className={style.id} name ="email" id="id" placeholder="ID" onChange={(e) => setEmail(e.target.value)}/>
+                <input type="password" className={style.pw} id="pw" name="password" placeholder='PASSWORD' onChange={(e) => setPassword(e.target.value)}/> 
+                <input type="submit" id="submit" className={style.login} value="로그인"/>
                 
             </form>
                 <ul>
-                    <li><NavLink to={'/join'}>회원가입</NavLink></li>
-                    <li><NavLink to={'/searchId'}>아이디 찾기</NavLink></li>
-                    <li><NavLink to={'/searchPw'}>비밀번호 찾기</NavLink></li>
-                    <li><NavLink to={'/admin'}>관리자</NavLink></li>
-                    <li><NavLink to={'/admin/disease'}>관리자(병)</NavLink></li>
-                    <li><NavLink to={'/admin/medicine'}>관리자(약품)</NavLink></li>
-                    <li><NavLink to={'/Schedule'}>스케쥴 관리</NavLink></li>
+                    <li className={style.join}><NavLink to={'/join'}>회원가입</NavLink></li>
+                    <li className={style.searchId}><NavLink to={'/searchId'}>아이디 찾기</NavLink></li>
+                    <li className={style.searchPw}><NavLink to={'/searchPw'}>비밀번호 찾기</NavLink></li>
                 </ul>
         </div>
     );

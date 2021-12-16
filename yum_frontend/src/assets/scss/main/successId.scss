@@ -1,0 +1,116 @@
+.header {
+    position: absolute;
+    width: 320px;
+    height: 42px;
+    left: 821px;
+    top: 271px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1em;
+
+    color: #000000;
+}
+
+.bodyy {
+    position: absolute;
+    width: 230px;
+    left: 42.12%;
+    right: 43.18%;
+    top: 45.35%;
+    bottom: 43.65%;
+    padding: 50px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #000000;
+    
+    color: #333333;
+}
+
+.login {
+    /* 로그인 */
+    /* Auto Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0px;
+
+    position: absolute;
+    width: 215px;
+    height: 60px;
+    left: 755px;
+    top: 700px;
+
+    /* Inside Auto Layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 1;
+    margin: 0px 0px;
+
+    background: #6599FF;
+    border-radius: 8px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.1em;
+
+    a {
+        color: #FFFFFF;
+    }
+
+}
+
+.searchPw {
+    /* 비밀번호 */
+    /* Auto Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0px;
+
+    position: absolute;
+    width: 215px;
+    height: 60px;
+    left: 1000px;
+    top: 700px;
+
+    /* Inside Auto Layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 1;
+    margin: 0px 0px;
+
+    background: #6599FF;
+    border-radius: 8px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    a {
+    color: #FFFFFF;
+    }
+}

@@ -1,24 +1,15 @@
 import React, {useState} from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import style from '../assets/scss/main/searchId.scss'
 
 const SearchId = () => {
     const [name, setName] = useState('');
     const [rrn, setRrn] = useState('');
     const [rrn1, setRrn1] = useState('');
 
-    const nameChange = (e) => {
-        setName(e.target.value);
-    }
-    const rrnChange = (e) => {
-        setRrn(e.target.value);
-    }
-    const rrn1Change = (e) => {
-        setRrn1(e.target.value);
-    }
     let user = {
         name: name,
-        rrn: rrn,
-        rrn1: rrn1
+        rrn: rrn + "-"+ rrn1,
     }
     const login1 = (e) => {
         e.preventDefault();
@@ -70,6 +61,7 @@ const SearchId = () => {
             console.error(error);
         }
     }
+    
     // 주민등록번호 유효성
     const rrn_check = () => {
         var rrn = document.getElementById('rrn').value;
@@ -95,19 +87,22 @@ const SearchId = () => {
     };
     return (
         <div>
-            <h1>아이디 찾기</h1>
+            <div className={style.header}>아이디 찾기</div>
                 <form method="post" onSubmit={login1} >
+                <div className={style.name}>
                     <label>이름</label>
-                    <input type="text" name="name" id="name" placeholder="이름" onChange={nameChange}/>
+                    <input type="text" name="name" id="name" placeholder="이름" onChange={(e) => setName(e.target.value)}/>
+                </div>
+                <div className={style.rrn}>
                     <label>주민등록번호</label>
-                    <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={rrnChange}/>
-                    <label>-</label>
-                    <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={rrn1Change}/>
+                    <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={(e) => setRrn(e.target.value)}/>
+                    <span>-</span>
+                    <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={(e) => setRrn1(e.target.value)}/>
                     <input type="submit" value="아이디 찾기"/>
+                </div>
                 </form>
-                <li><NavLink to={'/'}>로그인</NavLink></li>
-                <li><NavLink to={'/join'}>회원가입</NavLink></li>
-                <li><NavLink to={'/searchPw'}>비밀번호 찾기</NavLink></li>
+                <ui className={style.login}><NavLink to={'/'}>로그인</NavLink></ui>
+                <ui className={style.searchPw}><NavLink to={'/searchPw'}>비밀번호 찾기</NavLink></ui>
         </div>
     );
 };

@@ -47,7 +47,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		String email = obj.get("email").toString();
 		String password = obj.get("password").toString();
-
+		System.out.println("email ==" +email + "password ==" + password);
 		UserVo authUser = mainService.getUser(email, password);
 		if (authUser == null) {
 			request.setAttribute("result", "fail");
@@ -58,8 +58,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		// session 처리
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
-
+		System.out.println(authUser);
 		if(authUser != null) {
+			System.out.println("====================");
 			return true;
 		}
 

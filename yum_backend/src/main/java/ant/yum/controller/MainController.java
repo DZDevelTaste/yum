@@ -64,4 +64,18 @@ public class MainController {
 	@GetMapping("/user/logout")
 	public void logout() {
 	}
+
+	@GetMapping("/update/{no}")
+	public JsonResult logout(@PathVariable(value= "no") int no) {
+		UserVo userVo = mainService.findByNo(no);
+		
+		return JsonResult.success(userVo);
+	}
+
+	@PostMapping("/update")
+	public JsonResult updateInfo(@RequestBody UserVo userVo) {
+		mainService.updateInfo(userVo);
+		
+		return JsonResult.success(userVo);
+	}
 }

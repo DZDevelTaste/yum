@@ -39,4 +39,8 @@ public class MainRepository {
 		map.put("password", password);
 		return sqlSession.selectOne("main.getUser", map);
     }
+    public boolean updateInfo(UserVo userVo) {
+		int count = sqlSession.update("main.updateInfo", userVo);
+		return count == 1;
+    }
 }

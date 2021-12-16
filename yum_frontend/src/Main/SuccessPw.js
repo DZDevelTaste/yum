@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import style from '../assets/scss/main/successPw.scss';
+
 const SuccessPw = () => {
     const [users, setUsers] = useState([]);
     const [password, setPassword] = useState('');
@@ -7,9 +9,6 @@ const SuccessPw = () => {
     const search = current.split("/")[4];
     var no = parseInt(search);
     
-    const passwordChange = (e) => {
-        setPassword(e.target.value);
-    }
     let user = {
         no: no,
         password: password
@@ -101,18 +100,23 @@ const SuccessPw = () => {
 
     return (
         <div>
-            <h1>비밀번호 재설정</h1>
+            <div className={style.header}>비밀번호 재설정</div>
             <form method="post" onSubmit={login1} >
-                <label>{users.name}님의 {users.email}는 입니다.</label>
-                <label>비밀번호</label>
-                <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={passwordChange}/>
-                <label>비밀번호 확인</label>
-                <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword}/>&nbsp;<span id="check" />
-                <input type="submit" value="비밀번호 변경" />
+                <label className={style.name}>{users.name}님 {users.email}</label>
+                <div className={style.password}>
+                    <label>비밀번호</label>
+                    <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)}/>
+                </div>
+                <div className={style.check}>
+                    <label>비밀번호 확인</label>
+                    <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword}/>
+                    <span id="check" />
+                    <input type="submit" value="비밀번호 변경" />
+                </div>
 		    </form>
-            <li><NavLink to={'/'}>로그인</NavLink></li>
-            <li><NavLink to={'/join'}>회원가입</NavLink></li>
-            <li><NavLink to={'/searchId'}>아이디 찾기</NavLink></li>
+            <ul>
+                <ui className={style.login}><NavLink to={'/'}>로그인</NavLink></ui>
+            </ul>
         </div>
     );
 };

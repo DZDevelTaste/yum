@@ -15,6 +15,7 @@ import Schedule from './Schedule/Schedule';
 import Timer from './Timer';
 import Nurse from './Nurse';
 import Doctor from './Doctor';
+import Update from './Main/Update';
 
 const App = () => {
     return (
@@ -26,6 +27,7 @@ const App = () => {
                 <Route path='/searchPw' element={<SearchPw />}/>
                 <Route path='/successId/:no' element={<SuccessId />}/>
                 <Route path='/successPw/:no' element={<SuccessPw />}/>
+                <Route path='/update' element={<Update />}/>
                 <Route path='/admin' element={<AdminMain />}/>
                 <Route path='/admin/disease' element={<DiseaseMain />}/>
                 <Route path='/admin/medicine' element={<MedicineMain />}/>

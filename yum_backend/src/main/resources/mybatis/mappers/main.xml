@@ -13,7 +13,7 @@
 	</select>
 	<select id="findByNo" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			SELECT email, "name" FROM "user" WHERE "no" = #{ no }
+			SELECT email, "name", rrn, job, phone, address, gender FROM "user" WHERE "no" = #{no}
 		]]>
 	</select>
 	<select id="findIdByEmail" parameterType="uservo" resultType="uservo">
@@ -29,6 +29,11 @@
 	<update id="updatePw" parameterType="uservo">
 		<![CDATA[
 			UPDATE "user" SET password = #{password} WHERE "no" = #{no}
+		]]>
+	</update>
+	<update id="updateInfo" parameterType="uservo">
+		<![CDATA[
+			UPDATE "user" SET password = #{password}, phone = #{phone}, address = #{address} WHERE "no" = #{no}
 		]]>
 	</update>
 	<select id="findByAll" resultType="uservo">

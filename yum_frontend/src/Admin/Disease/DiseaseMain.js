@@ -10,18 +10,7 @@ const DiseaseMain = () => {
     
     const notifyKeywordChanged = (keyword) => {
         setKeyword(keyword);
-      };
-
-    const codeChange = (e) => {
-        setCode(e.target.value);
     };
-    const nameChange = (e) => {
-        setName(e.target.value);
-    };
-    const engNameChange = (e) => {
-        setEngName(e.target.value);
-    };
-   
 
     let put = {
         code: code,
@@ -98,9 +87,9 @@ const DiseaseMain = () => {
             <h1>관리자 질병 리스트</h1>
             <DiseaseSearch  keyword={keyword} callback={notifyKeywordChanged} />
                 <form method='post' onSubmit={push}>
-                    <input type='text' onChange={codeChange} placeholder='질병 코드'/>
-                    <input type='text' onChange={nameChange} placeholder='질병 명'/>
-                    <input type='text' onChange={engNameChange} placeholder='질병 명 (영문)'/>
+                    <input type='text' onChange={(e) => setCode(e.target.value)} placeholder='질병 코드'/>
+                    <input type='text' onChange={(e) => setName(e.target.value)} placeholder='질병 명'/>
+                    <input type='text' onChange={(e) => setEngName(e.target.value)} placeholder='질병 명 (영문)'/>
                     <input type="submit" value="질병 추가" />
                 </form>
             <div>
