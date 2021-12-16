@@ -1,0 +1,355 @@
+.wangBody {
+    width: 2000px;
+    height: 856px;
+    margin: 0 40px;
+
+    background: #F9F9F9;
+    .searchBar {
+        padding : 20px 0 20px 940px;
+        input {
+            width: 485px;
+            height: 45px;
+        }
+    }
+    .titles {
+        display: flex;
+        width: 1450px;
+        height: 25px;
+        padding: 0 0 10px 0;
+        .number {
+            width: 40px;
+            height: 21px;
+            padding: 0 0 0 67px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .name {
+            // position: absolute;
+            width: 40px;
+            height: 21px;
+            padding: 0 0 0 50px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .gender {
+            // position: absolute;
+            width: 40px;
+            height: 21px;
+            padding: 0 0 0 50px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .job {
+            // position: absolute;
+            width: 40px;
+            height: 21px;
+            padding: 0 0 0 50px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .rrn {
+            // position: absolute;
+            width: 120px;
+            height: 21px;
+            padding: 0 0 0 85px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .address {
+            // position: absolute;
+            width: 70px;
+            height: 21px;
+            padding: 0 0 0 210px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .phone{
+            // position: absolute;
+            width: 60px;
+            height: 21px;
+            padding: 0 0 0 240px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .auth {
+            // position: absolute;
+            width: 85px;
+            height: 21px;
+            padding: 0 0 0 150px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+    }
+    .smallBody {
+        width: 1440px;
+        height: 650px;
+        margin: 0 0 0 5px;        
+        background-color: #FFFFFF;
+        border: 3px solid #737373;
+        box-sizing: border-box;
+        .small{
+            display: flex;
+            align-items: center;
+            padding: 0 0 5px 0;
+            height: 40px;
+           
+            .checks {
+                // position: absolute;
+                width: 31px;
+                height: 31px;
+            }
+            .number {
+                // position: absolute;
+                width: 75px;
+                height: 21px;
+                padding: 0 0 0 10px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+    
+                color: #333333;
+            }
+            .name {
+                // position: absolute;
+                width: 60px;
+                height: 21px;
+                padding: 0 0 0 20px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+    
+                color: #333333;
+            }
+            .gender {
+                // position: absolute;
+                width: 20px;
+                height: 21px;
+                padding: 0 50px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+    
+                color: #333333;
+            }
+            .job {
+                // position: absolute;
+                width: 60px;
+                height: 21px;
+                
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+    
+                color: #333333;
+            }
+            .rrn {
+                // position: absolute;
+                width: 250px;
+                height: 21px;
+                padding: 0 0 0 25px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.05em;
+    
+                color: #333333;
+            }
+            .address {
+                // position: absolute;
+                width: 250px;
+                height: 21px;
+                padding: 0 0px 0 70px;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow: ellipsis;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.05em;
+                
+
+                color: #333333;
+            }
+            .phone {
+                // position: absolute;
+                width: 195.7px;
+                height: 21px;
+                padding: 0 30px 0 90px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.05em;
+    
+                color: #333333;
+            }
+            .auth {
+                width: 195.7px;
+                height: 21px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.05em;
+    
+                color: #333333;
+            }
+        }
+    }
+}

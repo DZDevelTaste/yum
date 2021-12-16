@@ -23,9 +23,9 @@ const navigation = () => {
             <NavLink to={'/schedule'}>스케쥴러</NavLink>
         </nav> : 
         <nav className={styles.Main}>
-        <NavLink to={'/admin'} end>메인</NavLink>
-        <NavLink to={'/admin/disease'}>질병 관리</NavLink>
-        <NavLink to={'/admin/medicine'}>약품 관리</NavLink>
+        <NavLink to={'/admin'} end>사용자 관리</NavLink>
+        <NavLink to={'/admin/disease'}>질병 리스트 관리</NavLink>
+        <NavLink to={'/admin/medicine'}>의약품 리스트 관리</NavLink>
         <NavLink to={'/schedule'}>스케쥴러</NavLink>
         </nav>
         }

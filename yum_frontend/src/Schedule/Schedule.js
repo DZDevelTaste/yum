@@ -9,6 +9,7 @@ import '../assets/scss/schedule/style1.scss';
 import '../assets/scss/schedule/style2.scss';
 import moment from 'moment';
 import Navigation from '../layout/Navigation'
+import SiteLayout from '../layout/SiteLayout';
 
 const Schedule = () => {
   const [scheduleVo, setScheduleVo] = useState([]);
@@ -185,78 +186,79 @@ const fetchdelete = async() => {
     }
 };
   return (
-    <div>
-        <Navigation />
-        <FullCalendar 
-        themeSystem="themeSystem"
-        headerToolbar={{
-          center: 'dayGridMonth,timeGridWeek,timeGridDay',
-        }
-        }
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]} 
-        initialView="dayGridMonth" 
-        customButtons={{
-          new: {
-            text: 'new',
-            click: () => console.log('new event')
-          },
-        }}
-        selectable= "true"
-        events={scheduleVo}
-        locale="ko"
-        nowIndicator
-        dateClick={(e) => {setStart(e.dateStr > nowTime ? e.dateStr : nowTime); setEnd(e.dateStr > nowTime ? e.dateStr : nowTime); setModalData({isOpen: true})} }
-        eventClick={(e) => {
-            selectScheduler(parseInt(e.event.id));
-            setModal1Data({isOpen: true});
-          } }/>
-          <Modal isOpen={modal1Data.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
-          휴가 수정
-          <button onClick={() => setModal1Data({isOpen: false})}>X</button>
-            <form method='post' onSubmit={update}>
-              <div style={{zIndex: '9999'}}>
-                  
-                  <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                  <label><select id="title1" name="title1" onChange={titleChange}>
-                      <option value="1">직접입력</option>
-                      <option value="병가">병가</option>
-                      <option value="휴가">휴가</option>
-                      <option value="연차">연차</option>
-                      <option value="공가">공가</option>
-                      <option value="백신 휴가">백신휴가</option>
-                  </select></label>
-                  <br></br>
-                  <label><input type='date' min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>시작일</label>
-                  <br></br>
-                  <label><input type='date' min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>종료일</label>
-              </div>
-              <input type="submit" value="수정" />
-              <input type="button" value="삭제" onClick={scheduleDelete}/>
-            </form>
-        </Modal> 
-        <Modal isOpen={modalData.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
-          휴가 등록
-          <button onClick={() => setModalData({isOpen: false})}>X</button>
-            <form method='post' onSubmit={pushSchedule}>
-              <div style={{zIndex: '9999'}}>
-                  <input type="text" id="title" name="title" onChange={(e) => setTitle(e.target.value)} required/>
-                  <label><select id="title1" name="title1" onChange={titleChange}>
-                      <option value="1">직접입력</option>
-                      <option value="병가">병가</option>
-                      <option value="휴가">휴가</option>
-                      <option value="연차">연차</option>
-                      <option value="공가">공가</option>
-                      <option value="백신 휴가">백신휴가</option>
-                  </select></label>
-                  <br></br>
-                  <label><input type='date' min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>시작일</label>
-                  <br></br>
-                  <label><input type='date' min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>종료일</label>
-              </div>
-              <input type="submit" value="등록" />
-            </form>
-        </Modal>
-    </div>
+      <SiteLayout>
+        <div>
+            <FullCalendar 
+            themeSystem="themeSystem"
+            headerToolbar={{
+            center: 'dayGridMonth,timeGridWeek,timeGridDay',
+            }
+            }
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]} 
+            initialView="dayGridMonth" 
+            customButtons={{
+            new: {
+                text: 'new',
+                click: () => console.log('new event')
+            },
+            }}
+            selectable= "true"
+            events={scheduleVo}
+            locale="ko"
+            nowIndicator
+            dateClick={(e) => {setStart(e.dateStr > nowTime ? e.dateStr : nowTime); setEnd(e.dateStr > nowTime ? e.dateStr : nowTime); setModalData({isOpen: true})} }
+            eventClick={(e) => {
+                selectScheduler(parseInt(e.event.id));
+                setModal1Data({isOpen: true});
+            } }/>
+            <Modal isOpen={modal1Data.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+            휴가 수정
+            <button onClick={() => setModal1Data({isOpen: false})}>X</button>
+                <form method='post' onSubmit={update}>
+                <div style={{zIndex: '9999'}}>
+                    
+                    <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                    <label><select id="title1" name="title1" onChange={titleChange}>
+                        <option value="1">직접입력</option>
+                        <option value="병가">병가</option>
+                        <option value="휴가">휴가</option>
+                        <option value="연차">연차</option>
+                        <option value="공가">공가</option>
+                        <option value="백신 휴가">백신휴가</option>
+                    </select></label>
+                    <br></br>
+                    <label><input type='date' min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>시작일</label>
+                    <br></br>
+                    <label><input type='date' min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>종료일</label>
+                </div>
+                <input type="submit" value="수정" />
+                <input type="button" value="삭제" onClick={scheduleDelete}/>
+                </form>
+            </Modal> 
+            <Modal isOpen={modalData.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+            휴가 등록
+            <button onClick={() => setModalData({isOpen: false})}>X</button>
+                <form method='post' onSubmit={pushSchedule}>
+                <div style={{zIndex: '9999'}}>
+                    <input type="text" id="title" name="title" onChange={(e) => setTitle(e.target.value)} required/>
+                    <label><select id="title1" name="title1" onChange={titleChange}>
+                        <option value="1">직접입력</option>
+                        <option value="병가">병가</option>
+                        <option value="휴가">휴가</option>
+                        <option value="연차">연차</option>
+                        <option value="공가">공가</option>
+                        <option value="백신 휴가">백신휴가</option>
+                    </select></label>
+                    <br></br>
+                    <label><input type='date' min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>시작일</label>
+                    <br></br>
+                    <label><input type='date' min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>종료일</label>
+                </div>
+                <input type="submit" value="등록" />
+                </form>
+            </Modal>
+        </div>
+    </SiteLayout>
   );
 }
 

@@ -38,7 +38,7 @@
 	</update>
 	<select id="findByAll" resultType="uservo">
 		<![CDATA[
-			SELECT no, email, name, gender, auth, address, rrn, job, phone FROM "user" ORDER BY auth, no
+			SELECT "no", email, name, gender, auth, address, rrn, job, phone FROM "user" ORDER BY auth, no
 		]]>
 	</select>
 	<delete id="deleteByNo" parameterType="uservo">

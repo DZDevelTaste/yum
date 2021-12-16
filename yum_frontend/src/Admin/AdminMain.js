@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminSearch from './AdminSearch';
-import Navigation from '../layout/Navigation';
+import style from '../assets/scss/admin/adminMain.scss'
+import SiteLayout from '../layout/SiteLayout';
 const AdminMain = () => {
     const [users, setUsers] = useState([]);
     const [check, setCheck] = useState([]);
@@ -20,7 +21,7 @@ const AdminMain = () => {
     const fetchAdmin = async() => {
         try {
             const response = await fetch('http://localhost:8080/api/admin', {
-                melabelod: 'get',
+                method: 'get',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,8 +38,6 @@ const AdminMain = () => {
 
             console.log(json.data)
             setUsers([...json.data,...users]);
-            
-
         } catch (error) {
             console.error(error);
         }
@@ -100,42 +99,49 @@ const AdminMain = () => {
     }
     
     return (
-        <div>
-            <Navigation />
-            <h1>관리자 유저 리스트</h1>
+        <SiteLayout>
+        <div className={style.wangBody}>
             <AdminSearch keyword={keyword} callback={notifyKeywordChanged}/>
-            <div>
-                <label>번호 </label>
-                <label>이름 </label>
-                <label>아이디   </label>
-                <label>주소 </label>
-                <label>직급 </label>
-                <label>성별 </label>
-                <label>승인여부 </label>
-            </div>	
-            <form method='post' onSubmit={update}>
-            {
-                users
-                .filter(user => user.name.indexOf(keyword) !== -1)
-                    .map(user => {
-                    return (
-                        <div>
-                            <input type="checkbox" name="checkList" value={`${user.no}`}  onChange={(e) => setCheck(e.target.value)}/>
-                            <label>{`${user.no}`}   </label>
-                            <label>{`${user.name}`} </label>
-                            <label>{`${user.email}`}    </label>
-                            <label>{`${user.address}`}  </label>
-                            <label>{`${user.job}`}  </label>
-                            <label>{`${user.gender}`}   </label>
-                            <label>{`${user.auth}`}  </label>
-                            <input type="button" value="delete" onClick={userDelete}/>
-                        </div>
-                    )
-            })
-            }
-            <input type="submit" value="승인"/>
-            </form>
+            <div >
+                <div className={style.titles}>
+                    <span className={style.number}>번호</span>
+                    <span className={style.name}>이름</span>
+                    <span className={style.gender}>성별</span>
+                    <span className={style.job}>직급</span>
+                    <span className={style.rrn}>주민등록번호</span>
+                    <span className={style.address}>주소</span>
+                    <span className={style.phone}>연락처</span>
+                    <span className={style.auth}>승인 여부</span>
+                </div>
+                <div className={style.smallBody}>
+                <form method='post' onSubmit={update}>
+                {
+                    users
+                    .filter(user => user.name.indexOf(keyword) !== -1)
+                        .map(user => {
+                        return (
+                            <div className={style.small}>
+                                <input type="checkbox" className = {style.checks}name="checkList" value={`${user.no}`}  onChange={(e) => setCheck(e.target.value)}/>
+                                <span className={style.number}>{`${user.no}`}</span>
+                                <span className={style.name}>{`${user.name}`}</span>
+                                <span className={style.gender}>{`${user.gender}`=== 'M' ? '남' : '여'}</span>
+                                <span className={style.job}>{`${user.job}`}</span>
+                                <span className={style.rrn}>{`${user.rrn}`}</span>
+                                <span className={style.address}>{`${user.address}`}</span>
+                                <span className={style.phone}>{`${user.phone}`}</span>
+                                <span className={style.auth}>{`${user.auth}`}</span>
+                                
+                            </div>
+                        )
+                    })
+                }
+                <input type="button" value="delete" onClick={userDelete}/>
+                <input type="submit" value="승인"/>
+                </form>
+                </div>
+            </div>
         </div>
+        </SiteLayout>
     );
 };
 
