@@ -21,12 +21,12 @@ const PatientList = () => {
     
     return (
         <SiteLayout>
-            <div className={styles1.leftBox}>
+            <div className={styles1.LeftBox}>
                 <Patients 
                     callback={notifyNoChange}
                     updateInfo={updateInfo}/>
             </div>
-            <div className={styles1.rightBox}>
+            <div className={styles1.RightBox}>
                 <PatientInfo 
                     callback={notifyInfoChange}
                     no={selectNo} />

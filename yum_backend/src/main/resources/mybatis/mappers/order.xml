@@ -18,9 +18,10 @@
 			<![CDATA[
 				SELECT o.no, to_char(o."date", 'HH24:MI') as date, p.name, 
 						EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
-						o."desc", o.orderstate_no, o.patient_no
-				FROM patient p, "order" o
+						o."desc", os.state, o.patient_no, p.gender, p.rrn, p.phone
+				FROM patient p, "order" o, order_state os
 				WHERE p.no = o.patient_no
+					AND o.orderstate_no = os.no
 					AND to_char(o."date", 'YYYY-MM-DD')= #{date}
 					AND o.orderstate_no = #{orderstateNo}
 			]]>
@@ -31,9 +32,10 @@
 				<![CDATA[
 					SELECT o.no, to_char(o."date", 'HH24:MI') as date, p.name, 
 							EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
-							o."desc", o.orderstate_no, o.patient_no
-					FROM patient p, "order" o
+							o."desc", os.state, o.patient_no, p.gender, p.rrn, p.phone
+					FROM patient p, "order" o, order_state os
 					WHERE p.no = o.patient_no
+						AND o.orderstate_no = os.no
 						AND to_char(o."date", 'YYYY-MM-DD')= #{date}
 					ORDER BY (CASE WHEN o.orderstate_no = 5 THEN 2 ELSE 1 END)
 							, o."date"

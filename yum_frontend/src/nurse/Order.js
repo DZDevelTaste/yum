@@ -1,72 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import SiteLayout from '../layout/SiteLayout';
-import SearchBar from '../SearchBar';
-import Patient from './Patient';
 
-import styles1 from '../assets/scss/Content.scss';
-import styles2 from '../assets/scss/PatientList.scss';
+import SiteLayout from '../layout/SiteLayout';
 import OrderForm from './OrderForm';
 import Patients from './Patients';
+import OrderList from './OrderList';
+
+import styles1 from '../assets/scss/Content.scss';
+import styles2 from '../assets/scss/Order.scss';
 
 const Order = () => {
-    const [patients, setPatients] = useState([]);
-    const [keyword, setKeyword] = useState('');
     const [selectNo, setSelectNo] = useState('');
-    const [changeInfo, setChangeInfo] = useState(false);
-
-    const notifyKeywordChange = (keyword) => {
-        setKeyword(keyword);
-    }
+    const [addPatient, setAddPatient] = useState(false);
+    const [addOrder, setAddOrder] = useState(false);
 
     const notifyNoChange = (selectNo) => {
         console.log(selectNo);
         setSelectNo(selectNo);
     }
     
-    const notifyResetForm = (resetNo) => {
-        setSelectNo(resetNo);
-    }
-
-    useEffect(async () => {
-        try {
-            const response = await fetch('http://localhost:8080/api/nurse/patientList', {
-                method: 'get',
-                mode: 'cors',
-                credentials: 'include',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept' : 'application/json'
-                },
-                body: null
-            });
-
-            if(!response.ok) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-            
-            const jsonResult = await response.json();
-            
-            if(jsonResult.result !== 'success') {
-                throw new Error(`${jsonResult.result} ${jsonResult.message}`);
-            }
-
-            // console.log(jsonResult.data);
-            setPatients(jsonResult.data);
-        } catch (err) {
-            console.error(err)
+    const notifyUpdateForm = (notifyForm) => {
+        console.log('notifyForm result', notifyForm);
+        
+        setSelectNo(0);
+        if(notifyForm === 'reset'){
+            return;
         }
-    }, [changeInfo]);
+
+        if(notifyForm.newPatient != null) {
+            setAddPatient(notifyForm.newPatient);
+        }
+
+        setAddOrder(notifyForm.orderNo);
+    }
 
     return (
         <SiteLayout>
-            <div className={styles1.leftBox}>
-                <Patients 
-                    callback={notifyNoChange}/>
+            <div className={styles2.LeftBox}>
+                <div className={styles1.TopBox}>
+                    <h2>환자 리스트</h2>
+                    <Patients 
+                        callback={notifyNoChange}
+                        updateInfo={addPatient}/>
+                </div>
+                <div className={styles1.BottomBox}>
+                    <h2>접수 리스트</h2>
+                    <OrderList
+                        addOrder={addOrder}/>
+                </div>
             </div>
-            <div className={styles1.rightBox}>
+
+            <div className={styles1.RightBox}>
                 <OrderForm 
-                    callback={notifyResetForm}
+                    callback={notifyUpdateForm}
                     no={selectNo} />
             </div>
 

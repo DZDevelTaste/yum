@@ -9,12 +9,13 @@ import styles2 from '../assets/scss/Postcode.scss';
 Modal.setAppElement('body');
 
 const OrderForm = ({no, callback}) => {
-    const [patientVo, setPatientVo] = useState({});
-    const [phone, setPhone] = useState({});
+    const [patientVo, setPatientVo] = useState({gender: 'M', insuarance: 'N'});
+    const [phone, setPhone] = useState({phone1: '010'});
     const [rrn, setRrn] = useState({});
-    const [order, setOrder] = useState({});
+    const [order, setOrder] = useState({orderstateNo: 2});
     const [addr, setAddr] = useState({});
     const [modalData, setModaldata] = useState({isOpen: false});
+    const [formSuccess, setFormSuccess] = useState(false);
 
     useEffect(() => {
         if(no != 0 || no != '') {
@@ -25,7 +26,6 @@ const OrderForm = ({no, callback}) => {
 
     const notifyAddr = (addrData) => {
         setAddr(addrData);
-        console.log(addrData);
         setModaldata({isOpen: false});
     } 
 
@@ -67,6 +67,16 @@ const OrderForm = ({no, callback}) => {
             
             const resultRrn = jsonResult.data.patientVo.rrn.split('-');
             const resultPhone = jsonResult.data.patientVo.phone.split('-');
+            const resultAddr = jsonResult.data.patientVo.address;
+            
+            const resultZonecode = resultAddr.substr(resultAddr.indexOf('(',0)+1, 5);       // 우편번호
+            const resultAddress = resultAddr.substring(resultAddr.indexOf(')', 0)+2, resultAddr.indexOf(' / '));        // 기본 주소 
+            const resultDetailAddress = resultAddr.substr(resultAddr.indexOf(' / ')+3);     // 상세주소
+
+            // console.log('resultAddr:', resultAddr);
+            // console.log('resultZonecode:', resultZonecode);
+            // console.log('resultAddress:', resultAddress);
+            // console.log('resultDetailAddress:', resultDetailAddress);
 
             setRrn(
                 {
@@ -81,6 +91,14 @@ const OrderForm = ({no, callback}) => {
                     phone3: resultPhone[2]                
                 }
             )
+
+            setAddr(
+                {
+                    zonecode: resultZonecode,
+                    address: resultAddress,
+                    detailAddress: resultDetailAddress
+                }
+            )
         } catch (err) {
             console.error(err);
         }
@@ -89,42 +107,118 @@ const OrderForm = ({no, callback}) => {
     
     /* 초기화 버튼 클릭 시 값 초기화 */
     const resetForm = (e) => {
-        callback(0);
-        setPatientVo({});
+        callback('reset');
+        setPatientVo({gender: 'M', insuarance: 'N'});
         setPhone({phone1: '010'});
         setRrn({});
-        setOrder({});
+        setAddr({});
+        setOrder({orderstateNo: 2});
     }
 
-    
-
-
-    /* 접수 이벤트 */
-    const addOrder = async (e) => {
-        if(patientVo.name == null || patientVo.name.trim() === '') {
+    /* 접수폼 입력 체크 */
+    const formCheck = () => {
+        if(patientVo.name == undefined || patientVo.name.trim() === '') {
             alert('이름을 입력해주세요.');
             return;
         }
-        if(rrn.rrn1 == null || rrn.rrn1.trim() === '' || rrn.rrn2 == null || rrn.rrn2.trim() === '') {
+        if(rrn.rrn1 == undefined || rrn.rrn1.trim() === '' || rrn.rrn2 == undefined || rrn.rrn2.trim() === '') {
             alert('주민등록번호를 입력해주세요.');
             return;
         }
-        if(phone.phone2 == null || rrn.phone2.trim() === '' || phone.phone2 == null || phone.phone2.trim() === '') {
+        if(phone.phone2 == undefined || phone.phone2.trim() === '' || phone.phone2 == undefined || phone.phone2.trim() === '') {
             alert('연락처를 입력해주세요.');
             return;
         }
 
-        if(patientVo.length== null || patientVo.length === '') {
+        if(patientVo.length == undefined || patientVo.length === '') {
             alert('키를 입력해주세요.');
             return;
         }
 
-        if(patientVo.weight== null || patientVo.weight === '') {
-            alert('키를 입력해주세요.');
+        if(patientVo.weight == undefined || patientVo.weight === '') {
+            alert('몸무게를 입력해주세요.');
             return;
+        }
+        
+        if(addr.address == undefined || addr.address == '') {
+            alert('주소를 입력해주세요');
+            return;
+        }
+
+
+        // detailAddr(상세주소)가 입력이 되지 않았을 경우(undefined 또는 '' 빈 값일 때) => '(우편번호) 기본 주소' 형식으로 DB에 저장
+        // 입력이 되었을 경우 => '(우편번호) 기본 주소 / 상세 주소' 형식으로 저장 
+        let addrResult = 
+            (addr.detailAddr === undefined) 
+            ? ('(' + addr.zonecode+ ') ' + addr.address) : (addr.detailAddr.trim() === '') 
+            ? ('(' + addr.zonecode+ ') ' + addr.address) : ('(' + addr.zonecode+ ') ' + addr.address + ' / ' + addr.detailAddr);
+
+        // 주민등록번호 'xxxxxx-xxxxxxx' 형식으로 합치기
+        let rrnResult = rrn.rrn1 + '-' + rrn.rrn2;
+
+        // 연락처 'xxx-xxxx-xxxx' 형식으로 합치기
+        let phoneResult = phone.phone1 + '-' + phone.phone2+ '-' + phone.phone3;
+        
+        setOrder(Object.assign({}, order, 
+                    {patientVo: 
+                        Object.assign({}, patientVo, {rrn: rrnResult, phone: phoneResult, address: addrResult})
+                    }
+                    ));
+        setFormSuccess(true);
+    }
+    
+    useEffect(() => {
+        if(formSuccess){
+            addOrder();
+        }
+    }, [formSuccess]);
+
+    const addOrder = async (e) => {
+        console.log('addOrder 실행 시 넘어오는 order == ', order);
+
+        if(!formSuccess){
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/nurse/order', {
+                method: 'post',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept' : 'application/json'
+                },
+                body: JSON.stringify(order)
+            });
+
+            if(!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+            
+            const jsonResult = await response.json();
+            
+            if(jsonResult.result !== 'success') {
+                throw new Error(`${jsonResult.result} ${jsonResult.message}`);
+            }
+            console.log('addOrder fetch 후 넘어온 data == ', jsonResult.data);
+
+            
+            console.log('patientVo의 no가 있는가? ==', patientVo.no);
+            if(patientVo.no !== undefined) {
+                callback({orderNo : jsonResult.data.no});
+            } else {
+                callback({orderNo: jsonResult.data.no, newPatient: jsonResult.data.patientVo.no});
+            }
+
+            setFormSuccess(false);
+
+            resetForm();
+        } catch (err) {
+            console.error(err);
         }
     }
-
 
 
     return (
@@ -239,9 +333,9 @@ const OrderForm = ({no, callback}) => {
                                 if(no==0) setPatientVo(Object.assign({}, patientVo, {weight: e.target.value}))
                             }}/> kg
                 </div>
-                <div>
+                <div className={styles2.addr}>
                     <label>주소</label>
-                    <div className={styles2.addr}>
+                    <div>
                         <input
                             className={styles2.Zonecode}
                             type='text'
@@ -313,11 +407,11 @@ const OrderForm = ({no, callback}) => {
                 </div>
                 <div className={styles1.btn}>
                     <button onClick={resetForm}>초기화</button>
-                    <button onClick={addOrder}>완료</button>
+                    <button onClick={formCheck}>완료</button>
                 </div>
             </div>
                         
-
+            {/* 주소찾기 모달 */}
             <Modal 
                 className={styles2.Modal}
                 overlayClassName={styles2.Overlay}

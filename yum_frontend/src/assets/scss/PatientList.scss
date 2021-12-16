@@ -1,29 +1,29 @@
 @charset "utf-8";
-@import "Content";
 
-.ListTable {    
+.ListTable {
+    // display: flex;
+    // flex-direction: column;
+    height: 100%;
+    display: block;
+
     thead, tbody {
-        box-sizing: border-box;
         display: block;
-        padding: 10px;
-        // width: 740px;
         width: 100%;
     }
-    // thead {
-    // }
     tbody {
+        height: 93%;
         border: 1px solid #737373;
-        // display:block;
-        // box-sizing: border-box;
         overflow-y: scroll;
-        height: 650px;
         background-color: #ffffff;
 
+        tr{
+            cursor: pointer;
+        }
     }
     
     tr {
         width: 100%;
-        cursor: pointer;
+        
         th, td{
             padding: 10px;
             
@@ -37,6 +37,7 @@
                 width: 300px;
             }
         }
+
     }
 }
 

@@ -2,18 +2,93 @@
 
 .Content{
     display: flex;
-
-    .leftBox {
+    
+    .LeftBox {
+        display: flex;
+        flex-direction: column;
         box-sizing: border-box;
         background-color: #F9F9F9;
         text-align: center;
         width: 750px;
-        // height: 850px;
-        padding: 10px;
-        margin: 10px 20px;
+        height: 850px;
+        padding: 15px 20px;
+        // margin: 10px 20px;
     }
 
-    .rightBox {
+    .TopBox, .BottomBox {
+        height: 370px;
+        background-color: #F9F9F9;
+        padding: 15px 20px;
+        margin: 10px 20px;
+        
+        table {
+            clear: both; 
+            height: 70%;
+            box-sizing: content-box;
+            thead {
+
+                width: 650px;
+            }
+            tbody {
+                height: 90%;
+            }
+
+            tr {
+                th, td{
+                    cursor: default;
+                }
+
+                th {
+                    padding: 10px 6px;
+                }
+
+                .date {
+                    width: 80px;
+                }
+                .name, .state{
+                    width: 110px;
+                }
+                
+                // .state {
+                //     width: 120px;
+                // }
+                .gender {
+                    width: 50px;
+                }
+                .rrn {
+                    width: 150px;
+                }
+                .phone {
+                    width: 150px; 
+                }
+
+                td{
+                    &.state {
+                        cursor: pointer;
+                        font-weight: bold;
+                    }
+                    
+                    &.treatment {
+                        color: #25a720;
+                    }
+                    
+                    &.reservation {
+                        color: #FD8415
+                    }
+                    
+                    &.waiting {
+                        color: #3263ED;
+                    }
+                    
+                    &.finish {
+                        color: #9A9A9A
+                    }
+                }
+            }
+        }
+    }
+
+    .RightBox {
         display: flex;
         flex-direction: column;
         width: 750px;
@@ -21,5 +96,9 @@
         padding: 10px;
         margin: 10px 20px;
         border: 1px solid #737373;
+
+        h2 {
+            text-align: center;
+        }
     }
 }

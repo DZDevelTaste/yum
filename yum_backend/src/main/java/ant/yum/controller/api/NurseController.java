@@ -28,34 +28,35 @@ public class NurseController {
     @Autowired
     private OrderService orderService;
 
+    @PostMapping("/order")
+    public JsonResult addOrder(@RequestBody OrderVo orderVo){
+        /* È¯ÀÚ Á¢¼ö/¿¹¾à */
+        // int receptionist = authUser.getNo();     // Á¢¼öÇÏ´Â °£È£»ç(·Î±×ÀÎÇÑ user)
+        int receptionist = 5;   // ÀÓ½Ã°ª
+        orderVo.setUserNo(receptionist);
+        
+        // System.out.println("Á¦´ë·Î µé¾î¿Ô´Ï ==== " + orderVo);
+        orderService.addOrder(orderVo);
+        
+        return JsonResult.success(orderVo);
+    }
+
     @GetMapping("/orderList")
-    public JsonResult orderList(@RequestParam String date, @RequestParam(name="osn", required=true, defaultValue="0") int orderstateNo){
+    public JsonResult orderList(@RequestParam(name="date", required=true, defaultValue="") String date, @RequestParam(name="osn", required=true, defaultValue="0") int orderstateNo){
         /*  
-            ì ‘ìˆ˜/ì˜ˆì•½ í™˜ì ë¦¬ìŠ¤íŠ¸: í•´ë‹¹ ë‚ ì§œì— ì ‘ìˆ˜ë˜ì–´ ìˆëŠ” í™˜ì ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•„ì˜´
-            - date: ê²€ìƒ‰í•˜ëŠ” ë‚ ì§œ
-            - osn(orderstateNo): ì§„ë£Œ í˜„í™© ë³„ í™˜ì ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•„ì˜¤ê¸° ìœ„í•¨. defaultë¡œ 0ì´ë©° 0ì¼ ê²½ìš° ì „ì²´ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥ */
+            Á¢¼ö/¿¹¾à È¯ÀÚ ¸®½ºÆ®: ÇØ´ç ³¯Â¥¿¡ Á¢¼öµÇ¾î ÀÖ´Â È¯ÀÚ ¸®½ºÆ®¸¦ ¹Ş¾Æ¿È
+            - date: °Ë»öÇÏ´Â ³¯Â¥
+            - osn(orderstateNo): Áø·á ÇöÈ² º° È¯ÀÚ ¸®½ºÆ®¸¦ ¹Ş¾Æ¿À±â À§ÇÔ. default·Î 0ÀÌ¸ç 0ÀÏ °æ¿ì ÀüÃ¼ ¸®½ºÆ® Ãâ·Â */
         List<OrderVo> patientList = orderService.findByDateAndOrderstateNo(date, orderstateNo);
         
         return JsonResult.success(patientList);
     }
 
-    @PostMapping("/order")
-    public JsonResult addOrder(@RequestBody OrderVo orderVo){
-        /* í™˜ì ì ‘ìˆ˜/ì˜ˆì•½ */
-        // int receptionist = authUser.getNo();     // ì ‘ìˆ˜í•˜ëŠ” ê°„í˜¸ì‚¬(ë¡œê·¸ì¸í•œ user)
-        int receptionist = 5;   // ì„ì‹œê°’
-        orderVo.setUserNo(receptionist);
-
-        patientService.addOrder(orderVo);
-        
-        return JsonResult.success(orderVo);
-    }
-
     // @PostMapping("/reservation")
     // public JsonResult addReservation(@RequestBody OrderVo orderVo){
-    //     /* ì˜ˆì•½ ì ‘ìˆ˜ - ë‚´ì› ì´ë ¥ì´ ìˆëŠ” í™˜ì(ë“±ë¡ì´ ë˜ì–´ìˆëŠ” í™˜ì)ë§Œ ì˜ˆì•½ ê°€ëŠ¥ */
-    //     // int receptionist = authUser.getNo();     // ì ‘ìˆ˜í•˜ëŠ” ê°„í˜¸ì‚¬(ë¡œê·¸ì¸í•œ user)
-    //     int receptionist = 5;   // ì„ì‹œê°’
+    //     /* ¿¹¾à Á¢¼ö - ³»¿ø ÀÌ·ÂÀÌ ÀÖ´Â È¯ÀÚ(µî·ÏÀÌ µÇ¾îÀÖ´Â È¯ÀÚ)¸¸ ¿¹¾à °¡´É */
+    //     // int receptionist = authUser.getNo();     // Á¢¼öÇÏ´Â °£È£»ç(·Î±×ÀÎÇÑ user)
+    //     int receptionist = 5;   // ÀÓ½Ã°ª
     //     orderVo.setUserNo(receptionist);
         
     //     patientService.addReservation(orderVo);
@@ -65,7 +66,7 @@ public class NurseController {
 
     @PostMapping("/updateDesc")
 	public JsonResult updateDesc(@RequestBody OrderVo orderVo) {
-		/* ì ‘ìˆ˜ ì‚¬ìœ (ì¦ìƒ) ë°”ê¾¸ê¸° */
+		/* Á¢¼ö »çÀ¯(Áõ»ó) ¹Ù²Ù±â */
         orderService.updateDesc(orderVo);
         return JsonResult.success(orderVo);
 	}
@@ -73,11 +74,11 @@ public class NurseController {
     @PostMapping("/updateState")
 	public JsonResult updateState(@RequestBody OrderVo orderVo) {
 		/* 
-            í™˜ì ì§„ë£Œ í˜„í™© ë°”ê¾¸ê¸°
-            ê°„í˜¸ì‚¬ê°€ ì²˜ë¦¬í•˜ëŠ” ê¸°ë³¸ì ì¸ orderState
-            1. 1(ì˜ˆì•½) -> 2(ì§„ë£ŒëŒ€ê¸°)1
-            2. 2(ì§„ë£Œ ëŒ€ê¸°) -> 3(ì§„ë£Œì¤‘)
-            3. 4(ìˆ˜ë‚© ëŒ€ê¸°) -> 5(ì™„ë£Œ)
+            È¯ÀÚ Áø·á ÇöÈ² ¹Ù²Ù±â
+            °£È£»ç°¡ Ã³¸®ÇÏ´Â ±âº»ÀûÀÎ orderState
+            1. 1(¿¹¾à) -> 2(Áø·á´ë±â)1
+            2. 2(Áø·á ´ë±â) -> 3(Áø·áÁß)
+            3. 4(¼ö³³ ´ë±â) -> 5(¿Ï·á)
         */
         orderService.updateState(orderVo);
         return JsonResult.success(orderVo);
@@ -85,7 +86,7 @@ public class NurseController {
 
     @PostMapping("/updateDate")
     public JsonResult updateDate(@RequestBody OrderVo orderVo) {
-        /* ì˜ˆì•½ ì‹œê°„ ë³€ê²½ */
+        /* ¿¹¾à ½Ã°£ º¯°æ */
         orderService.updateDate(orderVo);
         return JsonResult.success(orderVo);
     }
@@ -93,13 +94,13 @@ public class NurseController {
     @GetMapping("/payment/{orderNo}")
     public JsonResult payment(@PathVariable int orderNo){
         /* 
-            ìˆ˜ë‚© ì •ë³´ ê°€ì ¸ì˜¤ê¸°
-            [ê°€ì ¸ì˜¤ëŠ” ì •ë³´]
-            1. patient - ìˆ˜ë‚©í•˜ëŠ” í™˜ì ì •ë³´(ì´ë¦„, ì„±ë³„, ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸, ì—°ë½ì²˜)
-            2. diagnosis - ì§„ë£Œ ë‚´ì—­(ë‚´ì›ì¼, ë‹´ë‹¹ì˜, ì§„ë£Œ ë©”ëª¨)
-            3. prescription_d - ë³‘ëª…(ë¦¬ìŠ¤íŠ¸)
-            4. prescription_m/c - ì²˜ë°© ë‚´ì—­(ì•½í’ˆ(m)/ì•½í’ˆì™¸(c) ë¦¬ìŠ¤íŠ¸)
-            5. order - ìˆ˜ë‚© ê¸ˆì•¡
+            ¼ö³³ Á¤º¸ °¡Á®¿À±â
+            [°¡Á®¿À´Â Á¤º¸]
+            1. patient - ¼ö³³ÇÏ´Â È¯ÀÚ Á¤º¸(ÀÌ¸§, ¼ºº°, ÁÖ¹Îµî·Ï¹øÈ£, ¿¬¶ôÃ³)
+            2. diagnosis - Áø·á ³»¿ª(³»¿øÀÏ, ´ã´çÀÇ, Áø·á ¸Ş¸ğ)
+            3. prescription_d - º´¸í(¸®½ºÆ®)
+            4. prescription_m/c - Ã³¹æ ³»¿ª(¾àÇ°(m)/¾àÇ°¿Ü(c) ¸®½ºÆ®)
+            5. order - ¼ö³³ ±İ¾×
         */
         Map<String,Object> paymentInfoMap = orderService.paymentInfo(orderNo);
         return JsonResult.success(paymentInfoMap);
@@ -115,9 +116,9 @@ public class NurseController {
     @PostMapping("/deleteOrder/{orderNo}")
     public JsonResult deleteOrder(@PathVariable int orderNo){
         /* 
-            ì ‘ìˆ˜ ë° ì˜ˆì•½ ì·¨ì†Œ
-            - ì ‘ìˆ˜ ì·¨ì†ŒëŠ” ì˜ˆì•½(orderstateNo == 1) ë˜ëŠ” ì ‘ìˆ˜ ëŒ€ê¸°(orderstateNo == 2)ì¸ ìƒíƒœì—ì„œë§Œ ê°€ëŠ¥
-            - ì˜ˆì•½ ë˜ëŠ” ì ‘ìˆ˜ ëŒ€ê¸°ê°€ ì•„ë‹ˆê±°ë‚˜ ì·¨ì†Œí•˜ì§€ ëª»í•œ ê²½ìš°ì—ëŠ” false ë°˜í™˜
+            Á¢¼ö ¹× ¿¹¾à Ãë¼Ò
+            - Á¢¼ö Ãë¼Ò´Â ¿¹¾à(orderstateNo == 1) ¶Ç´Â Á¢¼ö ´ë±â(orderstateNo == 2)ÀÎ »óÅÂ¿¡¼­¸¸ °¡´É
+            - ¿¹¾à ¶Ç´Â Á¢¼ö ´ë±â°¡ ¾Æ´Ï°Å³ª Ãë¼ÒÇÏÁö ¸øÇÑ °æ¿ì¿¡´Â false ¹İÈ¯
         */
         int check = orderService.deleteOrder(orderNo);
         
@@ -126,14 +127,14 @@ public class NurseController {
 
     @GetMapping("/patientList")
     public JsonResult patientList() {
-        /* í™˜ì ë¦¬ìŠ¤íŠ¸ ì¶œë ¥ */
+        /* È¯ÀÚ ¸®½ºÆ® Ãâ·Â */
         List<PatientVo> patientList = patientService.findByAll();
         return JsonResult.success(patientList);
     }
 
     @PutMapping("/updatePatientInfo")
     public JsonResult updatePatientInfo(@RequestBody PatientVo patientVo) {
-        /* í™˜ì ì •ë³´ ì—…ë°ì´íŠ¸ */
+        /* È¯ÀÚ Á¤º¸ ¾÷µ¥ÀÌÆ® */
         patientService.updatePatientInfo(patientVo);
         return JsonResult.success(patientVo);
     }
