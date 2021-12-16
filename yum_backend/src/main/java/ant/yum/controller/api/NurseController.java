@@ -71,7 +71,7 @@ public class NurseController {
         return JsonResult.success(orderVo);
 	}
 
-    @PostMapping("/updateState")
+    @PutMapping("/updateState")
 	public JsonResult updateState(@RequestBody OrderVo orderVo) {
 		/* 
             환자 진료 현황 바꾸기
@@ -80,6 +80,8 @@ public class NurseController {
             2. 2(진료 대기) -> 3(진료중)
             3. 4(수납 대기) -> 5(완료)
         */
+
+        System.out.println(orderVo);
         orderService.updateState(orderVo);
         return JsonResult.success(orderVo);
 	}

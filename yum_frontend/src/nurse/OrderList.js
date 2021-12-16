@@ -3,20 +3,29 @@ import SearchBar from '../SearchBar';
 import OrderPatient from './OrderPatient';
 
 import styles from '../assets/scss/Content.scss';
-import styles2 from '../assets/scss/PatientList.scss';
+// import styles2 from '../assets/scss/PatientList.scss';
+import styles2 from '../assets/scss/OrderPatient.scss';
 
 
 const OrderList = ({addOrder}) => {
     const [orders, setOrders] = useState([]);
     const [keyword, setKeyword] = useState('');
+    const [updateState, setUpdateState] = useState(false);
 
     const notifyKeywordChange = (keyword) => {
         setKeyword(keyword);
     }
 
+    const notifyStateNoChange = (noChange) => {
+        console.log('[notifyStateNoChange]', noChange);
+        setUpdateState(noChange);
+    }
+
+
+    /* 접수 리스트 불러오기 */
     useEffect(async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/nurse/orderList`, {
+            const response = await fetch(`/api/nurse/orderList`, {
                 method: 'get',
                 mode: 'cors',
                 credentials: 'include',
@@ -40,31 +49,32 @@ const OrderList = ({addOrder}) => {
 
             // console.log(jsonResult.data);
             setOrders(jsonResult.data);
+            setUpdateState(false);
         } catch (err) {
             console.error(err)
         }
-    }, [addOrder]);
+    }, [addOrder, updateState]);
     
     return (
         <Fragment>
             <SearchBar callback={notifyKeywordChange} />
             <table className={styles2.ListTable}>
                 <thead>
-                <tr>
-                    <th className={styles.date}>접수시간</th>
-                    <th className={styles.name}>이름</th>
-                    <th className={styles.gender}>성별</th>
-                    <th className={styles.rrn}>주민등록번호</th>
-                    <th className={styles.state}>진료현황</th>
-                    <th className={styles.phone}>연락처</th>
-                </tr>
+                    <tr>
+                        <th className={styles2.date}>접수시간</th>
+                        <th className={styles2.name}>이름</th>
+                        <th className={styles2.gender}>성별</th>
+                        <th className={styles2.rrn}>주민등록번호</th>
+                        <th className={styles2.state}>진료현황</th>
+                        <th className={styles2.phone}>연락처</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {
                         orders
                             .filter( order => order.patientVo.name.indexOf(keyword) !== -1)
                             .map( order => <OrderPatient
-                                                    // callback={notifyNoChange}
+                                                    callback={notifyStateNoChange}
                                                     key={order.no}
                                                     order={order}
                                                 />)

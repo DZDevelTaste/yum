@@ -14,11 +14,11 @@
 	<select id="findByDateAndOrderstateNo" parameterType="map" resultMap="resultMapList" resultType="ordervo">
 		<choose>
 			<when test="orderstateNo != 0">
-			<!-- orderstateNo가 0으로 넘어왔을 경우 진료현황 관계 없이 날짜에 맞는 접수 전체 출력 -->
+			<!-- orderstateNo가 0이 아닌 경우 선택한 orderstateNo에 맞는 결과 출력 -->
 			<![CDATA[
 				SELECT o.no, to_char(o."date", 'HH24:MI') as date, p.name, 
 						EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
-						o."desc", os.state, o.patient_no, p.gender, p.rrn, p.phone
+						o."desc", o.orderstate_no, os.state, o.patient_no, p.gender, p.rrn, p.phone
 				FROM patient p, "order" o, order_state os
 				WHERE p.no = o.patient_no
 					AND o.orderstate_no = os.no
@@ -27,12 +27,15 @@
 			]]>
 			</when>
 			<otherwise>
-				<!-- ORDER BY (CASE WHEN o.orderstate_no = 5 THEN 2 ELSE 1 END)
-						: orderstate_no = 5일 경우(수납 완료) 뒤에 출력(우선순위를 후위로 설정) -->
+				<!-- 
+					orderstateNo가 0으로 넘어왔을 경우 진료현황 관계 없이 날짜에 맞는 접수 전체 출력
+					ORDER BY (CASE WHEN o.orderstate_no = 5 THEN 2 ELSE 1 END)
+						: orderstate_no = 5일 경우(수납 완료) 뒤에 출력(우선순위를 후위로 설정) 
+				-->
 				<![CDATA[
 					SELECT o.no, to_char(o."date", 'HH24:MI') as date, p.name, 
 							EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
-							o."desc", os.state, o.patient_no, p.gender, p.rrn, p.phone
+							o."desc", o.orderstate_no, os.state, o.patient_no, p.gender, p.rrn, p.phone
 					FROM patient p, "order" o, order_state os
 					WHERE p.no = o.patient_no
 						AND o.orderstate_no = os.no

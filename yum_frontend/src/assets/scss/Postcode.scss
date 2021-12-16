@@ -29,10 +29,10 @@
 
 .Modal {
     position: fixed;
-    top: 400px;
-    right: 400px;
+    top: 30em;
+    right: 13rem;
     // transform: translate(-50%, -50%);
-    width: 500px;
+    width: 450px;
     height: 500px;
     border: 1px solid #c5c5c5;
     border-radius: 3px;
@@ -52,19 +52,10 @@
         border-left: none;
         cursor: pointer;
     }
-    
-    
 }
 
-.ReactModal__Overlay {
-    opacity: 0;
-    transition: opacity 2000ms ease-in-out;
-}
-
-.ReactModal__Overlay--after-open{
-    opacity: 1;
-}
-
-.ReactModal__Overlay--before-close{
-    opacity: 0;
+.Overlay {
+    position: fixed; 
+    inset: 0px;
+    background-color: rgba(255, 255, 255, 0);
 }

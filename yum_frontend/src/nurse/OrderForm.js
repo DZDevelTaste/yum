@@ -14,7 +14,7 @@ const OrderForm = ({no, callback}) => {
     const [rrn, setRrn] = useState({});
     const [order, setOrder] = useState({orderstateNo: 2});
     const [addr, setAddr] = useState({});
-    const [modalData, setModaldata] = useState({isOpen: false});
+    const [isOpenHandler, setIsOpenHandler] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const OrderForm = ({no, callback}) => {
 
     const notifyAddr = (addrData) => {
         setAddr(addrData);
-        setModaldata({isOpen: false});
+        setIsOpenHandler(false);
     } 
 
     /* patientNo를 받아왔을 때 해당 환자의 정보를 가져온다 */
@@ -341,16 +341,16 @@ const OrderForm = ({no, callback}) => {
                             type='text'
                             placeholder='우편번호'
                             value={addr.zonecode || ''}
-                            onClick={ (e) => {e.target.blur(); setModaldata({isOpen: true})} }
+                            onClick={ (e) => {e.target.blur(); setIsOpenHandler(true)} }
                             onChange={ () => setAddr(Object.assign({}, addr, {zonecode: addr.zonecode}) )}
                             />
-                        <button className={styles2.AddrBtn} onClick={(e) => setModaldata({isOpen: true}) }>주소찾기</button>
+                        <button id='AddrBtn' className={styles2.AddrBtn} onClick={(e) => setIsOpenHandler(true) }>주소찾기</button>
                         <input
                             className={styles2.Address}
                             type='text'
                             placeholder='주소'
                             value={addr.address || ''}
-                            onClick={ (e) => {e.target.blur(); setModaldata({isOpen: true})} }
+                            onClick={ (e) => {e.target.blur(); setIsOpenHandler(true)} }
                             onChange={ () => setAddr(Object.assign({}, addr, {address: addr.address}) )}
                             />
                         <input
@@ -415,11 +415,12 @@ const OrderForm = ({no, callback}) => {
             <Modal 
                 className={styles2.Modal}
                 overlayClassName={styles2.Overlay}
-                isOpen={modalData.isOpen}>
+                onRequestClose={ () => setIsOpenHandler(false) }
+                isOpen={isOpenHandler}>
                 
                 <button 
                     className={styles2.Close}
-                    onClick={(e) => {setModaldata({isOpen: false})}}>X</button>
+                    onClick={() => {setIsOpenHandler(false)}}>X</button>
                 <Postcode callback={notifyAddr}/>
 
             </Modal>
