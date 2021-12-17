@@ -72,13 +72,17 @@ const OrderForm = ({no, callback}) => {
             const resultAddr = jsonResult.data.patientVo.address;
             
             const resultZonecode = resultAddr.substr(resultAddr.indexOf('(',0)+1, 5);       // 우편번호
-            const resultAddress = resultAddr.substring(resultAddr.indexOf(')', 0)+2, resultAddr.indexOf(' / '));        // 기본 주소 
-            const resultDetailAddress = resultAddr.substr(resultAddr.indexOf(' / ')+3);     // 상세주소
+            const resultAddress = resultAddr.indexOf(' / ') !== -1 
+                                    ? resultAddr.substring(resultAddr.indexOf(')', 0)+2, resultAddr.indexOf(' / ')) 
+                                    : resultAddr.substring(resultAddr.indexOf(')', 0)+2);        // 기본 주소 
+            // console.log('상세주소있닝', resultAddr.indexOf(' / '));
+            const resultDetailAddress = resultAddr.indexOf(' / ') !== -1 
+                                        ? resultAddr.substr(resultAddr.indexOf(' / ')+3) : '';     // 상세주소
 
-            // console.log('resultAddr:', resultAddr);
+            console.log('resultAddr:', resultAddr);
             // console.log('resultZonecode:', resultZonecode);
             // console.log('resultAddress:', resultAddress);
-            // console.log('resultDetailAddress:', resultDetailAddress);
+            console.log('resultDetailAddress:', resultDetailAddress);
 
             setRrn(
                 {
@@ -373,7 +377,7 @@ const OrderForm = ({no, callback}) => {
                             className={styles2.DetailAddr}
                             type='text'
                             placeholder='상세주소'
-                            value={addr.detailAddr || ''}
+                            value={addr.detailAddress || ''}
                             onChange={ (e) =>  setAddr(Object.assign({}, addr, {detailAddr: e.target.value})) }
                             />
                     </div>
