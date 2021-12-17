@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import style from '../assets/scss/main/join.scss'
-import Logo from '../../public/favicon.ico'
+import Logo from '../../public/favicon.ico';
+import SemiLogo from '../../public/title.png'
 
 const Join = () => {
         const [email, setEmail] = useState('');
@@ -179,6 +180,7 @@ const Join = () => {
     return (
         <div className={style.yammi}>
             <img className={style.image}src={Logo}/>
+            <img className={style.image1}src={SemiLogo}/>
             <form method="post" onSubmit={login1} >
                 <div className={style.header}>회원가입</div>
                 <div className={style.email}>

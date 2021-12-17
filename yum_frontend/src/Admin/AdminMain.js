@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AdminSearch from './AdminSearch';
 import style from '../assets/scss/admin/adminMain.scss'
 import SiteLayout from '../layout/SiteLayout';
+import '../assets/scss/Content.scss';
 const AdminMain = () => {
     const [users, setUsers] = useState([]);
     const [check, setCheck] = useState([]);

@@ -1,9 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import SemiLogo from '../../public/header.png';
+import style from '../assets/scss/layout/Header.scss';
 
 const Header = () => {
     const name = sessionStorage.getItem("name");
-    const job = sessionStorage.getItem("no");
+    let job = sessionStorage.getItem("job");
+    if (job == 'N' ? job = "간호사" : job== 'D' ? job = "의사" : job = "관리자");
+
     const LogoutUser = async(e) => {
         e.preventDefault();
         try {
@@ -15,14 +19,14 @@ const Header = () => {
         }
     }
     return (
-        <div>
-            <h1>YUM</h1>
-            <div>
-            <div>{`${name} ${job}님`}</div>
-            <ul>
-                <li onClick={LogoutUser}>로그아웃</li>
-                <li><NavLink to={'/update'}>회원정보 수정</NavLink></li>
-            </ul>
+        <div className={style.body}>
+            <img className={style.image1}src={SemiLogo}/>
+            <div className={style.user}>
+                <div className={style.state}>{`${name} ${job}님`}</div>
+                <ul>
+                    <li className={style.logout} onClick={LogoutUser}>로그아웃</li>
+                    <li className={style.update}><NavLink to={'/update'}>회원정보수정</NavLink></li>
+                </ul>
             </div>
         </div>
     );

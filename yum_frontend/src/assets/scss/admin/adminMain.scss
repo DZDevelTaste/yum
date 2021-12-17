@@ -1,7 +1,7 @@
 .wangBody {
-    width: 2000px;
-    height: 856px;
-    margin: 0 40px;
+    width: 1900px;
+    height: 800px;
+    margin: 10px 40px;
 
     background: #F9F9F9;
     .searchBar {
@@ -177,7 +177,7 @@
     }
     .smallBody {
         width: 1440px;
-        height: 650px;
+        height: 600px;
         margin: 0 0 0 5px;      
         overflow: auto;  
         background-color: #FFFFFF;
@@ -188,8 +188,8 @@
             position: absolute;
             width: 130px;
             height: 60px;
-            left: 78%;
-            bottom: 9%;
+            left: 77%;
+            bottom: 6%;
 
             background: #6599FF;
             border-radius: 8px;
@@ -213,8 +213,8 @@
             position: absolute;
             width: 130px;
             height: 60px;
-            left: 85%;
-            bottom: 8%;
+            left: 84%;
+            bottom: 5%;
             /* Inside Auto Layout */
             flex: none;
             order: 0;

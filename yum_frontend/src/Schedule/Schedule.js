@@ -10,7 +10,7 @@ import '../assets/scss/schedule/style2.scss';
 import style from '../assets/scss/schedule/scheduleModal.scss'
 import moment from 'moment';
 import SiteLayout from '../layout/SiteLayout';
-
+import '../assets/scss/Content.scss';
 const Schedule = () => {
   const [id, setId] = useState('');
   const [scheduleVo, setScheduleVo] = useState([]);
