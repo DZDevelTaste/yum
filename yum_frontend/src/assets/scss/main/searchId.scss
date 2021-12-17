@@ -1,9 +1,20 @@
+.image {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 42%;
+}
+.image1 {
+    position: absolute;
+    left: 35%;
+    top: 30%;
+}
 .header {
     position: absolute;
     width: 230px;
     height: 42px;
-    left: 864px;
-    top: 270px;
+    left: 44%;
+    top: 40%;
 
     font-family: Roboto;
     font-style: normal;
@@ -202,7 +213,7 @@
 
     font-family: Roboto;
     font-style: normal;
-    font-weight: normal;
+    font-weight: bold;
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */
@@ -216,12 +227,12 @@
     position: absolute;
     left: 18%;
     right: 0%;
-    top: 78%;
+    top: 80%;
     bottom: 0%;
 
     font-family: Roboto;
     font-style: normal;
-    font-weight: normal;
+    font-weight: bold;
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */

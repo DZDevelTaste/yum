@@ -16,6 +16,11 @@
 			SELECT email, "name", rrn, job, phone, address, gender FROM "user" WHERE "no" = #{no}
 		]]>
 	</select>
+	<select id="checkEmail" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			SELECT email FROM "user" WHERE email = #{email}
+		]]>
+	</select>
 	<select id="findIdByEmail" parameterType="uservo" resultType="uservo">
 		<![CDATA[
 			SELECT "no", email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn} and "email" = #{email}
@@ -23,7 +28,7 @@
 	</select>
 	<select id="getUser" parameterType="map" resultType="uservo">
 		<![CDATA[
-			SELECT "no", name, job FROM "user" WHERE "email" = #{email} and password = #{password}
+			SELECT "no", name, job, auth FROM "user" WHERE "email" = #{email} and password = #{password}
 		]]>
 	</select>
 	<update id="updatePw" parameterType="uservo">

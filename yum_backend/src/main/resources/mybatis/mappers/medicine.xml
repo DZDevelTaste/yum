@@ -3,7 +3,7 @@
 <mapper namespace="medicine">
 	<select id="findByMedicine" resultType="medicinevo">
 		<![CDATA[
-			SELECT "no", code, name, company, ingredient, efficacy, precaution, caution, "sideEffect" FROM "medicine"
+			SELECT "no", code, name, company, ingredient, efficacy, precaution, caution, "sideEffect" FROM "medicine" ORDER BY "name"
 		]]>
 	</select>
 	<select id="findByNoMedicine" resultType="medicinevo">

@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import MedicineInfo from './MedicineInfo';
 import MedicineSearch from './MedicineSearch';
-
+import SiteLayout from '../../layout/SiteLayout';
+import style from '../../assets/scss/medicine/MedicineMain.scss';
 const MedicineMain = () => {
     const [medicines, setMedicines] = useState([]);
     const [keyword, setKeyword] = useState('');
@@ -44,35 +45,32 @@ const MedicineMain = () => {
     }
     
     return (
-        <div>
-            <h1>관리자 약품 리스트</h1>
+        <SiteLayout> 
+        <div className={style.wangbody}>
             <MedicineSearch  keyword={keyword} callback={notifyKeywordChanged}  />
-            <div>
-    
-            <div>
-                <label>의약품 코드 </label>
-                <label>의약품 명 </label>
+            <div className={style.titles}>
+                <span className={style.code}>의약품 코드 </span>
+                <span className={style.name}>의약품 명 </span>
             </div>
+            <div className={style.smallBody}>
             {
                 medicines
                     .filter(medicine => medicine.name.indexOf(keyword) !== -1 || medicine.code.indexOf(keyword) !== -1)
                     .map(medicine => {
                         return (
-                            <div>
-                                <div onClick={() => setNo(medicine.no)}>
-                                    <label>{`${medicine.code}`} </label>
-                                    <label>{`${medicine.name}`} </label>
+                                <div className={style.small} onClick={() => setNo(medicine.no)}>
+                                    <span className={style.MediCode}>{`${medicine.code}`}</span>
+                                    <span className={style.MediName}>{`${medicine.name}`}</span>
                                 </div>
-                            </div>
                         )
             })
             }
+            </div>
         </div>
         <div>
-            <MedicineInfo no={no}/>
+                <MedicineInfo no={no}/>
         </div>
-    </div>
-    
+    </SiteLayout>
     );
 };
 

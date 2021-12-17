@@ -56,7 +56,6 @@ public class MainController {
 	
 	@PostMapping("/user/auth")
 	public JsonResult auth(@AuthUser UserVo authUser) {
-		System.out.println(authUser);
 
 		return JsonResult.success(authUser);
 	}
@@ -77,5 +76,11 @@ public class MainController {
 		mainService.updateInfo(userVo);
 		
 		return JsonResult.success(userVo);
+	}
+	@PostMapping("/check")
+	public JsonResult check(@RequestBody UserVo userVo) {
+		UserVo vo = mainService.checkEmail(userVo);
+
+		return JsonResult.success(vo != null);
 	}
 }

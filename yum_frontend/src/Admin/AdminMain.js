@@ -72,6 +72,7 @@ const AdminMain = () => {
     }
     const userDelete = (e) => {
         e.preventDefault();
+        alert("삭제 되었습니다.");
         fetchdelete();
     }
     const fetchdelete = async() => {
@@ -130,13 +131,12 @@ const AdminMain = () => {
                                 <span className={style.address}>{`${user.address}`}</span>
                                 <span className={style.phone}>{`${user.phone}`}</span>
                                 <span className={style.auth}>{`${user.auth}`}</span>
-                                
                             </div>
                         )
                     })
                 }
-                <input type="button" value="delete" onClick={userDelete}/>
-                <input type="submit" value="승인"/>
+                <input type="button" value="삭제" onClick={userDelete}/>
+                <input type="submit" className={style.auth} value="승인"/>
                 </form>
                 </div>
             </div>

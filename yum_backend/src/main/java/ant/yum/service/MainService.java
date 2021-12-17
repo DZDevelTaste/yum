@@ -34,4 +34,7 @@ public class MainService {
     public void updateInfo(UserVo userVo) {
 		mainRepository.updateInfo(userVo);
     }
+    public UserVo checkEmail(UserVo userVo) {
+		return mainRepository.checkEmail(userVo);
+    }
 }

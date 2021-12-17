@@ -1,9 +1,21 @@
+.image {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 42%;
+}
+.image1 {
+    position: absolute;
+    left: 35%;
+    top: 30%;
+}
+
 .header {
     position: absolute;
     width: 300px;
     height: 42px;
-    left: 827px;
-    top: 194px;
+    left: 42%;
+    top: 40%;
 
     font-family: Roboto;
     font-style: normal;
@@ -21,9 +33,9 @@
 .name {
     position: absolute;
     width: 255px;
-    left: 43.5%;
+    left: 42%;
     right: 44%;
-    top: 41.35%;
+    top: 48%;
     bottom: 53.65%;
 
     border: 1px solid #000000;
@@ -35,6 +47,7 @@
     line-height: 21px;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     text-align: center;
 
     color: #333333;
@@ -212,6 +225,6 @@
     position: absolute;
     width: 50px;
     height: 19px;
-    left: 1265px;
-    top: 75px;
+    left: 90%;
+    top: 5%;
 }

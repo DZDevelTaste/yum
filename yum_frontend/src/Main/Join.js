@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import style from '../assets/scss/main/join.scss'
+import Logo from '../../public/favicon.ico'
 
 const Join = () => {
         const [email, setEmail] = useState('');
@@ -28,48 +29,42 @@ const Join = () => {
             phone: phone +"-"+phone1+"-"+phone2,
         }
 
+        let dummyEmail = {
+            email: email + "@" + email1
+        }
     
+        const dummy = async() => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/check`, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(dummyEmail)
+                });
+                
+                if(!response.ok) {
+                    throw new Error(`${response.status} ${response.statusText}`);
+                }
+    
+                const json = await response.json();
+                
+                if(json.data == true) {
+                    document.getElementById('checkEmail').innerHTML='이미 존재하는 이메일입니다.'
+                    document.getElementById('checkEmail').style.color='red';
+                } else {
+                    document.getElementById('checkEmail').innerHTML='사용 가능한 이메일입니다.'
+                    document.getElementById('checkEmail').style.color='blue';
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        
     // 전부 입력되었는지 검사
     const login1 = (e) => {
         e.preventDefault();
-        var id = document.getElementById('id').value;
-        var pw = document.getElementById('pw').value;
-        var name = document.getElementById('name').value;
-        var rrn = document.getElementById('rrn').value;
-        var address_kakao = document.getElementById('address_kakao').value;
-        var addressDetail = document.getElementById('addressDetail').value;
-        var job = document.getElementById('job').value;
-        var phone = document.getElementById('phone').value;
-        var gender = document.getElementById('gender').value;
-        
-        if(id === ''){
-            alert('아이디를 입력해주세요');
-            return false;
-        }  if(pw === ''){
-            alert('비밀번호를 입력해주세요');
-            return false;
-        }  if(name === ''){
-            alert('이름를 입력해주세요');
-            return false;
-        }  if(rrn === ''){
-            alert('주민등록번호를 입력해주세요');
-            return false;
-        }  if(address_kakao === ''){
-            alert('주소를 입력해주세요');
-            return false;
-        }  if(addressDetail === ''){
-            alert('상세주소를 입력해주세요');
-            return false;;
-        }  if(job === ''){
-            alert('직급을 선택해주세요');
-            return false;
-        }  if(phone === ''){
-            alert('전화번호를 입력해주세요');
-            return false;
-        }  if(gender === ''){
-            alert('성별을 선택해주세요');
-            return false;
-        }
         alert("회원가입이 완료되었습니다.");
         fetchJoin();
     };
@@ -180,17 +175,18 @@ const Join = () => {
             setEmail1(document.getElementById('id1').value);
         }
     };
-
+    
     return (
         <div className={style.yammi}>
+            <img className={style.image}src={Logo}/>
             <form method="post" onSubmit={login1} >
                 <div className={style.header}>회원가입</div>
                 <div className={style.email}>
                     <label>
                         <div id={'idTitle'}>아이디</div>
-                    <input type="text" name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={(e) => setEmail(e.target.value)}/>
+                    <input type="text" name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={(e) => setEmail(e.target.value)} required/>
                     @
-                    <input type="text" id="id1" name="email1" onChange={(e) => setEmail1(e.target.value)}/>
+                    <input type="text" id="id1" name="email1" onChange={(e) => setEmail1(e.target.value)} required/>
                     <select id="id2" name="email1" onChange={email_check}>
                             <option value="1">직접입력</option>
                             <option value="naver.com">naver.com</option>
@@ -200,31 +196,33 @@ const Join = () => {
                             <option value="hanmail.net">hanmail.net</option>
                     </select>
                     </label>
+                    <span id="checkEmail" className={style.state}></span>
+                    <input type="button" value="중복 확인" className={style.checkEmail}onClick={dummy} required/>
                 </div>
                 <div className={style.password}>
                     <div>비밀번호</div>
-                        <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)}/>
+                        <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)} required/>
                 </div>
                 <div className={style.check}>
                     <div>비밀번호 확인</div>
-                        <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword}/>
+                        <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword} required/>
                         <span id="check"></span>
                 </div>
                 <div className={style.name}>
                     <div>이름</div>
-                    <input type="text" name="name" id="name" placeholder="이름" onChange={(e => setName(e.target.value))}/>
+                    <input type="text" name="name" id="name" placeholder="이름" onChange={(e => setName(e.target.value))} required/>
                 </div>
                 <div className={style.rrn}>
                     <div>주민등록번호</div>
-                        <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={(e) => setRrn(e.target.value)}/>
+                        <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={(e) => setRrn(e.target.value)} required/>
                         <span>-</span>
-                        <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={(e) => setRrn1(e.target.value)}/>
+                        <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={(e) => setRrn1(e.target.value)} required/>
                 </div>
                 <div className={style.job}>
                     <div>직급</div>
                     <div>
-                        <label><span className={style.nurse}>간호사</span><input type="radio" className={style.nurseBtn} name="job" id="job" value='N' onChange={(e) => setJob(e.target.value)}/></label>
-                        <label><span className={style.doctor}>의사</span><input type="radio" className={style.doctorBtn} name="job" id="job" value='D' onChange={(e) => setJob(e.target.value)}/></label>
+                        <label><span className={style.nurse}>간호사</span><input type="radio" className={style.nurseBtn} name="job" id="job" value='N' onChange={(e) => setJob(e.target.value)} required/></label>
+                        <label><span className={style.doctor}>의사</span><input type="radio" className={style.doctorBtn} name="job" id="job" value='D' onChange={(e) => setJob(e.target.value)} required/></label>
                     </div>
                 </div>
                 <div className={style.phone}>
@@ -232,7 +230,7 @@ const Join = () => {
                         전화번호
                     </div>
                     <div>
-                        <select id="phone" name="phone" onChange={(e) => setPhone(e.target.value)}>
+                        <select id="phone" name="phone" onChange={(e) => setPhone(e.target.value)} required>
                                         <option value="010">010</option>
                                         <option value="011">011</option>
                                         <option value="012">012</option>
@@ -244,21 +242,21 @@ const Join = () => {
                                         <option value="018">018</option>
                                         <option value="019">019</option>
                         </select>
-                        <input type="text" name="phone1" className={style.phoneN1} id="phone2" maxLength='4' onChange={(e) => setPhone1(e.target.value)}/>
-                        <input type="text" name="phone2" className={style.phoneN2} id="phone3" maxLength='4' onChange={(e) => setPhone2(e.target.value)}/>
+                        <input type="text" name="phone1" className={style.phoneN1} id="phone2" maxLength='4' onChange={(e) => setPhone1(e.target.value)} required/>
+                        <input type="text" name="phone2" className={style.phoneN2} id="phone3" maxLength='4' onChange={(e) => setPhone2(e.target.value)} required/>
                     </div>
                 </div>
                 <div className={style.address}>
                     <div>주소</div>
-                        <input type="text" className={style.number} id="zonecode_kakao" name="zonecode" placeholder="우편번호" onChange={(e) => setAddressNumber(e.target.value)}/>
+                        <input type="text" className={style.number} id="zonecode_kakao" name="zonecode" placeholder="우편번호" onChange={(e) => setAddressNumber(e.target.value)} required/>
                         <input type='button' id="kakao" value="우편번호 입력"/>
-                        <input type="text" className={style.address} id="address_kakao" name="address" placeholder="주소" onChange={(e) => setAddress(e.target.value)}/>
-                        <input type="text" className={style.detail} name="addressDetail" id="addressDetail" placeholder="상세주소" onChange={(e) => setAddressDetail(e.target.value)}/>
+                        <input type="text" className={style.address} id="address_kakao" name="address" placeholder="주소" onChange={(e) => setAddress(e.target.value) } required/>
+                        <input type="text" className={style.detail} name="addressDetail" id="addressDetail" placeholder="상세주소" onChange={(e) => setAddressDetail(e.target.value)} required/>
                 </div>
                 <div className={style.gender}>
                     <div>성별</div>
-                        <label className={style.male}>남</label> <input type="radio" className={style.maleBtn} name="gender" id="gender" value='M' onChange={(e) => setGender(e.target.value)}/>
-                        <label className={style.female}>여</label> <input type="radio" className={style.femaleBtn} name="gender" id="gender" value='F'  onChange={(e) => setGender(e.target.value)}/>
+                        <label className={style.male}>남</label> <input type="radio" className={style.maleBtn} name="gender" id="gender" value='M' onChange={(e) => setGender(e.target.value)} required/>
+                        <label className={style.female}>여</label> <input type="radio" className={style.femaleBtn} name="gender" id="gender" value='F'  onChange={(e) => setGender(e.target.value)} required/>
                 </div>
                 <input type="submit" className={style.join} value="회원가입" />
 		    </form>        

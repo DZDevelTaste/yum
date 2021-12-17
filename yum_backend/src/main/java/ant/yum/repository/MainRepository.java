@@ -43,4 +43,7 @@ public class MainRepository {
 		int count = sqlSession.update("main.updateInfo", userVo);
 		return count == 1;
     }
+    public UserVo checkEmail(UserVo userVo) {
+        return sqlSession.selectOne("main.checkEmail", userVo);
+    }
 }

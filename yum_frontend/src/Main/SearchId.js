@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import style from '../assets/scss/main/searchId.scss'
+import Logo from '../../public/favicon.ico'
+import SemiLogo from '../../public/title.png'
 
 const SearchId = () => {
     const [name, setName] = useState('');
@@ -13,16 +15,6 @@ const SearchId = () => {
     }
     const login1 = (e) => {
         e.preventDefault();
-        var name = document.getElementById('name').value;
-        var rrn = document.getElementById('rrn').value;
-       
-         if(name === ''){
-            alert('이름를 입력해주세요');
-            return false;
-        }  if(rrn === ''){
-            alert('주민등록번호를 입력해주세요');
-            return false;
-        }
         fetchJoin();
     };
     
@@ -50,9 +42,6 @@ const SearchId = () => {
                 document.getElementById('rrn1').value='';
                 return false;
             }
-
-            console.log(json.data);
-              
             let no = json.data.no;
             
             location.href= '/successId/' + no;
@@ -87,17 +76,19 @@ const SearchId = () => {
     };
     return (
         <div>
+            <img className={style.image}src={Logo}/>
+            <img className={style.image1}src={SemiLogo}/>
             <div className={style.header}>아이디 찾기</div>
                 <form method="post" onSubmit={login1} >
                 <div className={style.name}>
                     <label>이름</label>
-                    <input type="text" name="name" id="name" placeholder="이름" onChange={(e) => setName(e.target.value)}/>
+                    <input type="text" name="name" id="name" placeholder="이름" onChange={(e) => setName(e.target.value)} required/>
                 </div>
                 <div className={style.rrn}>
                     <label>주민등록번호</label>
-                    <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={(e) => setRrn(e.target.value)}/>
+                    <input type="text" name="rrn" id="rrn" placeholder="주민등록번호" maxLength='6' onChange={(e) => setRrn(e.target.value)} required/>
                     <span>-</span>
-                    <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={(e) => setRrn1(e.target.value)}/>
+                    <input type="password" name="rrn1" id="rrn1" maxLength='7' onBlur={rrn_check} onChange={(e) => setRrn1(e.target.value)} required/>
                     <input type="submit" value="아이디 찾기"/>
                 </div>
                 </form>

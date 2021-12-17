@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import style from '../assets/scss/main/successId.scss';
+import Logo from '../../public/favicon.ico'
+import SemiLogo from '../../public/title.png'
 const SuccessId = () => {
     const [users, setUsers] = useState([]);
     const current = decodeURI(window.location.href);
@@ -42,6 +44,8 @@ const SuccessId = () => {
     }
     return (
         <div>
+            <img className={style.image}src={Logo}/>
+            <img className={style.image1}src={SemiLogo}/>
             <div className={style.header}>아이디 찾기 완료</div>
 		    <div className={style.bodyy}>{`${users.name}님의 아이디는 ${users.email}입니다.`}</div>
             <ul>

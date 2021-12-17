@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import style from '../assets/scss/main/successPw.scss';
-
+import Logo from '../../public/favicon.ico'
+import SemiLogo from '../../public/title.png'
 const SuccessPw = () => {
     const [users, setUsers] = useState([]);
     const [password, setPassword] = useState('');
@@ -15,12 +16,6 @@ const SuccessPw = () => {
     }
     const login1 = (e) => {
         e.preventDefault();
-        var pw = document.getElementById('pw').value;
-        
-          if(pw === ''){
-            alert('비밀번호를 입력해주세요');
-            return false;
-        }
         alert("정상적으로 비밀번호가 재설정되었습니다.");
         fetchJoin();
     };
@@ -100,16 +95,18 @@ const SuccessPw = () => {
 
     return (
         <div>
+            <img className={style.image}src={Logo}/>
+            <img className={style.image1}src={SemiLogo}/>
             <div className={style.header}>비밀번호 재설정</div>
             <form method="post" onSubmit={login1} >
                 <label className={style.name}>{users.name}님 {users.email}</label>
                 <div className={style.password}>
                     <label>비밀번호</label>
-                    <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)} required/>
                 </div>
                 <div className={style.check}>
                     <label>비밀번호 확인</label>
-                    <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword}/>
+                    <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword} required/>
                     <span id="check" />
                     <input type="submit" value="비밀번호 변경" />
                 </div>

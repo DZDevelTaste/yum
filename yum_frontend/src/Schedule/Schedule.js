@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import FullCalendar from '@fullcalendar/react';
+import FullCalendar, { flexibleCompare } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -7,22 +7,23 @@ import Modal from 'react-modal';
 import '../assets/scss/schedule/styles.scss';
 import '../assets/scss/schedule/style1.scss';
 import '../assets/scss/schedule/style2.scss';
+import style from '../assets/scss/schedule/scheduleModal.scss'
 import moment from 'moment';
-import Navigation from '../layout/Navigation'
 import SiteLayout from '../layout/SiteLayout';
 
 const Schedule = () => {
+  const [id, setId] = useState('');
   const [scheduleVo, setScheduleVo] = useState([]);
-  const [schedule1Vo, setSchedule1Vo] = useState([]);
+  const [schedule1Vo, setSchedule1Vo] = useState({});
   const [modalData, setModalData] = useState({isOpen: false});
   const [modal1Data, setModal1Data] = useState({isOpen: false});
   const [title, setTitle] = useState('');
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const nowTime = moment().format('YYYY-MM-DD');
-  
+  const [userNo, setUserNo] =useState('');
   const no = parseInt(sessionStorage.getItem("no"));
-  
+  const name = sessionStorage.getItem("name");
   useEffect(() => {
       setTitle(schedule1Vo ? schedule1Vo.title : '')
       setStart(schedule1Vo ? schedule1Vo.start : '')
@@ -30,6 +31,7 @@ const Schedule = () => {
   }, [schedule1Vo])
   
   let MySchedule = {
+      id: id,
       title: title,
       start: start,
       end: end,
@@ -38,6 +40,7 @@ const Schedule = () => {
   useEffect(() => {
       fetchSchedule();
   }, []);
+  
   const fetchSchedule = async() => {
       try {
           const response = await fetch('http://localhost:8080/api/schedule', {
@@ -72,9 +75,7 @@ const Schedule = () => {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({
-              id: id
-            })
+            body: JSON.stringify({id : id})
         });
 
         if(!response.ok) {
@@ -82,11 +83,9 @@ const Schedule = () => {
         }
 
         const json = await response.json();
-
-        console.log(json.data);
-
+        setId(json.data.id);
+        setUserNo(json.data.userNo);
         setSchedule1Vo(json.data);
-        console.log(schedule1Vo);
     } catch (error) {
         console.error(error);
     }
@@ -183,6 +182,7 @@ const fetchdelete = async() => {
     } else {
         document.getElementById('title').disabled = true;
         document.getElementById('title').value=title2;
+        setTitle(title2);
     }
 };
   return (
@@ -194,7 +194,7 @@ const fetchdelete = async() => {
             center: 'dayGridMonth,timeGridWeek,timeGridDay',
             }
             }
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]} 
+            plugins={[ timeGridPlugin, dayGridPlugin, interactionPlugin]} 
             initialView="dayGridMonth" 
             customButtons={{
             new: {
@@ -204,55 +204,74 @@ const fetchdelete = async() => {
             }}
             selectable= "true"
             events={scheduleVo}
+            eventBackgroundColor='#6599FF'
             locale="ko"
             nowIndicator
             dateClick={(e) => {setStart(e.dateStr > nowTime ? e.dateStr : nowTime); setEnd(e.dateStr > nowTime ? e.dateStr : nowTime); setModalData({isOpen: true})} }
             eventClick={(e) => {
                 selectScheduler(parseInt(e.event.id));
-                setModal1Data({isOpen: true});
+                setModal1Data({isOpen: no == userNo ? true : false});
             } }/>
-            <Modal isOpen={modal1Data.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
-            휴가 수정
-            <button onClick={() => setModal1Data({isOpen: false})}>X</button>
+            <Modal className={style.updateModal} isOpen={modal1Data.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+            <span className={style.vacation}>휴가 수정</span>
+            <button className={style.Xbtn} onClick={() => setModal1Data({isOpen: false})}>X</button>
                 <form method='post' onSubmit={update}>
-                <div style={{zIndex: '9999'}}>
-                    
-                    <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                    <label><select id="title1" name="title1" onChange={titleChange}>
-                        <option value="1">직접입력</option>
-                        <option value="병가">병가</option>
-                        <option value="휴가">휴가</option>
-                        <option value="연차">연차</option>
-                        <option value="공가">공가</option>
-                        <option value="백신 휴가">백신휴가</option>
-                    </select></label>
-                    <br></br>
-                    <label><input type='date' min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>시작일</label>
-                    <br></br>
-                    <label><input type='date' min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>종료일</label>
+                <div className={style.body} style={{zIndex: '9999'}}>
+                    <div className={style.name}>
+                        <span>신청자</span>
+                        <input type="text" value={`${schedule1Vo.name}`} disabled/>
+                    </div>
+                    <div className={style.title}>
+                        <span>신청 사유</span>
+                        <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} required/>
+                        <select id="title1" name="title1" onChange={titleChange}>
+                            <option value="1">직접입력</option>
+                            <option value="병가">병가</option>
+                            <option value="휴가">휴가</option>
+                            <option value="연차">연차</option>
+                            <option value="공가">공가</option>
+                            <option value="백신 휴가">백신휴가</option>
+                        </select>
+                    </div>
+                    <div className={style.calendar}>
+                            <span>신청 날짜</span>
+                            <input type='date' className={style.start} min={nowTime}  defaultValue={`${schedule1Vo.start}`} onChange={(e) => setStart(e.target.value)}/>
+                            <input type='date' className={style.end} min={nowTime} defaultValue={`${schedule1Vo.end}`} onChange={(e) => setEnd(e.target.value)}/>
+                    </div>
                 </div>
-                <input type="submit" value="수정" />
-                <input type="button" value="삭제" onClick={scheduleDelete}/>
+                <div className={style.btn}>
+                    <input className={style.deleteBtn}type="button" value="삭제" onClick={scheduleDelete} />
+                    <input type="submit" value="수정" />
+                </div>
                 </form>
+                
             </Modal> 
-            <Modal isOpen={modalData.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
-            휴가 등록
-            <button onClick={() => setModalData({isOpen: false})}>X</button>
+            <Modal className={style.addModal} isOpen={modalData.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+            <span className={style.vacation}>휴가 등록</span>
+            <button className={style.Xbtn}onClick={() => setModalData({isOpen: false})}>X</button>
                 <form method='post' onSubmit={pushSchedule}>
-                <div style={{zIndex: '9999'}}>
+                <div className={style.body} style={{zIndex: '9999'}}>
+                    <div className={style.name}>
+                    <span>신청자</span>
+                    <input type="text" value={name} disabled/>
+                    </div>
+                    <div className={style.title}>
+                        <span>신청 사유</span>
                     <input type="text" id="title" name="title" onChange={(e) => setTitle(e.target.value)} required/>
-                    <label><select id="title1" name="title1" onChange={titleChange}>
+                    <select id="title1" name="title1" onChange={titleChange}>
                         <option value="1">직접입력</option>
                         <option value="병가">병가</option>
                         <option value="휴가">휴가</option>
                         <option value="연차">연차</option>
                         <option value="공가">공가</option>
                         <option value="백신 휴가">백신휴가</option>
-                    </select></label>
-                    <br></br>
-                    <label><input type='date' min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>시작일</label>
-                    <br></br>
-                    <label><input type='date' min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>종료일</label>
+                    </select>
+                    </div>
+                    <div className={style.calendar}>
+                        <span>신청 날짜</span>
+                        <input type='date' className={style.start} min={nowTime} value={start} onChange={(e) => setStart(e.target.value)}/>
+                        <input type='date' className={style.end} min={nowTime} value={end} onChange={(e) => setEnd(e.target.value)}/>
+                    </div>
                 </div>
                 <input type="submit" value="등록" />
                 </form>

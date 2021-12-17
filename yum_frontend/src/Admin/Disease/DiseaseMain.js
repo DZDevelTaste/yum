@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import DiseaseSearch from './DiseaseSearch';
-
+import SiteLayout from '../../layout/SiteLayout';
+import style from '../../assets/scss/disease/DiseaseMain.scss';
 const DiseaseMain = () => {
     const [diseases, setDiseases] = useState([]);
     const [code, setCode] = useState('');
@@ -83,36 +84,39 @@ const DiseaseMain = () => {
 
 
     return (
-        <div>
-            <h1>관리자 질병 리스트</h1>
+        <SiteLayout>
+        <div className={style.wangbody}>
             <DiseaseSearch  keyword={keyword} callback={notifyKeywordChanged} />
+                <div className={style.input}>
                 <form method='post' onSubmit={push}>
-                    <input type='text' onChange={(e) => setCode(e.target.value)} placeholder='질병 코드'/>
-                    <input type='text' onChange={(e) => setName(e.target.value)} placeholder='질병 명'/>
-                    <input type='text' onChange={(e) => setEngName(e.target.value)} placeholder='질병 명 (영문)'/>
+                    <input type='text' className={style.inputCode} onChange={(e) => setCode(e.target.value)} placeholder='질병 코드'/>
+                    <input type='text' className={style.inputName} onChange={(e) => setName(e.target.value)} placeholder='질병 명'/>
+                    <input type='text' className={style.inputEngName} onChange={(e) => setEngName(e.target.value)} placeholder='질병 명 (영문)'/>
                     <input type="submit" value="질병 추가" />
                 </form>
-            <div>
-                <label>질병 코드 </label>
-                <label>질병 명 </label>
-                <label>질병 명(영문)   </label>
+                </div>
+            <div className={style.titles}>
+                <span className={style.code}>질병 코드</span>
+                <span className={style.name}>질병 명</span>
+                <span className={style.engName}>질병 명(영문)</span>
             </div>
-            <div>
+            <div className={style.smallBody}>
                     {
                         diseases
                             .filter(disease => disease.name.indexOf(keyword) !== -1 || disease.code.indexOf(keyword) !== -1 || disease.engName.indexOf(keyword) !== -1)
                             .map(disease => {
                             return (
-                                <div>
-                                    <label>{`${disease.code}`}</label>
-                                    <label>{`${disease.name}`}</label>
-                                    <label>{`${disease.engName}`}</label>
+                                <div className={style.small}>
+                                    <span className={style.smallCode}>{`${disease.code}`}</span>
+                                    <span className={style.smallName}>{`${disease.name}`}</span>
+                                    <span className={style.smallEngName}>{`${disease.engName}`}</span>
                                 </div>
                             )
                     })
                     }
             </div>
         </div>
+        </SiteLayout>
     );
 };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import style from '../../assets/scss/medicine/MedicineInfo.scss';
 const MedicineInfo = ({no}) => {
     const [medicineVo, setMedicineVo] = useState([]);
     const [code, setCode] = useState('');
@@ -142,51 +142,94 @@ const MedicineInfo = ({no}) => {
     }
     
     return (
-        <div>
-            의약품 정보
+        <div className={style.wangbody}>
+            <span className={style.title}>의약품 정보</span>
             { medicineVo ?
+            <div className={style.smallbody}>
+                <div className={style.small}>
                 <form method='post' onSubmit={updateMedicine} >
-                    <label>의약품 코드</label>
-                    <input type="text" onChange={(e) => setCode(e.target.value)} value={code}/>
-                    <label>의약품 명</label>
-                    <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
-                    <label>제조사</label>
-                    <input type="text" onChange={(e) => setCompany(e.target.value)} value={company}/>
-                    <label>성분</label>
-                    <input type="text" onChange={(e) => setIngredient(e.target.value)} value={ingredient}/>
-                    <label>상세 설명
-                        <label>① 효능</label>
-                        <input type="text" onChange={(e) => setEfficacy(e.target.value)} value={efficacy}/>
-                        <label>② 복용 전 주의사항</label>
-                        <input type="text" onChange={(e) => setPrecaution(e.target.value)} value={precaution}/>
-                        <label>③ 복용 시 주의사항</label>
+                    <div className={style.code}>
+                        <span >의약품 코드 :</span>
+                        <input type="text" onChange={(e) => setCode(e.target.value)} value={code}/>
+                    </div>
+                    <div className={style.name}>
+                        <span >의약품 명 :</span>
+                        <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
+                    </div>
+                    <div className={style.company}>
+                        <span>제조사 :</span>
+                        <input type="text" onChange={(e) => setCompany(e.target.value)} value={company}/>
+                    </div>
+                    <div className={style.ingredient}>
+                        <span>성분 :</span>
+                        <input type="text" onChange={(e) => setIngredient(e.target.value)} value={ingredient}/>
+                    </div>
+                    <div className={style.sangse}>
+                        <span>상세 설명</span>
+                        <div className={style.efficacy}>
+                            <span>① 효능 :</span>
+                            <input type="text" onChange={(e) => setEfficacy(e.target.value)} value={efficacy}/>
+                        </div>
+                        <div className={style.precaution}>
+                            <span>② 복용 전 주의사항 :</span>
+                            <input type="text" onChange={(e) => setPrecaution(e.target.value)} value={precaution}/>
+                        </div>
+                        <div className={style.caution}>
+                        <span>③ 복용 시 주의사항 :</span>
                         <input type="text" onChange={(e) => setCaution(e.target.value)} value={caution}/>
-                        <label>④ 부작용</label>
+                        </div>
+                        <div className={style.sideEffect}>
+                        <span>④ 부작용 :</span>
                         <input type="text" onChange={(e) => setSideEffect(e.target.value)} value={sideEffect}/>
-                    </label>
-                    <input type="submit" value="수정" />
-                </form> : 
+                        </div>
+                    </div>
+                        <input type="submit" className={style.submit}value="수정" />
+                    </form>
+                </div>
+            </div> 
+                : 
+            <div className={style.smallbody}>
+                <div className={style.small}>
                 <form method='post' onSubmit={addMedicine} >
-                <label>의약품 코드</label>
-                <input type="text" onChange={(e) => setCode(e.target.value)} />
-                <label>의약품 명</label>
-                <input type="text" onChange={(e) => setName(e.target.value)} />
-                <label>제조사</label>
-                <input type="text" onChange={(e) => setCompany(e.target.value)} />
-                <label>성분</label>
-                <input type="text" onChange={(e) => setIngredient(e.target.value)} />
-                <label>상세 설명
-                    <label>① 효능</label>
-                    <input type="text" onChange={(e) => setEfficacy(e.target.value)} />
-                    <label>② 복용 전 주의사항</label>
-                    <input type="text" onChange={(e) => setPrecaution(e.target.value)} />
-                    <label>③ 복용 시 주의사항</label>
-                    <input type="text" onChange={(e) => setCaution(e.target.value)} />
-                    <label>④ 부작용</label>
-                    <input type="text" onChange={(e) => setSideEffect(e.target.value)} />
-                </label>
-                <input type="submit" value="등록" />
-            </form>
+                    <div className={style.code}>
+                        <span>의약품 코드 :</span>
+                        <input type="text" onChange={(e) => setCode(e.target.value)} />
+                    </div>
+                    <div className={style.name}>
+                        <span>의약품 명 :</span>
+                        <input type="text" onChange={(e) => setName(e.target.value)} />
+                    </div>
+                    <div className={style.company}>
+                        <span>제조사 :</span>
+                        <input type="text" onChange={(e) => setCompany(e.target.value)} />
+                    </div>
+                    <div className={style.ingredient}>
+                    <span>성분 :</span>
+                    <input type="text" onChange={(e) => setIngredient(e.target.value)} />
+                    </div>
+                    <div className={style.sangse}>
+                        <span>상세 설명</span>
+                        <div className={style.efficacy}>
+                            <span>① 효능 :</span>
+                            <input type="text" onChange={(e) => setEfficacy(e.target.value)} />
+                        </div>
+                        <div className={style.precaution}>
+                            <span>② 복용 전 주의사항 :</span>
+                            <input type="text" onChange={(e) => setPrecaution(e.target.value)} />
+                        </div>
+                        <div className={style.caution}>
+                            <span>③ 복용 시 주의사항 :</span>
+                            <input type="text" onChange={(e) => setCaution(e.target.value)} />
+                        </div>
+                        <div className={style.sideEffect}>
+                            <span>④ 부작용 :</span>
+                            <input type="text" onChange={(e) => setSideEffect(e.target.value)} />
+                        </div>
+                    </div>
+                    <input type="submit" className={style.add} value="등록"/>
+                </form>
+                </div>
+            </div>
             } 
         </div>
     );

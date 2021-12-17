@@ -156,7 +156,7 @@
         }
         .auth {
             // position: absolute;
-            width: 85px;
+            width: 90px;
             height: 21px;
             padding: 0 0 0 150px;
     
@@ -178,10 +178,63 @@
     .smallBody {
         width: 1440px;
         height: 650px;
-        margin: 0 0 0 5px;        
+        margin: 0 0 0 5px;      
+        overflow: auto;  
         background-color: #FFFFFF;
         border: 3px solid #737373;
         box-sizing: border-box;
+        input[type=button] {
+            /* Group 257 */
+            position: absolute;
+            width: 130px;
+            height: 60px;
+            left: 78%;
+            bottom: 9%;
+
+            background: #6599FF;
+            border-radius: 8px;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            text-align: center;
+            letter-spacing: 0.15em;
+
+            color: #FFFFFF;
+
+        }
+        input[type=submit] {
+            /* Group 17 */
+            position: absolute;
+            width: 130px;
+            height: 60px;
+            left: 85%;
+            bottom: 8%;
+            /* Inside Auto Layout */
+            flex: none;
+            order: 0;
+            align-self: stretch;
+            flex-grow: 0;
+            margin: 10px 0px;
+
+            background: #6599FF;
+            border-radius: 8px;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 28px;
+            text-align: center;
+            letter-spacing: 0.1em;
+
+            color: #FFFFFF;
+        }
         .small{
             display: flex;
             align-items: center;

@@ -1,9 +1,21 @@
+.image {
+    position: absolute;
+    left: 43%;
+    top: -1%;
+    width: 300px;
+    height: 300px;
+}
+.image1 {
+    position:absolute;
+    left: 36%;
+    top: 27%;
+}
 .header {
     position: absolute;
-    width: 320px;
+    width: 350px;
     height: 42px;
-    left: 821px;
-    top: 271px;
+    left: 43%;
+    top: 38%;
 
     font-family: Roboto;
     font-style: normal;
@@ -21,7 +33,7 @@
 .bodyy {
     position: absolute;
     width: 230px;
-    left: 42.12%;
+    left: 42.5%;
     right: 43.18%;
     top: 45.35%;
     bottom: 43.65%;
@@ -32,6 +44,7 @@
     font-size: 18px;
     line-height: 21px;
     display: flex;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
     border: 1px solid #000000;
@@ -52,7 +65,7 @@
     width: 215px;
     height: 60px;
     left: 755px;
-    top: 700px;
+    top: 60%;
 
     /* Inside Auto Layout */
     flex: none;
@@ -91,7 +104,7 @@
     width: 215px;
     height: 60px;
     left: 1000px;
-    top: 700px;
+    top: 60%;
 
     /* Inside Auto Layout */
     flex: none;
