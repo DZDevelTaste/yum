@@ -6,14 +6,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import ant.yum.repository.DiagnosisRepository;
-import ant.yum.repository.OrderRepository;
 import ant.yum.repository.PatientRepository;
 import ant.yum.repository.PrescriptionRepository;
 import ant.yum.vo.DiagnosisVo;
-import ant.yum.vo.OrderVo;
 import ant.yum.vo.PatientVo;
 
 @Service

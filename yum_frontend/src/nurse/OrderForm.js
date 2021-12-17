@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import Modal from 'react-modal';
 import Postcode from '../Postcode';
 
@@ -16,6 +16,8 @@ const OrderForm = ({no, callback}) => {
     const [addr, setAddr] = useState({});
     const [isOpenHandler, setIsOpenHandler] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
+    const modalInnerRef = useRef(null);
+
 
     useEffect(() => {
         if(no != 0 || no != '') {
@@ -114,6 +116,20 @@ const OrderForm = ({no, callback}) => {
         setAddr({});
         setOrder({orderstateNo: 2});
     }
+
+    const stateClickEvent = (e) => {
+        // 사용자가 클릭한 위치
+        let x = e.clientX;
+        let y = e.clientY;
+
+        setTimeout(() => {
+            const modalDiv = modalInnerRef.current.parentNode;
+            modalDiv.style.top = y + "px";
+            modalDiv.style.left = x + "px";
+        }, 0);
+        setIsOpenHandler(true);
+    } 
+
 
     /* 접수폼 입력 체크 */
     const formCheck = () => {
@@ -341,16 +357,16 @@ const OrderForm = ({no, callback}) => {
                             type='text'
                             placeholder='우편번호'
                             value={addr.zonecode || ''}
-                            onClick={ (e) => {e.target.blur(); setIsOpenHandler(true)} }
+                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
                             onChange={ () => setAddr(Object.assign({}, addr, {zonecode: addr.zonecode}) )}
                             />
-                        <button id='AddrBtn' className={styles2.AddrBtn} onClick={(e) => setIsOpenHandler(true) }>주소찾기</button>
+                        <button id='AddrBtn' className={styles2.AddrBtn} onClick={stateClickEvent}>주소찾기</button>
                         <input
                             className={styles2.Address}
                             type='text'
                             placeholder='주소'
                             value={addr.address || ''}
-                            onClick={ (e) => {e.target.blur(); setIsOpenHandler(true)} }
+                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
                             onChange={ () => setAddr(Object.assign({}, addr, {address: addr.address}) )}
                             />
                         <input
@@ -418,8 +434,9 @@ const OrderForm = ({no, callback}) => {
                 onRequestClose={ () => setIsOpenHandler(false) }
                 isOpen={isOpenHandler}>
                 
-                <button 
+                <button
                     className={styles2.Close}
+                    ref={modalInnerRef}
                     onClick={() => {setIsOpenHandler(false)}}>X</button>
                 <Postcode callback={notifyAddr}/>
 

@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
+// import styles2 from '../assets/scss/PatientList.scss';
+import styles2 from '../assets/scss/OrderPatient.scss';
 import SearchBar from '../SearchBar';
 import OrderPatient from './OrderPatient';
 
-import styles from '../assets/scss/Content.scss';
-// import styles2 from '../assets/scss/PatientList.scss';
-import styles2 from '../assets/scss/OrderPatient.scss';
 
 
 const OrderList = ({addOrder}) => {

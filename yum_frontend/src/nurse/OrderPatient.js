@@ -1,19 +1,43 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal/lib/components/Modal';
-import { Fragment } from 'react/cjs/react.production.min';
+import React, { Fragment, useRef, useState } from 'react';
+import Modal from 'react-modal';
 import '../assets/scss/Content.scss';
 import styles2 from '../assets/scss/OrderPatient.scss';
 
+Modal.setAppElement('body');
+
 const Patient = ({order, callback}) => {
     const [isOpenHandler, setIsOpenHandler] = useState(false);
-    
+    const modalInnerRef = useRef(null);      // 모달 안의 ul useRef, Modal은 ref 적용 x
+
     let rrn = order.patientVo.rrn;
     let phone = order.patientVo.phone;
     
+    /* 진료현황 클릭 시 실행 이벤트(모달 위치 조정 및 모달 띄우기) */
+    const stateClickEvent = (e) => {
+        // 사용자가 클릭한 위치
+        let x = e.clientX;
+        let y = e.clientY;
+        // console.log('click x:', x, '/ click y:', y);
 
+        setTimeout(() => {
+            // console.log('refModalInnerRef:', modalInnerRef.current.parentNode);
+            
+            const modalDiv = modalInnerRef.current.parentNode;       // Modal(ul 상위에 있는 Div)
+            // console.log(modalDiv);
+            
+            // Modal 위치를 사용자가 클릭한 위치로 설정(Modal의 position은 absolute)
+            modalDiv.style.top = y + "px";
+            modalDiv.style.left = x + "px";
+        }, 0);
+        setIsOpenHandler(true);
+    } 
+
+
+
+    /* 진료 현황 업데이트 */
     const updateState = async (selectOSN) => {
-        
         try {
+            // console.log(modalInnerRef.current.parentNode)
             let updateOrder = {};
             updateOrder.no = order.no;
             updateOrder.orderstateNo = selectOSN;
@@ -68,7 +92,7 @@ const Patient = ({order, callback}) => {
                             : order.state === '수납대기' ? styles2.waiting
                             : order.state === '완료' ? styles2.finish
                             : ''}`}
-                    onClick={() => setIsOpenHandler(true)}>
+                    onClick={stateClickEvent}>
                     {order.state}
                 </td>
                 <td className={styles2.phone}>
@@ -79,19 +103,17 @@ const Patient = ({order, callback}) => {
                     }
                 </td>
             </tr>
-
+            
             <Modal
                 className={styles2.Modal}
                 overlayClassName={styles2.Overlay}
                 onRequestClose={ () => setIsOpenHandler(false) }
-                ariaHideApp={false}
                 isOpen={isOpenHandler}>
-                <ul>
+                <ul ref={modalInnerRef}>
                     <li onClick={() => updateState(1)}>예약</li>
                     <li onClick={() => updateState(2)}>진료대기</li>
                     <li onClick={() => updateState(3)}>진료중</li>
                 </ul>
-
             </Modal>
         </Fragment>
     );
