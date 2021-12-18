@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import FullCalendar, { flexibleCompare } from '@fullcalendar/react';
+import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -11,6 +11,7 @@ import style from '../assets/scss/schedule/scheduleModal.scss'
 import moment from 'moment';
 import SiteLayout from '../layout/SiteLayout';
 import '../assets/scss/Content.scss';
+
 const Schedule = () => {
   const [id, setId] = useState('');
   const [scheduleVo, setScheduleVo] = useState([]);

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Diagnosis from './diagnosis/Diagnosis';
 import Patient from './patient/Patient';
 import style from '../assets/scss/component/doctor/DoctorMain.scss';
+import SiteLayout from '../layout/SiteLayout';
 
 const App = () => {
 
@@ -109,22 +110,24 @@ const App = () => {
     }
 
     return (
-        <div className={style.body} > 
-            <div className={style.patient} >
-                <Patient callback1={getOrderNo} callback2={getPatientName}/>
-            </div>
-            <div className={style.diagnosis}>
-                <div className={style.diagnosisTitle} >
-                    진료
+        <SiteLayout>
+            <div className={style.body} > 
+                <div className={style.patient} >
+                    <Patient callback1={getOrderNo} callback2={getPatientName}/>
                 </div>
-                <Diagnosis callback1={getDiseaseNo} callback2={getClinicNo} callback3={getMedicineInfo} callback4={getMemo}/>
+                <div className={style.diagnosis}>
+                    <div className={style.diagnosisTitle} >
+                        진료
+                    </div>
+                    <Diagnosis callback1={getDiseaseNo} callback2={getClinicNo} callback3={getMedicineInfo} callback4={getMemo}/>
+                </div>
+                <button className={style.button} onClick={() => {
+                        submitDiagnosis()
+                        sendMessage()}}>
+                    진료 완료
+                </button>
             </div>
-            <button className={style.button} onClick={() => {
-                    submitDiagnosis()
-                    sendMessage()}}>
-                진료 완료
-            </button>
-        </div>
+        </SiteLayout>
     );
 };
 

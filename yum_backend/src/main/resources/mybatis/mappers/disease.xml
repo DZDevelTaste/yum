@@ -3,11 +3,7 @@
 <mapper namespace="disease"> 
 	<select id="findByDisease" resultType="diseasevo">
 		<![CDATA[
-<<<<<<< HEAD
-			SELECT no, code, name, eng_Name FROM "disease";
-=======
 			SELECT "no" ,code, name, eng_name FROM "disease"
->>>>>>> 4db3f2e38157236a8422e9cedcd0fb00456af368
 		]]>
 	</select>
 	<insert id="addDisease" parameterType="diseasevo">

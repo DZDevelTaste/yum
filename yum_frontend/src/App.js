@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
 import {Routes, Route} from 'react-router';
 import Main from './Main/Main';
 import Join from './Main/Join';
@@ -19,7 +18,6 @@ import Update from './Main/Update';
 
 const App = () => {
     return (
-        <Router>
             <Routes>
                 <Route path='/' element={<Main />}/>
                 <Route path='/join' element={<Join />}/>
@@ -38,7 +36,6 @@ const App = () => {
                 <Route exact path='/doctor' element={<DoctorMain />}/>
                 <Route path='/update' element={<Update />} />
             </Routes>
-        </Router>
     );
 };
 
