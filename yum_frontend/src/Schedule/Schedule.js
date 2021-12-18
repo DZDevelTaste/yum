@@ -197,10 +197,6 @@ const fetchdelete = async() => {
         <div>
             <FullCalendar 
             themeSystem="themeSystem"
-            headerToolbar={{
-            center: 'dayGridMonth,timeGridWeek,timeGridDay',
-            }
-            }
             plugins={[ timeGridPlugin, dayGridPlugin, interactionPlugin]} 
             initialView="dayGridMonth" 
             customButtons={{
