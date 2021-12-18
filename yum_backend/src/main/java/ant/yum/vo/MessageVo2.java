@@ -10,4 +10,5 @@ public class MessageVo2 {
     private String from;
     private String to;
     private String timestamp;
+    private String state;
 }

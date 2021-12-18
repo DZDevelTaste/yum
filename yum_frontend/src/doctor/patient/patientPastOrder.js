@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PatientOrderList from './PatientOrderList';
+import style from '../../assets/scss/component/doctor/patient/PatientPastOrder.scss';
 
 const patientPastOrder = ({patientNo}) => {
 
@@ -38,24 +39,22 @@ const patientPastOrder = ({patientNo}) => {
         }
     }
 
-    const divStyle ={
-        border: '1px solid black',
-        width: 700,
-        height: 300,
-        float: 'left',
-    }
-
     return (
-        <div id='patientPastOrder' style={divStyle}>
-            과거 이력
-            <div id=''>
-                <span style={{display:'block', width: 175+'px', textAlign: 'center', float: 'left'}}>내원일</span>
-                <span style={{display:'block', width: 175+'px', textAlign: 'center', float: 'left'}}>담당의</span>
-                <span style={{display:'block', width: 175+'px', textAlign: 'center', float: 'left'}}>병명</span>
-                <span style={{display:'block', width: 175+'px', textAlign: 'center', float: 'left'}}>처방</span>
+        <>
+            <div className={style.pastOrderTitle}>
+            내원 기록
             </div>
-            <PatientOrderList diagnosisList={diagnosisList}/>
-        </div>
+            <div className={style.pastOrderContents} >
+                <div className={style.menu}>
+                    <div className={style.orderDtAndUsInfo}>내원일</div>
+                    <div className={style.orderDtAndUsInfo}>담당의</div>
+                    <div className={style.orderDisAndCliInfo}>병명</div>
+                    <div className={style.orderDisAndCliInfo}>처방</div>
+                </div>
+                <PatientOrderList diagnosisList={diagnosisList}/>
+            </div>
+            
+        </>
     );
 };
 

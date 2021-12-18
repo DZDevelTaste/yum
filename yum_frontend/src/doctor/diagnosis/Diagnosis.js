@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Clinic from './Clinic';
 import Disease from './Disease';
 import Memo from './Memo';
+import style from '../../assets/scss/component/doctor/diagnosis/Diagnosis.scss';
 
 const diagnosis = ({callback1, callback2, callback3, callback4}) => {
     var [diseaseNo, setDiseaseNo] = useState([]);
@@ -33,10 +34,12 @@ const diagnosis = ({callback1, callback2, callback3, callback4}) => {
     }, [diseaseNo, clinicNo, medicineInfo, memo])
 
     return (
-        <div>
-            <Disease callback={getDiseaseNo}/>
-            <Clinic callback1={getClinicNo} callback2={getMedicineInfo} />
-            <Memo callback={getMemo}/>
+        <div className={style.diagnosisFrame} >
+            <div className={style.diagnosisBody} >
+                <Disease callback={getDiseaseNo}/>
+                <Clinic callback1={getClinicNo} callback2={getMedicineInfo} />
+                <Memo callback={getMemo}/>
+            </div>
         </div>
     );
 };

@@ -14,7 +14,7 @@ import ant.yum.vo.MessageVo2;
 @CrossOrigin
 @RestController
 @RequestMapping("/message")
-public class TestController {
+public class MessageController {
 
     @Autowired
     private SimpMessagingTemplate webSocket;

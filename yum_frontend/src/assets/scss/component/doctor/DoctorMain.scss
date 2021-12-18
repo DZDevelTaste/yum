@@ -1,0 +1,56 @@
+.body {
+    border: 1px solid black;
+    width: 1550px;
+    height: 800px;
+
+    .patient {
+        
+        width: 1510px;
+        height: 250px;
+        margin-left: 20px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        background: #F9F9F9;
+    }
+
+    .diagnosis {
+        
+        width: 1510px;
+        height: 450px;
+        margin-left: 20px;
+        background: #F9F9F9;
+    }
+
+    .diagnosisTitle {
+        margin-top: 20px;
+        margin-left: 20px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.05em;
+    }
+
+    .button {
+        position: absolute;
+        top: 630px;
+        left: 1157px;
+
+        width: 345px;
+        height: 60px;
+        background: #6599FF;
+        border-radius: 8px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        letter-spacing: 0.1em;
+        color: #FFFFFF;
+    }
+}
+
+
+
+

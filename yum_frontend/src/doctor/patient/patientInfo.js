@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import style from '../../assets/scss/component/doctor/patient/PatientInfo.scss';
 
 const patientInfo = ({patientNo}) => {
     
@@ -7,6 +8,7 @@ const patientInfo = ({patientNo}) => {
 
     useEffect(() => {
         setPatientVo(patient.patientVo);
+        console.log(patient.patientVo);
     }, [patient]);
 
     useEffect(()=>{
@@ -43,37 +45,43 @@ const patientInfo = ({patientNo}) => {
         }
     }
 
-    const divStyle ={
-        display: 'inline-block',
-        border: '1px solid black',
-        width: 300,
-        height: 300,
-        float: 'left'
-    }
-
-
     return (
-        <div id='patientInfo' style={divStyle}>
-            환자 정보
-            {patientVo ? 
-                <div>
-                    <p>이름: {patientVo.name}</p>
-                    <p>주민등록번호: {patientVo.rrn}</p>
-                    <p>키: {patientVo.length}</p>
-                    <p>몸무게: {patientVo.weight}</p>
-                    <p>주소: {patientVo.address}</p> 
-                </div> :
-                <div>
-                    <p>이름: </p>
-                    <p>주민등록번호: </p>
-                    <p>키: </p>
-                    <p>몸무게: </p>
-                    <p>주소: </p> 
-                
-                </div>
-            }
-        </div>
+        <>
+            <div className={style.patientInfoTitle}>
+                환자 정보
+            </div>
+            <div className={style.patientInfoBody}>
+                {
+                patientVo ? 
+                    <div className={style.patientInfoContent}>
+                        <div className={style.patientAttr}>이 름 : 
+                            <div className={style.patientInfo}>{patientVo.name}</div></div>
+                        <div className={style.patientAttr}>주민등록번호 : 
+                            <div className={style.patientInfo}>{patientVo.rrn}</div></div>
+                        <div className={style.patientAttr}>키 : 
+                            <div className={style.patientInfo}>{patientVo.length}</div></div>
+                        <div className={style.patientAttr}>몸무게 : 
+                            <div className={style.patientInfo}>{patientVo.weight}</div></div>
+                        <div className={style.patientAttr}>주소 : 
+                            <div className={style.patientInfo}>
+                                {patientVo.address}
+                            </div> </div>
+                        <div className={style.patientAttr}>특이사항 : 
+                            <div className={style.patientInfo}>{patientVo.desc}</div> </div>
+                    </div> :
+                    <div className={style.patientInfoContent}>
+                        <div className={style.patientAttr}>이 름 : <div className={style.emptyInfo}></div></div>
+                        <div className={style.patientAttr}>주민등록번호 : <div className={style.emptyInfo}></div></div>
+                        <div className={style.patientAttr}>키 : <div className={style.emptyInfo}></div></div>
+                        <div className={style.patientAttr}>몸무게 : <div className={style.emptyInfo}></div></div>
+                        <div className={style.patientAttr}>주소 : <div className={style.emptyInfo}></div></div>
+                        <div className={style.patientAttr}>간호사 메모 : <div className={style.emptyInfo}></div></div>
+                    </div>
+                }
+            </div>
+        </>
     );
+
 
     
 };

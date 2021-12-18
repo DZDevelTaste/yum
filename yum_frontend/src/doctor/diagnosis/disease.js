@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import style from '../../assets/scss/component/doctor/diagnosis/Disease.scss';
 
 const disease = ({callback}) => {
     const [modalData, setModalData] = useState({isOpen: false})
@@ -9,14 +10,7 @@ const disease = ({callback}) => {
 
     const [presDiseases, setPresDiseases] = useState([]); // value for insert
 
-    const divStyle = {
-        display: 'inline-block',
-        border: '1px solid black',
-        width: 400,
-        height: 300,
-        float: 'left',
-        clear: 'both'
-    }
+    
 
     useEffect(() => {
         fetchDisease();
@@ -24,7 +18,6 @@ const disease = ({callback}) => {
 
     useEffect(() => {
         callback(presDiseases);
-        // setPresDiseases(presDiseases);
     }, [presDiseases])
 
     useEffect(()=>{
@@ -57,72 +50,90 @@ const disease = ({callback}) => {
     }
 
     return (
-        <div style={divStyle}>
-            <span>병명 </span>
-            <input type='text' onClick={() => setModalData({isOpen: true})} />
-            <br />
-            <div>
-                <div>
-                    질병 코드 병명
+        <div className={style.diseaseBody} >
+            <div className={style.head} >
+                <span>병명 </span>
+                <input type='text' onClick={() => setModalData({isOpen: true})} />
+            </div>
+            <div className={style.menu}>
+                <div className={style.codeMenu}>
+                    질병코드
+                </div>
+                <div className={style.disNameMenu}>
+                    질병명
+                </div>
+                <div className={style.deleteMenu}>
                 </div>
             </div>
-            <div>
+            <div className={style.diseaseList}>
                 {
                     presDiseases.length > 0 &&
                     presDiseases.map(presDisease => {
                         return(
-                            <div>
-                                <span>{presDisease.no}</span>
-                                <span>{presDisease.code}</span>
-                                <span>{presDisease.name}</span>
-                                <button onClick={() => {
-                                    if(confirm(`${presDisease.name} 병명을 삭제하시겠습니까?`) == true){
-                                        console.log(presDiseases.indexOf(presDisease));
-                                        presDiseases.splice(presDiseases.indexOf(presDisease), 1)
-                                        setChangeValue(changeValue + 1);
-                                    }
-                                }}>
-                                        삭제
-                                </button>
+                            <div className={style.selectedDisease}>
+                                <div className={style.disCode}>{presDisease.code}</div>
+                                <div className={style.disName}>{presDisease.name}</div>
+                                    <div className={style.deleteBtn}>
+                                    <button onClick={() => {
+                                        if(confirm(`${presDisease.name} 병명을 삭제하시겠습니까?`) == true){
+                                            console.log(presDiseases.indexOf(presDisease));
+                                            presDiseases.splice(presDiseases.indexOf(presDisease), 1)
+                                            setChangeValue(changeValue + 1);
+                                        }
+                                    }}>
+                                            삭제
+                                    </button>
+                                </div>
+                                
                             </div>
                         )
                     }) 
                 }
             </div>
-            <Modal isOpen={modalData.isOpen} 
+            
+            
+            <Modal 
+                isOpen={modalData.isOpen} 
                 ariaHideApp={false} 
+                shouldCloseOnOverlayClick={ true }
                 overlayClassName="overlay"
-                style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+                className={style.modal}
+                style={{content: {width: 500, height: 400}}}>
                 
-                <div>병명 <button onClick={() => setModalData({isOpen: false})}>X</button></div>
-                <div><input type='text'  onChange={ e => setKeyword(e.target.value)}  /></div>
+                <div className={style.modalHead}>
+                    <div className={style.title}>병명</div>
+                    <button className={style.closeButton} onClick={() => setModalData({isOpen: false})}>X</button>
+                </div>
+                <div >
+                    <input className={style.inputBox} type='text'  onChange={ e => setKeyword(e.target.value)}  />
+                </div>    
                 
-                <div>
-                    <div>
-                        <div>질병코드 병명</div>
-                        <div>
-                            {
-                                diseases
-                                    .filter(disease => disease.name.indexOf(keyword) !== -1 || disease.code.indexOf(keyword) !== -1)
-                                    .map(disease => {
-                                        return (
-                                            <div onClick={ () => {
-                                                    if(presDiseases.includes(disease)){
-                                                        alert('이미 선택된 질병입니다');
-                                                    } else{
-                                                        setModalData({isOpen: false});
-                                                        disease.diseaseNo = disease.no;
-                                                        delete disease.no;
-                                                        setPresDiseases([...presDiseases, disease]);
-                                                    }}}>
-                                                <label>{`${disease.code}`}</label>
-                                                <label>{`${disease.name}`}</label>
-                                            </div>
-                                        )
-                                    })
-                            }
-                        </div>
-                        
+                <div className={style.modalBody}>
+                    <div className={style.menu}>
+                        <div className={style.codeMenu}>질병코드</div>
+                        <div className={style.nameMenu}> 병명</div>
+                    </div>
+                    <div className={style.lists}>
+                        {
+                            diseases
+                                .filter(disease => disease.name.indexOf(keyword) !== -1 || disease.code.indexOf(keyword) !== -1)
+                                .map(disease => {
+                                    return (
+                                        <div className={style.list} onClick={ () => {
+                                                if(presDiseases.includes(disease)){
+                                                    alert('이미 선택된 질병입니다');
+                                                } else{
+                                                    setModalData({isOpen: false});
+                                                    disease.diseaseNo = disease.no;
+                                                    delete disease.no;
+                                                    setPresDiseases([...presDiseases, disease]);
+                                                }}}>
+                                            <div className={style.code}>{`${disease.code}`}</div>
+                                            <div className={style.name}>{`${disease.name}`}</div>
+                                        </div>
+                                    )
+                                })
+                        }
                     </div>
                 </div>
             </Modal>

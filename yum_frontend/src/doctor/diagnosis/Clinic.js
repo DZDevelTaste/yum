@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import style from '../../assets/scss/component/doctor/diagnosis/Clinic.scss';
 
 const clinic = ({callback1, callback2}) => {
     const [modalData, setModalData] = useState({isOpen: false})
@@ -10,14 +11,6 @@ const clinic = ({callback1, callback2}) => {
 
     const [clinicNo, setClinicNo] = useState([]);                   // value for insert
     const [medicineInfo, setMedicineInfo] = useState([]);           // value for insert
-
-    const divStyle ={
-        display: 'inline-block',
-        border: '1px solid black',
-        width: 400,
-        height: 300,
-        float: 'left'
-    }
 
     useEffect(() => {
         callback1(clinicNo);
@@ -55,71 +48,63 @@ const clinic = ({callback1, callback2}) => {
     }
 
     return (
-        <div style={divStyle}>
-            <div>
-                처방
+        <div className={style.clinicBody}>
+            <div className={style.head}>
+                <span>처방</span>
                 <input type='text' onClick={() => setModalData({isOpen: true})}/>
             </div>
-            <div>
+            <div className={style.menu}>
+                <div className={style.kindMenu}>
                 분류
+                </div >
+                <div className={style.cliNameMenu}>
                 처방
+                </div>
+                <div className={style.medicineMenu}>
                 1일 투여횟수
+                </div>
+                <div className={style.medicineMenu}>
                 총 투여일수
+                </div>
+                <div className={style.deleteMenu}>
+                </div>
             </div>
-            <div>
-                {
-                    clinicNo.map( clinic => {
-                        return (
-                            <div>
-                                <span>{clinic.kind}</span>
-                                <span>{clinic.name}</span>
-                                <button onClick={ () => {
-                                    if(confirm(`${clinic.name} 처방을 삭제하시겠습니까?`) == true){
-                                        setChangeValue(changeValue + 1)
-                                        clinicNo.splice(clinicNo.indexOf(clinic), 1)}
-                                    }}>
-                                    삭제
-                                </button>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            <div>
+            {/* <div className={style.clinicBody}> */}
                 {
                     medicineInfo.map( medicineinfo => {
                         return (
-                                <div>
-                                    <span>{medicineinfo.kind}</span>
-                                    <span>{medicineinfo.name}</span>
-                                    <span>
-                                        <select onChange={e => medicineinfo.presmedicineDay = e.target.value}>
-                                            <option value='1'>1</option>
-                                            <option value='2'>2</option>
-                                            <option value='3'>3</option>
-                                            <option value='4'>4</option>
-                                            <option value='5'>5</option>
-                                            <option value='6'>6</option>
-                                            <option value='7'>7</option>
-                                            <option value='8'>8</option>
-                                            <option value='9'>9</option>
-                                            <option value='10'>10</option>
-                                        </select>
-                                    </span>
-                                    <span>
-                                        <select onChange={e => medicineinfo.presmedicineCount = e.target.value}>
-                                            <option value='1'>1</option>
-                                            <option value='2'>2</option>
-                                            <option value='3'>3</option>
-                                            <option value='4'>4</option>
-                                            <option value='5'>5</option>
-                                            <option value='6'>6</option>
-                                            <option value='7'>7</option>
-                                            <option value='8'>8</option>
-                                            <option value='9'>9</option>
-                                            <option value='10'>10</option>
-                                        </select>
-                                    </span>
+                            <div className={style.medicine}>
+                                <div className={style.kind}>{medicineinfo.kind}</div>
+                                <div className={style.name}>{medicineinfo.name}</div>
+                                <div className={style.mediDayAndCount}>
+                                    <select onChange={e => medicineinfo.presmedicineDay = e.target.value}>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                        <option value='6'>6</option>
+                                        <option value='7'>7</option>
+                                        <option value='8'>8</option>
+                                        <option value='9'>9</option>
+                                        <option value='10'>10</option>
+                                    </select>
+                                </div>
+                                <div className={style.mediDayAndCount}>
+                                    <select onChange={e => medicineinfo.presmedicineCount = e.target.value}>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                        <option value='6'>6</option>
+                                        <option value='7'>7</option>
+                                        <option value='8'>8</option>
+                                        <option value='9'>9</option>
+                                        <option value='10'>10</option>
+                                    </select>
+                                </div>
+                                <div className={style.deleteBtn}>
                                     <button onClick={ () => {
                                         if(confirm(`${medicineinfo.name} 처방을 삭제하시겠습니까?`) == true){
                                             setChangeValue(changeValue + 1)
@@ -128,13 +113,43 @@ const clinic = ({callback1, callback2}) => {
                                         삭제
                                     </button>
                                 </div>
+                            </div>
                         )
                     })
                 }
-            </div>
-            <Modal isOpen={modalData.isOpen} style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
-                <div>처방 <button onClick={() => setModalData({isOpen: false})}>X</button></div>
-                <div>
+                {
+                    clinicNo.map( clinic => {
+                        return (
+                            <div className={style.clinic}>
+                                <div className={style.kind}>{clinic.kind}</div>
+                                <div className={style.name}>{clinic.name}</div>
+                                <div className={style.mediDayAndCount}></div>
+                                <div className={style.mediDayAndCount}></div>
+                                <div className={style.deleteBtn}>
+                                    <button onClick={ () => {
+                                        if(confirm(`${clinic.name} 처방을 삭제하시겠습니까?`) == true){
+                                            setChangeValue(changeValue + 1)
+                                            clinicNo.splice(clinicNo.indexOf(clinic), 1)}
+                                        }}>
+                                        삭제
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            {/* </div> */}
+            <Modal isOpen={modalData.isOpen} 
+                ariaHideApp={false} 
+                shouldCloseOnOverlayClick={ true }
+                overlayClassName="overlay"
+                className={style.modal}
+                style={{content: {width: 500, height: 400}}}>
+                <div className={style.modalHead}>
+                    <div className={style.title}>병명</div>
+                    <button className={style.closeButton} onClick={() => setModalData({isOpen: false})}>X</button>
+                </div>
+                <div className={style.radioDiv}>
                     <label><input type='radio' name='selectPres' value='약품' onChange={ e => setKind(e.target.value) }/>약품</label>
                     <label><input type='radio' name='selectPres' value='주사' onChange={ e => setKind(e.target.value) }/>주사</label>
                     <label><input type='radio' name='selectPres' value='드레싱' onChange={ e => setKind(e.target.value) }/>드레싱</label>
@@ -142,17 +157,22 @@ const clinic = ({callback1, callback2}) => {
                     <label><input type='radio' name='selectPres' value='물리치료' onChange={ e => setKind(e.target.value) }/>물리치료</label>
                     <label><input type='radio' name='selectPres' value='X-Ray' onChange={ e => setKind(e.target.value) }/>X-Ray</label>
                 </div>
-                <div>
-                    <input type='text' onChange={ e => setKeyword(e.target.value) } /></div>
-                <div>
-                    <div>
-                        <div>분류 처방</div>
+                <div >
+                    <input className={style.inputBox} type='text'  onChange={ e => setKeyword(e.target.value)}  />
+                </div> 
+                <div className={style.modalBody}>
+                    <div className={style.menu}>
+                        <div className={style.kindMenu}>분류</div>
+                        <div className={style.nameMenu}> 처방</div>
+                    </div>
+                    <div className={style.lists}>
+                        
                         {
                             preses
                             .filter( pres => pres.name.indexOf(keyword) !== -1 && pres.kind.indexOf(kind) !== -1) //미구현
                             .map( pres => {
                                 return (
-                                    <div onClick={() => {
+                                    <div className={style.list} onClick={() => {
                                         
                                         if(pres.kind == '약품'){
                                             pres.medicineNo = pres.no;
@@ -170,8 +190,8 @@ const clinic = ({callback1, callback2}) => {
                                             setClinicNo( [...clinicNo,  pres]))
                                         }
                                     }}>
-                                        <lable>{pres.kind}</lable>
-                                        <lable>{pres.name}</lable>
+                                        <div className={style.kind}>{pres.kind}</div>
+                                        <div className={style.name}>{pres.name}</div>
                                     </div>
                                 )
                             })

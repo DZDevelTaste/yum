@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 function Messages () { 
 
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState({});
     const [modalData, setModalData] = useState({isOpen: false})
 
     useEffect(() => {
@@ -72,7 +72,11 @@ function Messages () {
                             }
                     }}>
                         <div>
-                            {messages.patientName} 환자 진료실로 입장시켜주세요.
+                            {
+                                messages.state == 'start' ? 
+                                messages.patientName + '환자 진료실로 입장시켜주세요.' : 
+                                messages.patientName + '진료를 마쳤습니다. 수납해주세요'
+                            }
                         </div>
                         <div>
                             <button onClick={() => {

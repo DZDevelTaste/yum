@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Diagnosis from './diagnosis/Diagnosis';
 import Patient from './patient/Patient';
+import style from '../assets/scss/component/doctor/DoctorMain.scss';
 
 const App = () => {
 
@@ -8,6 +9,7 @@ const App = () => {
     const [clinicNo, setClinicNo] = useState([]);
     const [medicineInfo, setMedicineInfo] = useState([]);
     const [orderNo, setOrderNo] = useState(0);
+    const [patientName, setPatientName] = useState('');
     const [memo, setMemo] = useState('');;
     const [data, setData] = useState([]);
 
@@ -32,6 +34,10 @@ const App = () => {
             setMemo(memo);
         }
 
+        const getPatientName = (patientName) => {
+            setPatientName(patientName);
+        }
+
     useEffect(() => {
         setData({
             desc: String(memo),
@@ -50,6 +56,34 @@ const App = () => {
         // fetchJoin();
         console.log(data);
     }
+
+    const sendMessage = async () => {
+        try {
+            const response = await fetch('/message/api', {
+                method: 'post',
+                mode: 'cors',  
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    "patientName": patientName,
+                    "from": "doctor",
+                    "to": "nurse",
+                    "state": "finish"
+                    })
+            });
+
+            if(!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+
+        } catch (error) { 
+            console.error(error);
+        }
+    }
+    
     
     const fetchJoin = async() => {
         try {
@@ -74,18 +108,22 @@ const App = () => {
         }
     }
 
-
     return (
-        <div id='body'>
-            
-
-            <div id='patient'>
-                <Patient callback={getOrderNo}/>
+        <div className={style.body} > 
+            <div className={style.patient} >
+                <Patient callback1={getOrderNo} callback2={getPatientName}/>
             </div>
-            <div id='diagnosis'>
+            <div className={style.diagnosis}>
+                <div className={style.diagnosisTitle} >
+                    진료
+                </div>
                 <Diagnosis callback1={getDiseaseNo} callback2={getClinicNo} callback3={getMedicineInfo} callback4={getMemo}/>
             </div>
-            <button onClick={() => submitDiagnosis()}>진료 완료</button>
+            <button className={style.button} onClick={() => {
+                    submitDiagnosis()
+                    sendMessage()}}>
+                진료 완료
+            </button>
         </div>
     );
 };

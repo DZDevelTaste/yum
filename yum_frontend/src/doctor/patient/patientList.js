@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import PatientInfo from './PatientInfo';
 import PatientPastOrder from './PatientPastOrder';
 import SockJsClient from 'react-stomp';
+import Modal from 'react-modal';
+import style from '../../assets/scss/component/doctor/patient/PatientList.scss'
 
-const patientList = ({callback}) => {
-
+const patientList = ({callback1, callback2}) => {
+    const [modalData, setModalData] = useState({isOpen: false})
     const [orders, setOrders] = useState([]);
     const [patientNo, setPatientNo] = useState(0);
-    const [orderNo, setOrderNo] = useState(0);      // value for insert
+    const [orderNo, setOrderNo] = useState(0);              // value for insert
+    const [patientName, setPatientName] = useState('');     // value for doctorMain
     const [changeState, setChangeState] = useState(false);
 
     const $websocket = useRef(null); 
@@ -17,8 +20,12 @@ const patientList = ({callback}) => {
     }, []);
 
     useEffect(() => {
-        callback(orderNo);
+        callback1(orderNo);
     }, [orderNo])
+
+    useEffect(() => {
+        callback2(patientName);
+    }, [patientName])
 
     useEffect(() => {
         fetchOrders();
@@ -72,6 +79,7 @@ const patientList = ({callback}) => {
                     "patientName": patientName,
                     "from": "doctor",
                     "to": "nurse",
+                    "state": "start"
                   })
             });
 
@@ -115,57 +123,65 @@ const patientList = ({callback}) => {
         setPatientNo(changedPatientNo);
     }
 
-    const divStyle ={
-        display: 'inline-block',
-        border: '1px solid black',
-        width: 300,
-        height: 300,
-        float: 'left'
-    }
-
     return (
-        <div>
+        <>
             <SockJsClient url="http://localhost:8080/yum" 
                         topics={['/topic/doctor']}
                         onMessage={msg => { console.log (msg); }} 
                         ref={$websocket} /> 
-
-            <div id='patientList' style={divStyle}>
-                환자 리스트
-                {
-                    orders.map( (order) => {
-                        return (
-                            <div onClick={() => {
-                                        if(confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true){
-                                            updateOrderstate(order);
-                                            updatePatientNo(order.patientNo) ;
-                                            setOrderNo(order.no); 
-                                            setChangeState(true);
-                                            sendMessage(order.patientName);
-                                        }
-
-                                    }}>
-                                <p>
-                                    {order.patientName} {
-                                        order.state == '진료중' ? 
-                                        <b>{order.state}</b> :
-                                        order.state
-                                    }
-                                </p>
-                            </div>
-                        )
-                    })
+            <div className={style.patientList} >
+                <div className={style.patientListTitle}>
+                    환자 리스트
+                </div>
+                <div className={style.orders} >
                     
-                }
-                
+                    {
+                        orders.map( (order) => {
+                            return (
+                                <div className={style.order} onClick={() => {
+                                            if(confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true){
+                                                updateOrderstate(order);
+                                                updatePatientNo(order.patientNo) ;
+                                                setOrderNo(order.no); 
+                                                setChangeState(true);
+                                                sendMessage(order.patientName);
+                                                setPatientName(order.patientName);
+                                            }
+
+                                        }}>
+                                        
+                                        <div className={style.firstDiv}>
+                                            {order.patientName} 
+                                        </div>
+                                        <div className={style.secondDiv}>
+                                        </div>
+                                        <div className={style.lastDiv}>
+                                        {
+                                            order.state == '진료중' ? 
+                                            <b>{order.state}</b> :
+                                            order.state
+                                        }
+                                        </div>
+                                </div>
+                            )
+                        })
+                        
+                    }
+                </div>
             </div>
-            <div>
+            <div className={style.patientInfo} >
                 <PatientInfo patientNo={ patientNo } />
             </div>
-            <div>
+            <div className={style.patientPastOrder} >
                 <PatientPastOrder patientNo={ patientNo } />
             </div>
-        </div>
+            <Modal isOpen={modalData.isOpen} 
+                ariaHideApp={false} 
+                overlayClassName="overlay"
+                style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
+
+            </Modal>
+        </>
     );
 };
 

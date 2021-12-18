@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import style from '../../assets/scss/component/doctor/patient/PatientOrderList.scss';
 
 const  patientOrderList = ({diagnosisList}) => {
     const [lists, setLists] = useState([]);
@@ -8,30 +9,29 @@ const  patientOrderList = ({diagnosisList}) => {
     }, [diagnosisList])
     
     return (
-        <div>
+        <div className={style.lists}>
              {
                 lists.length > 0 ?
                     lists.map(list => {
-                        return(<>
-                            <p>
-                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>
+                        return(
+                            <div className={style.pastOdList}>
+                                <div className={style.dateAndName}>
                                     {list.date}
                                 </div>
-                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>
+                                <div className={style.dateAndName} >
                                     {list.name}
                                 </div>
-                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>
-                                    {list.presDiseaseList.map(presDisease => presDisease.name)}
+                                <div className={style.disAndCli} >
+                                    {list.presDiseaseList.map(presDisease => <div>- {presDisease.name}</div>)}
                                 </div>
-                                <div style={{display:'block', width: 175+'px', height: 25+'px', textAlign: 'center', float: 'left'}}>
-                                    {list.presMedicineList.map(presMedicine => presMedicine.name)} 
-                                    {list.presClinicList.map(presClinic => presClinic.name)}
+                                <div className={style.disAndCli}>
+                                    {list.presMedicineList.map(presMedicine => <div>- {presMedicine.name}</div>)} 
+                                    {list.presClinicList.map(presClinic => <div>- {presClinic.name}</div>)}
                                 </div>
-                            </p>
-                        </> 
+                            </div> 
                         )
                     }):
-                    <p style={{textAlign: 'center'}}><span>없음</span></p>
+                    <div className={style.empty} >없음</div>
              }
          </div>
     );
