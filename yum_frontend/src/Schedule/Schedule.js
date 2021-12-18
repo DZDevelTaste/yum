@@ -25,6 +25,7 @@ const Schedule = () => {
   const [userNo, setUserNo] =useState('');
   const no = parseInt(sessionStorage.getItem("no"));
   const name = sessionStorage.getItem("name");
+
   useEffect(() => {
       setTitle(schedule1Vo ? schedule1Vo.title : '')
       setStart(schedule1Vo ? schedule1Vo.start : '')
@@ -38,6 +39,7 @@ const Schedule = () => {
       end: end,
       userNo: no
     }
+
   useEffect(() => {
       fetchSchedule();
   }, []);
@@ -186,8 +188,12 @@ const fetchdelete = async() => {
         setTitle(title2);
     }
 };
+
   return (
       <SiteLayout>
+        <div>
+            <input type="button" className={style.addBtn}value="등록" onClick={(e) => setModalData({isOpen: true})} />
+        </div>
         <div>
             <FullCalendar 
             themeSystem="themeSystem"
@@ -245,7 +251,6 @@ const fetchdelete = async() => {
                     <input type="submit" value="수정" />
                 </div>
                 </form>
-                
             </Modal> 
             <Modal className={style.addModal} isOpen={modalData.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
             <span className={style.vacation}>휴가 등록</span>

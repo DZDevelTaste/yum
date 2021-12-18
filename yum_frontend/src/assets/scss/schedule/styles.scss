@@ -2,7 +2,7 @@
 /* TODO: make fc-event selector work when calender in shadow DOM */
 :global(.calendar) {
   width: 1400px;
-  height: 850px;
+  height: 780px;
 }
 :global(.fc-not-allowed) {
   /* override events' custom cursors */
@@ -81,9 +81,8 @@
 
 :global(.fc-theme-standard) {
   display: flex;
-  padding: 40px 40px;
-  width: 1500px;
-  height: 850px;
+  padding: 20px 0 0 20px;
+  width: 1580px;
   align-content: stretch;
   td, th {
     border: 1px solid #ddd;
@@ -232,18 +231,20 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   :global(.fc-button-primary) {
     color: #fff;
     color: var(--fc-button-text-color, #fff);
-    background-color: #2C3E50;
-    background-color: var(--fc-button-bg-color, #2C3E50);
-    border-color: #2C3E50;
-    border-color: var(--fc-button-border-color, #2C3E50);
+    background-color: #6599FF;
+    font-weight: bold;
+    background-color: var(--fc-button-bg-color, #6599FF);
+    border-color: #6599FF;
+    border-color: var(--fc-button-border-color, #6599FF);
 
     &:hover {
       color: #fff;
       color: var(--fc-button-text-color, #fff);
-      background-color: #1e2b37;
-      background-color: var(--fc-button-hover-bg-color, #1e2b37);
-      border-color: #1a252f;
-      border-color: var(--fc-button-hover-border-color, #1a252f);
+      background-color: #6599FF;
+      font-weight: bold;
+      background-color: var(--fc-button-hover-bg-color, #6599FF);
+      border-color: #6599FF;
+      border-color: var(--fc-button-hover-border-color, #6599FF);
     }
 
     &:disabled {
@@ -251,6 +252,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
       color: #fff;
       color: var(--fc-button-text-color, #fff);
       background-color: #2C3E50;
+      font-weight: bold;
       background-color: var(--fc-button-bg-color, #2C3E50);
       border-color: #2C3E50;
       border-color: var(--fc-button-border-color, #2C3E50);
@@ -266,10 +268,11 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
       &:active, &:global(.fc-button-active) {
         color: #fff;
         color: var(--fc-button-text-color, #fff);
-        background-color: #1a252f;
-        background-color: var(--fc-button-active-bg-color, #1a252f);
-        border-color: #151e27;
-        border-color: var(--fc-button-active-border-color, #151e27);
+        background: #7b838b;
+        font-weight: bold;
+        background: var(--fc-button-active-bg-color, #7b838b);
+        border-color: #7b838b;
+        border-color: var(--fc-button-active-border-color, #7b838b);
       }
 
       &:active:focus, &:global(.fc-button-active:focus) {
