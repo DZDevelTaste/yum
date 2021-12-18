@@ -14,24 +14,27 @@ public class MainService {
 	private MainRepository mainRepository;
 
 	public void join(@Valid UserVo vo) {
-		String address = vo.getAddress() + vo.getAddressDetail();
-		String rrn = vo.getRrn() +"-"+ vo.getRrn1();
-		String email = vo.getEmail() + "@"+ vo.getEmail1();
-		String phone = vo.getPhone() +"-"+ vo.getPhone1() +"-"+ vo.getPhone2();
-		vo.setEmail(email);
-		vo.setRrn(rrn);
-		vo.setAddress(address);
-		vo.setPhone(phone);
 		mainRepository.insert(vo);
 	}
-	public UserVo findId(String name, String rrn) {
-		return mainRepository.findId(name,rrn);
-		
+	public UserVo findId(UserVo userVo) {
+		return mainRepository.findId(userVo);
 	}
-	public UserVo findIdByEmail(String name, String email, String rrn) {
-		return mainRepository.findIdByEmail(name,email, rrn);
+	public UserVo findIdByEmail(UserVo userVo) {
+		return mainRepository.findIdByEmail(userVo);
 	}
-	public void updatePw(String password, String name) {
-		mainRepository.updatePw(password, name);
+	public void updatePw(UserVo userVo) {
+		mainRepository.updatePw(userVo);
 	}
+    public UserVo findByNo(int no) {
+        return mainRepository.findByNoMedicine(no);
+    }
+    public UserVo getUser(String email, String password) {
+        return mainRepository.getUser(email, password);
+    }
+    public void updateInfo(UserVo userVo) {
+		mainRepository.updateInfo(userVo);
+    }
+    public UserVo checkEmail(UserVo userVo) {
+		return mainRepository.checkEmail(userVo);
+    }
 }

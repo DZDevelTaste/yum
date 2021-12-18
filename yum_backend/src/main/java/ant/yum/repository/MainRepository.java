@@ -16,28 +16,34 @@ public class MainRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public boolean insert(@Valid UserVo vo) {
-		int count = sqlSession.insert("main.insert", vo);
+	public boolean insert(@Valid UserVo userVo) {
+		int count = sqlSession.insert("main.insert", userVo);
 		return count == 1;
 	}
-	public UserVo findId(String name, String rrn) {
-		Map<String, String> map = new HashMap<>();
-		map.put("n", name);
-		map.put("r", rrn);
-		return sqlSession.selectOne("main.findId", map);
+	public UserVo findId(UserVo userVo) {
+		return sqlSession.selectOne("main.findId", userVo);
 	}
-	public UserVo findIdByEmail(String name, String email, String rrn) {
-		Map<String, String> map = new HashMap<>();
-		map.put("n", name);
-		map.put("e", email);
-		map.put("r", rrn);
-		return sqlSession.selectOne("main.findIdByEmail", map);
+	public UserVo findIdByEmail(UserVo userVo) {
+		return sqlSession.selectOne("main.findIdByEmail", userVo);
 	}
-	public boolean updatePw(String password, String name) {
-		Map<String, String> map = new HashMap<>();
-		map.put("n", name);
-		map.put("p", password);
-		int count = sqlSession.update("main.updatePw", map);
+	public boolean updatePw(UserVo userVo) {
+		int count = sqlSession.update("main.updatePw", userVo);
 		return count == 1;
 	}
+    public UserVo findByNoMedicine(int no) {
+        return sqlSession.selectOne("main.findByNo", no);
+    }
+    public UserVo getUser(String email, String password) {
+        Map<String, String> map = new HashMap<>();
+		map.put("email", email);
+		map.put("password", password);
+		return sqlSession.selectOne("main.getUser", map);
+    }
+    public boolean updateInfo(UserVo userVo) {
+		int count = sqlSession.update("main.updateInfo", userVo);
+		return count == 1;
+    }
+    public UserVo checkEmail(UserVo userVo) {
+        return sqlSession.selectOne("main.checkEmail", userVo);
+    }
 }

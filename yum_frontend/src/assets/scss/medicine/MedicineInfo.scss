@@ -1,0 +1,361 @@
+.wangbody {
+    width: 750px;
+    height: 840px;
+    background: #F9F9F9;
+    margin-top: 10px;
+    .title {
+        width: 95px;
+        height: 59px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 40px;
+        line-height: 59px;
+
+        /* identical to box height */
+        margin: 50px 0 0 280px;
+        text-align: center;
+        letter-spacing: 0.05em;
+
+        color: #333333;
+    }
+    .smallbody {
+        width: 720px;
+        height: 710px;
+        margin: 20px 15px;
+        background: #FFFFFF;
+        border: 2px solid #737373;
+        box-sizing: border-box;
+        .small{
+            width: 710px;
+            height: 700px;
+            .code {
+                margin: 20px 10px 0 10px;
+                span {
+                    margin: 0 0 0 10px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 20px;
+                    line-height: 25px;
+
+                    align-items: center;
+                    text-align: center;
+                    letter-spacing: 0.05em;
+                    color: #333333;
+                }
+                input {
+                    margin: 0 10px;
+                    width: 250px;
+                    height: 30px;
+                    text-decoration:underline;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 18px;
+                    line-height: 25px;
+                    border: 2px solid #FFFFFF;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            .name {
+                margin: 20px 10px 0 10px;
+                span {
+                    margin: 0 0 0 10px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 20px;
+                    line-height: 25px;
+
+                    align-items: center;
+                    text-align: center;
+                    letter-spacing: 0.05em;
+                    color: #333333;
+                }
+                input {
+                    margin: 0 10px;
+                    width: 250px;
+                    height: 30px;
+                    text-decoration:underline;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 18px;
+                    line-height: 25px;
+                    border: 2px solid #FFFFFF;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            .company {
+                margin: 20px 10px 0 10px;
+                span {
+                    margin: 0 0 0 10px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 20px;
+                    line-height: 25px;
+
+                    align-items: center;
+                    text-align: center;
+                    letter-spacing: 0.05em;
+                    color: #333333;
+                }
+                input {
+                    margin: 0 10px;
+                    width: 250px;
+                    height: 30px;
+                    text-decoration:underline;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 18px;
+                    line-height: 25px;
+                    border: 2px solid #FFFFFF;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            .ingredient  {
+                margin: 20px 10px 0 10px;
+                span {
+                    margin: 0 0 0 10px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 20px;
+                    line-height: 25px;
+
+                    align-items: center;
+                    text-align: center;
+                    letter-spacing: 0.05em;
+                    color: #333333;
+                }
+                input {
+                    margin: 0 10px;
+                    width: 250px;
+                    height: 30px;
+                    text-decoration:underline;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 18px;
+                    line-height: 25px;
+                    border: 2px solid #FFFFFF;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            .sangse {
+                margin: 20px 20px 20px 0;
+                span {
+                    margin: 0 0 20px 10px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 20px;
+                    line-height: 25px;
+
+                    align-items: center;
+                    text-align: center;
+                    letter-spacing: 0.05em;
+                    color: #333333;
+                }
+                .efficacy {
+                    margin: 10px 0 0 10px;
+                    span {
+                        margin: 0 0 0 10px;
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 20px;
+                        line-height: 25px;
+        
+                        align-items: center;
+                        text-align: center;
+                        letter-spacing: 0.05em;
+                        color: #333333;
+                    }
+                    input {
+                        margin: 10px 0 0 10px;
+                        width: 600px;
+                        height: 45px;
+                        text-decoration:underline;
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 18px;
+                        line-height: 25px;
+                        border: 2px solid #FFFFFF;
+                        white-space:nowrap;
+                        overflow:hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+                .precaution {
+                    margin: 10px 10px 0 10px;
+                    span {
+                        margin: 0 0 0 10px;
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 20px;
+                        line-height: 25px;
+        
+                        align-items: center;
+                        text-align: center;
+                        letter-spacing: 0.05em;
+                        color: #333333;
+                    }
+                    input {
+                        margin: 10px 0 0 0;
+                        width: 600px;
+                        height: 45px;
+                        text-decoration:underline;
+                        font-family: Roboto;
+                        font-style:normal;
+                        font-weight: bold;
+                        font-size: 18px;
+                        line-height: 25px;
+                        border: 2px solid #FFFFFF;
+                        white-space:nowrap;
+                        overflow:hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+                .caution {
+                    margin: 10px 10px 0 10px;
+                    span {
+                        margin: 0 0 0 10px;
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 20px;
+                        line-height: 25px;
+        
+                        align-items: center;
+                        text-align: center;
+                        letter-spacing: 0.05em;
+                        color: #333333;
+                    }
+                    input {
+                        margin: 10px 0 0 0;
+                        width: 600px;
+                        height: 45px;
+                        text-decoration:underline;
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 18px;
+                        line-height: 25px;
+                        border: 2px solid #FFFFFF;
+                        white-space:nowrap;
+                        overflow:hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+                .sideEffect {
+                    margin: 10px 30px 0 10px;
+                    
+                    span {
+                        margin: 0 0 0 10px;
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 20px;
+                        line-height: 25px;
+        
+                        align-items: center;
+                        text-align: center;
+                        letter-spacing: 0.05em;
+                        color: #333333;
+                    }
+                    input {
+                        margin: 10px 0 0 0;
+                        width: 600px;
+                        height: 45px;
+                        text-decoration:underline;
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 18px;
+                        line-height: 25px;
+                        border: 2px solid #FFFFFF;
+                        white-space:nowrap;
+                        overflow:hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
+        }
+            .submit {
+                /* 버튼 */
+                /* Auto Layout */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+
+                width: 133px;
+                height: 50px;
+                /* Inside Auto Layout */
+                flex: none;
+                order: 0;
+                align-self: stretch;
+                flex-grow: 0;
+                margin: 60px 0 0 585px;
+
+                background: #6599FF;
+                border-radius: 8px;
+
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 24px;
+                line-height: 28px;
+                text-align: center;
+                letter-spacing: 0.1em;
+
+                color: #FFFFFF;
+            }
+            .add {
+                /* 버튼 */
+                /* Auto Layout */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+
+
+                width: 133px;
+                height: 50px;
+                /* Inside Auto Layout */
+                flex: none;
+                order: 0;
+                align-self: stretch;
+                flex-grow: 0;
+                margin: 60px 0 0 585px;
+
+                background: #6599FF;
+                border-radius: 8px;
+
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 24px;
+                line-height: 28px;
+                text-align: center;
+                letter-spacing: 0.1em;
+
+                color: #FFFFFF;
+            }
+        }
+}

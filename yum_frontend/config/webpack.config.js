@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = (env) => {
-   
     return {
         mode: 'none',
         entry: path.resolve(`yum_frontend/src/index.js`),

@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="disease"> 
-	<delete id="deleteByDisease" parameterType="diseasevo">
-		<![CDATA[
-			DELETE FROM "disease" WHERE code = #{code}
-		]]>
-	</delete>
 	<select id="findByDisease" resultType="diseasevo">
 		<![CDATA[
+<<<<<<< HEAD
 			SELECT no, code, name, eng_Name FROM "disease";
+=======
+			SELECT "no" ,code, name, eng_name FROM "disease"
+>>>>>>> 4db3f2e38157236a8422e9cedcd0fb00456af368
 		]]>
 	</select>
 	<insert id="addDisease" parameterType="diseasevo">
 		<![CDATA[
-			INSERT INTO "disease" VALUES (#{code},#{name},#{engName})
+			INSERT INTO "disease" VALUES (DEFAULT, #{code},#{name},#{engName})
 		]]>
 	</insert>
-	<update id="updateDisease" parameterType="diseasevo">
-		<![CDATA[
-			 UPDATE "disease" SET name = #{name}, "engName" = #{engName} WHERE code = #{code}
-		]]>
-	</update>
 </mapper>

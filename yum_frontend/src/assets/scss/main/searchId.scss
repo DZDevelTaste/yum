@@ -1,0 +1,243 @@
+.image {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 42%;
+}
+.image1 {
+    position: absolute;
+    left: 35%;
+    top: 30%;
+}
+.header {
+    position: absolute;
+    width: 230px;
+    height: 42px;
+    left: 44%;
+    top: 40%;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1em;
+
+    color: #000000;
+}
+
+.name {
+    /* 이름 */
+
+
+    /* Auto Layout */
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: absolute;
+    width: 460px;
+    height: 71px;
+    left: 730px;
+    top: 472px;
+
+    label {
+        position: static;
+        left: 0%;
+        right: 94.35%;
+        top: 0%;
+        bottom: 77.46%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #333333;
+
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 10px 0px;
+    }
+    input {
+        position: static;
+        width: 460px;
+        height: 45px;
+        left: 0px;
+        top: 26px;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin: 10px 0px;
+    }
+}
+
+.rrn {
+    /* 주민등록번호 */
+
+
+    /* Auto Layout */
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: absolute;
+    width: 459.52px;
+    height: 71px;
+    left: 730px;
+    top: 570px;
+
+    label {
+        position: static;
+        left: 0%;
+        right: 83.03%;
+        top: 0%;
+        bottom: 77.46%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #333333;
+
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 0px;
+    }
+    input[type=text] {
+        position: absolute;
+        width: 215px;
+        left: 0%;
+        right: 52.45%;
+        top: 36.62%;
+        bottom: 0%;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+    input[type=password] {
+        position: absolute;
+        width: 215px;
+        left: 52.45%;
+        right: 0%;
+        top: 36.62%;
+        bottom: 0%;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+    span {
+        position: absolute;
+        width: 10px;
+        left: 48.53%;
+        right: 48.64%;
+        top: 56.34%;
+        bottom: 21.13%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #DADADA;
+    }
+    input[type=submit] {
+                /* 버튼 */
+
+        /* Auto Layout */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0px;
+
+        position: absolute;
+        width: 460px;
+        height: 60px;
+        top: 80px;
+        /* Inside Auto Layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 10px 0px;
+
+        background: #6599FF;
+        border-radius: 8px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 28px;
+        text-align: center;
+        letter-spacing: 0.1em;
+
+        color: #FFFFFF;
+        }
+}
+
+.login {
+    position: absolute;
+    left: 90%;
+    right: 0%;
+    top: 3%;
+    bottom: 0%;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #333333;
+}
+
+.searchPw {
+    position: absolute;
+    left: 18%;
+    right: 0%;
+    top: 80%;
+    bottom: 0%;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #333333;
+}

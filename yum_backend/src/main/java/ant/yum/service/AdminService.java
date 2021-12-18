@@ -2,51 +2,51 @@ package ant.yum.service;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ant.yum.repository.AdminRepository;
+import ant.yum.repository.DiseaseRepository;
+import ant.yum.repository.MedicineRepository;
 import ant.yum.vo.DiseaseVo;
 import ant.yum.vo.MedicineVo;
+import ant.yum.vo.UserVo;
 
 @Service
 public class AdminService {
 	@Autowired
 	private AdminRepository adminRepository;
+	@Autowired
+	private DiseaseRepository diseaseRepository;
+	@Autowired
+	private MedicineRepository medicineRepository;
 
-	public List<Object> findByAll() {
+	public List<UserVo> findByAll() {
 		return adminRepository.findByAll();
 	}
-	public List<Object> findByDisease() {
-		return adminRepository.findByDisease();
+	public List<DiseaseVo> findByDisease() {
+		return diseaseRepository.findByDisease();
 	}
-	public List<Object> findByMedicine() {
-		return adminRepository.findByMedicine();
+	public List<MedicineVo> findByMedicine() {
+		return medicineRepository.findByMedicine();
 	}
-	public boolean deleteByNo(int no) {
-		return adminRepository.deleteByNo(no);
+	public boolean deleteByNo(UserVo userVo) {
+		return adminRepository.deleteByNo(userVo);
 	}
-	public boolean deleteByDisease(String code) {
-		return adminRepository.deleteByDisease(code);
+	public boolean updateAuth(UserVo userVo) {
+		return adminRepository.updateAuth(userVo);
 	}
-	public boolean deleteByMedicine(int no) {
-		return adminRepository.deleteByMedicine(no);
+	public boolean updateMedicine(MedicineVo medicineVo) {
+		return medicineRepository.updateMedicine(medicineVo);
 	}
-	public boolean updateAuth() {
-		return adminRepository.updateAuth();
+	public void addDisease(DiseaseVo diseaseVo) {
+		diseaseRepository.addDisease(diseaseVo);
 	}
-	public boolean updateDisease() {
-		return adminRepository.updateDisease();
+	public void addMedicine(MedicineVo medicineVo) {
+		medicineRepository.addMedicine(medicineVo);
 	}
-	public boolean updateMedicine() {
-		return adminRepository.updateMedicine();
-	}
-	public void addDisease(@Valid DiseaseVo vo) {
-		adminRepository.addDisease(vo);
-	}
-	public void addMedicine(@Valid MedicineVo vo) {
-		adminRepository.addMedicine(vo);
-	}
+    public MedicineVo findByNoMedicine(int no) {
+        return medicineRepository.findByNoMedicine(no);
+    }
+    
 }
