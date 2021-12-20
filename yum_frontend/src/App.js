@@ -12,9 +12,9 @@ import MedicineMain from './Admin/Medicine/MedicineMain';
 import MedicineInfo from './Admin/Medicine/MedicineInfo';
 import Schedule from './Schedule/Schedule';
 import Timer from './Timer';
-import Nurse from './Nurse';
 import DoctorMain from './doctor/DoctorMain';
 import Update from './Main/Update';
+import Message from './nurseModal';
 
 const App = () => {
     return (
@@ -32,9 +32,9 @@ const App = () => {
                 <Route path='/admin/medicine1' element={<MedicineInfo />}/>
                 <Route path='/Schedule' element={<Schedule />} />
                 <Route path='/time' element={<Timer />} />
-                <Route path='/nurse' element={<Nurse />} />
-                <Route exact path='/doctor' element={<DoctorMain />}/>
+                <Route path='/doctor' element={<DoctorMain />}/>
                 <Route path='/update' element={<Update />} />
+                <Route path='/MeMe' element={<Message />} />
             </Routes>
     );
 };
