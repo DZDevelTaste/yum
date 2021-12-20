@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import style from './assets/scss/component/nurseModal/nurseModalMsg.scss'
 
-function msg ( {patientName, from, to, timestamp, state, height, indexNum, callback}) { 
+function msg ( {patientName, from, to, timestamp, state, height, indexNum, setDeleteNum}) { 
     const [modalData, setModalData] = useState({isOpen: true})
     const [modalHeight, setModalHeight] = useState(0);
     const [modalState, setModalState] = useState('');
@@ -46,7 +46,7 @@ function msg ( {patientName, from, to, timestamp, state, height, indexNum, callb
                         <div className={style.modalTitle}>{state == 'start' ? '진료 시작' : '진료 완료'}</div>
                         <button className={style.closeBtn} onClick={() => {
                             // setModalData({isOpen: false})
-                            callbackfunc(modalIndexNum);
+                            setDeleteNum(modalIndexNum);
                         }}>
                             X
                         </button>

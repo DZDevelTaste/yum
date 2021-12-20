@@ -48,33 +48,6 @@
 				AND pc.diagnosis_no=#{diagnosisNo}
 		]]>
 	</select>
-	
-	<select id="presDiseaseFindByDiagnosisNo" resultType="presdiseasevo">
-		<![CDATA[
-			SELECT pd.diagnosis_no, pd.disease_no, d.code, d.name 
-			FROM prescription_d pd, disease d
-			WHERE pd.disease_no = d.no
-				AND pd.diagnosis_no=#{diagnosisNo}
-		]]>
-	</select>
-
-	<select id="presMedicineFindByDiagnosisNo" resultType="presmedicinevo">
-		<![CDATA[
-			SELECT pm.diagnosis_no, pm.medicine_no, m.code, m.name ,pm.presmedicine_count, pm.presmedicine_day 
-			FROM prescription_m pm, medicine m
-			WHERE pm.medicine_no = m.no
-				AND pm.diagnosis_no=#{diagnosisNo}
-		]]>
-	</select>
-
-	<select id="presClinicFindByDiagnosisNo" resultType="presclinicvo">
-		<![CDATA[
-			SELECT pc.diagnosis_no, pc.clinic_no, c.kind, c.name 
-			FROM prescription_c pc, clinic c
-			WHERE c.no = pc.clinic_no
-				AND pc.diagnosis_no=#{diagnosisNo}
-		]]>
-	</select>
 
 	<select id="findPrescription" resultType="presvo">
 		<![CDATA[

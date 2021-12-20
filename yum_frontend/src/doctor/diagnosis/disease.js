@@ -10,11 +10,9 @@ const disease = ({callback}) => {
 
     const [presDiseases, setPresDiseases] = useState([]); // value for insert
 
-    
-
     useEffect(() => {
         fetchDisease();
-    }, [keyword])
+    }, [])
 
     useEffect(() => {
         callback(presDiseases);
@@ -95,8 +93,8 @@ const disease = ({callback}) => {
             <Modal 
                 isOpen={modalData.isOpen} 
                 ariaHideApp={false} 
+                onRequestClose={ () => setModalData(false) }
                 shouldCloseOnOverlayClick={ true }
-                overlayClassName="overlay"
                 className={style.modal}
                 style={{content: {width: 500, height: 400}}}>
                 
@@ -115,8 +113,12 @@ const disease = ({callback}) => {
                     </div>
                     <div className={style.lists}>
                         {
+
+                        }
+                        {
+                            
                             diseases
-                                .filter(disease => disease.name.indexOf(keyword) !== -1 || disease.code.indexOf(keyword) !== -1)
+                                .filter(disease => disease.name.indexOf(keyword) !== -1)
                                 .map(disease => {
                                     return (
                                         <div className={style.list} onClick={ () => {

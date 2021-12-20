@@ -139,10 +139,11 @@ const clinic = ({callback1, callback2}) => {
                     })
                 }
             {/* </div> */}
-            <Modal isOpen={modalData.isOpen} 
+            <Modal 
+                isOpen={modalData.isOpen} 
                 ariaHideApp={false} 
+                onRequestClose={ () => setModalData(false) }
                 shouldCloseOnOverlayClick={ true }
-                overlayClassName="overlay"
                 className={style.modal}
                 style={{content: {width: 500, height: 400}}}>
                 <div className={style.modalHead}>
@@ -169,7 +170,7 @@ const clinic = ({callback1, callback2}) => {
                         
                         {
                             preses
-                            .filter( pres => pres.name.indexOf(keyword) !== -1 && pres.kind.indexOf(kind) !== -1) //미구현
+                            .filter( pres => pres.name.indexOf(keyword) !== -1 && pres.kind.indexOf(kind) !== -1)
                             .map( pres => {
                                 return (
                                     <div className={style.list} onClick={() => {

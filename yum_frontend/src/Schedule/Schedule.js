@@ -192,7 +192,7 @@ const fetchdelete = async() => {
   return (
       <SiteLayout>
         <div>
-            <input type="button" className={style.addBtn}value="등록" onClick={(e) => setModalData({isOpen: true})} />
+            <input type="button" className={style.addBtn} value="등록" onClick={(e) => setModalData({isOpen: true})} />
         </div>
         <div>
             <FullCalendar 
