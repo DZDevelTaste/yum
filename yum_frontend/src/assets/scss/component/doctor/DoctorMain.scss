@@ -1,15 +1,13 @@
 .body {
-    border: 1px solid black;
-    width: 1550px;
-    height: 800px;
+    width: 1900px;
+    height: 850px;
 
     .patient {
-        
         width: 1510px;
         height: 250px;
-        margin-left: 20px;
-        margin-top: 15px;
-        margin-bottom: 20px;
+        margin-left: 60px;
+        margin-top: 40px;
+        margin-bottom: 25px;
         background: #F9F9F9;
     }
 
@@ -17,27 +15,28 @@
         
         width: 1510px;
         height: 450px;
-        margin-left: 20px;
+        margin-left: 60px;
         background: #F9F9F9;
+
+        .diagnosisTitle {
+            padding-top: 15px;    
+            margin-left: 20px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.05em;
+        }
     }
 
-    .diagnosisTitle {
-        margin-top: 20px;
-        margin-left: 20px;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 24px;
-        display: flex;
-        align-items: center;
-        letter-spacing: 0.05em;
-    }
+    
 
     .button {
         position: absolute;
-        top: 630px;
-        left: 1157px;
-
+        top: 750px;
+        left: 1458px;
         width: 345px;
         height: 60px;
         background: #6599FF;
