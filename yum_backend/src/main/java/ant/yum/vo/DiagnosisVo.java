@@ -20,5 +20,4 @@ public class DiagnosisVo {
 	private List<PresDiseaseVo> presDiseaseList;
 	private List<PresMedicineVo> presMedicineList;
 	private List<PresClinicVo> presClinicList;
-	
 }

@@ -1,0 +1,59 @@
+.patientInfoTitle {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.patientInfoBody {
+    display: inline-block;
+    float: left;
+    width: 450px;
+    height: 200px;
+    background: #FFFFFF;
+    border: 2px solid #737373;
+    box-sizing: border-box;
+    overflow: auto;
+
+    .patientInfoContent{
+        width:420px;
+        height: auto;
+        margin-left: 5px;
+        margin-bottom: 15px;
+
+        .patientAttr {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 21px;
+            display: inline-block;
+            margin-top: 15px;
+            width:410px;
+            text-align: center;
+            line-height: auto;
+
+            .emptyInfo {
+                float:right;
+                width: 245px;
+                height: 20px;
+            }
+
+            .patientInfo {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 21px;
+                float:right;
+                width: 245px;
+                height: auto;
+                // margin-left: 20px;
+            }
+            
+        }
+    
+        
+    }
+}

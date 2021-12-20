@@ -1,0 +1,408 @@
+.wangBody {
+    width: 1900px;
+    height: 800px;
+    margin: 10px 40px;
+
+    background: #F9F9F9;
+    .searchBar {
+        padding : 20px 0 20px 940px;
+        input {
+            width: 485px;
+            height: 45px;
+        }
+    }
+    .titles {
+        display: flex;
+        width: 1450px;
+        height: 25px;
+        padding: 0 0 10px 0;
+        .number {
+            width: 40px;
+            height: 21px;
+            padding: 0 0 0 67px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .name {
+            // position: absolute;
+            width: 40px;
+            height: 21px;
+            padding: 0 0 0 50px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .gender {
+            // position: absolute;
+            width: 40px;
+            height: 21px;
+            padding: 0 0 0 50px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .job {
+            // position: absolute;
+            width: 40px;
+            height: 21px;
+            padding: 0 0 0 50px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .rrn {
+            // position: absolute;
+            width: 120px;
+            height: 21px;
+            padding: 0 0 0 85px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .address {
+            // position: absolute;
+            width: 70px;
+            height: 21px;
+            padding: 0 0 0 210px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .phone{
+            // position: absolute;
+            width: 60px;
+            height: 21px;
+            padding: 0 0 0 240px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+        .auth {
+            // position: absolute;
+            width: 90px;
+            height: 21px;
+            padding: 0 0 0 150px;
+    
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            /* identical to box height */
+    
+            // display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+    
+            color: #333333;
+        }
+    }
+    .smallBody {
+        width: 1440px;
+        height: 600px;
+        margin: 0 0 0 5px;      
+        overflow: auto;  
+        background-color: #FFFFFF;
+        border: 3px solid #737373;
+        box-sizing: border-box;
+        input[type=button] {
+            /* Group 257 */
+            position: absolute;
+            width: 130px;
+            height: 60px;
+            left: 77%;
+            bottom: 6%;
+
+            background: #6599FF;
+            border-radius: 8px;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            text-align: center;
+            letter-spacing: 0.15em;
+
+            color: #FFFFFF;
+
+        }
+        input[type=submit] {
+            /* Group 17 */
+            position: absolute;
+            width: 130px;
+            height: 60px;
+            left: 84%;
+            bottom: 5%;
+            /* Inside Auto Layout */
+            flex: none;
+            order: 0;
+            align-self: stretch;
+            flex-grow: 0;
+            margin: 10px 0px;
+
+            background: #6599FF;
+            border-radius: 8px;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 28px;
+            text-align: center;
+            letter-spacing: 0.1em;
+
+            color: #FFFFFF;
+        }
+        .small{
+            display: flex;
+            align-items: center;
+            padding: 0 0 5px 0;
+            height: 40px;
+           
+            .checks {
+                // position: absolute;
+                width: 31px;
+                height: 31px;
+            }
+            .number {
+                // position: absolute;
+                width: 75px;
+                height: 21px;
+                padding: 0 0 0 10px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+    
+                color: #333333;
+            }
+            .name {
+                // position: absolute;
+                width: 60px;
+                height: 21px;
+                padding: 0 0 0 20px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+    
+                color: #333333;
+            }
+            .gender {
+                // position: absolute;
+                width: 20px;
+                height: 21px;
+                padding: 0 50px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+    
+                color: #333333;
+            }
+            .job {
+                // position: absolute;
+                width: 60px;
+                height: 21px;
+                
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+    
+                color: #333333;
+            }
+            .rrn {
+                // position: absolute;
+                width: 250px;
+                height: 21px;
+                padding: 0 0 0 25px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.05em;
+    
+                color: #333333;
+            }
+            .address {
+                // position: absolute;
+                width: 250px;
+                height: 21px;
+                padding: 0 0px 0 70px;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow: ellipsis;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.05em;
+                
+
+                color: #333333;
+            }
+            .phone {
+                // position: absolute;
+                width: 195.7px;
+                height: 21px;
+                padding: 0 30px 0 90px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.05em;
+    
+                color: #333333;
+            }
+            .auth {
+                width: 195.7px;
+                height: 21px;
+    
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 21px;
+                /* identical to box height */
+    
+                // display: flex;
+                align-items: center;
+                text-align: center;
+                letter-spacing: 0.05em;
+    
+                color: #333333;
+            }
+        }
+    }
+}

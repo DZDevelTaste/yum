@@ -1,4 +1,4 @@
-package ant.yum.controller.api;
+package ant.yum.controller;
 
 import java.util.List;
 import java.util.Map;

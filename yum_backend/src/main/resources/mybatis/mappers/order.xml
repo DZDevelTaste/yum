@@ -86,17 +86,28 @@
 
 	<select id="findByState" resultType="ordervo">
 		<![CDATA[
-			select no, "date", expenses, 'desc' as desc, user_no, orderstate_no, patient_no 
-			from "order"
-			where orderstate_no = 2
+		select t1.no as "no",  t1.date as "date", t1.expenses as "expenses", t1.desc as "desc", t1.user_no as "user_no", t1.orderstate_no as "orderstate_no", t1.patient_no as "patient_no", t2.name as "patient_name", t3."state"
+		from "order" t1, patient t2, order_state t3
+		where t1.patient_no = t2."no"
+			and t1.orderstate_no = t3."no"
+			and orderstate_no in (2, 3)
+		order by orderstate_no desc
 		]]>
 	</select>
 
-	<select id="findByNo" parameterType="integer" resultType="ordervo">
+	<select id="findByPatientNo" parameterType="integer" resultType="ordervo">
 		<![CDATA[
-			select no, date, expenses, 'desc' as desc, user_no, orderstate_no, patient_no
+			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no
 			from "order"
 			where patient_no = #{patientNo }
+		]]>
+	</select>
+
+	<select id="findByOrderNo" parameterType="integer" resultType="ordervo">
+		<![CDATA[
+			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no
+			from "order"
+			where no = #{orderNo }
 		]]>
 	</select>
 	
@@ -137,8 +148,8 @@
 	<update id="updateState" parameterType="map">
 		<![CDATA[
 			update "order"
-			set orderstate_no = #{orderStateNo }
-			where no = #{orderNo }
+			set orderstate_no = #{orderstateNo}
+			where no = #{no}
 		]]>
 	</update>
 

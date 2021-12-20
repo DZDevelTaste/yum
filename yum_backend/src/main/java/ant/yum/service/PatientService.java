@@ -16,51 +16,29 @@ import ant.yum.vo.PatientVo;
 @Service
 public class PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
+	@Autowired
+	private PatientRepository patientRepository;
 
-    @Autowired
-    private DiagnosisRepository diagnosisRepository;
+	@Autowired
+	private DiagnosisRepository diagnosisRepository;
 
-    @Autowired
-    private PrescriptionRepository prescriptionRepository;
+	@Autowired
+	private PrescriptionRepository prescriptionRepository;
 
-    public PatientVo findByNo(int patientNo) {
-        // System.out.println("service " + patientNo);
-        return patientRepository.findByNo(patientNo);
-    }
-    
-    // public void addReservation(OrderVo orderVo) {
-    //     if(orderVo.getPatientVo().getNo() == 0) {
-    //         return;
-    //     }
-    //     orderRepository.addReservation(orderVo);
-    // }
-
-    public Map<String, Object> patientInfo(int patientNo) {
-        // System.out.println("service patientNo : " + patientNo);
-        PatientVo patientVo = patientRepository.findByNo(patientNo);
+	public Map<String, Object> patientInfo(int patientNo) {
+		// System.out.println("service patientNo : " + patientNo);
+		PatientVo patientVo = patientRepository.findByNo(patientNo);
 		List<DiagnosisVo> diagnosisList = diagnosisRepository.findByNo(patientNo);
-        /* for(DiagnosisVo diagnosisVo : diagnosisList) {
-            int DiagnosisNo = diagnosisVo.getNo();
-            List<PresDiseaseVo> presDiseaseList = prescriptionRepository.presDiseaseFindByDiagnosisNo(DiagnosisNo);
-            List<PresMedicineVo> presMedicineList = prescriptionRepository.presMedicineFindByDiagnosisNo(DiagnosisNo);
-            List<PresClinicVo> presClinicList = prescriptionRepository.presClinicFindByDiagnosisNo(DiagnosisNo);
-            
-            diagnosisVo.setPresDiseaseList(presDiseaseList);
-            diagnosisVo.setPresMedicineList(presMedicineList);
-            diagnosisVo.setPresClinicList(presClinicList);
-        } */
-        
-        // 각 진료에 따른 처방 내역 set
-        for(int i=0; i<diagnosisList.size(); i++){
-            int DiagnosisNo = diagnosisList.get(i).getNo();
-            diagnosisList.get(i).setPresDiseaseList(prescriptionRepository.presDiseaseFindByDiagnosisNo(DiagnosisNo));
-            diagnosisList.get(i).setPresMedicineList(prescriptionRepository.presMedicineFindByDiagnosisNo(DiagnosisNo));
-            diagnosisList.get(i).setPresClinicList(prescriptionRepository.presClinicFindByDiagnosisNo(DiagnosisNo));
-        }
 
-        // System.out.println("[patient Info]\n" + patientVo);
+		// 각 진료에 따른 처방 내역 set
+		for (int i = 0; i < diagnosisList.size(); i++) {
+			int DiagnosisNo = diagnosisList.get(i).getNo();
+			diagnosisList.get(i).setPresDiseaseList(prescriptionRepository.presDiseaseFindByDiagnosisNo(DiagnosisNo));
+			diagnosisList.get(i).setPresMedicineList(prescriptionRepository.presMedicineFindByDiagnosisNo(DiagnosisNo));
+			diagnosisList.get(i).setPresClinicList(prescriptionRepository.presClinicFindByDiagnosisNo(DiagnosisNo));
+		}
+
+		// System.out.println("[patient Info]\n" + patientVo);
 		Map<String, Object> patientInfoMap = new HashMap<>();
 		patientInfoMap.put("patientVo", patientVo);
 		patientInfoMap.put("diagnosisList", diagnosisList);

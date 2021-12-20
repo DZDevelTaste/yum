@@ -7,7 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CalendarVo {
-	private int no;
-	private String day;
+public class PresVo {
+
+    private int no;
+    private String kind;
+    private String name;
 }

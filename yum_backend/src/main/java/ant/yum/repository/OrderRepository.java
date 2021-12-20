@@ -17,7 +17,7 @@ public class OrderRepository {
 	private SqlSession sqlSession;
 	
 	public List<OrderVo> findByState() {
-		
+
 		return sqlSession.selectList("order.findByState");
 	}
 	
@@ -48,17 +48,6 @@ public class OrderRepository {
 
 	}
 
-	// public void addReservation(OrderVo orderVo) {
-	// 	sqlSession.insert("order.insertReservation", orderVo);
-	// }
-	
-	public void updateState(int orderNo, int orderStateNo) {
-		
-		Map<String, Integer> map = new HashMap<>();
-		map.put("orderNo", orderNo);
-		map.put("orderStateNo", orderStateNo);
-		sqlSession.update("order.updateState", map);
-	}
 
 	public void updateState(OrderVo orderVo) {
 		sqlSession.update("order.updateStateNurse", orderVo);

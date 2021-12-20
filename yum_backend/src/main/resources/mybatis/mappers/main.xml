@@ -6,24 +6,44 @@
 			INSERT INTO "user" VALUES (DEFAULT, #{email}, #{password}, #{name}, #{rrn}, #{address}, #{job}, DEFAULT, #{phone}, #{gender})
 		]]>
 	</insert>
-	<select id="findId" parameterType="map" resultType="uservo">
+	<select id="findId" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			SELECT email, name FROM "user" WHERE "name" = #{n} and "rrn" = #{r}
+			SELECT "no", email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn}
 		]]>
 	</select>
-	<select id="findIdByEmail" parameterType="map" resultType="uservo">
+	<select id="findByNo" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			SELECT email, name FROM "user" WHERE "name" = #{n} and "rrn" = #{r} and "email" = #{e}
+			SELECT email, "name", rrn, job, phone, address, gender FROM "user" WHERE "no" = #{no}
+		]]>
+	</select>
+	<select id="checkEmail" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			SELECT email FROM "user" WHERE email = #{email}
+		]]>
+	</select>
+	<select id="findIdByEmail" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			SELECT "no", email, name FROM "user" WHERE "name" = #{name} and "rrn" = #{rrn} and "email" = #{email}
+		]]>
+	</select>
+	<select id="getUser" parameterType="map" resultType="uservo">
+		<![CDATA[
+			SELECT "no", name, job, auth FROM "user" WHERE "email" = #{email} and password = #{password}
 		]]>
 	</select>
 	<update id="updatePw" parameterType="uservo">
 		<![CDATA[
-			 UPDATE "user" SET password = #{p} WHERE name = #{n}
+			UPDATE "user" SET password = #{password} WHERE "no" = #{no}
+		]]>
+	</update>
+	<update id="updateInfo" parameterType="uservo">
+		<![CDATA[
+			UPDATE "user" SET password = #{password}, phone = #{phone}, address = #{address} WHERE "no" = #{no}
 		]]>
 	</update>
 	<select id="findByAll" resultType="uservo">
 		<![CDATA[
-			SELECT no, email, name, gender, auth, address, rrn, job, phone FROM "user"
+			SELECT "no", email, name, gender, auth, address, rrn, job, phone FROM "user" ORDER BY auth, no
 		]]>
 	</select>
 	<delete id="deleteByNo" parameterType="uservo">
@@ -33,7 +53,7 @@
 	</delete>
 	<update id="updateAuth" parameterType="uservo">
 		<![CDATA[
-			 UPDATE "user" SET auth = 'Y' WHERE no = #{no}
+			 UPDATE "user" SET auth = 'Y' WHERE "no" = #{no}
 		]]>
 	</update>
 </mapper>

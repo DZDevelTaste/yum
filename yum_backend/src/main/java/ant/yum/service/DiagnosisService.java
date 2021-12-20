@@ -13,8 +13,8 @@ public class DiagnosisService {
 	private DiagnosisRepository diagnosisRepository;
 
 	public DiagnosisVo insert(DiagnosisVo diagnosisVo) {
-		
+
 		return diagnosisRepository.insert(diagnosisVo);
-		
+
 	}
 }

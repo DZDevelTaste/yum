@@ -1,0 +1,78 @@
+.orders {
+    display: inline-block;
+    width: 250px;
+    height: 200px;
+    float: left;
+    background: #FFFFFF;
+    border: 2px solid #737373;
+    box-sizing: border-box;
+    overflow: auto;
+
+    .order{
+        height: 30px;
+    
+        .firstDiv{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 21px;
+            display:block;
+            width:130px;
+            height:28px;
+            float:left;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+        .secondDiv{
+            display:block;
+            width:15px;
+            height:28px;
+            float:left;
+            margin-top: 10px;
+        }
+        .lastDiv{
+            font-family: Roboto;
+            font-style: normal;
+            font-size: 15px;
+            line-height: 21px;
+
+            display:block;
+            width:60px;
+            height:28px;
+            float:left;
+            text-align: right;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+    }
+}
+
+.patientList {
+    width: 250px;
+    margin-top: 10px;
+    margin-left: 20px;
+    float: left;
+}
+
+.patientListTitle{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.patientInfo {
+    width: 450px;
+    margin-top: 10px;
+    margin-left:15px;
+    float: left;
+}
+
+.patientPastOrder {
+    width: 740px;
+    margin-top: 10px;
+    margin-left: 15px;
+    float: left;
+}

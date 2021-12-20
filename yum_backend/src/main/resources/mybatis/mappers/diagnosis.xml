@@ -4,7 +4,7 @@
 	<insert id="insert" parameterType="diagnosisvo">
 		<![CDATA[
 			insert into diagnosis
-			values (DEFAULT, now(), '', ?, ?)
+			values (DEFAULT, now(), #{desc}, #{orderNo}, #{userNo})
 		]]>
 			<selectKey keyProperty="no" resultType="int" order="AFTER">
 	        select currval('diagnosis_no_seq')
