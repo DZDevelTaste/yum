@@ -32,7 +32,7 @@
     
     :global(.fc-daygrid-day-frame) {
       position: relative;
-      height: 200px;
+      height: 120px;
       /* seems to work better than `height` because sets height after rows/cells naturally do it */
     }
   

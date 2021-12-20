@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import style from '../assets/scss/main/update.scss'
+import Logo from '../../public/favicon.ico'
+import SemiLogo from '../../public/title.png'
 
 const Update = () => {
     const [userVo, setUserVo] = useState([]);
@@ -182,6 +184,8 @@ window.onload = function(){
 
 return (
     <div className={style.yammi}>
+        <img className={style.image}src={Logo}/>
+        <img className={style.image1}src={SemiLogo}/>
         <form method="post" onSubmit={update}>
             <div className={style.header}>회원 정보 수정</div>
             <div className={style.email}>

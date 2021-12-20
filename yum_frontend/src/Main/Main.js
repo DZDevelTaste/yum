@@ -53,7 +53,7 @@ const Main = () => {
               
                 location.href = '/admin'
             }
-
+            
         } catch (error) {
             console.error(error);
         }

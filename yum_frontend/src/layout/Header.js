@@ -20,7 +20,11 @@ const Header = () => {
     }
     return (
         <div className={style.body}>
-            <img className={style.image1}src={SemiLogo}/>
+            { job == '간호사' ?
+            <a href=''><img className={style.image1}src={SemiLogo}/></a> : job == '의사' ?
+            <a href='/doctor'><img className={style.image1}src={SemiLogo}/></a> :
+            <a href='/admin'><img className={style.image1}src={SemiLogo}/></a>
+            }
             <div className={style.user}>
                 <div className={style.state}>{`${name} ${job}님`}</div>
                 <ul>
