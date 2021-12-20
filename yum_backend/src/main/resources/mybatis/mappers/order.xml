@@ -102,14 +102,6 @@
 			where patient_no = #{patientNo }
 		]]>
 	</select>
-
-	<select id="findByOrderNo" parameterType="integer" resultType="ordervo">
-		<![CDATA[
-			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no
-			from "order"
-			where no = #{orderNo }
-		]]>
-	</select>
 	
 	<insert id="insertOrder" parameterType="ordervo" >
 		<choose>
