@@ -14,6 +14,7 @@ import Schedule from './Schedule/Schedule';
 import Timer from './Timer';
 import DoctorMain from './doctor/DoctorMain';
 import Update from './Main/Update';
+import DocMessage  from './message';
 
 const App = () => {
     return (
@@ -33,6 +34,7 @@ const App = () => {
                 <Route path='/time' element={<Timer />} />
                 <Route exact path='/doctor' element={<DoctorMain />}/>
                 <Route path='/update' element={<Update />} />
+                <Route path='/docMessage' element={<DocMessage />} />
             </Routes>
     );
 };
