@@ -2,11 +2,11 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Spring Boot-YUMApplication<YUM_backend>",
+            "name": "Spring Boot-YumApplication<yum_backend>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
-            "mainClass": "ant.yum.YUMApplication",
+            "mainClass": "ant.yum.YumApplication",
             "projectName": "yum_backend",
             "args": ""
         }

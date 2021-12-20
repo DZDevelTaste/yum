@@ -15,18 +15,19 @@ public class DiagnosisRepository {
 	private SqlSession sqlSession;
 
 	public DiagnosisVo insert(DiagnosisVo diagnosisVo) {
-		
+
 		sqlSession.insert("diagnosis.insert", diagnosisVo);
-		
+
 		return diagnosisVo;
-		
+
+	}
+
+	public List<DiagnosisVo> findByNo(int patientNo) {
+
+		return sqlSession.selectList("diagnosis.findByNo", patientNo);
 	}
 
     public DiagnosisVo findByOrderNo(int orderNo) {
         return sqlSession.selectOne("diagnosis.findByOrderNo", orderNo);
     }
-
-	public List<DiagnosisVo> findByNo(int patientNo) {
-		return sqlSession.selectList("diagnosis.findByNo", patientNo);
-	}
 }

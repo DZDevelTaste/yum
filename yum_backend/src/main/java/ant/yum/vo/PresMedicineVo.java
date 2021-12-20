@@ -13,5 +13,5 @@ public class PresMedicineVo {
 	private String code;
 	private String name;
 	private int presmedicineDay;
-	private int presmedicineCount; 
+	private int presmedicineCount;
 }

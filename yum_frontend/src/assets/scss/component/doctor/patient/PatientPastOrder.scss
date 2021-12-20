@@ -1,0 +1,52 @@
+.pastOrderTitle{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.pastOrderContents {
+    width: 740px;
+    height: 200px;
+    float: left;
+    background: #FFFFFF;
+    border: 2px solid #737373;
+    box-sizing: border-box;
+
+    .menu{
+        width: 736px;
+        height: 40px;
+
+        .orderDtAndUsInfo{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 21px;
+            display: block;
+            width: 130px; 
+            height: 40px;
+            line-height: 40px;
+            text-align: center; 
+            float: left;
+            background: #F9F9F9;
+            overflow: auto;
+        }
+        .orderDisAndCliInfo{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 21px;        
+            display: block;
+            width: 237px; 
+            height: 40px;
+            line-height: 40px;
+            text-align: center; 
+            float: left;
+            background: #F9F9F9;
+            overflow: auto;
+        }
+    }
+}

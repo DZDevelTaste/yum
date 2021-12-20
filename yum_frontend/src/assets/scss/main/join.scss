@@ -1,0 +1,696 @@
+.image {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 43%;
+
+}
+.image1 {
+    position: absolute;
+    left: 36%;
+    top: 28%;
+} 
+
+.header {
+/* 회원가입 */
+
+position: absolute;
+width: 160px;
+height: 42px;
+left: 47%;
+top: 35%;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 36px;
+line-height: 42px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.1em;
+
+color: #000000;
+  }
+  
+.email {
+   /* 이메일 입력폼 */
+
+/* Auto Layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+width: 550px;
+height: 71px;
+left: 729px;
+top: 40%;
+
+/* Inside Auto Layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 10px 0px;
+
+    div{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #333333;
+    }
+
+    input{
+        width: 150px;
+        height: 45px;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+
+    select {
+        width: 142px;
+        height: 45px;
+        margin-left: 5px;
+    }
+    .checkEmail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    
+        position: absolute;
+        width: 142px;
+        height: 45px;
+        left: 320px;
+        top: 56px;
+        bottom : 30px;
+        
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 10px 0px;
+    
+        /* Rectangle 11 */
+        background: #6599FF;
+        border-radius: 8px;
+    
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 28px;
+        text-align: center;
+        letter-spacing: 0.1em;
+    
+        color: #FFFFFF;
+    }
+    .state {
+        margin: 15px 0;
+    }
+  }
+  
+.password {
+    /* 비밀번호 */
+    /* Auto Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    position: absolute;
+    width: 460px;
+    height: 71px;
+    left: 729px;
+    top: 52%;
+
+    div{
+        left: 0%;
+        right: 88.7%;
+        top: 0%;
+        bottom: 77.46%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #333333;
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 10px 0px;
+
+    }
+
+    input {
+        position: static;
+        width: 460px;
+        height: 45px;
+        left: 0px;
+        top: 26px;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin: 10px 0px;
+    }
+}
+  
+.check {
+    /* 비밀번호 확인*/
+    /* Auto Layout */
+    
+    padding: 0px;
+    
+    position: absolute;
+    width: 460px;
+    height: 71px;
+    left: 729px;
+    top: 62%;
+
+    div{
+        left: 0%;
+        right: 88.7%;
+        top: 0%;
+        bottom: 77.46%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 16px;
+
+        color: #333333;
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 10px 0px;
+
+    }
+
+    input {
+        position: static;
+        width: 460px;
+        height: 45px;
+        left: 0px;
+        top: 26px;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin: 10px 0px;
+    }
+    span {
+        position: static;
+        width: 200px;
+        height: 16px;
+        left: 732px;
+        top: 507px;
+        
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+    }
+  }
+  
+.name {
+    /* 이름 */
+    /* Auto Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: absolute;
+    width: 460px;
+    height: 71px;
+    left: 729px;
+    top: 75%;
+
+    div{
+        position: static;
+        left: 0%;
+        right: 94.35%;
+        top: 0%;
+        bottom: 77.46%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #333333;
+
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 10px 0px;
+    }
+
+    input {
+        position: static;
+        width: 460px;
+        height: 45px;
+        left: 0px;
+        top: 26px;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin: 10px 0px;
+    }
+}
+  
+  .rrn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: absolute;
+    width: 460px;
+    height: 71px;
+    left: 729px;
+    top: 85%;
+    
+    div{
+        position: static;
+        left: 0%;
+        right: 83.03%;
+        top: 0%;
+        bottom: 77.46%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #333333;
+
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 10px 0px;
+    }
+    input[type=text] {
+        position: absolute;
+        width: 220px;
+        left: 0%;
+        right: 52.45%;
+        top: 40.62%;
+        bottom: 0%;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+    span {
+        position: absolute;
+        width: 15px;
+        left: 48.53%;
+        right: 48.64%;
+        top: 56.34%;
+        bottom: 21.13%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #000000;
+    }
+    input[type=password] {
+        position: absolute;
+        width: 220px;
+        left: 52.45%;
+        right: 0%;
+        top: 40.62%;
+        bottom: 0%;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+  }
+  
+  .job {
+    position: absolute;
+    width: 308px;
+    height: 64px;
+    left: 729px;
+    top: 95%;
+
+    div {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .nurse {
+        position: absolute;
+        width:55px;
+        left: 21.1%;
+        right: 66.23%;
+        top: 62.5%;
+        bottom: 12.5%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 17px;
+        line-height: 16px;
+
+        color: #333333;
+    }
+    .doctor {
+        position: absolute;
+        width:35px;
+        left: 91.56%;
+        right: 0%;
+        top: 62.5%;
+        bottom: 12.5%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 17px;
+        line-height: 16px;
+
+        color: #333333;
+    }
+    .nurseBtn {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        left: 13px;
+        top: 32px;
+
+    }
+    .doctorBtn {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        left: 74.68%;
+        right: 14.94%;
+        top: 50%;
+        bottom: 0%;
+
+    }
+  }
+  
+  .phone {
+    /* 전화번호 */
+    position: absolute;
+    width: 460px;
+    height: 71px;
+    left: 729px;
+    top: 105%;
+
+    .phoneTitle {
+        /* 전화번호 */
+        width: 120px;
+        left: 0%;
+        right: 88.7%;
+        top: 0%;
+        bottom: 77.46%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #333333;
+    }
+
+    select {
+        position: absolute;
+        width: 100px;
+        left: 0%;
+        right: 73.91%;
+        top: 36.62%;
+        bottom: 0%;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+    .phoneN1 {
+        position: absolute;
+        width: 160px;
+        left: 25%;
+        right: 36.96%;
+        top: 36.62%;
+        bottom: 0%;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+    .phoneN2 {
+        position: absolute;
+        left: 65;
+        right: 0%;
+        top: 36.62%;
+        bottom: 0%;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+  }
+  
+  .address {
+    /* 주소 */
+    position: absolute;
+    width: 460px;
+    height: 201px;
+    left: 729px;
+    top: 117%;
+
+    div {
+        position: absolute;
+        width: 30px;
+        left: 0%;
+        right: 94.35%;
+        top: -10%;
+        bottom: 95.04%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: #333333;
+    }
+
+    input[type=button] {
+        position: static;
+        width: 150px;
+        height: 45px;
+        left: 50px;
+        bottom: 5%;
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin-left: 30px;
+        background-color: #FFFFFF;
+    }
+
+    .number {
+        position: static;
+        width: 230px;
+        height: 45px;
+        left: 0px;
+        top: 0px;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin: 0px 0px;
+    }
+
+    .address {
+        position: static;
+        width: 460px;
+        height: 45px;
+        left: 0px;
+        top: 65px;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+
+        /* Inside Auto Layout */
+
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin: 20px 0px;
+    }
+
+    .detail {
+        position: absolute;
+        width: 460px;
+        height: 45px;
+        left: 0px;
+        top: 130px;
+
+        background: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-sizing: border-box;
+    }
+}
+  
+  .gender {
+    /* 성별 */
+    /* Auto Layout */
+  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: absolute;
+    width: 295px;
+    height: 64px;
+    left: 729px;
+    top: 137%;
+
+    .male {
+        position: absolute;
+        left: 22.03%;
+        right: 73.56%;
+        top: 62.5%;
+        bottom: 12.5%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 17px;
+        line-height: 16px;
+
+        color: #333333;
+    }
+
+    .female {
+        position: absolute;
+        left: 95.59%;
+        right: 0%;
+        top: 62.5%;
+        bottom: 12.5%;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 17px;
+        line-height: 16px;
+
+        color: #333333;
+    }
+
+    .maleBtn {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        left: 13px;
+        top: 32px;
+    }
+
+    .femaleBtn {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        left: 77.97%;
+        right: 11.19%;
+        top: 50%;
+        bottom: 0%;
+    }
+  }
+  
+  .join {
+    /* 회원가입 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    position: absolute;
+    width: 460px;
+    height: 60px;
+    left: 729px;
+    top: 145%;
+    bottom : 10%;
+    
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 10px 0px;
+
+    /* Rectangle 11 */
+    background: #6599FF;
+    border-radius: 8px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.1em;
+
+    color: #FFFFFF;
+}
+

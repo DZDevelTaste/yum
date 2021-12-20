@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = (env) => {
-   
     return {
         mode: 'none',
         entry: path.resolve(`yum_frontend/src/index.js`),
@@ -37,7 +36,12 @@ module.exports = (env) => {
             host: "0.0.0.0",
             port: 9999,
             proxy: {
+<<<<<<< HEAD
                 '/api/': 'http://localhost:8080'
+=======
+                '/api': 'http://localhost:8080',
+                '/message': 'http://localhost:8080'
+>>>>>>> origin/master
             },
             inline: true,
             liveReload: true,

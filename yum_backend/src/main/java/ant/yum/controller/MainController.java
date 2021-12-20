@@ -2,96 +2,85 @@ package ant.yum.controller;
 
 import java.io.IOException;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import ant.yum.dto.JsonResult;
+import ant.yum.security.AuthUser;
 import ant.yum.service.MainService;
 import ant.yum.vo.UserVo;
 
-@Controller
+@CrossOrigin
+@RestController
+@RequestMapping("/api")
 public class MainController {
-	
-	@Autowired
-	ServletContext servletContext;
-	
 	@Autowired
 	private MainService mainService;
 	
-	@RequestMapping("")
-	public String index() {
-		return "main/index";
+	@PostMapping("/join")
+	public JsonResult join(@RequestBody UserVo userVo) {
+		mainService.join(userVo);
+		
+		return JsonResult.success(userVo);
+	}
+	@PostMapping("/successId")
+	public JsonResult search_email_(@RequestBody UserVo userVo) throws IOException{
+		UserVo vo = mainService.findId(userVo);
+		
+		return JsonResult.success(vo);
+	}
+	@GetMapping("/successId/{no}")
+    public JsonResult medicineInfo(@PathVariable(value= "no") int no) {
+        UserVo userVo = mainService.findByNo(no);
+
+        return JsonResult.success(userVo);
+    }
+	@PostMapping("/successPw")
+	public JsonResult search_password_su(@RequestBody UserVo userVo) {
+		UserVo vo = mainService.findIdByEmail(userVo);
+		
+		return JsonResult.success(vo);
+	}
+	@PostMapping("/updatePw")
+	public JsonResult search_password_success(@RequestBody UserVo userVo) {
+		mainService.updatePw(userVo);
+		
+		return JsonResult.success(userVo);
 	}
 	
-	@RequestMapping("/join")
-	public String join() {
-		return "main/join"; 
-	}
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@Valid UserVo vo) {
-		mainService.join(vo);
-		
-		return "redirect:/";
-	}
-	@RequestMapping("/searchemail")
-	public String search_email() {
-		return "main/search_email";
-	}
-	@RequestMapping(value="/searchemailsuccess", method=RequestMethod.POST)
-	public String search_email_(HttpServletRequest hsr, HttpServletResponse hsR , Model model) throws IOException{
-		String name = hsr.getParameter("name");
-		String rrn1 = hsr.getParameter("rrn");
-		String rrn2 = hsr.getParameter("rrn1");
-		String rrn = rrn1 +"-"+ rrn2;
-		
-		UserVo vo = mainService.findId(name, rrn);
-		
-	
-		model.addAttribute("vo", vo);
-		
-		if(vo == null) {
-			return "main/search_email";
-		}
-		return "main/search_email_success";
-	}
-	@RequestMapping("/searchpassword")
-	public String search_password() {
-		return "main/search_password";
-	}
-	@RequestMapping(value="/searchpassword" , method=RequestMethod.POST)
-	public String search_password_su(HttpServletRequest hsr, Model model) {
-		String name = hsr.getParameter("name");
-		String email1 = hsr.getParameter("email");
-		String email2 = hsr.getParameter("email1");
-		String rrn1 = hsr.getParameter("rrn");
-		String rrn2 = hsr.getParameter("rrn1");
-		String rrn = rrn1 +"-"+ rrn2;
-		String email = email1 + "@" + email2;
-		
-		UserVo vo = mainService.findIdByEmail(name, email, rrn);
-		model.addAttribute("vo", vo);
-		
-		if(vo == null) {
-			return "main/search_password";
-		}
-		
-		return "main/search_password_success";
-	}
-	@RequestMapping(value="/searchpasswordsuccess/{name}", method=RequestMethod.POST)
-	public String search_password_success(HttpServletRequest hsr, Model model, @PathVariable("name") String name) {
-		String password = hsr.getParameter("password");
-		
-		mainService.updatePw(password, name);
-		
-		return "redirect:/";
+	@PostMapping("/user/auth")
+	public JsonResult auth(@AuthUser UserVo authUser) {
+
+		return JsonResult.success(authUser);
 	}
 
+	@GetMapping("/user/logout")
+	public void logout() {
+	}
+
+	@GetMapping("/update/{no}")
+	public JsonResult logout(@PathVariable(value= "no") int no) {
+		UserVo userVo = mainService.findByNo(no);
+		
+		return JsonResult.success(userVo);
+	}
+
+	@PostMapping("/update")
+	public JsonResult updateInfo(@RequestBody UserVo userVo) {
+		mainService.updateInfo(userVo);
+		
+		return JsonResult.success(userVo);
+	}
+	@PostMapping("/check")
+	public JsonResult check(@RequestBody UserVo userVo) {
+		UserVo vo = mainService.checkEmail(userVo);
+
+		return JsonResult.success(vo != null);
+	}
 }

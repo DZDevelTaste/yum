@@ -2,8 +2,6 @@ package ant.yum.repository;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,19 +13,24 @@ public class ScheduleRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<Object> findBySchedule() {
+	public List<ScheduleVo> findBySchedule() {
 		return sqlSession.selectList("schedule.findBySchedule");
 	}
-	public boolean updateSchedule(int userNo) {
-		int count = sqlSession.update("schedule.updateSchedule", userNo);
+	public boolean updateSchedule(ScheduleVo scheduleVo) {
+		int count = sqlSession.update("schedule.updateSchedule", scheduleVo);
 		return count == 1;
 	}
-	public boolean deleteSchedule(int userNo) {
-		int count = sqlSession.delete("schedule.deleteSchedule", userNo);
+	public boolean deleteSchedule(ScheduleVo scheduleVo) {
+		int count = sqlSession.delete("schedule.deleteSchedule", scheduleVo);
 		return count == 1;
 	}
-	public boolean addSchedule(@Valid ScheduleVo vo) {
-		return sqlSession.selectOne("schedule.addDisease", vo);
+	public boolean addSchedule(ScheduleVo scheduleVo) {
+		System.out.println("================"+scheduleVo);
+		int count = sqlSession.insert("schedule.addSchedule", scheduleVo);
+		return count == 1;
+	}
+	public ScheduleVo findByIdSchedule(ScheduleVo scheduleVo) {
+		return sqlSession.selectOne("schedule.findByIdSchedule", scheduleVo);
 	}
 
 }
