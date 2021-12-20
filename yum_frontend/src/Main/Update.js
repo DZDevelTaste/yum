@@ -144,26 +144,34 @@ const update = () => {
     }
 }
 
-//비밀번호 유효성 검사
-const checkPassword = (e) => {
+ //비밀번호 유효성 검사
+ const checkPassword = (e) => {
     //  8 ~ 10자 영문, 숫자 조합
-    var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
+    var rr = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
 
-    if(!regExp.test(e.target.value)) {
-        alert("잘못된 비밀번호 형식입니다.");
-        return false;
+    if(!rr.test(e)) {
+        document.getElementById('check').innerHTML='올바른 비밀번호가 아닙니다.';
+        document.getElementById('check').style.color='red';
+        document.getElementById('pw').value='';
+        document.getElementById('pw').focus();
     }
-    if(document.getElementById('pw').value !='' && document.getElementById('pw2').value!=''){
+};
+
+const checkcheck = () => {
+    if(password !='' && document.getElementById('pw2').value!=''){
         if(document.getElementById('pw').value==document.getElementById('pw2').value){
             document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
             document.getElementById('check').style.color='blue';
+            return true;
         }
         else{
             document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
             document.getElementById('check').style.color='red';
+            document.getElementById('pw2').focus();
+            return false;
         }
     }
-};
+}
 
 // 주소찾기 API
 window.onload = function(){
@@ -197,14 +205,14 @@ return (
                 </label>
             </div>
             <div className={style.password}>
-                <div>비밀번호</div>
-                    <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)}/>
-            </div>
-            <div className={style.check}>
-                <div>비밀번호 확인</div>
-                    <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword}/>
-                    <span id="check"></span>
-            </div>
+                    <div>비밀번호</div>
+                        <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={(e) => checkPassword(e.target.value)} onChange={(e) => setPassword(e.target.value)} required/>
+                </div>
+                <div className={style.check}>
+                    <div>비밀번호 확인</div>
+                        <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkcheck} required/>
+                        <span id="check" >8~10자의 숫자와 영문을 입력해주세요</span>
+                </div>
             <div className={style.name}>
                 <div>이름</div>
                 <input type="text" name="name" id="name" placeholder={`${userVo.name}`} disabled/>

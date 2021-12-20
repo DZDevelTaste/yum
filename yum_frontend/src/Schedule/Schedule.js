@@ -25,7 +25,7 @@ const Schedule = () => {
   const [userNo, setUserNo] =useState('');
   const no = parseInt(sessionStorage.getItem("no"));
   const name = sessionStorage.getItem("name");
-
+  
   useEffect(() => {
       setTitle(schedule1Vo ? schedule1Vo.title : '')
       setStart(schedule1Vo ? schedule1Vo.start : '')
@@ -191,12 +191,17 @@ const fetchdelete = async() => {
 
   return (
       <SiteLayout>
-        <div>
-            <input type="button" className={style.addBtn}value="등록" onClick={(e) => setModalData({isOpen: true})} />
+        <div className={style.addBtn}>
+            <input type="button" value="등록" onClick={(e) => {setModalData({isOpen: true})}} />
         </div>
         <div>
             <FullCalendar 
             themeSystem="themeSystem"
+            headerToolbar = {{
+                start: '',
+                center: 'title',   
+                end: 'today prev,next'
+            }}
             plugins={[ timeGridPlugin, dayGridPlugin, interactionPlugin]} 
             initialView="dayGridMonth" 
             customButtons={{
@@ -207,7 +212,7 @@ const fetchdelete = async() => {
             }}
             selectable= "true"
             events={scheduleVo}
-            eventBackgroundColor='#6599FF'
+            eventBackgroundColor={'#6599FF'}
             locale="ko"
             nowIndicator
             dateClick={(e) => {setStart(e.dateStr > nowTime ? e.dateStr : nowTime); setEnd(e.dateStr > nowTime ? e.dateStr : nowTime); setModalData({isOpen: true})} }
