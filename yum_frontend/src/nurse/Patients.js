@@ -5,7 +5,7 @@ import Patient from './Patient';
 
 
 
-const Patients = ({updateInfo, callback}) => {
+const Patients = ({updateInfo, setSelectNo}) => {
     const [patients, setPatients] = useState([]);
     const [keyword, setKeyword] = useState('');
     
@@ -13,14 +13,10 @@ const Patients = ({updateInfo, callback}) => {
         setKeyword(keyword);
     }
 
-    const notifyNoChange = (selectNo) => {
-        // setSelectNo(selectNo);
-        callback(selectNo);
-    }
 
     useEffect(async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/nurse/patientList', {
+            const response = await fetch('/api/nurse/patientList', {
                 method: 'get',
                 mode: 'cors',
                 credentials: 'include',
@@ -66,7 +62,7 @@ const Patients = ({updateInfo, callback}) => {
                         patients
                             .filter( patient => patient.name.indexOf(keyword) !== -1)
                             .map( patient => <Patient
-                                                    callback={notifyNoChange}
+                                                    setSelectNo={setSelectNo}
                                                     key={patient.no}
                                                     patient={patient}
                                                 />)

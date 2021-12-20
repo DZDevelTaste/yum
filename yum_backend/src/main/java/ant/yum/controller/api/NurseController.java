@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class NurseController {
         int receptionist = 5;   // 임시값
         orderVo.setUserNo(receptionist);
         
-        // System.out.println("제대로 들어왔니 ==== " + orderVo);
+        System.out.println("제대로 들어왔니 ==== " + orderVo);
         orderService.addOrder(orderVo);
         
         return JsonResult.success(orderVo);
@@ -44,12 +45,34 @@ public class NurseController {
     @GetMapping("/orderList")
     public JsonResult orderList(@RequestParam(name="date", required=true, defaultValue="") String date, @RequestParam(name="osn", required=true, defaultValue="0") int orderstateNo){
         /*  
-            접수/예약 환자 리스트: 해당 날짜에 접수되어 있는 환자 리스트를 받아옴
+            접수 환자 리스트: 해당 날짜에 접수되어 있는 환자 리스트를 받아옴
             - date: 검색하는 날짜
             - osn(orderstateNo): 진료 현황 별 환자 리스트를 받아오기 위함. default로 0이며 0일 경우 전체 리스트 출력 */
-        List<OrderVo> patientList = orderService.findByDateAndOrderstateNo(date, orderstateNo);
         
+        List<OrderVo> patientList = orderService.findByDateAndOrderstateNo(date, orderstateNo);
+        // System.out.println("date" + date + "orderstateNo: " + orderstateNo);
         return JsonResult.success(patientList);
+    }
+
+    @GetMapping("/reservationList")
+    public JsonResult reservationList(@RequestParam(name="date", required=true, defaultValue="") String date){
+        /*  
+            예약 환자 리스트: 해당 날짜에 접수되어 있는 환자 리스트를 받아옴
+            - date: 검색하는 날짜 */
+        
+        // System.out.println("reservationList controller =====" + date);
+        List<OrderVo> patientList = orderService.findByDate(date);
+
+        // System.out.println(patientList);
+        return JsonResult.success(patientList);
+    }
+
+     
+    @GetMapping("/reservation/{orderNo}")
+    public JsonResult reservation(@PathVariable int orderNo) {
+        /* 예약 정보 가져오기 */
+        OrderVo orderVo = orderService.findByOrderNo(orderNo);
+        return JsonResult.success(orderVo);
     }
 
     // @PostMapping("/reservation")
@@ -81,7 +104,7 @@ public class NurseController {
             3. 4(수납 대기) -> 5(완료)
         */
 
-        System.out.println(orderVo);
+        // System.out.println(orderVo);
         orderService.updateState(orderVo);
         return JsonResult.success(orderVo);
 	}
@@ -115,7 +138,7 @@ public class NurseController {
         return JsonResult.success(patientInfoMap);
     }
 
-    @PostMapping("/deleteOrder/{orderNo}")
+    @DeleteMapping("/deleteOrder/{orderNo}")
     public JsonResult deleteOrder(@PathVariable int orderNo){
         /* 
             접수 및 예약 취소

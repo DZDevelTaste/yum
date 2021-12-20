@@ -47,9 +47,37 @@
 		</choose>
 	</select>
 
+	<select id="findByDate" resultMap="resultMapList" resultType="ordervo">
+		<choose>
+			<when test="_parameter == ''">
+			<![CDATA[
+				SELECT o.no, to_char(o."date", 'YY/MM/DD HH24:MI') as date, p.name, 
+						EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
+						o.patient_no, p.gender, p.rrn, p.phone
+				FROM patient p, "order" o
+				WHERE p.no = o.patient_no
+					AND o.orderstate_no = 1
+				ORDER BY o."date"
+			]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					SELECT o.no, to_char(o."date", 'YY/MM/DD HH24:MI') as date, p.name, 
+						EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
+						o.patient_no, p.gender, p.rrn, p.phone
+					FROM patient p, "order" o
+					WHERE p.no = o.patient_no
+						AND to_char(o."date", 'YYYY-MM-DD')= #{_parameter}
+						AND o.orderstate_no = 1
+					ORDER BY o."date"
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+
 	<select id="findByOrderNo" resultMap="resultMapList" resultType="ordervo">
 		<![CDATA[
-			SELECT o.no, o.patient_no, o.expenses, p.name, p.gender, p.rrn, p.insuarance, p.phone
+			SELECT o.no, o."date", o.patient_no, o.expenses, p.name, p.gender, p.rrn, p.insuarance, p.phone
 			FROM patient p, "order" o
 			WHERE o.patient_no=p.no
 				AND o.no=#{orderNo}
@@ -58,7 +86,7 @@
 
 	<select id="findByState" resultType="ordervo">
 		<![CDATA[
-			select no, date, expenses, 'desc' as desc, user_no, orderstate_no, patient_no 
+			select no, "date", expenses, 'desc' as desc, user_no, orderstate_no, patient_no 
 			from "order"
 			where orderstate_no = 2
 		]]>
@@ -83,7 +111,7 @@
 			<otherwise>
 				<![CDATA[
 					INSERT INTO "order" 
-					VALUES (DEFAULT, CAST(to_char(#{date}, 'YYYY-MM-DD HH24:MI:SS') AS TIMESTAMP), 7000, '', #{userNo}, #{orderstateNo}, #{patientVo.no})
+					VALUES (DEFAULT, to_timestamp(#{date}, 'YYYY-MM-DD HH24:MI:SS'), 7000, '', #{userNo}, #{orderstateNo}, #{patientVo.no})
 				]]>
 			</otherwise>
 		</choose>
@@ -133,7 +161,7 @@
 	<update id="updateDate" parameterType="ordervo">
 		<![CDATA[
 			UPDATE "order"
-			SET date = #{date }
+			SET date = to_timestamp(#{date}, 'YYYY-MM-DD HH24:MI:SS')
 			WHERE no = #{no }
 		]]>
 	</update>

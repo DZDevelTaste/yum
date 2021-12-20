@@ -34,6 +34,11 @@ public class OrderRepository {
         return list;
     }
 
+	public List<OrderVo> findByDate(String date) {
+        System.out.println("reservationList Repository =====" + date);
+		return sqlSession.selectList("order.findByDate", date);
+	}
+
 	public OrderVo findByOrderNo(int orderNo) {
 		return sqlSession.selectOne("order.findByOrderNo", orderNo);
 	}
@@ -70,5 +75,6 @@ public class OrderRepository {
 	public int deleteOrder(int orderNo) {
 		return sqlSession.delete("order.deleteOrder", orderNo);
 	}
+
 
 }

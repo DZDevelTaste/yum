@@ -79,10 +79,10 @@ const OrderForm = ({no, callback}) => {
             const resultDetailAddress = resultAddr.indexOf(' / ') !== -1 
                                         ? resultAddr.substr(resultAddr.indexOf(' / ')+3) : '';     // 상세주소
 
-            console.log('resultAddr:', resultAddr);
+            // console.log('resultAddr:', resultAddr);
             // console.log('resultZonecode:', resultZonecode);
             // console.log('resultAddress:', resultAddress);
-            console.log('resultDetailAddress:', resultDetailAddress);
+            // console.log('resultDetailAddress:', resultDetailAddress);
 
             setRrn(
                 {
@@ -194,7 +194,7 @@ const OrderForm = ({no, callback}) => {
     }, [formSuccess]);
 
     const addOrder = async (e) => {
-        console.log('addOrder 실행 시 넘어오는 order == ', order);
+        // console.log('addOrder 실행 시 넘어오는 order == ', order);
 
         if(!formSuccess){
             return;
@@ -222,10 +222,10 @@ const OrderForm = ({no, callback}) => {
             if(jsonResult.result !== 'success') {
                 throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
-            console.log('addOrder fetch 후 넘어온 data == ', jsonResult.data);
+            // console.log('addOrder fetch 후 넘어온 data == ', jsonResult.data);
 
             
-            console.log('patientVo의 no가 있는가? ==', patientVo.no);
+            // console.log('patientVo의 no가 있는가? ==', patientVo.no);
             if(patientVo.no !== undefined) {
                 callback({orderNo : jsonResult.data.no});
             } else {

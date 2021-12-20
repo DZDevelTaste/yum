@@ -13,11 +13,6 @@ const Order = () => {
     const [addPatient, setAddPatient] = useState(false);
     const [addOrder, setAddOrder] = useState(false);
 
-    const notifyNoChange = (selectNo) => {
-        console.log(selectNo);
-        setSelectNo(selectNo);
-    }
-    
     const notifyUpdateForm = (notifyForm) => {
         console.log('notifyForm result', notifyForm);
         
@@ -39,7 +34,7 @@ const Order = () => {
                 <div className={styles1.TopBox}>
                     <h2>환자 리스트</h2>
                     <Patients 
-                        callback={notifyNoChange}
+                        setSelectNo={setSelectNo}
                         updateInfo={addPatient}/>
                 </div>
                 <div className={styles1.BottomBox}>

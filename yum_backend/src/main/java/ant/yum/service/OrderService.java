@@ -63,6 +63,15 @@ public class OrderService {
         return orderRepository.findByDateAndOrderstateNo(date, orderstateNo);
     }
 
+	public List<OrderVo> findByDate(String date) {
+        // System.out.println("reservationList service =====" + date);
+		return orderRepository.findByDate(date);
+	}
+
+	public OrderVo findByOrderNo(int orderNo) {
+		return orderRepository.findByOrderNo(orderNo);
+	}
+	
 	@Transactional
     public void addOrder(OrderVo orderVo) {
         if(orderVo.getDate() == null){
@@ -84,7 +93,7 @@ public class OrderService {
             // 내원 이력이 없는 환자(환자 등록이 안 되어 있는 사람)는 예약 불가
             return;
         }
-        
+        System.err.println("addOrder Service =====================================\n" + orderVo + "\n=====================");
         orderRepository.addOrder(orderVo);
     }
 
@@ -136,7 +145,5 @@ public class OrderService {
 	public int deleteOrder(int orderNo) {
 		return orderRepository.deleteOrder(orderNo);
 	}
-
-
 
 }

@@ -10,9 +10,9 @@ const PatientList = () => {
     const [updateInfo, setUpdateInfo] = useState(false);
 
 
-    const notifyNoChange = (selectNo) => {
-        setSelectNo(selectNo);
-    }
+    // const notifyNoChange = (selectNo) => {
+    //     setSelectNo(selectNo);
+    // }
     const notifyInfoChange = (chkResult) => {
         setUpdateInfo(chkResult);
 
@@ -23,7 +23,7 @@ const PatientList = () => {
         <SiteLayout>
             <div className={styles1.LeftBox}>
                 <Patients 
-                    callback={notifyNoChange}
+                    setSelectNo={setSelectNo}
                     updateInfo={updateInfo}/>
             </div>
             <div className={styles1.RightBox}>
