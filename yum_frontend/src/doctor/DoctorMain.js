@@ -54,7 +54,18 @@ const App = () => {
 
 
     const submitDiagnosis = () => {
-        // fetchJoin();
+        if(orderNo == 0){
+            alert('환자를 선택해주세요.')
+        }
+        else if(diseaseNo.length < 1){
+            alert('병명을 기입해주세요.')
+        }
+        else if(medicineInfo.length < 1 && clinicNo.length < 1){
+            if(confirm('약품과 치료를 처방하지 않았습니다. 진료를 마치시겠습니까?') == true){
+                // fetch();
+            }
+        }
+        
         console.log(data);
     }
 
