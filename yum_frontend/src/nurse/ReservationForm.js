@@ -16,17 +16,11 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
     const PmTimeBtn = ["12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"];
 
     
-    const reservationInfoArray = [];    // 예약 리스트의 no와 시간을 담을 배열
     let disabledCheck = '';     // 예약된 시간을 indexOf로 값이 있는지 없는지 판단하여 버튼 disabled 할 변수 
     
     reservationList
         .map(reservationInfo => {
-                disabledCheck += ('20' + reservationInfo.date.replace(/\//g, '-'));
-
-                reservationInfoArray
-                    .push({no: reservationInfo.no,
-                            date: ('20' + reservationInfo.date.replace(/\//g, '-'))
-            })
+                disabledCheck += `20${reservationInfo.date.replace(/\//g, '-')} `;
         });
     
     const [findPatient, setFindPatient] = useState({}); // 환자 정보
@@ -116,6 +110,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
             let currentDate = jsonResult.data.date;
             setCurrentDay(currentDate.split(' ')[0]);
             setCurrentTime(currentDate.substr(currentDate.indexOf(' ')+1, 5));
+
         } catch (err) {
             console.error(err);
         }
@@ -287,7 +282,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
                                             key ={index} 
                                             value={timeValue}
                                             onClick={e => {selectNo!==0 || selectReservationNo!==0 ? setCurrentTime(e.target.value) : setCurrentTime('')}}
-                                            disabled={disabledCheck.indexOf(`${currentDay} ${timeValue}`) !== -1 ? true : false}>
+                                            disabled={(disabledCheck.indexOf(`${currentDay} ${timeValue}`) !== -1) ? true : false}>
                                             {timeValue}
                                         </button>
                                     )
