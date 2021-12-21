@@ -53,6 +53,8 @@ const Join = () => {
                 if(json.data == true) {
                     document.getElementById('checkEmail').innerHTML='이미 존재하는 이메일입니다.'
                     document.getElementById('checkEmail').style.color='red';
+                    document.getElementById('id').value='';
+                    document.getElementById('id').focus();
                 } else {
                     document.getElementById('checkEmail').innerHTML='사용 가능한 이메일입니다.'
                     document.getElementById('checkEmail').style.color='blue';
@@ -121,15 +123,6 @@ const Join = () => {
             }
         }
     }
-    // 이메일 유효성 검사
-    const checkEmail = (e) => {
-        var regExp = /^[a-zA-Z0-9+-\_.]/i;
-        
-        if(!regExp.test(e.target.value)) {
-            alert("잘못된 이메일 형식입니다.");
-            return;
-        }
-    };
     // 주민등록번호 유효성
     const rrn_check = () => {
         var rrn = document.getElementById('rrn').value;
@@ -191,7 +184,7 @@ const Join = () => {
                 <div className={style.email}>
                     <label>
                         <div id={'idTitle'}>아이디</div>
-                    <input type="text" name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={(e) => setEmail(e.target.value)} required/>
+                    <input type="text" name ="email" id="id" placeholder="ID" onChange={(e) => setEmail(e.target.value)} required/>
                     @
                     <input type="text" id="id1" name="email1" onChange={(e) => setEmail1(e.target.value)} required/>
                     <select id="id2" name="email1" onChange={email_check}>
