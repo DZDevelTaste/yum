@@ -247,10 +247,12 @@ const fetchdelete = async() => {
                             <input type='date' className={style.end} min={nowTime} defaultValue={`${schedule1Vo.end}`} onChange={(e) => setEnd(e.target.value)}/>
                     </div>
                 </div>
+                { (`${schedule1Vo.end}`) > nowTime ?
                 <div className={style.btn}>
                     <input className={style.deleteBtn}type="button" value="삭제" onClick={scheduleDelete} />
-                    <input type="submit" value="수정" />
-                </div>
+                    <input type="submit" value="수정" /> 
+                </div> : null
+                }  
                 </form>
             </Modal> 
             <Modal className={style.addModal} isOpen={modalData.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>
