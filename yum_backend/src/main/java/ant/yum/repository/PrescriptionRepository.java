@@ -42,7 +42,6 @@ public class PrescriptionRepository {
 
 			map.put("diagnosisNo", lastDiagnosisNo);
 			map.put("diseaseNo", presdiseaseList.getDiseaseNo());
-
 			sqlSession.insert("prescription.presDiseaseInsert", map);
 		}
 	}

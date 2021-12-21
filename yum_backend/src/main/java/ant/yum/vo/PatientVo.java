@@ -12,6 +12,7 @@ public class PatientVo {
 	private String name;
 	private String gender;
 	private String rrn;
+	private String age;
 	private String insuarance;
 	private String phone;
 	private String address;

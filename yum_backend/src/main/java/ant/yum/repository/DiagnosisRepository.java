@@ -26,4 +26,8 @@ public class DiagnosisRepository {
 
 		return sqlSession.selectList("diagnosis.findByNo", patientNo);
 	}
+
+    public DiagnosisVo findByOrderNo(int orderNo) {
+        return sqlSession.selectOne("diagnosis.findByOrderNo", orderNo);
+    }
 }

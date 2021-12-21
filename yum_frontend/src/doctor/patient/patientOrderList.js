@@ -25,8 +25,8 @@ const  patientOrderList = ({diagnosisList}) => {
                                     {list.presDiseaseList.map(presDisease => <div>- {presDisease.name}</div>)}
                                 </div>
                                 <div className={style.disAndCli}>
-                                    {list.presMedicineList.map(presMedicine => <div>- {presMedicine.name}</div>)} 
-                                    {list.presClinicList.map(presClinic => <div>- {presClinic.name}</div>)}
+                                    {list.presMedicineList.map(presMedicine => <div><div>-</div><div> {presMedicine.name}</div></div>)} 
+                                    {list.presClinicList.map(presClinic => <div><div>-</div><div> {presClinic.name}</div></div>)}
                                 </div>
                             </div> 
                         )

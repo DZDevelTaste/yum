@@ -5,10 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -26,8 +24,6 @@ import ant.yum.security.LogoutInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
-    @Autowired
-	private Environment env;
 	// Argument Resolver
 	@Bean
 	public HandlerMethodArgumentResolver handlerMethodArgumentResolver() {
@@ -95,5 +91,4 @@ public class WebConfig implements WebMvcConfigurer{
 		converters.add(stringHttpMessageConverter());
 		converters.add(mappingJackson2HttpMessageConverter());
 	}
-
 }

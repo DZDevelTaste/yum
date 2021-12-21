@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="patient">
+	<insert id="insert" parameterType="patientvo">
+		<![CDATA[
+			INSERT INTO patient 
+			VALUES (DEFAULT, #{name}, #{gender}, #{rrn}, #{insuarance}, #{phone}, #{address}, #{length}, #{weight}, #{desc})
+		]]>
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			<![CDATA[ SELECT CURRVAL('patient_p_no') ]]>
+		</selectKey>
+	</insert>
+
+	<select id="findAll" resultType="patientvo">
+		<![CDATA[
+			SELECT no, name, gender, rrn, insuarance, phone, address, length, weight, "desc"
+					, EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2 AS age
+			FROM patient
+			ORDER BY name, age, rrn
+		]]>
+	</select>
+
+	<select id="findByKeyword" resultType="patientvo">
+		<![CDATA[
+			SELECT no, name, gender, rrn, insuarance, phone, address, length, weight, "desc"
+					, EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2 AS age
+			FROM patient
+			WHERE name LIKE #{keyword}
+			ORDER BY name, age, rrn
+		]]>
+	</select>
+
 	<select id="findByNo" parameterType="integer" resultType="patientvo">
 		<![CDATA[
 			select no, name, gender, rrn, insuarance, phone, address, length, weight, "desc" as desc
 			from patient 
-			where no = #{patientNo };
+			where no = #{patientNo }
 		]]>
 	</select>
+
+	<update id='updatePatientInfo' parameterType='patientVo'>
+		<![CDATA[
+			UPDATE patient
+			SET name=#{name}, rrn=#{rrn}, insuarance=#{insuarance}, phone=#{phone}, address=#{address}, length=#{length}, weight=#{weight}, "desc"=#{desc}
+			WHERE no = #{no}
+		]]>
+	</update>
 </mapper>

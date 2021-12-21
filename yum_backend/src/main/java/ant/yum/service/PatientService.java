@@ -43,7 +43,16 @@ public class PatientService {
 		patientInfoMap.put("patientVo", patientVo);
 		patientInfoMap.put("diagnosisList", diagnosisList);
 
-		return patientInfoMap;
-	}
+        return patientInfoMap;
+    }
+
+    public List<PatientVo> findByAll() {
+        return patientRepository.findByAll();
+    }
+
+    public void updatePatientInfo(PatientVo patientVo) {
+        patientRepository.updatePatientInfo(patientVo);
+    }
+
 
 }

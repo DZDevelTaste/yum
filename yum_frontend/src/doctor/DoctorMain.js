@@ -53,20 +53,22 @@ const App = () => {
 
 
 
-    const submitDiagnosis = () => {
+    const submitDiagnosis = (e) => {
+        // e.preventDefault();
         if(orderNo == 0){
-            alert('환자를 선택해주세요.')
+            alert('환자를 선택해주세요.');
+            return;
         }
         else if(diseaseNo.length < 1){
-            alert('병명을 기입해주세요.')
+            alert('병명을 기입해주세요.');
+            return;
         }
         else if(medicineInfo.length < 1 && clinicNo.length < 1){
             if(confirm('약품과 치료를 처방하지 않았습니다. 진료를 마치시겠습니까?') == true){
+                sendMessage();
                 // fetch();
             }
         }
-        
-        console.log(data);
     }
 
     const sendMessage = async () => {
@@ -133,8 +135,7 @@ const App = () => {
                     <Diagnosis callback1={getDiseaseNo} callback2={getClinicNo} callback3={getMedicineInfo} callback4={getMemo}/>
                 </div>
                 <button className={style.button} onClick={() => {
-                        submitDiagnosis()
-                        sendMessage()}}>
+                        submitDiagnosis()}}>
                     진료 완료
                 </button>
             </div>

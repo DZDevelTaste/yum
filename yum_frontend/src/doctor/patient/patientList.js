@@ -139,7 +139,18 @@ const patientList = ({callback1, callback2}) => {
                         orders.map( (order) => {
                             return (
                                 <div className={style.order} onClick={() => {
-                                            
+
+                                            // changeState == true ?
+                                            // alert('동시 진료는 불가능합니다.') :
+                                            // (
+                                            //     confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true &&
+                                            //     updateOrderstate(order),
+                                            //     updatePatientNo(order.patientNo),
+                                            //     setOrderNo(order.no),
+                                            //     setChangeState(true),
+                                            //     sendMessage(order.patientName),
+                                            //     setPatientName(order.patientName)
+                                            // )
                                             if(confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true){
                                                 updateOrderstate(order);
                                                 updatePatientNo(order.patientNo) ;
@@ -148,6 +159,7 @@ const patientList = ({callback1, callback2}) => {
                                                 sendMessage(order.patientName);
                                                 setPatientName(order.patientName);
                                             }
+                                            
                                         }}>
                                         
                                         <div className={style.firstDiv}>

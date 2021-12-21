@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+.ListTable {
+    height: 100%;
+    display: block;
+
+    thead, tbody {
+        display: block;
+        width: 100%;
+    }
+    tbody {
+        height: 93%;
+        border: 1px solid #737373;
+        overflow-y: scroll;
+        background-color: #ffffff;
+
+        tr{
+            cursor: pointer;
+        }
+    }
+    
+    tr {
+        width: 100%;
+        
+        th, td{
+            padding: 10px;
+            
+            &:nth-child(1) {
+                width: 200px;
+            }
+            &:nth-child(2) {
+                width: 100px;
+            }
+            &:nth-child(3), &:nth-child(4) {
+                width: 300px;
+            }
+        }
+
+    }
+}
+
