@@ -14,9 +14,10 @@ import Msg from '../msg';
 
 const Reservation = () => {
     // const [selectPatient, setSelectPatient] = useState({});
-    const [selectNo, setSelectNo] = useState(0);
+    const [currentPatientNo, setCurrentPatientNo] = useState(0);
     const [selectReservationNo, setSelectReservationNo] = useState(0);
     const [reservationList, setReservationList] = useState([]);
+    const [updateList, setUpdateList] = useState({});
     const [updateList, setUpdateList] = useState(false);
     const [messages, setMessages] = useState([]);
     const [deleteNum, setDeleteNum] = useState();
@@ -33,32 +34,6 @@ const Reservation = () => {
         }
     }, [deleteNum])
     
-    const sendMessage = async () => {
-        try {
-            const response = await fetch('/message/api2', {
-                method: 'post',
-                mode: 'cors',  
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    "patientName": messages.patientName,
-                    "from": "nurse",
-                    "to": "doctor",
-                  })
-            });
-
-            if(!response.ok) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-
-        } catch (error) { 
-            console.error(error);
-        }
-    }
-
     useEffect(() => {
         console.log('Reservation Component selectNo: ', selectNo);
     }, [selectNo]);
@@ -66,6 +41,7 @@ const Reservation = () => {
     const notifyUpdateForm = () => {
         console.log('updateFormmmmmmmmmmmmmmmm');
     }
+    
 
     return (
         <SiteLayout>
@@ -73,7 +49,7 @@ const Reservation = () => {
                 <div className={styles1.TopBox}>
                     <h2>환자 리스트</h2>
                     <Patients 
-                        setSelectNo={setSelectNo}/>
+                        setCurrentPatientNo={setCurrentPatientNo}/>
                 </div>
                 <div className={styles1.BottomBox}>
                     <h2>예약 리스트</h2>
@@ -89,10 +65,10 @@ const Reservation = () => {
                 <ReservationForm 
                     setUpdateList={setUpdateList}
                     reservationList={reservationList}
-                    selectNo={selectNo}
+                    currentPatientNo={currentPatientNo}
                     selectReservationNo={selectReservationNo}
                     setSelectReservationNo={setSelectReservationNo}
-                    setSelectNo={setSelectNo} />
+                    setCurrentPatientNo={setCurrentPatientNo} />
             </div>
 
             <SockJsClient url="http://localhost:8080/yum" 

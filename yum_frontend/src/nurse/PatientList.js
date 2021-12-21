@@ -6,9 +6,10 @@ import Patients from './Patients';
 import SockJsClient from 'react-stomp';
 import Msg from '../msg';
 
-
-
 const PatientList = () => {
+    
+    const [currentPatientNo, setCurrentPatientNo] = useState(0);
+    const [updatePatient, setUpdatePatient] = useState({});
     const [selectNo, setSelectNo] = useState('');
     const [updateInfo, setUpdateInfo] = useState(false);
     const [messages, setMessages] = useState([]);
@@ -26,31 +27,6 @@ const PatientList = () => {
         }
     }, [deleteNum])
     
-    const sendMessage = async () => {
-        try {
-            const response = await fetch('/message/api2', {
-                method: 'post',
-                mode: 'cors',  
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    "patientName": messages.patientName,
-                    "from": "nurse",
-                    "to": "doctor",
-                  })
-            });
-
-            if(!response.ok) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-
-        } catch (error) { 
-            console.error(error);
-        }
-    }
 
     // const notifyNoChange = (selectNo) => {
     //     setSelectNo(selectNo);
@@ -65,13 +41,13 @@ const PatientList = () => {
         <SiteLayout>
             <div className={styles1.LeftBox}>
                 <Patients 
-                    setSelectNo={setSelectNo}
-                    updateInfo={updateInfo}/>
+                    setCurrentPatientNo={setCurrentPatientNo}
+                    updateInfo={updatePatient}/>
             </div>
             <div className={styles1.RightBox}>
                 <PatientInfo 
-                    callback={notifyInfoChange}
-                    no={selectNo} />
+                    setUpdatePatient={setUpdatePatient}
+                    no={currentPatientNo} />
             </div>
 
             <SockJsClient url="http://localhost:8080/yum" 

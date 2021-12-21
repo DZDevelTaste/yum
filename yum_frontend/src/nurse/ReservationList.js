@@ -17,7 +17,7 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, cal
     }
 
 
-    /* 접수 리스트 불러오기 */
+    /* 예약 리스트 불러오기 */
     useEffect(async () => {
         // console.log('selectDate', selectDate);
         try {
@@ -44,7 +44,6 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, cal
             }
 
             // console.log(jsonResult.data);
-            setUpdateList(false);
             setReservationList(jsonResult.data);
             callback(jsonResult.data);
         } catch (err) {
@@ -60,7 +59,7 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, cal
                 value={selectDate || ''}
                 onChange={e => setSelectDate(e.target.value)}
                 />
-            <SearchBar callback={notifyKeywordChange} />
+            <SearchBar setKeyword={setKeyword} />
             <table className={styles2.ListTable}>
                 <thead>
                     <tr>

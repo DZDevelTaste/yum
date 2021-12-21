@@ -15,15 +15,15 @@ import Timer from './Timer';
 import DoctorMain from './doctor/DoctorMain';
 import Update from './Main/Update';
 import Message from './nurseModal';
-import PatientList from './nurse/PatientList';
+import NurseMain from './nurse/Main';
 import Order from './nurse/Order';
 import Reservation from './nurse/Reservation';
-import NurseMain from './nurse/Main';
+import PatientList from './nurse/PatientList';
 
 const App = () => {
     return (
             <Routes>
-                <Route path='/' element={<Main />}/>
+                <Route exact path='/' element={<Main />}/>
                 <Route path='/join' element={<Join />}/>
                 <Route path='/searchId' element={<SearchId />}/>
                 <Route path='/searchPw' element={<SearchPw />}/>

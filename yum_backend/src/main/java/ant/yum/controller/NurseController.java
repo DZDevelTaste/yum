@@ -87,7 +87,7 @@ public class NurseController {
     //     return JsonResult.success(orderVo);
     // }
 
-    @PostMapping("/updateDesc")
+    @PutMapping("/updateDesc")
 	public JsonResult updateDesc(@RequestBody OrderVo orderVo) {
 		/* 접수 사유(증상) 바꾸기 */
         orderService.updateDesc(orderVo);
@@ -129,6 +129,15 @@ public class NurseController {
         */
         Map<String,Object> paymentInfoMap = orderService.paymentInfo(orderNo);
         return JsonResult.success(paymentInfoMap);
+    }
+
+    @PutMapping("/receive")
+    public JsonResult receive(@RequestBody OrderVo orderVo){
+        /* 
+            수납 후 order 업데이트
+        */
+        orderService.receive(orderVo);
+        return JsonResult.success(orderVo);
     }
     
     @GetMapping("/patientInfo/{no}")

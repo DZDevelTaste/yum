@@ -17,6 +17,9 @@ const Order = () => {
     const [messages, setMessages] = useState([]);
     const [deleteNum, setDeleteNum] = useState();
     const [modalData, setModalData] = useState({isOpen: false})
+    const [currentPatientNo, setCurrentPatientNo] = useState(0);
+    const [addPatient, setAddPatient] = useState({});
+    const [addOrder, setAddOrder] = useState({});
 
     const $websocket = useRef(null); 
 
@@ -28,37 +31,11 @@ const Order = () => {
             setMessages(messages);
         }
     }, [deleteNum])
-    
-    const sendMessage = async () => {
-        try {
-            const response = await fetch('/message/api2', {
-                method: 'post',
-                mode: 'cors',  
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    "patientName": messages.patientName,
-                    "from": "nurse",
-                    "to": "doctor",
-                  })
-            });
-
-            if(!response.ok) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-
-        } catch (error) { 
-            console.error(error);
-        }
-    }
 
     const notifyUpdateForm = (notifyForm) => {
         console.log('notifyForm result', notifyForm);
         
-        setSelectNo(0);
+        setCurrentPatientNo(0);
         if(notifyForm === 'reset'){
             return;
         }
@@ -76,7 +53,7 @@ const Order = () => {
                 <div className={styles1.TopBox}>
                     <h2>환자 리스트</h2>
                     <Patients 
-                        setSelectNo={setSelectNo}
+                        setCurrentPatientNo={setCurrentPatientNo}
                         updateInfo={addPatient}/>
                 </div>
                 <div className={styles1.BottomBox}>
@@ -89,7 +66,7 @@ const Order = () => {
             <div className={styles1.RightBox}>
                 <OrderForm 
                     callback={notifyUpdateForm}
-                    no={selectNo} />
+                    no={currentPatientNo} />
             </div>
             
             <SockJsClient url="http://localhost:8080/yum" 

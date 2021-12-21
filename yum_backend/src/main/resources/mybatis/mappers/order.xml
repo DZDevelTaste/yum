@@ -17,7 +17,11 @@
 			<!-- orderstateNo가 0이 아닌 경우 선택한 orderstateNo에 맞는 결과 출력 -->
 			<![CDATA[
 				SELECT o.no, to_char(o."date", 'HH24:MI') as date, p.name, 
-						EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
+						CASE
+						WHEN EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) < 0 
+							THEN EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 101
+						ELSE EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2
+						END as age, 
 						o."desc", o.orderstate_no, os.state, o.patient_no, p.gender, p.rrn, p.phone
 				FROM patient p, "order" o, order_state os
 				WHERE p.no = o.patient_no
@@ -34,7 +38,11 @@
 				-->
 				<![CDATA[
 					SELECT o.no, to_char(o."date", 'HH24:MI') as date, p.name, 
-							EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
+							CASE
+							WHEN EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) < 0 
+								THEN EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 101
+							ELSE EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2
+							END as age, 
 							o."desc", o.orderstate_no, os.state, o.patient_no, p.gender, p.rrn, p.phone
 					FROM patient p, "order" o, order_state os
 					WHERE p.no = o.patient_no
@@ -52,7 +60,11 @@
 			<when test="_parameter == ''">
 			<![CDATA[
 				SELECT o.no, to_char(o."date", 'YY/MM/DD HH24:MI') as date, p.name, 
-						EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
+						CASE
+						WHEN EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) < 0 
+							THEN EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 101
+						ELSE EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2
+						END as age, 
 						o.patient_no, p.gender, p.rrn, p.phone
 				FROM patient p, "order" o
 				WHERE p.no = o.patient_no
@@ -63,7 +75,11 @@
 			<otherwise>
 				<![CDATA[
 					SELECT o.no, to_char(o."date", 'YY/MM/DD HH24:MI') as date, p.name, 
-						EXTRACT(YEAR FROM age(CURRENT_DATE, to_date(SUBSTRING(p.rrn, 1, 6), 'YYMMDD'))) + 2 AS age, 
+						CASE
+						WHEN EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) < 0 
+							THEN EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 101
+						ELSE EXTRACT(year FROM age(CURRENT_DATE, to_date(SUBSTRING(rrn, 1, 6), 'YYMMDD'))) + 2
+						END as age, 
 						o.patient_no, p.gender, p.rrn, p.phone
 					FROM patient p, "order" o
 					WHERE p.no = o.patient_no
@@ -110,7 +126,6 @@
 			where patient_no = #{patientNo }
 		]]>
 	</select>
-
 	
 	
 	<insert id="insertOrder" parameterType="ordervo" >
@@ -175,6 +190,15 @@
 		<![CDATA[
 			UPDATE "order"
 			SET date = to_timestamp(#{date}, 'YYYY-MM-DD HH24:MI:SS')
+			WHERE no = #{no }
+		]]>
+	</update>
+
+	<update id="updateOrder" parameterType="ordervo">
+		<![CDATA[
+			UPDATE "order"
+			SET orderstate_no = #{orderstateNo },
+				expenses = #{expenses}
 			WHERE no = #{no }
 		]]>
 	</update>
