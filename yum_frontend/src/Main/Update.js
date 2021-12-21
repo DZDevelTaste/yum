@@ -7,6 +7,7 @@ const Update = () => {
     const [userVo, setUserVo] = useState([]);
     const [email, setEmail] = useState('');
     const [email1, setEmail1] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [rrn, setRrn] = useState('');
     const [rrn1, setRrn1] = useState('');
@@ -21,6 +22,7 @@ const Update = () => {
     
     let user = {
         no: no,
+        name: name,
         password: password,
         address: "(" + addressNumber + ") " +address + " / " + addressDetail,
         phone: phone + "-" + phone1 + "-" + phone2,
@@ -54,6 +56,7 @@ const Update = () => {
             setRrn((json.data.rrn).split("-")[0]);
             setRrn1((json.data.rrn).split("-")[1]);
             const home = json.data.address;
+            setName(json.data.name);
             setAddressNumber(home.substr(home.indexOf('(',0)+1, 5));
             setAddress(home.substring(home.indexOf(')', 0)+1, home.indexOf(' / ')));
             setAddressDetail(home.substr(home.indexOf(' / ')+3))
@@ -65,52 +68,9 @@ const Update = () => {
     }
 
     
-// 전부 입력되었는지 검사
-const login1 = (e) => {
-    e.preventDefault();
-    var id = document.getElementById('id').value;
-    var pw = document.getElementById('pw').value;
-    var name = document.getElementById('name').value;
-    var rrn = document.getElementById('rrn').value;
-    var address_kakao = document.getElementById('address_kakao').value;
-    var addressDetail = document.getElementById('addressDetail').value;
-    var job = document.getElementById('job').value;
-    var phone = document.getElementById('phone').value;
-    var gender = document.getElementById('gender').value;
-    
-    if(id === ''){
-        alert('아이디를 입력해주세요');
-        return false;
-    }  if(pw === ''){
-        alert('비밀번호를 입력해주세요');
-        return false;
-    }  if(name === ''){
-        alert('이름를 입력해주세요');
-        return false;
-    }  if(rrn === ''){
-        alert('주민등록번호를 입력해주세요');
-        return false;
-    }  if(address_kakao === ''){
-        alert('주소를 입력해주세요');
-        return false;
-    }  if(addressDetail === ''){
-        alert('상세주소를 입력해주세요');
-        return false;;
-    }  if(job === ''){
-        alert('직급을 선택해주세요');
-        return false;
-    }  if(phone === ''){
-        alert('전화번호를 입력해주세요');
-        return false;
-    }  if(gender === ''){
-        alert('성별을 선택해주세요');
-        return false;
-    }
-    alert("회원가입이 완료되었습니다.");
-    fetchUpdate();
-};
 
-const update = () => {
+const update = (e) => {
+    e.preventDefault();
     alert("정상적으로 수정되었습니다.");
     fetchUpdate();
 }
@@ -215,7 +175,7 @@ return (
                 </div>
             <div className={style.name}>
                 <div>이름</div>
-                <input type="text" name="name" id="name" placeholder={`${userVo.name}`} disabled/>
+                <input type="text" name="name" id="name" value={`${name}`} onChange={(e) => setName(e.target.value)} required/>
             </div>
             <div className={style.rrn}>
                 <div>주민등록번호</div>
@@ -247,8 +207,8 @@ return (
                                     <option value="018">018</option>
                                     <option value="019">019</option>
                     </select>
-                    <input type="text" name="phone1" className={style.phoneN1} id="phone2" maxLength='4' value={`${phone1}`}onChange={(e) => setPhone1(e.target.value)}/>
-                    <input type="text" name="phone2" className={style.phoneN2} id="phone3" maxLength='4' value={`${phone2}`}onChange={(e) => setPhone2(e.target.value)}/>
+                    <input type="text" name="phone1" className={style.phoneN1} id="phone2" maxLength='4' value={`${phone1}`} onChange={(e) => setPhone1(e.target.value)}/>
+                    <input type="text" name="phone2" className={style.phoneN2} id="phone3" maxLength='4' value={`${phone2}`} onChange={(e) => setPhone2(e.target.value)}/>
                 </div>
             </div>
             <div className={style.address}>
