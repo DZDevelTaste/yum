@@ -147,7 +147,7 @@ const clinic = ({callback1, callback2}) => {
                 className={style.modal}
                 style={{content: {width: 500, height: 400}}}>
                 <div className={style.modalHead}>
-                    <div className={style.title}>병명</div>
+                    <div className={style.title}>처방</div>
                     <button className={style.closeButton} onClick={() => setModalData({isOpen: false})}>X</button>
                 </div>
                 <div className={style.radioDiv}>

@@ -4,11 +4,13 @@
     overflow-y: scroll;
 
     .pastOdList {
-        display:inline-block;
+        // border: 1px solid red;
         width: 716px;
-        margin-top: 10px;
+        margin-top: 15px;
+        clear: both;
 
         .dateAndName{
+            // border: 1xp solid red;
             font-family: Roboto;
             font-style: normal;
             font-weight: normal;
@@ -32,6 +34,12 @@
             height: auto; 
             float: left;
             padding: 0 4px;
+
+            .divStyle{
+                float: left;
+                height: 17px;
+                clear:both;
+            }
         }
     }
 
@@ -39,7 +47,7 @@
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
-        width: 719px;
+        width: 715px;
         height: 150px;
         font-size: 20px;
         line-height: 150px;
