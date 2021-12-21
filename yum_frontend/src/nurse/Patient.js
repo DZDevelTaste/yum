@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Patient = ({patient, setSelectNo}) => {
+const Patient = ({patient, setCurrentPatientNo}) => {
     return (
         <tr 
             className='patientInfo'
-            onClick={(e) => setSelectNo(patient.no)}>
+            onClick={(e) => setCurrentPatientNo(patient.no)}>
             <td>{patient.name}</td>
             <td>{patient.gender === 'M' ? '남' : '여'}</td>
             <td>{patient.rrn.replace(/([0-9]{6})$/gi, "******")}</td>

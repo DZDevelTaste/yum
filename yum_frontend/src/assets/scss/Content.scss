@@ -45,6 +45,7 @@ table {
 }
 
 .Content{
+    width: 1500px;
     display: flex;
     
     .LeftBox {
@@ -53,8 +54,8 @@ table {
         box-sizing: border-box;
         background-color: #F9F9F9;
         text-align: center;
-        width: 750px;
-        height: 850px;
+        width: 800px;
+        // height: 850px;
         padding: 15px 20px;
         // margin: 10px 20px;
     }

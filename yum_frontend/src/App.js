@@ -15,11 +15,15 @@ import Timer from './Timer';
 import DoctorMain from './doctor/DoctorMain';
 import Update from './Main/Update';
 import Message from './nurseModal';
+import NurseMain from './nurse/Main';
+import Order from './nurse/Order';
+import Reservation from './nurse/Reservation';
+import PatientList from './nurse/PatientList';
 
 const App = () => {
     return (
             <Routes>
-                <Route path='/' element={<Main />}/>
+                <Route exact path='/' element={<Main />}/>
                 <Route path='/join' element={<Join />}/>
                 <Route path='/searchId' element={<SearchId />}/>
                 <Route path='/searchPw' element={<SearchPw />}/>
@@ -35,7 +39,7 @@ const App = () => {
                 <Route path='/doctor' element={<DoctorMain />}/>
                 <Route path='/update' element={<Update />} />
                 <Route path='/MeMe' element={<Message />} />
-                <Route exact path='/nurse' element={<Main />}/>
+                <Route path='/nurse' element={<NurseMain />}/>
                 <Route path='/nurse/patients' element={<PatientList />}/>
                 <Route path='/nurse/order' element={<Order />}/>
                 <Route path='/nurse/reservation' element={<Reservation />}/>
