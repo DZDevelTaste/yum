@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import DiseaseSearch from './DiseaseSearch';
 import SiteLayout from '../../layout/SiteLayout';
 import style from '../../assets/scss/disease/DiseaseMain.scss';
+import XLSX from 'xlsx';
 const DiseaseMain = () => {
     const [diseases, setDiseases] = useState([]);
     const [code, setCode] = useState('');
@@ -81,7 +82,12 @@ const DiseaseMain = () => {
             console.error(error);
         }
     }
-
+    const getExcel = () => {
+    const dataWS = XLSX.utils.json_to_sheet(diseases);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, dataWS, "nameData");
+      XLSX.writeFile(wb, "YUM_Disease.xlsx");
+    }
 
     return (
         <SiteLayout>
@@ -93,6 +99,7 @@ const DiseaseMain = () => {
                     <input type='text' className={style.inputName} onChange={(e) => setName(e.target.value)} placeholder='질병 명'/>
                     <input type='text' className={style.inputEngName} onChange={(e) => setEngName(e.target.value)} placeholder='질병 명 (영문)'/>
                     <input type="submit" value="질병 추가" />
+                    <input type="button" className={style.excel} onClick={getExcel} value="엑셀"></input>
                 </form>
                 </div>
             <div className={style.titles}>

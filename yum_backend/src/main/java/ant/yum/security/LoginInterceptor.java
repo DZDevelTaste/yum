@@ -41,7 +41,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		try {
 			obj = (JSONObject) parser.parse(result);
 		} catch (ParseException e) {
-			System.out.println("변환에 실패");
 			e.printStackTrace();
 		}
 

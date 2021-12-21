@@ -15,7 +15,9 @@ import Timer from './Timer';
 import DoctorMain from './doctor/DoctorMain';
 import Update from './Main/Update';
 import Message from './nurseModal';
-
+import PatientList from './nurse/PatientList';
+import Order from './nurse/Order';
+import Reservation from './nurse/Reservation'
 const App = () => {
     return (
             <Routes>

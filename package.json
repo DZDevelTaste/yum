@@ -30,11 +30,11 @@
         "webpack-dev-server": "^3.11.2"
     },
     "dependencies": {
-        "declare": "^0.0.3",
         "@fullcalendar/daygrid": "^5.10.1",
         "@fullcalendar/interaction": "^5.10.1",
         "@fullcalendar/react": "^5.10.1",
         "@fullcalendar/timegrid": "^5.10.1",
+        "declare": "^0.0.3",
         "dotenv": "^10.0.0",
         "ejs": "^3.1.6",
         "express": "^4.17.1",
@@ -51,6 +51,7 @@
         "react-stomp": "^5.1.0",
         "sockjs-client": "^1.5.2",
         "winston": "^3.3.3",
-        "winston-daily-rotate-file": "^4.5.5"
+        "winston-daily-rotate-file": "^4.5.5",
+        "xlsx": "^0.17.4"
     }
 }

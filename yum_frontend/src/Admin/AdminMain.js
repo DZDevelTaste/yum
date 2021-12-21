@@ -123,7 +123,7 @@ const AdminMain = () => {
                         .map(user => {
                         return (
                             <div className={style.small}>
-                                <input type="checkbox" className = {style.checks}name="checkList" value={`${user.no}`}  onChange={(e) => setCheck(e.target.value)}/>
+                                <input type="checkbox" className = {style.checks}name="checkList" value={`${user.no}`}  onChange={(e) => {setCheck(e.target.value); console.log(e.target.value)}}/>
                                 <span className={style.number}>{`${user.no}`}</span>
                                 <span className={style.name}>{`${user.name}`}</span>
                                 <span className={style.gender}>{`${user.gender}`=== 'M' ? '남' : '여'}</span>
