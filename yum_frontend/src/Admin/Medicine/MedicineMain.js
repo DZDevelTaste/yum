@@ -3,6 +3,7 @@ import MedicineInfo from './MedicineInfo';
 import MedicineSearch from './MedicineSearch';
 import SiteLayout from '../../layout/SiteLayout';
 import style from '../../assets/scss/medicine/MedicineMain.scss';
+import XLSX from 'xlsx';
 const MedicineMain = () => {
     const [medicines, setMedicines] = useState([]);
     const [keyword, setKeyword] = useState('');
@@ -43,10 +44,16 @@ const MedicineMain = () => {
             console.error(error);
         }
     }
-    
+    const getExcel = () => {
+        const dataWS = XLSX.utils.json_to_sheet(medicines);
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, dataWS, "nameData");
+          XLSX.writeFile(wb, "YUM_Medicine.xlsx");
+        }
     return (
         <SiteLayout> 
         <div className={style.wangbody}>
+            <input type="button" className={style.excel} onClick={getExcel} value="엑셀"></input>
             <MedicineSearch  keyword={keyword} callback={notifyKeywordChanged}  />
             <div className={style.titles}>
                 <span className={style.code}>의약품 코드 </span>
