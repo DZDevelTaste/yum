@@ -38,7 +38,7 @@ const ReservationPatient = ({reservation, setSelectReservationNo, setUpdateList}
                 throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
             console.log(jsonResult.data);
-            setUpdateList(true);
+            setUpdateList({no: jsonResult.data.no, date:jsonResult.data.date, kind: 'delete'});
         } catch(err) {
             console.error(err);
         }

@@ -5,7 +5,7 @@ import styles from '../assets/scss/layout/Navigation.scss';
 const navigation = () => {
     const job = sessionStorage.getItem("job");
     return (
-        <div>
+        <div className={styles.LeftSide}>
         { job == 'N' ?
         <nav className={styles.Main}>
             <NavLink to={'/nurse'} end>메인</NavLink>

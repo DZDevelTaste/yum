@@ -5,7 +5,7 @@ import styles2 from '../assets/scss/OrderPatient.scss';
 
 Modal.setAppElement('body');
 
-const Patient = ({order, callback}) => {
+const OrderPatient = ({order, setUpdateState}) => {
     const [isOpenHandler, setIsOpenHandler] = useState(false);
     const modalInnerRef = useRef(null);      // 모달 안의 ul useRef, Modal은 ref 적용 x
 
@@ -14,6 +14,10 @@ const Patient = ({order, callback}) => {
     
     /* 진료현황 클릭 시 실행 이벤트(모달 위치 조정 및 모달 띄우기) */
     const stateClickEvent = (e) => {
+        if (order.orderstateNo === 4 || order.orderstateNo === 5){
+            return;
+        }
+        
         // 사용자가 클릭한 위치
         let x = e.clientX;
         let y = e.clientY;
@@ -36,6 +40,10 @@ const Patient = ({order, callback}) => {
 
     /* 진료 현황 업데이트 */
     const updateState = async (selectOSN) => {
+        if(selectOSN === order.orderstateNo) {
+            setIsOpenHandler(false);
+            return;
+        }
         try {
             // console.log(modalInnerRef.current.parentNode)
             let updateOrder = {};
@@ -67,7 +75,7 @@ const Patient = ({order, callback}) => {
             }
 
             setIsOpenHandler(false);
-            callback(true);
+            setUpdateState(updateOrder);
         } catch (err) {
             console.error(err);
         }
@@ -119,4 +127,4 @@ const Patient = ({order, callback}) => {
     );
 };
 
-export default Patient;
+export default OrderPatient;

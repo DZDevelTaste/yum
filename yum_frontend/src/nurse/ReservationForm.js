@@ -3,13 +3,13 @@ import moment from 'moment';
 
 import style from '../assets/scss/ReservationForm.scss';
 
-const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReservationNo, setSelectReservationNo, setSelectNo}) => {
-    /* 환자 리스트에서 선택할 경우 selectNo,
+const ReservationForm = ({setUpdateList, reservationList, currentPatientNo, selectReservationNo, setSelectReservationNo, setCurrentPatientNo}) => {
+    /* 환자 리스트에서 선택할 경우 currentPatientNo,
         예약 리스트에서 수정을 선택할 경우 selectReservationNo를 받아옴 */
-    console.log('selectPatientNo : ', selectNo);
-    console.log('selectReservationNo: ', selectReservationNo);
-    console.log(reservationList);
-
+    // console.log('selectPatientNo : ', currentPatientNo);
+    // console.log('selectReservationNo: ', selectReservationNo);
+    // console.log(reservationList);
+    
 
     /* 예약 버튼 시간 */
     const AmTimeBtn = ["09:00", "09:30", "10:00", "10:30", "11:30"];
@@ -24,19 +24,31 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
         });
     
     const [findPatient, setFindPatient] = useState({}); // 환자 정보
-    // const Timer = ['2021-12-14 09:00','2021-12-14 11:00', '2021-12-14 10:00','2021-12-15 09:30','2021-12-15 10:30','2021-12-15 14:30', '2021-12-16 11:30', '2021-12-17 15:30'];
-    const minDate = moment().format('YYYY-MM-DD');  // 오늘 날짜
-    const [currentDay, setCurrentDay] = useState(minDate);    // 선택 날짜(기본값: 오늘)
+    const today = moment().format('YYYY-MM-DD');  // 오늘 날짜
+    const [currentDay, setCurrentDay] = useState(today);    // 선택 날짜(기본값: 오늘)
     const [currentTime, setCurrentTime] = useState('');         // 선택 시간
     const [formSuccess, setFormSuccess] = useState(false);
     const [orderVo, setOrderVo] = useState({orderstateNo: 1});
+    
+    /* 지난 시간 버튼 막기 위한 시간 검사 */
+    const now = new Date();
+    AmTimeBtn
+        .map(amTime => {
+            let checkTime = new Date(`${today} ${amTime}`);
+            disabledCheck += (now.getTime() - checkTime.getTime()) > 0 ? `${today} ${amTime} ` : '';
+        })
+        PmTimeBtn
+        .map(pmTime => {
+            let checkTime = new Date(`${today} ${pmTime}`);
+            disabledCheck += (now.getTime() - checkTime.getTime()) > 0 ? `${today} ${pmTime} ` : '';
+        })
 
     // 환자 리스트에서 환자를 선택하면 patientNo를 받아와서 폼 렌더링
     useEffect(() => {
-        if(selectNo !== 0){
+        if(currentPatientNo !== 0){
             findPatientInfo();
         }
-    }, [selectNo])
+    }, [currentPatientNo])
     
     // 예약 리스트에서 수정을 선택하면 orderNo를 받아와서 폼 렌더링
     useEffect(() => {
@@ -49,7 +61,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
     /* 환자 리스트에서 환자를 선택 했을 경우 환자 정보 가져오기 */
     const findPatientInfo = async () => {
         try {
-            const response = await fetch(`/api/nurse/patientInfo/${selectNo}`, {
+            const response = await fetch(`/api/nurse/patientInfo/${currentPatientNo}`, {
                 method: 'get',
                 mode: 'cors',
                 credentials: 'include',
@@ -71,9 +83,9 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
                 throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
 
-            console.log("findPatientInfo: ", jsonResult.data);
+            // console.log("findPatientInfo: ", jsonResult.data);
             setFindPatient(jsonResult.data.patientVo);
-            setCurrentDay(minDate);
+            setCurrentDay(today);
             setCurrentTime('');
         } catch (err) {
             console.error(err);
@@ -120,7 +132,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
     const submitEvent = (e) => {
         e.preventDefault();
         
-        console.log(`[currentDay] '${currentDay}', [currentTime] '${currentTime}`);
+        // console.log(`[currentDay] '${currentDay}', [currentTime] '${currentTime}`);
 
         if(currentDay === '' || currentTime === '') { 
             alert('예약날짜, 시간을 선택해주세요.');
@@ -129,7 +141,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
 
         selectReservationNo !== 0 
         ? setOrderVo(Object.assign({}, orderVo, { no: selectReservationNo, date: `${currentDay} ${currentTime}` }))
-        : setOrderVo(Object.assign({}, orderVo, { date: `${currentDay} ${currentTime}`, patientVo : { no: selectNo } }))
+        : setOrderVo(Object.assign({}, orderVo, { date: `${currentDay} ${currentTime}`, patientVo : { no: currentPatientNo } }))
         
 
         setFormSuccess(true);
@@ -170,10 +182,10 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
                 throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
 
-            console.log(jsonResult.data);
+            console.log('예약추가', jsonResult.data);
             // setFindPatient(jsonResult.data.patientVo);
             resetFormEvent();
-            setUpdateList(true);
+            setUpdateList({no: jsonResult.data.no, date:jsonResult.data.date, kind: 'add'});
         } catch (err) {
             console.error(err);
         }
@@ -204,10 +216,10 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
                 throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
 
-            console.log(jsonResult.data);
+            console.log('예약수정', jsonResult.data);
             // setFindPatient(jsonResult.data.patientVo);
             resetFormEvent();
-            setUpdateList(true);
+            setUpdateList({no: jsonResult.data.no, date:jsonResult.data.date, kind: 'update'});
         } catch (err) {
             console.error(err);
         }
@@ -215,11 +227,12 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
 
     const resetFormEvent = () => {
         setFormSuccess(false);
-        setSelectNo(0);
+        setCurrentPatientNo(0);
         setFindPatient({});
         setOrderVo({orderstateNo: 1})
-        setCurrentDay(minDate);
+        setCurrentDay(today);
         setCurrentTime('');
+        setSelectReservationNo(0);
     }
 
     return (
@@ -249,7 +262,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
             </div>
 
             <div>
-                <input type='date' min={minDate} value={currentDay} onChange={(e) => {setCurrentDay(e.target.value); setCurrentTime('')}} />
+                <input type='date' min={today} value={currentDay} onChange={(e) => {setCurrentDay(e.target.value); setCurrentTime('')}} />
                 <div className={style.timeBtnList}>
 
                     <span>오전</span>
@@ -262,7 +275,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
                                             className={`${style.timebtn} ${currentTime === timeValue ? style.active : ''}`}
                                             key={index} 
                                             value={timeValue}
-                                            onClick={e => {selectNo!==0 || selectReservationNo!==0 ? setCurrentTime(e.target.value) : setCurrentTime('')}}
+                                            onClick={e => {currentPatientNo!==0 || selectReservationNo!==0 ? setCurrentTime(e.target.value) : setCurrentTime('')}}
                                             disabled={disabledCheck.indexOf(`${currentDay} ${timeValue}`) !== -1 ? true : false}>
                                             {timeValue}
                                         </button>
@@ -281,7 +294,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
                                             className={`${style.timebtn} ${currentTime === timeValue ? style.active : ''}`}
                                             key ={index} 
                                             value={timeValue}
-                                            onClick={e => {selectNo!==0 || selectReservationNo!==0 ? setCurrentTime(e.target.value) : setCurrentTime('')}}
+                                            onClick={e => {currentPatientNo!==0 || selectReservationNo!==0 ? setCurrentTime(e.target.value) : setCurrentTime('')}}
                                             disabled={(disabledCheck.indexOf(`${currentDay} ${timeValue}`) !== -1) ? true : false}>
                                             {timeValue}
                                         </button>
@@ -293,7 +306,7 @@ const ReservationForm = ({setUpdateList, reservationList, selectNo, selectReserv
                 </div>
             </div>
 
-            {selectNo !== 0 || selectReservationNo !== 0 ?
+            {currentPatientNo !== 0 || selectReservationNo !== 0 ?
                 <div>
                     <button onClick={() => resetFormEvent()}>취소</button>
                     <button onClick={(e) => submitEvent(e)}>확인</button>

@@ -42,6 +42,7 @@
 
         td{
             padding: 10px;
+            text-align: center;
             &.state {
                 cursor: pointer;
                 font-weight: bold;
@@ -56,10 +57,12 @@
             }
             
             &.waiting {
+                cursor: default;
                 color: #3263ED;
             }
             
             &.finish {
+                cursor: default;
                 color: #9A9A9A
             }
         }
