@@ -28,6 +28,5 @@
 		<mapper resource="mybatis/mappers/disease.xml" />
 		<mapper resource="mybatis/mappers/medicine.xml" />
 		<mapper resource="mybatis/mappers/schedule.xml" />
-		<mapper resource="mybatis/mappers/disease.xml" />
 	</mappers>
 </configuration>
