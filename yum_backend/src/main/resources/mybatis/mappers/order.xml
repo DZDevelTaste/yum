@@ -111,7 +111,7 @@
 		]]>
 	</select>
 
-	<select id="findByPatientNo" parameterType="integer" resultType="ordervo">
+	<select id="findByPatientNo" parameterType="ordervo" resultType="ordervo">
 		<![CDATA[
 			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no
 			from "order"
