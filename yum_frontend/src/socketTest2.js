@@ -18,6 +18,17 @@ const SocketTest = () => {
     heartbeatOutgoing: 4000
   });
 
+  client.onConnect = function(frame){
+
+  };
+
+  client.onStompError = function(frame){
+    console.log('Broker reported error:', frame.headers['message']);
+    console.log('Additional details:', frame.body);
+  };
+
+  client.activate();
+
   return (
     <div></div>
   );
