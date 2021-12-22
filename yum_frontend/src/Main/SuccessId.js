@@ -16,7 +16,7 @@ const SuccessId = () => {
 
     const fetchID = async() => {
         try {
-            const response = await fetch(`http://localhost:8080/api/successId/${no}`, {
+            const response = await fetch(`/api/successId/${no}`, {
                 method: 'get',
                 credentials: 'include',
                 headers: {

@@ -46,7 +46,7 @@ const Schedule = () => {
   
   const fetchSchedule = async() => {
       try {
-          const response = await fetch('http://localhost:8080/api/schedule', {
+          const response = await fetch('/api/schedule', {
               method: 'get',
               credentials: 'include',
               headers: {
@@ -71,7 +71,7 @@ const Schedule = () => {
  
   const selectScheduler = async(id) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/schedule/id`, {
+        const response = await fetch(`/api/schedule/id`, {
             method: 'post',
             credentials: 'include',
             headers: {
@@ -100,7 +100,7 @@ const Schedule = () => {
   }
   const fetchScheduleAdd = async() => {
     try {
-        const response = await fetch(`http://localhost:8080/api/schedule/add`, {
+        const response = await fetch(`/api/schedule/add`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const Schedule = () => {
   }
   const fetchUpdate = async() => {
       try {
-          const response = await fetch('http://localhost:8080/api/schedule/update', {
+          const response = await fetch('/api/schedule/update', {
               method: 'post',
               headers: {
                   'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ const Schedule = () => {
 }
 const fetchdelete = async() => {
     try {
-        const response = await fetch('http://localhost:8080/api/schedule/delete', {
+        const response = await fetch('/api/schedule/delete', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',

@@ -20,7 +20,7 @@ const MedicineMain = () => {
     const fetchMedicine = async() => {
 
         try {
-            const response = await fetch('http://localhost:8080/api/admin/medicine', {
+            const response = await fetch('/api/admin/medicine', {
                 method: 'get',
                 credentials: 'include',
                 headers: {

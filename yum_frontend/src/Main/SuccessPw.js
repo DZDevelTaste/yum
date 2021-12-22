@@ -24,7 +24,7 @@ const SuccessPw = () => {
     }, [no]); 
     const fetchPW = async() => {
         try {
-            const response = await fetch(`http://localhost:8080/api/successId/${no}`, {
+            const response = await fetch(`/api/successId/${no}`, {
                 method: 'get',
                 credentials: 'include',
                 headers: {
@@ -52,7 +52,7 @@ const SuccessPw = () => {
     }
     const fetchJoin = async() => {
         try {
-            const response = await fetch(`http://localhost:8080/api/updatePw`, {
+            const response = await fetch(`/api/updatePw`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
