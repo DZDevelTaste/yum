@@ -121,25 +121,39 @@ public class OrderService {
 					- List<PresMedicineVo> presMedicineList
 					- List<PresClinicVo> presClinicList
 		*/
-		OrderVo orderVo = orderRepository.findByOrderNo(orderNo);
-		DiagnosisVo diagnosisVo = diagnosisRepository.findByOrderNo(orderNo);
-		int diagnosisNo = diagnosisVo.getNo();
-		List<PresDiseaseVo> presDiseaseList = prescriptionRepository.presDiseaseFindByDiagnosisNo(diagnosisNo);
-		List<PresMedicineVo> presMedicineList = prescriptionRepository.presMedicineFindByDiagnosisNo(diagnosisNo);
-		List<PresClinicVo> presClinicList = prescriptionRepository.presClinicFindByDiagnosisNo(diagnosisNo);
-
-		diagnosisVo.setPresDiseaseList(presDiseaseList);
-		diagnosisVo.setPresMedicineList(presMedicineList);
-		diagnosisVo.setPresClinicList(presClinicList);
-
 		Map<String, Object> paymentInfoMap = new HashMap<>();
+		
+		System.out.println("orderNo:" + orderNo);
+		OrderVo orderVo = orderRepository.findByOrderNo(orderNo);
+		System.out.println("orderVo: " + orderVo);
 		paymentInfoMap.put("orderVo", orderVo);
-		paymentInfoMap.put("diagnosisVo", diagnosisVo);
+
+		DiagnosisVo diagnosisVo = diagnosisRepository.findByOrderNo(orderNo);
+
+		if(diagnosisVo != null) {
+			int diagnosisNo = diagnosisVo.getNo();
+			List<PresDiseaseVo> presDiseaseList = prescriptionRepository.presDiseaseFindByDiagnosisNo(diagnosisNo);
+			List<PresMedicineVo> presMedicineList = prescriptionRepository.presMedicineFindByDiagnosisNo(diagnosisNo);
+			List<PresClinicVo> presClinicList = prescriptionRepository.presClinicFindByDiagnosisNo(diagnosisNo);
+	
+			diagnosisVo.setPresDiseaseList(presDiseaseList);
+			diagnosisVo.setPresMedicineList(presMedicineList);
+			diagnosisVo.setPresClinicList(presClinicList);
+	
+			System.out.println("diagnosisVo: " + diagnosisVo);
+			paymentInfoMap.put("diagnosisVo", diagnosisVo);
+		}
+
+		
 		return paymentInfoMap;
 	}
 
 	public int deleteOrder(int orderNo) {
 		return orderRepository.deleteOrder(orderNo);
+	}
+
+	public void receive(OrderVo orderVo) {
+		orderRepository.updateOrder(orderVo);
 	}
 
 }

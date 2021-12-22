@@ -6,30 +6,20 @@ import Patients from './Patients';
 
 
 const PatientList = () => {
-    const [selectNo, setSelectNo] = useState('');
-    const [updateInfo, setUpdateInfo] = useState(false);
-
-
-    // const notifyNoChange = (selectNo) => {
-    //     setSelectNo(selectNo);
-    // }
-    const notifyInfoChange = (chkResult) => {
-        setUpdateInfo(chkResult);
-
-        setUpdateInfo(false);
-    }
+    const [currentPatientNo, setCurrentPatientNo] = useState(0);
+    const [updatePatient, setUpdatePatient] = useState({});
     
     return (
         <SiteLayout>
             <div className={styles1.LeftBox}>
                 <Patients 
-                    setSelectNo={setSelectNo}
-                    updateInfo={updateInfo}/>
+                    setCurrentPatientNo={setCurrentPatientNo}
+                    updateInfo={updatePatient}/>
             </div>
             <div className={styles1.RightBox}>
                 <PatientInfo 
-                    callback={notifyInfoChange}
-                    no={selectNo} />
+                    setUpdatePatient={setUpdatePatient}
+                    no={currentPatientNo} />
             </div>
         </SiteLayout>
     );

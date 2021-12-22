@@ -48,7 +48,11 @@
 				AND pc.diagnosis_no=#{diagnosisNo}
 		]]>
 	</select>
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> origin/steamcare
 	<select id="findPrescription" resultType="presvo">
 		<![CDATA[
 			select no, '약품' as "kind", name from medicine 

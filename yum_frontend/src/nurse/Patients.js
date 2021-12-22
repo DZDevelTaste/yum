@@ -5,13 +5,10 @@ import Patient from './Patient';
 
 
 
-const Patients = ({updateInfo, setSelectNo}) => {
+const Patients = ({updateInfo, setCurrentPatientNo}) => {
     const [patients, setPatients] = useState([]);
     const [keyword, setKeyword] = useState('');
-    
-    const notifyKeywordChange = (keyword) => {
-        setKeyword(keyword);
-    }
+
 
 
     useEffect(async () => {
@@ -47,7 +44,7 @@ const Patients = ({updateInfo, setSelectNo}) => {
 
     return (
         <Fragment>
-            <SearchBar callback={notifyKeywordChange} />
+            <SearchBar setKeyword={setKeyword} />
             <table className={styles2.ListTable}>
                 <thead>
                 <tr>
@@ -62,7 +59,7 @@ const Patients = ({updateInfo, setSelectNo}) => {
                         patients
                             .filter( patient => patient.name.indexOf(keyword) !== -1)
                             .map( patient => <Patient
-                                                    setSelectNo={setSelectNo}
+                                                    setCurrentPatientNo={setCurrentPatientNo}
                                                     key={patient.no}
                                                     patient={patient}
                                                 />)

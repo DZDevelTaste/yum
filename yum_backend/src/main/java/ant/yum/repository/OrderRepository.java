@@ -65,5 +65,9 @@ public class OrderRepository {
 		return sqlSession.delete("order.deleteOrder", orderNo);
 	}
 
+    public void updateOrder(OrderVo orderVo) {
+		sqlSession.update("order.updateOrder", orderVo);
+    }
+
 
 }

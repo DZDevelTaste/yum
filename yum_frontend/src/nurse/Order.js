@@ -9,14 +9,14 @@ import styles1 from '../assets/scss/Content.scss';
 import styles2 from '../assets/scss/Order.scss';
 
 const Order = () => {
-    const [selectNo, setSelectNo] = useState('');
-    const [addPatient, setAddPatient] = useState(false);
-    const [addOrder, setAddOrder] = useState(false);
+    const [currentPatientNo, setCurrentPatientNo] = useState(0);
+    const [addPatient, setAddPatient] = useState({});
+    const [addOrder, setAddOrder] = useState({});
 
     const notifyUpdateForm = (notifyForm) => {
         console.log('notifyForm result', notifyForm);
         
-        setSelectNo(0);
+        setCurrentPatientNo(0);
         if(notifyForm === 'reset'){
             return;
         }
@@ -34,7 +34,7 @@ const Order = () => {
                 <div className={styles1.TopBox}>
                     <h2>환자 리스트</h2>
                     <Patients 
-                        setSelectNo={setSelectNo}
+                        setCurrentPatientNo={setCurrentPatientNo}
                         updateInfo={addPatient}/>
                 </div>
                 <div className={styles1.BottomBox}>
@@ -47,7 +47,7 @@ const Order = () => {
             <div className={styles1.RightBox}>
                 <OrderForm 
                     callback={notifyUpdateForm}
-                    no={selectNo} />
+                    no={currentPatientNo} />
             </div>
 
 
