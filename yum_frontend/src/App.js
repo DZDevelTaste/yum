@@ -19,6 +19,7 @@ import NurseMain from './nurse/Main';
 import Order from './nurse/Order';
 import Reservation from './nurse/Reservation';
 import PatientList from './nurse/PatientList';
+import SocketTest from './socketTest';
 
 const App = () => {
     return (
@@ -43,6 +44,7 @@ const App = () => {
                 <Route path='/nurse/patients' element={<PatientList />}/>
                 <Route path='/nurse/order' element={<Order />}/>
                 <Route path='/nurse/reservation' element={<Reservation />}/>
+                <Route path='/socket' element={<SocketTest />}/>
             </Routes>
     );
 };

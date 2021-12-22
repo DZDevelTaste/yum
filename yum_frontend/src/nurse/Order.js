@@ -12,8 +12,6 @@ import styles2 from '../assets/scss/Order.scss';
 
 const Order = () => {
     const [selectNo, setSelectNo] = useState('');
-    const [addPatient, setAddPatient] = useState(false);
-    const [addOrder, setAddOrder] = useState(false);
     const [messages, setMessages] = useState([]);
     const [deleteNum, setDeleteNum] = useState();
     const [modalData, setModalData] = useState({isOpen: false})

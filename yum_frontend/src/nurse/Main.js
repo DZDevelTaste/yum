@@ -12,8 +12,10 @@ const Main = () => {
     const stateArray = ['전체', '예약', '진료대기', '진료중', '수납대기', '완료'];
     const [messages, setMessages] = useState([]);
     const [deleteNum, setDeleteNum] = useState();
-    const [modalData, setModalData] = useState({isOpen: false})
+    const [changeNum, setChangeNum] = useState(0);
 
+    const [modalData, setModalData] = useState({isOpen: false})
+    
     const $websocket = useRef(null); 
 
     useEffect(() => {
@@ -50,6 +52,12 @@ const Main = () => {
             console.error(error);
         }
     }
+
+    useEffect(() => {
+        setChangeNum(changeNum + 1);
+        console.log(changeNum);
+    }, [messages])
+
 
     return (
         <SiteLayout>
@@ -97,7 +105,7 @@ const Main = () => {
             </div>
             <div className='orderListBox'>
                 <MainList
-                    currentState={currentState}/>
+                    currentState={currentState} changeState={changeNum}/>
             </div>
         </SiteLayout>
     );

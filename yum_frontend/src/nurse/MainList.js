@@ -4,7 +4,7 @@ import styles2 from '../assets/scss/OrderPatient.scss';
 import SearchBar from '../SearchBar';
 import MainPatient from './MainPatient';
 
-const MainList = ({currentState}) => {
+const MainList = ({currentState, changeState}) => {
     const today = moment().format('YYYY-MM-DD');
     const [keyword, setKeyword] = useState('');
     const [currentDate, setCurrentDate] = useState(today);
@@ -45,9 +45,8 @@ const MainList = ({currentState}) => {
     }
 
     useEffect(() => {
-        console.log('흐엥');
         findOrderList();
-    }, [currentDate, currentState, updateState, updateList]);
+    }, [currentDate, currentState, updateState, updateList, changeState]);
     
     return (
         <Fragment>

@@ -1,8 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'; 
 import SockJsClient from 'react-stomp';
-
 import SiteLayout from '../layout/SiteLayout';
-
 import styles1 from '../assets/scss/Content.scss';
 import styles2 from '../assets/scss/Order.scss';
 import Patients from './Patients';
@@ -17,10 +15,10 @@ const Reservation = () => {
     const [currentPatientNo, setCurrentPatientNo] = useState(0);
     const [selectReservationNo, setSelectReservationNo] = useState(0);
     const [reservationList, setReservationList] = useState([]);
-    const [updateList, setUpdateList] = useState({});
     const [updateList, setUpdateList] = useState(false);
     const [messages, setMessages] = useState([]);
     const [deleteNum, setDeleteNum] = useState();
+    const [changeNum, setChangeNum] = useState(0);
     const [modalData, setModalData] = useState({isOpen: false})
 
     const $websocket = useRef(null); 
@@ -33,16 +31,12 @@ const Reservation = () => {
             setMessages(messages);
         }
     }, [deleteNum])
-    
+
     useEffect(() => {
-        console.log('Reservation Component selectNo: ', selectNo);
-    }, [selectNo]);
-
-    const notifyUpdateForm = () => {
-        console.log('updateFormmmmmmmmmmmmmmmm');
-    }
+        setChangeNum(changeNum + 1);
+        console.log(changeNum);
+    }, [messages])
     
-
     return (
         <SiteLayout>
             <div className={styles2.LeftBox}>
@@ -57,7 +51,8 @@ const Reservation = () => {
                         callback={setReservationList}
                         setSelectReservationNo={setSelectReservationNo}
                         updateList={updateList}
-                        setUpdateList={setUpdateList}/>
+                        setUpdateList={setUpdateList}
+                        changeState={changeNum}/>
                 </div>
             </div>
 
