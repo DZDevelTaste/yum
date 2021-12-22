@@ -194,7 +194,7 @@
 		]]>
 	</update>
 
-	<delete id="deleteOrder" parameterType="int">
+	<delete id="deleteOrder" parameterType="ordervo">
 		<![CDATA[
 			DELETE
 			FROM "order"
