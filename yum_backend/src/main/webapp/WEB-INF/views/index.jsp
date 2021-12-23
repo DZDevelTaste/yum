@@ -14,6 +14,6 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script type='module' src='${pageContext.servletContext.contextPath }/assets/js/bundle.js'></script>    
+    <script type='module' src='../assets/js/bundle.js'></script>    
 </body>
 </html>
