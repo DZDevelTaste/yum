@@ -52,6 +52,36 @@ const SocketTest = () => {
     }
   }, [socketConnected]);
 
+  // const ws = useRef(null);
+  // useEffect(() => {
+  //     ws.current = new WebSocket(`ws://localhost:9999`)
+  //     console.log(ws.current)
+  //     ws.current.onopen = () => {
+  //         // connection opened
+  //         console.log('connected')
+  //         // send a message
+  //     };
+  
+  //     ws.current.onmessage = (e) => {
+  //         // a message was received
+  //         console.log(e.data);
+  //     };
+  
+  //     ws.current.onerror = (e) => {
+  //         // an error occurred
+  //         console.log(e.message);
+  //     };
+  
+  //     ws.current.onclose = (e) => {
+  //         // connection closed
+  //         console.log(e.code, e.reason);
+  //     };
+  
+  //     return () => {
+  //         ws.current.close();
+  //     };
+  // }, [])
+
   return (
     <div>
       <div>socket</div>
