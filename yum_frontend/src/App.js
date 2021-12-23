@@ -19,6 +19,7 @@ import NurseMain from './nurse/Main';
 import Order from './nurse/Order';
 import Reservation from './nurse/Reservation';
 import PatientList from './nurse/PatientList';
+import SocketTest from './socketTest';
 
 const App = () => {
     return (
@@ -39,10 +40,11 @@ const App = () => {
                 <Route path='/doctor' element={<DoctorMain />}/>
                 <Route path='/update' element={<Update />} />
                 <Route path='/MeMe' element={<Message />} />
-                <Route path='/nurse' element={<NurseMain />}/>
+                <Route exact path='/nurse' element={<NurseMain />}/>
                 <Route path='/nurse/patients' element={<PatientList />}/>
                 <Route path='/nurse/order' element={<Order />}/>
                 <Route path='/nurse/reservation' element={<Reservation />}/>
+                <Route path='/socket' element={<SocketTest />}/>
             </Routes>
     );
 };

@@ -26,6 +26,8 @@
         line-height: 28px;
         text-align: center;
         letter-spacing: 0.1em;
+        z-index: 1;
+
 
         color: #FFFFFF;
 }}
@@ -36,6 +38,7 @@
     transform: translate(-50%, -50%);
     border: 2px solid #737373;
     background: #FFFFFF;
+
     .vacation {
         width: 130px;
         height: 25px;

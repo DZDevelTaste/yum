@@ -1,0 +1,99 @@
+import React, { useEffect, useState, useRef } from "react";
+import SockJs from 'sockjs-client';
+import stompJs from '@stomp/stompjs';
+
+const SocketTest = () => {
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [sendMsg, setSendMsg] = useState(false);
+  const [items, setItems] = useState([]);
+
+  const webSocketUrl = `ws://localhost:8080`;
+  let ws = useRef(null);
+
+  // 소켓 객체 생성
+  useEffect(() => {
+    if (!ws.current) {
+      ws.current = new WebSocket(webSocketUrl);
+      ws.current.onopen = () => {
+        console.log("connected to " + webSocketUrl);
+        setSocketConnected(true);
+      };
+      ws.current.onclose = (error) => {
+        console.log("disconnect from " + webSocketUrl);
+        console.log(error);
+      };
+      ws.current.onerror = (error) => {
+        console.log("connection error " + webSocketUrl);
+        console.log(error);
+      };
+      ws.current.onmessage = (evt) => {
+        const data = JSON.parse(evt.data);
+        console.log(data);
+        setItems((prevItems) => [...prevItems, data]);
+      };
+    }
+
+    return () => {
+      console.log("clean up");
+      ws.current.close();
+    };
+  }, []);
+
+  // 소켓이 연결되었을 시에 send 메소드
+  useEffect(() => {
+    if (socketConnected) {
+      ws.current.send(
+        JSON.stringify({
+          message: sendMessage,
+        })
+      );
+
+      setSendMsg(true);
+    }
+  }, [socketConnected]);
+
+  // const ws = useRef(null);
+  // useEffect(() => {
+  //     ws.current = new WebSocket(`ws://localhost:9999`)
+  //     console.log(ws.current)
+  //     ws.current.onopen = () => {
+  //         // connection opened
+  //         console.log('connected')
+  //         // send a message
+  //     };
+  
+  //     ws.current.onmessage = (e) => {
+  //         // a message was received
+  //         console.log(e.data);
+  //     };
+  
+  //     ws.current.onerror = (e) => {
+  //         // an error occurred
+  //         console.log(e.message);
+  //     };
+  
+  //     ws.current.onclose = (e) => {
+  //         // connection closed
+  //         console.log(e.code, e.reason);
+  //     };
+  
+  //     return () => {
+  //         ws.current.close();
+  //     };
+  // }, [])
+
+  return (
+    <div>
+      <div>socket</div>
+      <div>socket connected : {`${socketConnected}`}</div>
+      <div>res : </div>
+      <div>
+        {items.map((item) => {
+          return <div>{JSON.stringify(item)}</div>;
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default SocketTest;

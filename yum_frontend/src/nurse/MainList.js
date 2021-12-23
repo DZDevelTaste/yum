@@ -2,11 +2,10 @@ import moment from 'moment';
 import React, { Fragment, useEffect, useState } from 'react';
 import SearchBar from '../SearchBar';
 import MainPatient from './MainPatient';
-
 import main from '../assets/scss/nurse/Main.scss';
 import styles2 from '../assets/scss/OrderPatient.scss';
 
-const MainList = ({currentState, callback}) => {
+const MainList = ({currentState, callback, changeState}) => {
     const today = moment().format('YYYY-MM-DD');
     const [keyword, setKeyword] = useState('');
     const [currentDate, setCurrentDate] = useState(today);
@@ -48,7 +47,7 @@ const MainList = ({currentState, callback}) => {
 
     useEffect(() => {
         findOrderList();
-    }, [currentDate, currentState, updateState, updateList]);
+    }, [currentDate, currentState, updateState, updateList, changeState]);
     
     return (
         <Fragment>

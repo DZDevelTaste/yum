@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import style from '../../assets/scss/component/doctor/diagnosis/Disease.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {far} from '@fortawesome/free-regular-svg-icons';
+import { faCheck, faDonate, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const disease = ({callback}) => {
     const [modalData, setModalData] = useState({isOpen: false})
@@ -10,11 +14,9 @@ const disease = ({callback}) => {
 
     const [presDiseases, setPresDiseases] = useState([]); // value for insert
 
-    
-
     useEffect(() => {
         fetchDisease();
-    }, [keyword])
+    }, [])
 
     useEffect(() => {
         callback(presDiseases);
@@ -73,15 +75,15 @@ const disease = ({callback}) => {
                             <div className={style.selectedDisease}>
                                 <div className={style.disCode}>{presDisease.code}</div>
                                 <div className={style.disName}>{presDisease.name}</div>
-                                    <div className={style.deleteBtn}>
-                                    <button onClick={() => {
+                                    <div className={style.deleteBtnDiv}>
+                                    <button className={style.deleteBtn} onClick={() => {
                                         if(confirm(`${presDisease.name} 병명을 삭제하시겠습니까?`) == true){
                                             console.log(presDiseases.indexOf(presDisease));
                                             presDiseases.splice(presDiseases.indexOf(presDisease), 1)
                                             setChangeValue(changeValue + 1);
                                         }
                                     }}>
-                                            삭제
+                                            <FontAwesomeIcon icon={faTimes} size="lg" color="#CF1313"/>
                                     </button>
                                 </div>
                                 
@@ -95,14 +97,16 @@ const disease = ({callback}) => {
             <Modal 
                 isOpen={modalData.isOpen} 
                 ariaHideApp={false} 
+                onRequestClose={ () => setModalData(false) }
                 shouldCloseOnOverlayClick={ true }
-                overlayClassName="overlay"
                 className={style.modal}
                 style={{content: {width: 500, height: 400}}}>
                 
                 <div className={style.modalHead}>
                     <div className={style.title}>병명</div>
-                    <button className={style.closeButton} onClick={() => setModalData({isOpen: false})}>X</button>
+                    <button className={style.closeButton} onClick={() => setModalData({isOpen: false})}>
+                        <FontAwesomeIcon icon={faTimes} size="lg" color="#CF1313"/>
+                    </button>
                 </div>
                 <div >
                     <input className={style.inputBox} type='text'  onChange={ e => setKeyword(e.target.value)}  />
@@ -115,8 +119,12 @@ const disease = ({callback}) => {
                     </div>
                     <div className={style.lists}>
                         {
+
+                        }
+                        {
+                            
                             diseases
-                                .filter(disease => disease.name.indexOf(keyword) !== -1 || disease.code.indexOf(keyword) !== -1)
+                                .filter(disease => disease.name.indexOf(keyword) !== -1)
                                 .map(disease => {
                                     return (
                                         <div className={style.list} onClick={ () => {

@@ -43,7 +43,7 @@ const App = () => {
         setData({
             desc: String(memo),
             orderNo: orderNo,
-            userNo: 5,
+            userNo: sessionStorage.getItem('no'),
             presDiseaseList: diseaseNo,
             presMedicineList: medicineInfo,
             presClinicList: clinicNo
@@ -66,8 +66,12 @@ const App = () => {
         else if(medicineInfo.length < 1 && clinicNo.length < 1){
             if(confirm('약품과 치료를 처방하지 않았습니다. 진료를 마치시겠습니까?') == true){
                 sendMessage();
-                // fetch();
+                fetchJoin();
             }
+        }
+        else{
+            sendMessage();
+            fetchJoin();
         }
     }
 
@@ -115,7 +119,7 @@ const App = () => {
             }
             // const json = await response.json();
             
-            window.location.href='/';
+            window.location.href='/doctor';
 
         } catch (error) {
             console.error(error);
