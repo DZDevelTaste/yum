@@ -1,6 +1,6 @@
 .wangbody {
     width: 750px;
-    height: 840px;
+    height: 700px;
     background: #F9F9F9;
     margin-top: 10px;
     .title {
@@ -22,15 +22,18 @@
     }
     .smallbody {
         width: 720px;
-        height: 710px;
+        height: 650px;
         margin: 20px 15px;
+        overflow: auto;
         background: #FFFFFF;
         border: 2px solid #737373;
         box-sizing: border-box;
         .small{
-            width: 710px;
+            display: flex;
+            width: 680px;
             height: 700px;
             .code {
+                width: 620px;
                 margin: 20px 10px 0 10px;
                 span {
                     margin: 0 0 0 10px;
@@ -62,6 +65,7 @@
                 }
             }
             .name {
+                width: 620px;
                 margin: 20px 10px 0 10px;
                 span {
                     margin: 0 0 0 10px;
@@ -93,6 +97,7 @@
                 }
             }
             .company {
+                width: 620px;
                 margin: 20px 10px 0 10px;
                 span {
                     margin: 0 0 0 10px;
@@ -124,6 +129,7 @@
                 }
             }
             .ingredient  {
+                width: 620px;
                 margin: 20px 10px 0 10px;
                 span {
                     margin: 0 0 0 10px;
@@ -155,6 +161,7 @@
                 }
             }
             .sangse {
+                width: 620px;
                 margin: 20px 20px 20px 0;
                 span {
                     margin: 0 0 20px 10px;
@@ -170,6 +177,7 @@
                     color: #333333;
                 }
                 .efficacy {
+                    width: 620px;
                     margin: 10px 0 0 10px;
                     span {
                         margin: 0 0 0 10px;
@@ -201,6 +209,7 @@
                     }
                 }
                 .precaution {
+                    width: 620px;
                     margin: 10px 10px 0 10px;
                     span {
                         margin: 0 0 0 10px;
@@ -232,6 +241,7 @@
                     }
                 }
                 .caution {
+                    width: 620px;
                     margin: 10px 10px 0 10px;
                     span {
                         margin: 0 0 0 10px;
@@ -263,6 +273,7 @@
                     }
                 }
                 .sideEffect {
+                    width: 620px;
                     margin: 10px 30px 0 10px;
                     
                     span {
@@ -296,66 +307,69 @@
                 }
             }
         }
-            .submit {
-                /* 버튼 */
-                /* Auto Layout */
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-around;
+            
+        }
+        .submit {
+            /* 버튼 */
+            /* Auto Layout */
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
 
-                width: 133px;
-                height: 50px;
-                /* Inside Auto Layout */
-                flex: none;
-                order: 0;
-                align-self: stretch;
-                flex-grow: 0;
-                margin: 60px 0 0 585px;
+            width: 130px;
+            height: 50px;
+            /* Inside Auto Layout */
+            flex: none;
+            order: 0;
+            align-self: stretch;
+            flex-grow: 0;
+            margin: -10px 0 0 585px;
 
-                background: #6599FF;
-                border-radius: 8px;
+            background: #6599FF;
+            border-radius: 8px;
 
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: bold;
-                font-size: 24px;
-                line-height: 28px;
-                text-align: center;
-                letter-spacing: 0.1em;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 28px;
+            text-align: center;
+            letter-spacing: 0.1em;
 
-                color: #FFFFFF;
-            }
-            .add {
-                /* 버튼 */
-                /* Auto Layout */
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-around;
+            color: #FFFFFF;
+        }
+        .add {
+            /* 버튼 */
+            /* Auto Layout */
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
 
 
-                width: 133px;
-                height: 50px;
-                /* Inside Auto Layout */
-                flex: none;
-                order: 0;
-                align-self: stretch;
-                flex-grow: 0;
-                margin: 60px 0 0 585px;
+            width: 130px;
+            height: 50px;
+            /* Inside Auto Layout */
+            flex: none;
+            order: 0;
+            align-self: stretch;
+            flex-grow: 0;
+            margin: -10px 0 0 585px;
 
-                background: #6599FF;
-                border-radius: 8px;
+            background: #6599FF;
+            border-radius: 8px;
 
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: bold;
-                font-size: 24px;
-                line-height: 28px;
-                text-align: center;
-                letter-spacing: 0.1em;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 28px;
+            text-align: center;
+            letter-spacing: 0.1em;
 
-                color: #FFFFFF;
-            }
+            color: #FFFFFF;
         }
 }

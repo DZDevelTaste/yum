@@ -1,6 +1,6 @@
 .wangBody {
     width: 1900px;
-    height: 800px;
+    height: 700px;
     margin: 10px 40px;
 
     background: #F9F9F9;
@@ -189,7 +189,7 @@
             width: 130px;
             height: 60px;
             left: 77%;
-            bottom: 6%;
+            bottom: -12%;
 
             background: #6599FF;
             border-radius: 8px;
@@ -213,8 +213,8 @@
             position: absolute;
             width: 130px;
             height: 60px;
-            left: 84%;
-            bottom: 5%;
+            left: 87%;
+            bottom: -13.3%;
             /* Inside Auto Layout */
             flex: none;
             order: 0;
@@ -267,7 +267,7 @@
             }
             .name {
                 // position: absolute;
-                width: 60px;
+                width: 80px;
                 height: 21px;
                 padding: 0 0 0 20px;
     
