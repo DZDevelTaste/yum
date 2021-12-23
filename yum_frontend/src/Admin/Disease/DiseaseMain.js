@@ -29,7 +29,7 @@ const DiseaseMain = () => {
 
     const fetchadd = async() => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin/disease/add', {
+            const response = await fetch('/api/admin/disease/add', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const DiseaseMain = () => {
 
     const fetchDisease = async() => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin/disease', {
+            const response = await fetch('/api/admin/disease', {
                 method: 'get',
                 credentials: 'include',
                 headers: {

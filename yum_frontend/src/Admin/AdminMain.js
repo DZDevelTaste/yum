@@ -21,7 +21,7 @@ const AdminMain = () => {
 
     const fetchAdmin = async() => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin', {
+            const response = await fetch('/api/admin', {
                 method: 'get',
                 credentials: 'include',
                 headers: {
@@ -50,7 +50,7 @@ const AdminMain = () => {
     }
     const fetchUpdate = async() => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin/update', {
+            const response = await fetch('/api/admin/update', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const AdminMain = () => {
     }
     const fetchdelete = async() => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin/delete', {
+            const response = await fetch('/api/admin/delete', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',

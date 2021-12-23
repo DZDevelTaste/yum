@@ -1,51 +1,11 @@
 @charset "utf-8";
-
-html, body, div, span, applet, object, iframe,
-p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	vertical-align: baseline;
-    text-decoration: none;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
+@import "reset.scss";
 
 .Content{
-    width: 1500px;
+    position: absolute;
+    top: 120px;
+    left: 280px;
+    width: 1550px;
     display: flex;
     
     .LeftBox {
@@ -84,7 +44,8 @@ table {
         flex-direction: column;
         width: 750px;
         // height: 850px;
-        padding: 10px;
+        box-sizing: border-box;
+        padding: 10px 20px;
         margin: 10px 20px;
         border: 1px solid #737373;
 
@@ -92,4 +53,16 @@ table {
             text-align: center;
         }
     }
+
+    input[type=date] {
+        border-radius: 0;
+        border: 1px solid #737373;
+        width: 130px;
+        height: 30px;
+        line-height: 30px;
+        padding: 5px 10px;
+    }
+
+    
+   
 }

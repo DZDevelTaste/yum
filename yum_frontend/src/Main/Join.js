@@ -35,7 +35,7 @@ const Join = () => {
     
         const dummy = async() => {
             try {
-                const response = await fetch(`http://localhost:8080/api/check`, {
+                const response = await fetch(`/api/check`, {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const Join = () => {
     
     const fetchJoin = async() => {
         try {
-            const response = await fetch(`http://localhost:8080/api/join`, {
+            const response = await fetch(`/api/join`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',

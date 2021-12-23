@@ -1,15 +1,21 @@
 import React, { Fragment, useRef, useState } from 'react';
 import Modal from 'react-modal';
 import '../assets/scss/Content.scss';
-import styles2 from '../assets/scss/OrderPatient.scss';
+import main from '../assets/scss/nurse/Main.scss';
+
 import modalStyles from '../assets/scss/Modal.scss';
 import DetailInfo from './DetailInfo';
 import Receive from './receive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {far} from '@fortawesome/free-regular-svg-icons';
+import { faCheck, faDonate, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 Modal.setAppElement('body');
 
-const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescForm}) => {
+const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescForm, callback}) => {
+    library.add(far);
     const [updateDesc, setUpdateDesc] = useState(order.desc);
     const [modalData, setModalData] = useState({isOpen: false});
     const modalInnerRef = useRef(null);      // 모달 안의 ul useRef, Modal은 ref 적용 x
@@ -35,8 +41,13 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
     } 
 
     /* 진료 현황 업데이트 */
-    const updateState = async (selectOSN) => {
-        if(selectOSN === order.orderstateNo) {
+    const updateState = async (currentState) => {
+        if(currentState === order.orderstateNo) {
+            setModalData(Object.assign({}, modalData, {kind: 'state', isOpen: false}));
+            return;
+        }
+
+        if(!window.confirm(`${order.patientVo.name}님의 진료상태를 변경하겠습니까?`)){
             setModalData(Object.assign({}, modalData, {kind: 'state', isOpen: false}));
             return;
         }
@@ -44,7 +55,7 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
             // console.log(modalInnerRef.current.parentNode)
             let updateOrder = {};
             updateOrder.no = order.no;
-            updateOrder.orderstateNo = selectOSN;
+            updateOrder.orderstateNo = currentState;
 
             // console.log(updateOrder);
 
@@ -73,6 +84,7 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
             // console.log(jsonResult.data);
             setModalData(Object.assign({}, modalData, {kind: 'state', isOpen: false}));
             setUpdateState(updateOrder);
+            callback({patient: order.patientVo});
         } catch (err) {
             console.error(err);
         }
@@ -154,61 +166,64 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
 
     return (
         <Fragment>
-            <tr className='OrderPatient' /* onClick={(e) => setUpdateState(patient.no)} */>
-                <td className={styles2.date}>{order.date}</td>
-                <td className={styles2.name}>{order.patientVo.name}</td>
-                <td className={styles2.age}>{order.patientVo.age}</td>
+            <tr className={main.OrderPatient}>
+                <td className={main.date}>{order.date}</td>
+                <td className={main.name}>{order.patientVo.name}</td>
+                <td className={main.age}>{order.patientVo.age}</td>
                 {
                     (descForm.no === order.no && descForm.type === 'input') 
-                    ? (<td>
+                    ? (<td className={main.desc}>
                         <input 
                             type='text' 
                             value={updateDesc} 
                             onChange={e => setUpdateDesc(e.target.value)}/>
-                        <button onClick={() => updateDescEvent()}>확인</button>
+                        <button onClick={() => updateDescEvent()}><FontAwesomeIcon icon={faCheck} color='green'/></button>
                     </td>)
                     : <td 
-                        className={styles2.desc}
+                        className={main.desc}
                         onClick={() => setDescForm(Object.assign({}, descForm, {no: order.no, type: 'input'}))}>
                         {(order.desc === '' || order.desc === null ? '-' : order.desc)}
                     </td>
                 }
                 
                 <td
-                    className={`${styles2.state} 
-                        ${order.state === '진료중' ? styles2.treatment
-                            : order.state === '예약' ? styles2.reservation
-                            : order.state === '수납대기' ? styles2.waiting
-                            : order.state === '완료' ? styles2.finish
+                    className={`${main.state} 
+                        ${order.state === '진료중' ? main.treatment
+                            : order.state === '예약' ? main.reservation
+                            : order.state === '수납대기' ? main.waiting
+                            : order.state === '완료' ? main.finish
                             : ''}`}
                     onClick={stateClickEvent}>
                     {order.state}
                 </td>
-                <td className={styles2.detailInfo}>
+                <td className={main.detailInfo}>
                     <button
-                        className={styles2.detailInfoBtn}
+                        className={main.detailInfoBtn}
                         onClick={() => setModalData(Object.assign({}, modalData, {kind: 'detailInfo', isOpen: true}))}>
-                        상세보기
+                        <FontAwesomeIcon icon={["far", "user"]} size="lg"/>
                     </button>
                 </td>
-                <td className={styles2.cancle}>
+                <td className={main.cancle}>
                 {
                     order.orderstateNo === 1 || order.orderstateNo === 2 ? 
                         <button
-                            className={styles2.cancleBtn}
+                            className={main.cancleBtn}
                             onClick={cancleEvent}>
-                            접수취소
+                                <FontAwesomeIcon icon={faTimes} size="lg" color="#CF1313"/>
                         </button>
                         : null
                 }
                 </td>
-                <td className={styles2.receive}>
+                <td className={main.receive}>
                 {
                     order.orderstateNo === 4
                         ? <button 
-                            className={styles2.receiveBtn}
+                            className={main.receiveBtn}
                             onClick={() => setModalData(Object.assign({}, modalData, {kind: 'receive', isOpen: true}))}
-                            >수납</button>
+                            >
+                            <FontAwesomeIcon icon={faDonate} size="lg" />
+                                
+                        </button>
                         : null
                 }
                 </td>
@@ -219,7 +234,7 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
                     modalData.kind === 'state' ? modalStyles.StateModal : 
                     modalData.kind === 'detailInfo' ? modalStyles.DetailInfoModal :
                     modalData.kind === 'receive' ? modalStyles.ReceiveModal : ''}
-                overlayClassName={styles2.Overlay}
+                overlayClassName={modalStyles.Overlay}
                 onRequestClose={ () => setModalData({isOpen: false})}
                 isOpen={modalData.isOpen}>
                     {

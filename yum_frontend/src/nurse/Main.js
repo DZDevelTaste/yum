@@ -6,6 +6,9 @@ import main from '../assets/scss/Main.scss';
 import SiteLayout from '../layout/SiteLayout';
 import MainList from './MainList';
 
+import main from '../assets/scss/nurse/Main.scss';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const Main = () => {
     const [currentState, setCurrentState] = useState(0);
@@ -59,6 +62,9 @@ const Main = () => {
     }, [messages])
 
 
+    const NotifyToast = (data) => {
+        toast.success(`${data.patient.name}님의 진료상태가 변경되었습니다.`);
+    }
     return (
         <SiteLayout>
             <SockJsClient url="http://localhost:8080/yum" 
@@ -103,10 +109,12 @@ const Main = () => {
                         })
                 }
             </div>
-            <div className='orderListBox'>
+            <div className={main.MainContentBox}>
                 <MainList
-                    currentState={currentState} changeState={changeNum}/>
+                    currentState={currentState} changeState={changeNum} callback={NotifyToast}/>
             </div>
+
+            <Toaster/>
         </SiteLayout>
     );
 };

@@ -24,7 +24,7 @@ const SearchPw = () => {
     };
     const fetchJoin = async() => {
         try {
-            const response = await fetch(`http://localhost:8080/api/successPw`, {
+            const response = await fetch(`/api/successPw`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',

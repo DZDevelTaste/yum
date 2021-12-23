@@ -35,7 +35,7 @@ const Update = () => {
 
     const ViewInfo = async() => {
         try {
-            const response = await fetch(`http://localhost:8080/api/update/${no}`, {
+            const response = await fetch(`/api/update/${no}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const update = (e) => {
 }
     const fetchUpdate = async() => {
     try {
-        const response = await fetch(`http://localhost:8080/api/update`, {
+        const response = await fetch(`/api/update`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
