@@ -9,7 +9,8 @@
         "dev:frontend": "cross-env NODE_ENV=development webpack serve --config config/webpack.config.js --mode development --progress",
         "build": "npm run build:frontend && npm run build:backend",
         "build:backend": "echo \"no build specified\"",
-        "build:frontend": "cross-env NODE_ENV=production webpack --config config/webpack.config.js --mode production --progress"    
+        "build:frontend": "cross-env NODE_ENV=production webpack --config config/webpack.config.js --mode production --progress",
+        "start": "cross-env NODE_ENV=production nohup node ../yum_backend/src/main/webapp/WEB-INF/views/index.js --name $npm_package_name > /dev/null 2>&1 &"    
     },
     "keywords": [],
     "author": "",
