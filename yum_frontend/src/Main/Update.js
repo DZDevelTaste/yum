@@ -22,8 +22,6 @@ const Update = () => {
     const [addressDetail, setAddressDetail] = useState('');
     const no = parseInt(sessionStorage.getItem("no"));
     const job = sessionStorage.getItem("job");
-    const [isOpenHandler, setIsOpenHandler] = useState(false);
-    const modalInnerRef = useRef(null);
     
     let user = {
         no: no,
@@ -79,6 +77,7 @@ const update = (e) => {
     alert("정상적으로 수정되었습니다.");
     fetchUpdate();
 }
+
     const fetchUpdate = async() => {
     try {
         const response = await fetch(`/api/update`, {
@@ -137,26 +136,53 @@ const checkcheck = () => {
         }
     }
 }
+const loadLayout = (e) => {
+    e.preventDefault();
+    window.daum.postcode.load(() => {
+        const postcode = new window.daum.Postcode({
+            oncomplete: function (data) {
+                let address = data.address;
+                let extraAddress = ''; // 참고항목
+        
+                // 내려오는 변수가 값이 없는 경우 공백('') 값을 가짐 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져옴
+                if (data.addressType === 'R') { // addressType - 검색된 기본 주소 타입: R(도로명), J(지번)
+                    if (data.bname !== '') { // bname - 법정동/법정리 이름
+                        // bname 값이 있을 경우 extraAddress에 추가
+                        extraAddress += data.bname;
+                    }
+                    if (data.buildingName !== '') { // buidingName - 건물명
+                        // extraAddress가 빈값이 아니면 ', 건물명'으로 빈값일 경우 '건물명'으로 추가
+                        extraAddress += (
+                            extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName
+                        );
+                    }
+        
+                    if(extraAddress !== ''){
+                        address += ` (${extraAddress})`;
+                    }
+                }
+                // console.log(data.zonecode); 
+                // console.log(fullAddress);   // e.g. '서울 성동구 왕십리로2길20 (성수동1가)'
+                const addressData = {
+                    zonecode: data.zonecode,
+                    address: address,
+                }
+        
+                setAddressNumber(addressData.zonecode);
+                setAddress(addressData.address);
+            },
+        });
+        postcode.open({
+            popupTitle: '주소 검색'
+        });
+    });
+};
 
-const stateClickEvent = (e) => {
-    // 사용자가 클릭한 위치
-    let x = e.clientX;
-    let y = e.clientY;
-
-    setTimeout(() => {
-        const modalDiv = modalInnerRef.current.parentNode;
-        modalDiv.style.top = y + "px";
-        modalDiv.style.left = x + "px";
-    }, 0);
-    setIsOpenHandler(true);
-} 
-
-const notifyAddr = (addrData) => {
-    console.log(addrData)
-    setAddressNumber(addrData.zonecode);
-    setAddress(addrData.address);
-    setIsOpenHandler(false);
-}
+useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    document.body.append(script);
+}, []);
 
 return (
     <Fragment>
@@ -228,16 +254,16 @@ return (
                             type='text'
                             placeholder='우편번호'
                             value={addressNumber || ''}
-                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
+                            onClick={loadLayout}
                             onChange={ (e) => setAddressNumber(e.target.value)}
                             />
-                        <button id='AddrBtn' className={style.AddrBtn} onClick={stateClickEvent}>주소찾기</button>
+                        <button id='AddrBtn' className={style.AddrBtn} onClick={loadLayout}>주소찾기</button>
                         <input
                             className={style.address}
                             type='text'
                             placeholder='주소'
                             value={address || ''}
-                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
+                            onClick={loadLayout}
                             onChange={ (e) => setAddress(e.target.value)}
                             />
                         <input
@@ -257,18 +283,6 @@ return (
             <input type="submit" className={style.join} value="수정" />
         </form>        
     </div>
-        <Modal 
-            className={styles2.Modal}
-            overlayClassName={styles2.Overlay}
-            onRequestClose={ () => setIsOpenHandler(false) }
-            isOpen={isOpenHandler}>
-            
-            <button
-                className={styles2.Close}
-                ref={modalInnerRef}
-                onClick={() => {setIsOpenHandler(false)}}>X</button>
-            <Postcode callback={notifyAddr}/>
-        </Modal>
     </Fragment>
 );
 };
