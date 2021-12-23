@@ -70,7 +70,7 @@ spring:
    # datasource
    datasource:
       username: yum
-      password: yum?!@#yammi123
+      password: ant-yum
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://34.64.204.254:5432/yum?characterEncoding=utf8
       hikari:

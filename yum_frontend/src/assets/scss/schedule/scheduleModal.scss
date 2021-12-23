@@ -1,15 +1,15 @@
 .addBtn { 
     input{
-    display: flex;
-    flex-direction: column;
+        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: space-around;
         padding: 0px;
         position: absolute;
         width: 100px;
         height: 40px;
-        top: 92px;
-        left: 290px;
+        top: 0px;
+        left: 20px;
         /* Inside Auto Layout */
         flex: none;
         order: 0;
