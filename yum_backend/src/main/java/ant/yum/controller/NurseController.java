@@ -53,6 +53,7 @@ public class NurseController {
 
         List<OrderVo> patientList = orderService.findByDateAndOrderstateNo(date, orderstateNo);
         // System.out.println("date" + date + "orderstateNo: " + orderstateNo);
+        return JsonResult.success(patientList);
     }
 
     @GetMapping("/reservationList")
