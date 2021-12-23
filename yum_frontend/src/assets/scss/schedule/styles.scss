@@ -335,6 +335,8 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 :global(.fc) {
   :global(.fc-toolbar) {
     display: flex;
+    width: 1460px;
+    margin: 0 0 0 100px;
     justify-content: space-between;
     align-items: center;
 

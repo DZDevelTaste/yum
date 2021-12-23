@@ -1,15 +1,15 @@
-.addBtn {
+.addBtn { 
+    input{
     display: flex;
-        flex-direction: column;
+    flex-direction: column;
         align-items: center;
         justify-content: space-around;
         padding: 0px;
-
         position: absolute;
         width: 100px;
         height: 40px;
         top: 92px;
-        left: 82%;
+        left: 290px;
         /* Inside Auto Layout */
         flex: none;
         order: 0;
@@ -28,7 +28,7 @@
         letter-spacing: 0.1em;
 
         color: #FFFFFF;
-}
+}}
 .updateModal {
     position: fixed;
     top: 50%;

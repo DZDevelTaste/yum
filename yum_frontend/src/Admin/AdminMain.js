@@ -21,7 +21,7 @@ const AdminMain = () => {
 
     const fetchAdmin = async() => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin', {
+            const response = await fetch('/api/admin', {
                 method: 'get',
                 credentials: 'include',
                 headers: {
@@ -50,7 +50,7 @@ const AdminMain = () => {
     }
     const fetchUpdate = async() => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin/update', {
+            const response = await fetch('/api/admin/update', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const AdminMain = () => {
     }
     const fetchdelete = async() => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin/delete', {
+            const response = await fetch('/api/admin/delete', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ const AdminMain = () => {
                         .map(user => {
                         return (
                             <div className={style.small}>
-                                <input type="checkbox" className = {style.checks}name="checkList" value={`${user.no}`}  onChange={(e) => setCheck(e.target.value)}/>
+                                <input type="checkbox" className = {style.checks}name="checkList" value={`${user.no}`}  onChange={(e) => {setCheck(e.target.value); console.log(e.target.value)}}/>
                                 <span className={style.number}>{`${user.no}`}</span>
                                 <span className={style.name}>{`${user.name}`}</span>
                                 <span className={style.gender}>{`${user.gender}`=== 'M' ? '남' : '여'}</span>

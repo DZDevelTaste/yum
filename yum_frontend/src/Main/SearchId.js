@@ -70,7 +70,7 @@ const SearchId = () => {
             alert('올바른 주민등록번호 형식이 아닙니다.');
             document.getElementById('rrn').value='';
             document.getElementById('rrn1').value='';
-            document.getElementById('rrn1').focus();
+            document.getElementById('rrn').focus();
             return;
         }
     };

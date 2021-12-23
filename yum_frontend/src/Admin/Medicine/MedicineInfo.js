@@ -51,7 +51,7 @@ const MedicineInfo = ({no}) => {
 
     const fetchInfo = async(No) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/admin/medicine/medicineInfo/${No}`, {
+            const response = await fetch(`/api/admin/medicine/medicineInfo/${No}`, {
                 method: 'get',
                 credentials: 'include',
                 headers: {
@@ -86,7 +86,7 @@ const MedicineInfo = ({no}) => {
     const fetchupdate = async() => {
 
         try {
-            const response = await fetch('http://localhost:8080/api/admin/medicine/update', {
+            const response = await fetch('/api/admin/medicine/update', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ const MedicineInfo = ({no}) => {
     const fetchadd = async() => {
 
         try {
-            const response = await fetch('http://localhost:8080/api/admin/medicine/add', {
+            const response = await fetch('/api/admin/medicine/add', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',

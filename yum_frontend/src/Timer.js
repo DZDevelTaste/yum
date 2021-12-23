@@ -37,7 +37,6 @@ const time = () => {
                             <button value='11:30' onClick={(e) => setTimeForm(e.target.value)} disabled={ chk.indexOf(`${dateForm} 11:30`) !== -1 ? true : false}>11:30</button>
                         </div>
                     </div>
-                    {
                     <div>
                         <label>PM</label>
                         <div>
@@ -53,7 +52,6 @@ const time = () => {
                             <button value='17:30' onClick={(e) => setTimeForm(e.target.value)} disabled={ chk.indexOf(`${dateForm} 17:30`) !== -1 ? true : false}>17:30</button>
                         </div>
                     </div>
-                    }
                 </div>
         </div>
     );

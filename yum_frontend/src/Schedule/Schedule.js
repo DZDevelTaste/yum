@@ -25,7 +25,7 @@ const Schedule = () => {
   const [userNo, setUserNo] =useState('');
   const no = parseInt(sessionStorage.getItem("no"));
   const name = sessionStorage.getItem("name");
-
+  
   useEffect(() => {
       setTitle(schedule1Vo ? schedule1Vo.title : '')
       setStart(schedule1Vo ? schedule1Vo.start : '')
@@ -46,7 +46,7 @@ const Schedule = () => {
   
   const fetchSchedule = async() => {
       try {
-          const response = await fetch('http://localhost:8080/api/schedule', {
+          const response = await fetch('/api/schedule', {
               method: 'get',
               credentials: 'include',
               headers: {
@@ -71,7 +71,7 @@ const Schedule = () => {
  
   const selectScheduler = async(id) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/schedule/id`, {
+        const response = await fetch(`/api/schedule/id`, {
             method: 'post',
             credentials: 'include',
             headers: {
@@ -100,7 +100,7 @@ const Schedule = () => {
   }
   const fetchScheduleAdd = async() => {
     try {
-        const response = await fetch(`http://localhost:8080/api/schedule/add`, {
+        const response = await fetch(`/api/schedule/add`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const Schedule = () => {
   }
   const fetchUpdate = async() => {
       try {
-          const response = await fetch('http://localhost:8080/api/schedule/update', {
+          const response = await fetch('/api/schedule/update', {
               method: 'post',
               headers: {
                   'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ const Schedule = () => {
 }
 const fetchdelete = async() => {
     try {
-        const response = await fetch('http://localhost:8080/api/schedule/delete', {
+        const response = await fetch('/api/schedule/delete', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -191,12 +191,17 @@ const fetchdelete = async() => {
 
   return (
       <SiteLayout>
-        <div>
-            <input type="button" className={style.addBtn}value="등록" onClick={(e) => setModalData({isOpen: true})} />
+        <div className={style.addBtn}>
+            <input type="button" value="등록" onClick={(e) => {setModalData({isOpen: true})}} />
         </div>
         <div>
             <FullCalendar 
             themeSystem="themeSystem"
+            headerToolbar = {{
+                start: '',
+                center: 'title',   
+                end: 'today prev,next'
+            }}
             plugins={[ timeGridPlugin, dayGridPlugin, interactionPlugin]} 
             initialView="dayGridMonth" 
             customButtons={{
@@ -207,7 +212,7 @@ const fetchdelete = async() => {
             }}
             selectable= "true"
             events={scheduleVo}
-            eventBackgroundColor='#6599FF'
+            eventBackgroundColor={'#6599FF'}
             locale="ko"
             nowIndicator
             dateClick={(e) => {setStart(e.dateStr > nowTime ? e.dateStr : nowTime); setEnd(e.dateStr > nowTime ? e.dateStr : nowTime); setModalData({isOpen: true})} }
@@ -242,10 +247,12 @@ const fetchdelete = async() => {
                             <input type='date' className={style.end} min={nowTime} defaultValue={`${schedule1Vo.end}`} onChange={(e) => setEnd(e.target.value)}/>
                     </div>
                 </div>
+                { (`${schedule1Vo.end}`) > nowTime ?
                 <div className={style.btn}>
                     <input className={style.deleteBtn}type="button" value="삭제" onClick={scheduleDelete} />
-                    <input type="submit" value="수정" />
-                </div>
+                    <input type="submit" value="수정" /> 
+                </div> : null
+                }  
                 </form>
             </Modal> 
             <Modal className={style.addModal} isOpen={modalData.isOpen} style={{zIndex: '9999', position: 'absolute', top: '50%', left: '50%', transform: 'traslate(-50%, -50%)'}, {content: {width: 450, height: 250}}}>

@@ -18,7 +18,6 @@ const Join = () => {
         const [addressNumber, setAddressNumber] = useState('');
         const [address, setAddress] = useState('');
         const [addressDetail, setAddressDetail] = useState('');
-
         let user = {
             email: email + "@" + email1,
             name: name,
@@ -36,7 +35,7 @@ const Join = () => {
     
         const dummy = async() => {
             try {
-                const response = await fetch(`http://localhost:8080/api/check`, {
+                const response = await fetch(`/api/check`, {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json',
@@ -54,6 +53,8 @@ const Join = () => {
                 if(json.data == true) {
                     document.getElementById('checkEmail').innerHTML='이미 존재하는 이메일입니다.'
                     document.getElementById('checkEmail').style.color='red';
+                    document.getElementById('id').value='';
+                    document.getElementById('id').focus();
                 } else {
                     document.getElementById('checkEmail').innerHTML='사용 가능한 이메일입니다.'
                     document.getElementById('checkEmail').style.color='blue';
@@ -66,14 +67,14 @@ const Join = () => {
     // 전부 입력되었는지 검사
     const login1 = (e) => {
         e.preventDefault();
+        
         alert("회원가입이 완료되었습니다.");
         fetchJoin();
     };
     
     const fetchJoin = async() => {
-        alert(user.address)
         try {
-            const response = await fetch(`http://localhost:8080/api/join`, {
+            const response = await fetch(`/api/join`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,34 +98,31 @@ const Join = () => {
     //비밀번호 유효성 검사
     const checkPassword = (e) => {
         //  8 ~ 10자 영문, 숫자 조합
-        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
+        var rr = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/
 
-        if(!regExp.test(e.target.value)) {
-            alert("잘못된 비밀번호 형식입니다.");
-            return false;
+        if(!rr.test(e)) {
+            document.getElementById('check').innerHTML='올바른 비밀번호 형식이 아닙니다.';
+            document.getElementById('check').style.color='red';
+            document.getElementById('pw').value='';
+            document.getElementById('pw').focus();
         }
-        if(document.getElementById('pw').value !='' && document.getElementById('pw2').value!=''){
+    };
+
+    const checkcheck = () => {
+        if(password !='' && document.getElementById('pw2').value!=''){
             if(document.getElementById('pw').value==document.getElementById('pw2').value){
                 document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
                 document.getElementById('check').style.color='blue';
+                return true;
             }
             else{
                 document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
                 document.getElementById('check').style.color='red';
+                document.getElementById('pw2').focus();
+                return false;
             }
         }
-    };
-    // 이메일 유효성 검사
-    const checkEmail = (e) => {
-        var regExp = /^[a-zA-Z0-9+-\_.]/i;
-        
-        if(!regExp.test(e.target.value)) {
-            alert("잘못된 이메일 형식입니다.");
-            document.getElementById('id').focus;
-            return false;
-            
-        }
-    };
+    }
     // 주민등록번호 유효성
     const rrn_check = () => {
         var rrn = document.getElementById('rrn').value;
@@ -148,9 +146,9 @@ const Join = () => {
     };
     // 주소찾기 API
     window.onload = function(){
-        document.getElementById("kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        document.getElementById("address1_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
             //카카오 지도 발생
-            new daum.Postcode({
+             new daum.Postcode({
                 onComplete: function(data) { //선택시 입력값 세팅
                     document.getElementById("zonecode_kakao").value = data.zonecode;
                     document.getElementById("address_kakao").value = data.address; // 주소 넣기
@@ -186,7 +184,7 @@ const Join = () => {
                 <div className={style.email}>
                     <label>
                         <div id={'idTitle'}>아이디</div>
-                    <input type="text" name ="email" id="id" placeholder="ID" onBlur={checkEmail} onChange={(e) => setEmail(e.target.value)} required/>
+                    <input type="text" name ="email" id="id" placeholder="ID" onChange={(e) => setEmail(e.target.value)} required/>
                     @
                     <input type="text" id="id1" name="email1" onChange={(e) => setEmail1(e.target.value)} required/>
                     <select id="id2" name="email1" onChange={email_check}>
@@ -203,12 +201,12 @@ const Join = () => {
                 </div>
                 <div className={style.password}>
                     <div>비밀번호</div>
-                        <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={checkPassword} onChange={(e) => setPassword(e.target.value)} required/>
+                        <input type="password" name="password" id="pw" placeholder="PASSWORD" onBlur={(e) => checkPassword(e.target.value)} onChange={(e) => setPassword(e.target.value)} required/>
                 </div>
                 <div className={style.check}>
                     <div>비밀번호 확인</div>
-                        <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkPassword} required/>
-                        <span id="check"></span>
+                        <input type="password" name="uPassword2" id="pw2" placeholder="CHECK" onBlur={checkcheck} required/>
+                        <span id="check" >8~10자의 숫자와 영문을 입력해주세요</span>
                 </div>
                 <div className={style.name}>
                     <div>이름</div>
@@ -251,9 +249,9 @@ const Join = () => {
                 <div className={style.address}>
                     <div>주소</div>
                         <input type="text" className={style.number} id="zonecode_kakao" name="zonecode" placeholder="우편번호" onChange={(e) => setAddressNumber(e.target.value)} required/>
-                        <input type='button' id="kakao" value="우편번호 입력"/>
+                        <input type='button' id="address1_kakao" value="우편번호 입력"/>
                         <input type="text" className={style.address} id="address_kakao" name="address" placeholder="주소" onChange={(e) => setAddress(e.target.value) } required/>
-                        <input type="text" className={style.detail} name="addressDetail" id="addressDetail" placeholder="상세주소" onChange={(e) => setAddressDetail(e.target.value)} required/>
+                        <input type="text" className={style.detail} name="addressDetail" id="addressDetail" placeholder="상세주소" onChange={(e) => setAddressDetail(e.target.value)}/>
                 </div>
                 <div className={style.gender}>
                     <div>성별</div>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import ant.yum.service.PatientService;
 import ant.yum.vo.OrderVo;
 import ant.yum.vo.PatientVo;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/nurse")
 public class NurseController {
@@ -31,12 +33,12 @@ public class NurseController {
 
     @PostMapping("/order")
     public JsonResult addOrder(@RequestBody OrderVo orderVo){
-        /* È¯ÀÚ Á¢¼ö/¿¹¾à */
-        // int receptionist = authUser.getNo();     // Á¢¼öÇÏ´Â °£È£»ç(·Î±×ÀÎÇÑ user)
-        int receptionist = 5;   // ÀÓ½Ã°ª
+        /* È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ */
+        // int receptionist = authUser.getNo();     // ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½È£ï¿½ï¿½(ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ user)
+        int receptionist = 5;   // ï¿½Ó½Ã°ï¿½
         orderVo.setUserNo(receptionist);
         
-        System.out.println("Á¦´ë·Î µé¾î¿Ô´Ï ==== " + orderVo);
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´ï¿½ ==== " + orderVo);
         orderService.addOrder(orderVo);
         
         return JsonResult.success(orderVo);
@@ -45,9 +47,9 @@ public class NurseController {
     @GetMapping("/orderList")
     public JsonResult orderList(@RequestParam(name="date", required=true, defaultValue="") String date, @RequestParam(name="osn", required=true, defaultValue="0") int orderstateNo){
         /*  
-            Á¢¼ö È¯ÀÚ ¸®½ºÆ®: ÇØ´ç ³¯Â¥¿¡ Á¢¼öµÇ¾î ÀÖ´Â È¯ÀÚ ¸®½ºÆ®¸¦ ¹Þ¾Æ¿È
-            - date: °Ë»öÇÏ´Â ³¯Â¥
-            - osn(orderstateNo): Áø·á ÇöÈ² º° È¯ÀÚ ¸®½ºÆ®¸¦ ¹Þ¾Æ¿À±â À§ÇÔ. default·Î 0ÀÌ¸ç 0ÀÏ °æ¿ì ÀüÃ¼ ¸®½ºÆ® Ãâ·Â */
+            ï¿½ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: ï¿½Ø´ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
+            - date: ï¿½Ë»ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Â¥
+            - osn(orderstateNo): ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È² ï¿½ï¿½ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. defaultï¿½ï¿½ 0ï¿½Ì¸ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ */
         
         List<OrderVo> patientList = orderService.findByDateAndOrderstateNo(date, orderstateNo);
         // System.out.println("date" + date + "orderstateNo: " + orderstateNo);
@@ -57,8 +59,8 @@ public class NurseController {
     @GetMapping("/reservationList")
     public JsonResult reservationList(@RequestParam(name="date", required=true, defaultValue="") String date){
         /*  
-            ¿¹¾à È¯ÀÚ ¸®½ºÆ®: ÇØ´ç ³¯Â¥¿¡ Á¢¼öµÇ¾î ÀÖ´Â È¯ÀÚ ¸®½ºÆ®¸¦ ¹Þ¾Æ¿È
-            - date: °Ë»öÇÏ´Â ³¯Â¥ */
+            ï¿½ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: ï¿½Ø´ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
+            - date: ï¿½Ë»ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Â¥ */
         
         // System.out.println("reservationList controller =====" + date);
         List<OrderVo> patientList = orderService.findByDate(date);
@@ -70,16 +72,16 @@ public class NurseController {
      
     @GetMapping("/reservation/{orderNo}")
     public JsonResult reservation(@PathVariable int orderNo) {
-        /* ¿¹¾à Á¤º¸ °¡Á®¿À±â */
+        /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         OrderVo orderVo = orderService.findByOrderNo(orderNo);
         return JsonResult.success(orderVo);
     }
 
     // @PostMapping("/reservation")
     // public JsonResult addReservation(@RequestBody OrderVo orderVo){
-    //     /* ¿¹¾à Á¢¼ö - ³»¿ø ÀÌ·ÂÀÌ ÀÖ´Â È¯ÀÚ(µî·ÏÀÌ µÇ¾îÀÖ´Â È¯ÀÚ)¸¸ ¿¹¾à °¡´É */
-    //     // int receptionist = authUser.getNo();     // Á¢¼öÇÏ´Â °£È£»ç(·Î±×ÀÎÇÑ user)
-    //     int receptionist = 5;   // ÀÓ½Ã°ª
+    //     /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ È¯ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ È¯ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+    //     // int receptionist = authUser.getNo();     // ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½È£ï¿½ï¿½(ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ user)
+    //     int receptionist = 5;   // ï¿½Ó½Ã°ï¿½
     //     orderVo.setUserNo(receptionist);
         
     //     patientService.addReservation(orderVo);
@@ -89,7 +91,7 @@ public class NurseController {
 
     @PutMapping("/updateDesc")
 	public JsonResult updateDesc(@RequestBody OrderVo orderVo) {
-		/* Á¢¼ö »çÀ¯(Áõ»ó) ¹Ù²Ù±â */
+		/* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) ï¿½Ù²Ù±ï¿½ */
         orderService.updateDesc(orderVo);
         return JsonResult.success(orderVo);
 	}
@@ -97,11 +99,11 @@ public class NurseController {
     @PutMapping("/updateState")
 	public JsonResult updateState(@RequestBody OrderVo orderVo) {
 		/* 
-            È¯ÀÚ Áø·á ÇöÈ² ¹Ù²Ù±â
-            °£È£»ç°¡ Ã³¸®ÇÏ´Â ±âº»ÀûÀÎ orderState
-            1. 1(¿¹¾à) -> 2(Áø·á´ë±â)1
-            2. 2(Áø·á ´ë±â) -> 3(Áø·áÁß)
-            3. 4(¼ö³³ ´ë±â) -> 5(¿Ï·á)
+            È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È² ï¿½Ù²Ù±ï¿½
+            ï¿½ï¿½È£ï¿½ç°¡ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ orderState
+            1. 1(ï¿½ï¿½ï¿½ï¿½) -> 2(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)1
+            2. 2(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½) -> 3(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+            3. 4(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½) -> 5(ï¿½Ï·ï¿½)
         */
 
         // System.out.println(orderVo);
@@ -111,7 +113,7 @@ public class NurseController {
 
     @PostMapping("/updateDate")
     public JsonResult updateDate(@RequestBody OrderVo orderVo) {
-        /* ¿¹¾à ½Ã°£ º¯°æ */
+        /* ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ */
         orderService.updateDate(orderVo);
         return JsonResult.success(orderVo);
     }
@@ -119,13 +121,13 @@ public class NurseController {
     @GetMapping("/payment/{orderNo}")
     public JsonResult payment(@PathVariable int orderNo){
         /* 
-            ¼ö³³ Á¤º¸ °¡Á®¿À±â
-            [°¡Á®¿À´Â Á¤º¸]
-            1. patient - ¼ö³³ÇÏ´Â È¯ÀÚ Á¤º¸(ÀÌ¸§, ¼ºº°, ÁÖ¹Îµî·Ï¹øÈ£, ¿¬¶ôÃ³)
-            2. diagnosis - Áø·á ³»¿ª(³»¿øÀÏ, ´ã´çÀÇ, Áø·á ¸Þ¸ð)
-            3. prescription_d - º´¸í(¸®½ºÆ®)
-            4. prescription_m/c - Ã³¹æ ³»¿ª(¾àÇ°(m)/¾àÇ°¿Ü(c) ¸®½ºÆ®)
-            5. order - ¼ö³³ ±Ý¾×
+            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            [ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½]
+            1. patient - ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½Ö¹Îµï¿½Ï¹ï¿½È£, ï¿½ï¿½ï¿½ï¿½Ã³)
+            2. diagnosis - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½)
+            3. prescription_d - ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Æ®)
+            4. prescription_m/c - Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ç°(m)/ï¿½ï¿½Ç°ï¿½ï¿½(c) ï¿½ï¿½ï¿½ï¿½Æ®)
+            5. order - ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½
         */
         Map<String,Object> paymentInfoMap = orderService.paymentInfo(orderNo);
         return JsonResult.success(paymentInfoMap);
@@ -134,7 +136,7 @@ public class NurseController {
     @PutMapping("/receive")
     public JsonResult receive(@RequestBody OrderVo orderVo){
         /* 
-            ¼ö³³ ÈÄ order ¾÷µ¥ÀÌÆ®
+            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ order ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         */
         orderService.receive(orderVo);
         return JsonResult.success(orderVo);
@@ -150,9 +152,9 @@ public class NurseController {
     @DeleteMapping("/deleteOrder/{orderNo}")
     public JsonResult deleteOrder(@PathVariable int orderNo){
         /* 
-            Á¢¼ö ¹× ¿¹¾à Ãë¼Ò
-            - Á¢¼ö Ãë¼Ò´Â ¿¹¾à(orderstateNo == 1) ¶Ç´Â Á¢¼ö ´ë±â(orderstateNo == 2)ÀÎ »óÅÂ¿¡¼­¸¸ °¡´É
-            - ¿¹¾à ¶Ç´Â Á¢¼ö ´ë±â°¡ ¾Æ´Ï°Å³ª Ãë¼ÒÇÏÁö ¸øÇÑ °æ¿ì¿¡´Â false ¹ÝÈ¯
+            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+            - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò´ï¿½ ï¿½ï¿½ï¿½ï¿½(orderstateNo == 1) ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(orderstateNo == 2)ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            - ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½â°¡ ï¿½Æ´Ï°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ false ï¿½ï¿½È¯
         */
         int check = orderService.deleteOrder(orderNo);
         
@@ -161,14 +163,14 @@ public class NurseController {
 
     @GetMapping("/patientList")
     public JsonResult patientList() {
-        /* È¯ÀÚ ¸®½ºÆ® Ãâ·Â */
+        /* È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ */
         List<PatientVo> patientList = patientService.findByAll();
         return JsonResult.success(patientList);
     }
 
     @PutMapping("/updatePatientInfo")
     public JsonResult updatePatientInfo(@RequestBody PatientVo patientVo) {
-        /* È¯ÀÚ Á¤º¸ ¾÷µ¥ÀÌÆ® */
+        /* È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® */
         patientService.updatePatientInfo(patientVo);
         return JsonResult.success(patientVo);
     }

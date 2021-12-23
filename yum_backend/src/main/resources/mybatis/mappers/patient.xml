@@ -38,7 +38,7 @@
 		]]>
 	</select>
 
-	<update id='updatePatientInfo' parameterType='patientVo'>
+	<update id="updatePatientInfo" parameterType="patientvo">
 		<![CDATA[
 			UPDATE patient
 			SET name=#{name}, rrn=#{rrn}, insuarance=#{insuarance}, phone=#{phone}, address=#{address}, length=#{length}, weight=#{weight}, "desc"=#{desc}

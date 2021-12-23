@@ -16,7 +16,7 @@ const Main = () => {
         e.preventDefault();
         sessionStorage.clear();
         try {
-            const response = await fetch('http://localhost:8080/api/user/auth', {
+            const response = await fetch('/api/user/auth', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
