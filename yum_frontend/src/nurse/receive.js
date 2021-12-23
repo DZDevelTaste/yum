@@ -1,6 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
+import styles from '../assets/scss/nurse/Receive.scss';
+
+
 Modal.setAppElement('body');
 
 const DetailInfo = ({orderNo, setModalData, setUpdateState}) => {
@@ -96,8 +99,8 @@ const DetailInfo = ({orderNo, setModalData, setUpdateState}) => {
 
     return (
         <Fragment>
-            <div className='patientInfo'>
-                <h2>환자 정보</h2>
+            <div className={styles.patientInfo}>
+                <h3>환자 정보</h3>
                 <table>
                     <tbody>
                         <tr>
@@ -108,103 +111,106 @@ const DetailInfo = ({orderNo, setModalData, setUpdateState}) => {
                         </tr>
                         <tr>
                             <td>주민등록번호</td>
-                            <td colSpan='3'>{patientInfo.rrn}</td>
-                        </tr>
-                        <tr>
+                            <td>{patientInfo.rrn}</td>
                             <td>연락처</td>
-                            <td colSpan='3'>{patientInfo.phone}</td>
+                            <td>{patientInfo.phone}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div className='diagnosisList'>
-                <h2>진료</h2>
-                <div>
-                    <span>내원일</span>
-                    <span>{diagnosisInfo.date}</span>
-                </div>  
-                <div>
-                    <span>담당의</span>
-                    <span>{diagnosisInfo.name}</span>
-                </div>
-                <div>
-                    <span>병명</span>
-                    <p>
-                        {   
-                            diagnosisInfo.presDiseaseList === undefined || diagnosisInfo.presDiseaseList === null
-                            ? '없음'
-                            : diagnosisInfo.presDiseaseList   // 질병 리스트 출력
-                                .map(presDisease => {return `${presDisease.name}, `})
+            <div className={styles.diagnosisAndReceive}>
+                <div className={styles.diagnosisList}>
+                    <h3>진료</h3>
+                    <div>
+                        <span>내원일</span>
+                        <span>{diagnosisInfo.date}</span>
+                    </div>  
+                    <div>
+                        <span>담당의</span>
+                        <span>{diagnosisInfo.name}</span>
+                    </div>
+                    <div>
+                        <span>병명</span>
+                        <p>
+                            {   
+                                diagnosisInfo.presDiseaseList === undefined || diagnosisInfo.presDiseaseList === null
+                                ? '없음'
+                                : diagnosisInfo.presDiseaseList   // 질병 리스트 출력
+                                    .map((presDisease, index) => {return (index !== 0 ? `, ${presDisease.name}` : `${presDisease.name}` )})
+                            }
+                        </p>
+                    </div>
+                    <div>
+                        <span>메모</span>
+                        <p>{diagnosisInfo.desc}</p>
+                    </div>
+
+                    <table className={styles.diagnosisInfo}>
+                        <thead>
+                            <tr>
+                                <th>분류</th>
+                                <th>처방</th>
+                                <th>1일 투여횟수</th>
+                                <th>총 투여일수</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            diagnosisInfo.presMedicineList === undefined || diagnosisInfo.presMedicineList === null
+                            ? ''
+                            : diagnosisInfo.presMedicineList  // 처방 약품 리스트 출력
+                                .map(presMedicine => {
+                                    return (
+                                        <tr>
+                                            <td>약품</td>
+                                            <td>{presMedicine.name}</td>
+                                            <td>{presMedicine.presmedicineCount}</td>
+                                            <td>{presMedicine.presmedicineDay}</td>
+                                        </tr>
+                                    )
+                                })
                         }
+                        {
+                            diagnosisInfo.presClinicList === undefined || diagnosisInfo.presClinicList === null
+                            ? ''
+                            :  diagnosisInfo.presClinicList
+                                .map(presClinic => {
+                                    return (
+                                        <tr>
+                                            <td>{presClinic.kind}</td>
+                                            <td>{presClinic.name}</td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                        </tr>
+                                    )
+                                })
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                <div className={styles.receiveInfo}>
+                    <h3>수납 금액</h3>
+                    <p>
+                        <span>기본진료비</span>
+                        <span>{order.expenses}</span>
+                    </p>
+                    <p>
+                        <span>치료</span>
+                        <span>{payData.clinic}원</span>
+                    </p>
+                    <p>
+                        <span>보험</span>
+                        <span>{payData.insuarance}원</span>
+                    </p>
+                    <p>
+                        <span>총액</span>
+                        <span>{updateOrder.expenses}원</span>
+
                     </p>
                 </div>
-                <div>
-                    <span>메모</span>
-                    <p>{diagnosisInfo.desc}</p>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>분류</th>
-                            <th>처방</th>
-                            <th>1일 투여횟수</th>
-                            <th>총 투여일수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        diagnosisInfo.presMedicineList === undefined || diagnosisInfo.presMedicineList === null
-                        ? ''
-                        : diagnosisInfo.presMedicineList  // 처방 약품 리스트 출력
-                            .map(presMedicine => {
-                                return (
-                                    <tr>
-                                        <td>약품</td>
-                                        <td>{presMedicine.name}</td>
-                                        <td>{presMedicine.presmedicineCount}</td>
-                                        <td>{presMedicine.presmedicineDay}</td>
-                                    </tr>
-                                )
-                            })
-                    }
-                    {
-                        diagnosisInfo.presClinicList === undefined || diagnosisInfo.presClinicList === null
-                        ? ''
-                        :  diagnosisInfo.presClinicList
-                            .map(presClinic => {
-                                return (
-                                    <tr>
-                                        <td>{presClinic.kind}</td>
-                                        <td>{presClinic.name}</td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                    </tr>
-                                )
-                            })
-                    }
-                    </tbody>
-                </table>
             </div>
-            <div>
-                <h3>수납 금액</h3>
-                <p>
-                    <span>기본진료비</span>
-                    <span>{order.expenses}</span>
-                </p>
-                <p>
-                    <span>치료</span>
-                    <span>{payData.clinic}원</span>
-                </p>
-                <p>
-                    <span>보험</span>
-                    <span>{payData.insuarance}원</span>
-                </p>
-                <span>총액</span>
-                <span>{updateOrder.expenses}원</span>
-            </div>
-            <div>
+            <div className={styles.btnBox}>
                 <button onClick={() => receive()}>수납</button>
                 <button onClick={() => setModalData({isOpen: false})}>취소</button>
             </div>

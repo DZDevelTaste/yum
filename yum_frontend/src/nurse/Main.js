@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import main from '../assets/scss/Main.scss';
 import SiteLayout from '../layout/SiteLayout';
 import MainList from './MainList';
+
+import main from '../assets/scss/nurse/Main.scss';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const Main = () => {
     const [currentState, setCurrentState] = useState(0);
     const stateArray = ['전체', '예약', '진료대기', '진료중', '수납대기', '완료'];
 
+    const NotifyToast = (data) => {
+        toast.success(`${data.patient.name}님의 진료상태가 변경되었습니다.`);
+    }
     return (
         <SiteLayout>
             <div className={main.stateBtn}>
@@ -26,10 +31,13 @@ const Main = () => {
                         })
                 }
             </div>
-            <div className='orderListBox'>
+            <div className={main.MainContentBox}>
                 <MainList
-                    currentState={currentState}/>
+                    currentState={currentState}
+                    callback={NotifyToast}/>
             </div>
+
+            <Toaster/>
         </SiteLayout>
     );
 };

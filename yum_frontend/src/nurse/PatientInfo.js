@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import Modal from 'react-modal';
 
-import styles1 from '../assets/scss/OrderForm.scss';
+import styles1 from '../assets/scss/nurse/PatientDetailInfo.scss';
 import postcodeStyles from '../assets/scss/Postcode.scss';
 import Postcode from '../Postcode';
 
@@ -31,7 +31,7 @@ const PatientInfo = ({no, setUpdatePatient}) => {
     /* patientNo를 받아왔을 때 해당 환자의 정보를 가져온다 */
     const selectPatient = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/nurse/patientInfo/${no}`, {
+            const response = await fetch(`/api/nurse/patientInfo/${no}`, {
                 method: 'get',
                 mode: 'cors',
                 credentials: 'include',
@@ -241,7 +241,7 @@ const PatientInfo = ({no, setUpdatePatient}) => {
 
     return (
         <Fragment>
-            <div className='patientInfo'>
+            <div className={styles1.patientInfo}>
                 <h2>환자 정보</h2>
                 {
                     !chooseButton ? 

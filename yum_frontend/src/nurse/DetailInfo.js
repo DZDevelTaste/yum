@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-
+import React, { Fragment, useEffect, useState } from 'react';
+import styles from '../assets/scss/nurse/PatientDetailInfo.scss';
 
 const DetailInfo = ({patientNo, setModalData}) => {
     const [patientInfo, setPatientInfo] = useState({});
@@ -13,7 +13,7 @@ const DetailInfo = ({patientNo, setModalData}) => {
     /* patientNo를 받아왔을 때 해당 환자의 정보를 가져온다 */
     const selectPatient = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/nurse/patientInfo/${patientNo}`, {
+            const response = await fetch(`/api/nurse/patientInfo/${patientNo}`, {
                 method: 'get',
                 mode: 'cors',
                 credentials: 'include',
@@ -59,8 +59,8 @@ const DetailInfo = ({patientNo, setModalData}) => {
 
     return (
         <Fragment>
-            <div className='patientInfo'>
-                <h2>환자 정보</h2>
+            <div className={styles.patientInfo}>
+                <h3>환자 정보</h3>
                 <table>
                     <tbody>
                         <tr>
@@ -99,16 +99,16 @@ const DetailInfo = ({patientNo, setModalData}) => {
                 </table>
             </div>
 
-            <div className='diagnosisList'>
-                <h2>진료 이력</h2>
+            <div className={styles.diagnosisList}>
+                <h3>진료 이력</h3>
                 <table>
                     <thead>
-                    <tr>
-                        <th>내원일</th>
-                        <th>담당의</th>
-                        <th>질병</th>
-                        <th>처방</th>
-                    </tr>
+                        <tr>
+                            <th>내원일</th>
+                            <th>담당의</th>
+                            <th>질병</th>
+                            <th>처방</th>
+                        </tr>
                     </thead>
                     <tbody>
                     {
@@ -123,17 +123,20 @@ const DetailInfo = ({patientNo, setModalData}) => {
                                         <td>
                                             {
                                                 diagnosis.presDiseaseList   // 질병 리스트 출력
-                                                    .map(presDisease => {return `${presDisease.name}, `})
+                                                    .map((presDisease, index) => {return (index !== 0 ? `, ${presDisease.name}` : `${presDisease.name}` )})
                                             }
                                         </td>
                                         <td>
                                             {
                                                 diagnosis.presMedicineList  // 처방 약품 리스트 출력
-                                                    .map(presMedicine => {return `${presMedicine.name}, `})
+                                                    .map((presMedicine, index) => {return (index !== 0 ? `, ${presMedicine.name}` : `${presMedicine.name}` )})
                                             }
                                             {
                                                 diagnosis.presClinicList    // 처방 약품외 리스트 출력
-                                                    .map(presClinic => {return `${presClinic.name}, `})
+                                                    .map((presClinic, index) => {return (index === 0 && diagnosis.presMedicineList.length < 1
+                                                                                        ? '' : index !== 0 
+                                                                                        ? `${presClinic.name}` 
+                                                                                        :  `, ${presClinic.name}`)})
                                             }
                                         </td>
                                     </tr>
@@ -143,7 +146,9 @@ const DetailInfo = ({patientNo, setModalData}) => {
                     </tbody>
                 </table>
             </div>
-            <button onClick={() => setModalData({isOpen: false})}>확인</button>
+            <div className={styles.btnBox}>
+                <button onClick={() => setModalData({isOpen: false})}>확인</button>
+            </div>
         </Fragment>
     );
 };
