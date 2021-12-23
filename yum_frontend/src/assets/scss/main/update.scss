@@ -480,7 +480,7 @@ margin: 10px 0px;
     }
     .phoneN1 {
         position: absolute;
-        width: 160px;
+        width: 165px;
         left: 25%;
         right: 36.96%;
         top: 36.62%;
@@ -492,6 +492,7 @@ margin: 10px 0px;
     }
     .phoneN2 {
         position: absolute;
+        width: 165px;
         left: 65;
         right: 0%;
         top: 36.62%;
@@ -528,12 +529,12 @@ margin: 10px 0px;
         color: #333333;
     }
 
-    input[type=button] {
-        position: static;
+    .AddrBtn {
+        position: absolute;
         width: 150px;
         height: 45px;
-        left: 50px;
-        bottom: 5%;
+        left: 280px;
+        bottom: -15px;
         /* Inside Auto Layout */
 
         flex: none;
@@ -545,7 +546,7 @@ margin: 10px 0px;
 
     .number {
         position: static;
-        width: 230px;
+        width: 280px;
         height: 45px;
         left: 0px;
         top: 0px;

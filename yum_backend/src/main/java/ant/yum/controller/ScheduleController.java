@@ -25,7 +25,7 @@ public class ScheduleController {
     @GetMapping("")
     public JsonResult main() {
         List<ScheduleVo> list = scheduleService.findByAll();
-
+        
         return JsonResult.success(list);
     }
     @PostMapping("/id")

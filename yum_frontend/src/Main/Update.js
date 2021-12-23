@@ -1,7 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState, useRef} from 'react';
 import style from '../assets/scss/main/update.scss'
 import Logo from '../../public/favicon.ico'
 import SemiLogo from '../../public/title.png'
+import Modal from 'react-modal';
+import Postcode from '../Postcode';
+import styles2 from '../assets/scss/Postcode.scss';
 
 const Update = () => {
     const [userVo, setUserVo] = useState([]);
@@ -19,6 +22,8 @@ const Update = () => {
     const [addressDetail, setAddressDetail] = useState('');
     const no = parseInt(sessionStorage.getItem("no"));
     const job = sessionStorage.getItem("job");
+    const [isOpenHandler, setIsOpenHandler] = useState(false);
+    const modalInnerRef = useRef(null);
     
     let user = {
         no: no,
@@ -133,24 +138,28 @@ const checkcheck = () => {
     }
 }
 
-// 주소찾기 API
-window.onload = function(){
-    document.getElementById("kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-        //카카오 지도 발생
-        new daum.Postcode({
-            onComplete: function(data) { //선택시 입력값 세팅
-                document.getElementById("zonecode_kakao").value = data.zonecode;
-                document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                setAddressNumber(data.zonecode);
-                setAddress(data.address);
-                
-                document.getElementById("addressDetail").focus(); //상세입력 포커싱
-            }
-        }).open();
-    });
-};
+const stateClickEvent = (e) => {
+    // 사용자가 클릭한 위치
+    let x = e.clientX;
+    let y = e.clientY;
+
+    setTimeout(() => {
+        const modalDiv = modalInnerRef.current.parentNode;
+        modalDiv.style.top = y + "px";
+        modalDiv.style.left = x + "px";
+    }, 0);
+    setIsOpenHandler(true);
+} 
+
+const notifyAddr = (addrData) => {
+    console.log(addrData)
+    setAddressNumber(addrData.zonecode);
+    setAddress(addrData.address);
+    setIsOpenHandler(false);
+}
 
 return (
+    <Fragment>
     <div className={style.yammi}>
         <img className={style.image}src={Logo}/>
         <img className={style.image1}src={SemiLogo}/>
@@ -212,12 +221,34 @@ return (
                 </div>
             </div>
             <div className={style.address}>
-                <div>주소</div>
-                    <input type="text" className={style.number} id="zonecode_kakao" name="zonecode" value={`${addressNumber}`} onChange={(e) => setAddressNumber(e.target.value)}/>
-                    <input type='button' id="kakao" value="우편번호 입력"/>
-                    <input type="text" className={style.address} id="address_kakao" name="address" value={`${address}`} onChange={(e) => setAddress(e.target.value)}/>
-                    <input type="text" className={style.detail} name="addressDetail" id="addressDetail" value={`${addressDetail}`} onChange={(e) => setAddressDetail(e.target.value)}/>
-            </div>
+                    <div>주소</div>
+                    <div>
+                        <input
+                            className={style.number}
+                            type='text'
+                            placeholder='우편번호'
+                            value={addressNumber || ''}
+                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
+                            onChange={ (e) => setAddressNumber(e.target.value)}
+                            />
+                        <button id='AddrBtn' className={style.AddrBtn} onClick={stateClickEvent}>주소찾기</button>
+                        <input
+                            className={style.address}
+                            type='text'
+                            placeholder='주소'
+                            value={address || ''}
+                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
+                            onChange={ (e) => setAddress(e.target.value)}
+                            />
+                        <input
+                            className={style.detail}
+                            type='text'
+                            placeholder='상세주소'
+                            value={addressDetail || ''}
+                            onChange={ (e) =>  setAddressDetail(e.target.value) }
+                            />
+                    </div>
+                </div>
             <div className={style.gender}>
                 <div>성별</div>
                     <label className={style.male}>남</label> <input type="radio" className={style.maleBtn} name="gender" id="gender" value='M' checked={`${userVo.gender}` === 'M' ? true:false} disabled/>
@@ -226,6 +257,19 @@ return (
             <input type="submit" className={style.join} value="수정" />
         </form>        
     </div>
+        <Modal 
+            className={styles2.Modal}
+            overlayClassName={styles2.Overlay}
+            onRequestClose={ () => setIsOpenHandler(false) }
+            isOpen={isOpenHandler}>
+            
+            <button
+                className={styles2.Close}
+                ref={modalInnerRef}
+                onClick={() => {setIsOpenHandler(false)}}>X</button>
+            <Postcode callback={notifyAddr}/>
+        </Modal>
+    </Fragment>
 );
 };
 

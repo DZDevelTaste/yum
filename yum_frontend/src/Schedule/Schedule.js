@@ -27,6 +27,7 @@ const Schedule = () => {
   const name = sessionStorage.getItem("name");
   
   useEffect(() => {
+
       setTitle(schedule1Vo ? schedule1Vo.title : '')
       setStart(schedule1Vo ? schedule1Vo.start : '')
       setEnd(schedule1Vo ? schedule1Vo.end : '')
@@ -61,7 +62,8 @@ const Schedule = () => {
           }
 
           const json = await response.json();
-
+          console.log(json.data)
+         
           setScheduleVo([...json.data,...scheduleVo]);
 
       } catch (error) {
