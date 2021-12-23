@@ -101,12 +101,22 @@
                 text-align: center;
             }
 
-            .deleteBtn{
+            .deleteBtnDiv{
                 width: 58px;
                 height: 40px;
                 line-height: 40px;
                 float: left;
                 text-align: center;
+
+                .deleteBtn{
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    float: right;
+                    margin-right: 10px;
+                    background-color: #FFFFFF;
+                    border: 0;
+                }
             }
         }
     }
@@ -145,11 +155,13 @@
         }
 
         .closeButton{
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
             float: right;
             margin-right: 10px;
+            background-color: #FFFFFF;
+            border: 0;
         }
     }
 

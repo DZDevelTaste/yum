@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import SockJsClient from 'react-stomp';
 import { Outlet } from 'react-router';
 import Msg from '../msg';
-import main from '../assets/scss/Main.scss';
 import SiteLayout from '../layout/SiteLayout';
 import MainList from './MainList';
 
