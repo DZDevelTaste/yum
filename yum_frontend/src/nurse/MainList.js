@@ -1,10 +1,12 @@
 import moment from 'moment';
 import React, { Fragment, useEffect, useState } from 'react';
-import styles2 from '../assets/scss/OrderPatient.scss';
 import SearchBar from '../SearchBar';
 import MainPatient from './MainPatient';
 
-const MainList = ({currentState}) => {
+import main from '../assets/scss/nurse/Main.scss';
+import styles2 from '../assets/scss/OrderPatient.scss';
+
+const MainList = ({currentState, callback}) => {
     const today = moment().format('YYYY-MM-DD');
     const [keyword, setKeyword] = useState('');
     const [currentDate, setCurrentDate] = useState(today);
@@ -12,7 +14,7 @@ const MainList = ({currentState}) => {
     const [updateList, setUpdateList] = useState({});
     const [orders, setOrders] = useState([]);
     const [descForm, setDescForm] = useState({no: 0, type: 'text'});
-
+    
     /* 접수 리스트 불러오기 */
     const findOrderList = async () => {
         try {
@@ -45,31 +47,32 @@ const MainList = ({currentState}) => {
     }
 
     useEffect(() => {
-        console.log('흐엥');
         findOrderList();
     }, [currentDate, currentState, updateState, updateList]);
     
     return (
         <Fragment>
-            <input
-                type='date' 
-                value={currentDate}
-                onChange={e => setCurrentDate(e.target.value)}/>
-            <SearchBar setKeyword={setKeyword} />
-            <table className={styles2.ListTable}>
-                <thead>
+            <div className={main.searchBox}>
+                <input
+                    type='date' 
+                    value={currentDate}
+                    onChange={e => setCurrentDate(e.target.value)}/>
+                <SearchBar setKeyword={setKeyword} title='환자 검색' />
+            </div>
+            <table className={main.ListTable}>
+                <thead className={main.TableHead}>
                     <tr>
-                        <th className={styles2.date}>접수시간</th>
-                        <th className={styles2.name}>이름</th>
-                        <th className={styles2.age}>나이</th>
-                        <th className={styles2.desc}>사유</th>
-                        <th className={styles2.state}>진료현황</th>
-                        <th className={styles2.detailInfo}>상세정보</th>
-                        <th className={styles2.cancle}>접수취소</th>
-                        <th className={styles2.receive}>수납</th>
+                        <th className={main.date}>접수시간</th>
+                        <th className={main.name}>이름</th>
+                        <th className={main.age}>나이</th>
+                        <th className={main.desc}>사유</th>
+                        <th className={main.state}>진료현황</th>
+                        <th className={main.detailInfo}>상세정보</th>
+                        <th className={main.cancle}>접수취소</th>
+                        <th className={main.receive}>수납</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className={main.TableBody}>
                     {
                         orders
                             .filter( order => order.patientVo.name.indexOf(keyword) !== -1)
@@ -77,9 +80,10 @@ const MainList = ({currentState}) => {
                                                     key={order.no}
                                                     setUpdateState={setUpdateState}
                                                     setUpdateList={setUpdateList}
-                                                    order={Object.assign({}, order, {desc: (order.desc === '' || order.desc === null ? '-' : order.desc)})}
+                                                    order={Object.assign({}, order, {desc: (order.desc === null ? '' : order.desc)})}
                                                     descForm={descForm}
                                                     setDescForm={setDescForm}
+                                                    callback={callback}
                                                 />)
                     }
                 </tbody>

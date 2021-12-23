@@ -1,3 +1,13 @@
+@charset 'utf-8';
+
+.Overlay {
+    z-index: 1;
+
+    position: fixed; 
+    inset: 0px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
 .StateModal {
     position: absolute;
     border: 1px solid #c5c5c5;
@@ -26,8 +36,30 @@
 
 }
 
-.Overlay {
-    position: fixed; 
-    inset: 0px;
-    background-color: rgba(255, 255, 255, 0);
+.DetailInfoModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    box-sizing: border-box;
+    width: 800px;
+    height: 850px;
+    padding: 20px 30px;
+    border: 2px solid #A3A3A3;
+    background-color: #ffffff;
+}
+
+.ReceiveModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    box-sizing: border-box;
+    width: 900px;
+    height: 800px;
+    padding: 20px 50px;
+    border: 2px solid #A3A3A3;
+    background-color: #ffffff;
 }
