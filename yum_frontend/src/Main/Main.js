@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom';
 import style from '../assets/scss/main/main.scss';
 import Logo from '../../public/favicon.ico'
 import SemiLogo from '../../public/title.png'
+
 const Main = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
