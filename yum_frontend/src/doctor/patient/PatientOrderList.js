@@ -22,16 +22,16 @@ const  patientOrderList = ({diagnosisList}) => {
                                     {list.name}
                                 </div>
                                 <div className={style.disAndCli} >
-                                    {list.presDiseaseList.map(presDisease => <div>- {presDisease.name}</div>)}
+                                    {list.presDiseaseList.map(presDisease => <div><div className={style.divStyle}>-</div><div> {presDisease.name}</div></div>)}
                                 </div>
                                 <div className={style.disAndCli}>
-                                    {list.presMedicineList.map(presMedicine => <div><div>-</div><div> {presMedicine.name}</div></div>)} 
-                                    {list.presClinicList.map(presClinic => <div><div>-</div><div> {presClinic.name}</div></div>)}
+                                    {list.presMedicineList.map(presMedicine => <div><div className={style.divStyle}>-</div><div> {presMedicine.name}</div></div>)} 
+                                    {list.presClinicList.map(presClinic => <div><div className={style.divStyle}>-</div><div> {presClinic.name}</div></div>)}
                                 </div>
                             </div> 
                         )
                     }):
-                    <div className={style.empty} >없음</div>
+                    <div className={style.empty} > 진료 기록 없음</div>
              }
          </div>
     );

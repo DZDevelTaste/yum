@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import style from '../../assets/scss/component/doctor/diagnosis/Clinic.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {far} from '@fortawesome/free-regular-svg-icons';
+import { faCheck, faDonate, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const clinic = ({callback1, callback2}) => {
     const [modalData, setModalData] = useState({isOpen: false})
@@ -104,13 +108,13 @@ const clinic = ({callback1, callback2}) => {
                                         <option value='10'>10</option>
                                     </select>
                                 </div>
-                                <div className={style.deleteBtn}>
-                                    <button onClick={ () => {
+                                <div className={style.deleteBtnDiv}>
+                                    <button className={style.deleteBtn} onClick={ () => {
                                         if(confirm(`${medicineinfo.name} 처방을 삭제하시겠습니까?`) == true){
                                             setChangeValue(changeValue + 1)
                                             medicineInfo.splice(medicineInfo.indexOf(medicineinfo), 1)}
                                         }}>
-                                        삭제
+                                        <FontAwesomeIcon icon={faTimes} size="lg" color="#CF1313"/>
                                     </button>
                                 </div>
                             </div>
@@ -131,7 +135,7 @@ const clinic = ({callback1, callback2}) => {
                                             setChangeValue(changeValue + 1)
                                             clinicNo.splice(clinicNo.indexOf(clinic), 1)}
                                         }}>
-                                        삭제
+                                        <FontAwesomeIcon icon={faTimes} size="lg" color="#CF1313"/>
                                     </button>
                                 </div>
                             </div>
@@ -139,15 +143,18 @@ const clinic = ({callback1, callback2}) => {
                     })
                 }
             {/* </div> */}
-            <Modal isOpen={modalData.isOpen} 
+            <Modal 
+                isOpen={modalData.isOpen} 
                 ariaHideApp={false} 
+                onRequestClose={ () => setModalData(false) }
                 shouldCloseOnOverlayClick={ true }
-                overlayClassName="overlay"
                 className={style.modal}
                 style={{content: {width: 500, height: 400}}}>
                 <div className={style.modalHead}>
-                    <div className={style.title}>병명</div>
-                    <button className={style.closeButton} onClick={() => setModalData({isOpen: false})}>X</button>
+                    <div className={style.title}>처방</div>
+                    <button className={style.closeButton} onClick={() => setModalData({isOpen: false})}>
+                        <FontAwesomeIcon icon={faTimes} size="lg" color="#CF1313"/>
+                    </button>
                 </div>
                 <div className={style.radioDiv}>
                     <label><input type='radio' name='selectPres' value='약품' onChange={ e => setKind(e.target.value) }/>약품</label>
@@ -169,7 +176,7 @@ const clinic = ({callback1, callback2}) => {
                         
                         {
                             preses
-                            .filter( pres => pres.name.indexOf(keyword) !== -1 && pres.kind.indexOf(kind) !== -1) //미구현
+                            .filter( pres => pres.name.indexOf(keyword) !== -1 && pres.kind.indexOf(kind) !== -1)
                             .map( pres => {
                                 return (
                                     <div className={style.list} onClick={() => {

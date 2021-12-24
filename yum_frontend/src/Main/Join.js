@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import style from '../assets/scss/main/join.scss'
 import Logo from '../../public/favicon.ico';
-import SemiLogo from '../../public/title.png'
+import SemiLogo from '../../public/title.png';
+
 
 const Join = () => {
+        const [checkDbId, setCheckDbId] = useState(false);
         const [email, setEmail] = useState('');
         const [email1, setEmail1] = useState('');
         const [password, setPassword] = useState('');
@@ -18,6 +20,10 @@ const Join = () => {
         const [addressNumber, setAddressNumber] = useState('');
         const [address, setAddress] = useState('');
         const [addressDetail, setAddressDetail] = useState('');
+        
+
+
+
         let user = {
             email: email + "@" + email1,
             name: name,
@@ -58,6 +64,7 @@ const Join = () => {
                 } else {
                     document.getElementById('checkEmail').innerHTML='사용 가능한 이메일입니다.'
                     document.getElementById('checkEmail').style.color='blue';
+                    setCheckDbId(true);
                 }
             } catch (error) {
                 console.error(error);
@@ -67,7 +74,10 @@ const Join = () => {
     // 전부 입력되었는지 검사
     const login1 = (e) => {
         e.preventDefault();
-        
+        if (checkDbId == false) {
+            alert("아이디 중복확인을 해주세요.");
+            return false;
+        }
         alert("회원가입이 완료되었습니다.");
         fetchJoin();
     };
@@ -144,21 +154,7 @@ const Join = () => {
             return false;
         }
     };
-    // 주소찾기 API
-    window.onload = function(){
-        document.getElementById("address1_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-            //카카오 지도 발생
-             new daum.Postcode({
-                onComplete: function(data) { //선택시 입력값 세팅
-                    document.getElementById("zonecode_kakao").value = data.zonecode;
-                    document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                    setAddressNumber(data.zonecode);
-                    setAddress(data.address);
-                    document.getElementById("addressDetail").focus(); //상세입력 포커싱
-                }
-            }).open();
-        });
-    };
+   
     // 이메일 select박스 값 집어넣기
     const email_check = () => {
         var email1 = document.getElementById('id1').value;
@@ -175,7 +171,56 @@ const Join = () => {
         }
     };
     
+    const loadLayout = (e) => {
+        e.preventDefault();
+        window.daum.postcode.load(() => {
+            const postcode = new window.daum.Postcode({
+                oncomplete: function (data) {
+                    let address = data.address;
+                    let extraAddress = ''; // 참고항목
+            
+                    // 내려오는 변수가 값이 없는 경우 공백('') 값을 가짐 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져옴
+                    if (data.addressType === 'R') { // addressType - 검색된 기본 주소 타입: R(도로명), J(지번)
+                        if (data.bname !== '') { // bname - 법정동/법정리 이름
+                            // bname 값이 있을 경우 extraAddress에 추가
+                            extraAddress += data.bname;
+                        }
+                        if (data.buildingName !== '') { // buidingName - 건물명
+                            // extraAddress가 빈값이 아니면 ', 건물명'으로 빈값일 경우 '건물명'으로 추가
+                            extraAddress += (
+                                extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName
+                            );
+                        }
+            
+                        if(extraAddress !== ''){
+                            address += ` (${extraAddress})`;
+                        }
+                    }
+                    // console.log(data.zonecode); 
+                    // console.log(fullAddress);   // e.g. '서울 성동구 왕십리로2길20 (성수동1가)'
+                    const addressData = {
+                        zonecode: data.zonecode,
+                        address: address,
+                    }
+            
+                    setAddressNumber(addressData.zonecode);
+                    setAddress(addressData.address);
+                },
+            });
+            postcode.open({
+                popupTitle: '주소 검색'
+            });
+        });
+    };
+
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+        document.body.append(script);
+    }, []);
+
     return (
+        <Fragment>
         <div className={style.yammi}>
             <img className={style.image}src={Logo}/>
             <img className={style.image1}src={SemiLogo}/>
@@ -197,7 +242,7 @@ const Join = () => {
                     </select>
                     </label>
                     <span id="checkEmail" className={style.state}></span>
-                    <input type="button" value="중복 확인" className={style.checkEmail}onClick={dummy} required/>
+                    <input type="button" value="중복 확인" className={style.checkEmail} onClick={dummy} required/>
                 </div>
                 <div className={style.password}>
                     <div>비밀번호</div>
@@ -248,10 +293,32 @@ const Join = () => {
                 </div>
                 <div className={style.address}>
                     <div>주소</div>
-                        <input type="text" className={style.number} id="zonecode_kakao" name="zonecode" placeholder="우편번호" onChange={(e) => setAddressNumber(e.target.value)} required/>
-                        <input type='button' id="address1_kakao" value="우편번호 입력"/>
-                        <input type="text" className={style.address} id="address_kakao" name="address" placeholder="주소" onChange={(e) => setAddress(e.target.value) } required/>
-                        <input type="text" className={style.detail} name="addressDetail" id="addressDetail" placeholder="상세주소" onChange={(e) => setAddressDetail(e.target.value)}/>
+                    <div>
+                        <input
+                            className={style.number}
+                            type='text'
+                            placeholder='우편번호'
+                            value={addressNumber || ''}
+                            onClick={loadLayout}
+                            onChange={ (e) => setAddressNumber(e.target.value)}
+                            />
+                        <button id='AddrBtn' className={style.AddrBtn} onClick={loadLayout}>주소찾기</button>
+                        <input
+                            className={style.address}
+                            type='text'
+                            placeholder='주소'
+                            value={address || ''}
+                            onClick={loadLayout}
+                            onChange={ (e) => setAddress(e.target.value)}
+                            />
+                        <input
+                            className={style.detail}
+                            type='text'
+                            placeholder='상세주소'
+                            value={addressDetail || ''}
+                            onChange={ (e) =>  setAddressDetail(e.target.value) }
+                            />
+                    </div>
                 </div>
                 <div className={style.gender}>
                     <div>성별</div>
@@ -261,6 +328,7 @@ const Join = () => {
                 <input type="submit" className={style.join} value="회원가입" />
 		    </form>        
         </div>
+    </Fragment>
     );
 };
 

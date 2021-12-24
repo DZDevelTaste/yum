@@ -60,6 +60,7 @@ public class doctorController {
 	public JsonResult patientInfo(@PathVariable(value = "no") int patientNo) {
 		// System.out.println("api patientNo: " + patientNo);
 		Map<String, Object> patientInfoMap = patientService.patientInfo(patientNo);
+		System.out.println(patientInfoMap);
 		return JsonResult.success(patientInfoMap);
 	}
 
@@ -77,11 +78,8 @@ public class doctorController {
 		System.out.println(diagnosisVo);
 
 		// 1. 해당 진료를 수납 대기중으로 상태 변경
-		int timesOfClinic = diagnosisVo.getPresClinicList().size();
-		int addExpense = timesOfClinic * 2000;
 		OrderVo orderVo = orderService.findByOrderNo(diagnosisVo.getOrderNo());
 		orderVo.setOrderstateNo(4);
-		orderVo.setExpenses(orderVo.getExpenses() + addExpense);
 		orderService.updateState(orderVo);
 		// 진료비도 업데이트 해야함, 클리닉 발생 시 2000 추가!
 

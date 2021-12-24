@@ -3,12 +3,12 @@
 <mapper namespace="medicine">
 	<select id="findByMedicine" resultType="medicinevo">
 		<![CDATA[
-			SELECT "no", code, name, company, ingredient, efficacy, precaution, caution, "sideEffect" FROM "medicine" ORDER BY "name"
+			SELECT "no", code, name, company, ingredient, efficacy, precaution, caution, side_effect FROM "medicine" ORDER BY "name"
 		]]>
 	</select>
 	<select id="findByNoMedicine" resultType="medicinevo">
 		<![CDATA[
-			SELECT code, name, company, ingredient, efficacy, precaution, caution, "sideEffect" FROM "medicine" WHERE "no" = #{no}
+			SELECT code, name, company, ingredient, efficacy, precaution, caution, side_effect FROM "medicine" WHERE "no" = #{no}
 		]]>
 	</select>
 	<insert id="addMedicine" parameterType="medicinevo">
@@ -18,7 +18,7 @@
 	</insert>
 	<update id="updateMedicine" parameterType="medicinevo">
 		<![CDATA[
-			 UPDATE "medicine" SET code = #{code}, name = #{name}, company = #{company}, ingredient = #{ingredient}, efficacy = #{efficacy}, precaution = #{precaution}, caution = #{caution}, "sideEffect" = #{sideEffect} WHERE "no" = #{no}
+			 UPDATE "medicine" SET code = #{code}, name = #{name}, company = #{company}, ingredient = #{ingredient}, efficacy = #{efficacy}, precaution = #{precaution}, caution = #{caution}, side_effect = #{sideEffect} WHERE "no" = #{no}
 		]]>
 	</update> 
 </mapper>

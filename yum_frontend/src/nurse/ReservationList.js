@@ -6,7 +6,7 @@ import ReservationPatient from './ReservationPatient';
 
 
 
-const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, callback}) => {
+const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, callback, changeState}) => {
     const [reservationList, setReservationList] = useState([]);
     const [keyword, setKeyword] = useState('');
     const [selectDate, setSelectDate] = useState('');
@@ -16,6 +16,9 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, cal
         setKeyword(keyword);
     }
 
+    useEffect(() => {
+        console.log('ReservationList:', changeState);
+    }, [changeState])
 
     /* 예약 리스트 불러오기 */
     useEffect(async () => {
@@ -49,7 +52,7 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, cal
         } catch (err) {
             console.error(err)
         }
-    }, [updateList, selectDate]);
+    }, [updateList, selectDate, changeState]);
     
     return (
         <Fragment>

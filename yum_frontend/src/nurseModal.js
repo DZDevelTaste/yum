@@ -1,7 +1,7 @@
 
 import React, {useEffect, useRef, useState} from 'react'; 
 import SockJsClient from 'react-stomp';
-import Msg from './msg';
+import Msg from './nurseMsg';
 
 
 function Messages () { 
@@ -13,23 +13,16 @@ function Messages () {
 
     const $websocket = useRef(null); 
 
-    const getDeleteNum = (deleteNum) => {
-        setDeleteNum(deleteNum);
-        setChangeNum(changeNum + 1);
-    }
-
     useEffect(() => {
-        messages.splice(deleteNum, 1);
-        setChangeNum(changeNum + 1);
-        if(messages.length < 1){
-            setDeleteNum();
+        if(deleteNum !== ''){
+            console.log('deleteNum:', deleteNum);
+            messages.splice(deleteNum, 1);
+            setChangeNum(changeNum + 1);
+            setDeleteNum('');
+            setMessages(messages);
         }
     }, [deleteNum])
-
-    useEffect(() => {
-        setMessages(messages);
-    }, [changeNum])
-
+    
     const sendMessage = async () => {
         try {
             const response = await fetch('/message/api2', {
@@ -77,7 +70,7 @@ function Messages () {
                                         state={msg.state} 
                                         height={messages.indexOf(msg) * 14}
                                         indexNum = {messages.indexOf(msg)}
-                                        callback={getDeleteNum}>
+                                        setDeleteNum={setDeleteNum}>
                                     </Msg>
                                     <div>messages</div>
                                 </>

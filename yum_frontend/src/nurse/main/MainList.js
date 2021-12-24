@@ -5,7 +5,7 @@ import MainPatient from './MainPatient';
 
 import main from '../../assets/scss/nurse/Main.scss';
 
-const MainList = ({currentState, callback}) => {
+const MainList = ({currentState, callback, changeState}) => {
     const today = moment().format('YYYY-MM-DD');
     const [keyword, setKeyword] = useState('');
     const [currentDate, setCurrentDate] = useState(today);
@@ -47,7 +47,7 @@ const MainList = ({currentState, callback}) => {
 
     useEffect(() => {
         findOrderList();
-    }, [currentDate, currentState, updateState, updateList]);
+    }, [currentDate, currentState, updateState, updateList, changeState]);
     
     return (
         <Fragment>

@@ -376,7 +376,7 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                             {
                                 currentPatientNo !== 0
                                 ?   
-                                <div className={InfoStyles.btnBox}>
+                                <div className={InfoStyles.btnBox + InfoStyles.update}>
                                     <button onClick={changeEditForm}>수정</button>
                                     <button onClick={cleanForm}>닫기</button>
                                 </div>

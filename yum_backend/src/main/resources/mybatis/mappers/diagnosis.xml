@@ -30,6 +30,7 @@
 				AND o.no=d.order_no
 				AND o.patient_no=p.no
 				AND p.no=#{patientNo}
+			order by date desc
 		]]>
 	</select>
 </mapper>
