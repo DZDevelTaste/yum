@@ -59,13 +59,13 @@
       position: relative;
       z-index: 4;
       padding: 4px;
-      color: #0000FF
+      background-color: #a1a1fd;
     }
     :global(.fc-daygrid-day.fc-day.fc-day-sun) {
       position: relative;
       z-index: 4;
       padding: 4px;
-      color: #FF0000
+      background-color: #fda1a1;
     }
     /* event container */
   
@@ -234,13 +234,16 @@
   /* --- the rectangle ("block") style of event --- */
   
   :global(.fc-daygrid-block-event) {
+    
     :global(.fc-event-time) {
       font-weight: bold;
       padding: 1px;
+      
     }
   
     :global(.fc-event-title) {
       padding: 1px;
+      color: white;
     }
   }
   

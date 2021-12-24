@@ -2,7 +2,7 @@
 /* TODO: make fc-event selector work when calender in shadow DOM */
 :global(.calendar) {
   width: 1400px;
-  height: 780px;
+  height: 800px;
 }
 :global(.fc-not-allowed) {
   /* override events' custom cursors */

@@ -48,9 +48,4 @@ public class AdminService {
     public MedicineVo findByNoMedicine(int no) {
         return medicineRepository.findByNoMedicine(no);
     }
-	public void fileUpdate(MedicineVo medicineVo) {
-		medicineRepository.fileUpdate(medicineVo);
-		
-	}
-    
 }

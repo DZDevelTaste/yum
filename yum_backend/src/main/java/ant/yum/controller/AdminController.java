@@ -80,12 +80,4 @@ public class AdminController {
 
         return JsonResult.success(medicineVo);
     }
-    @PostMapping("/medicine/fileUpdate")
-    public JsonResult fileUpdate(@RequestBody MedicineVo medicineVo) {
-        adminService.fileUpdate(medicineVo);
-
-        return JsonResult.success(medicineVo);
-    } 
-    
-   
 }

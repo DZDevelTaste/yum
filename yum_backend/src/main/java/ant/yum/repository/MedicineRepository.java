@@ -27,9 +27,4 @@ public class MedicineRepository {
     public MedicineVo findByNoMedicine(int no) {
 		return sqlSession.selectOne("medicine.findByNoMedicine", no);
     }
-	public boolean fileUpdate(MedicineVo medicineVo) {
-		int count = sqlSession.update("medicine.fileUpdate", medicineVo);
-		return count == 1;
-		
-	}
 }
