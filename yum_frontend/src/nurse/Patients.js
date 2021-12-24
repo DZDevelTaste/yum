@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import styles2 from '../assets/scss/PatientList.scss';
+import patientStyles from '../assets/scss/PatientList.scss';
 import SearchBar from '../SearchBar';
 import Patient from './Patient';
 
@@ -45,7 +45,7 @@ const Patients = ({updateInfo, setCurrentPatientNo}) => {
     return (
         <Fragment>
             <SearchBar setKeyword={setKeyword} />
-            <table className={styles2.ListTable}>
+            <table className={patientStyles.ListTable}>
                 <thead>
                 <tr>
                     <th>이름</th>

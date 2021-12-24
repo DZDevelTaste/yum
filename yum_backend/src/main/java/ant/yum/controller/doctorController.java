@@ -60,6 +60,7 @@ public class doctorController {
 	public JsonResult patientInfo(@PathVariable(value = "no") int patientNo) {
 		// System.out.println("api patientNo: " + patientNo);
 		Map<String, Object> patientInfoMap = patientService.patientInfo(patientNo);
+		System.out.println(patientInfoMap);
 		return JsonResult.success(patientInfoMap);
 	}
 

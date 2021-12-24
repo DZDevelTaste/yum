@@ -24,7 +24,7 @@ public class PatientService {
 
 	@Autowired
 	private PrescriptionRepository prescriptionRepository;
-
+	
 	public Map<String, Object> patientInfo(int patientNo) {
 		// System.out.println("service patientNo : " + patientNo);
 		PatientVo patientVo = patientRepository.findByNo(patientNo);
@@ -52,6 +52,10 @@ public class PatientService {
 
     public void updatePatientInfo(PatientVo patientVo) {
         patientRepository.updatePatientInfo(patientVo);
+    }
+
+    public void addPatient(PatientVo patientVo) {
+		patientRepository.addPatient(patientVo);
     }
 
 

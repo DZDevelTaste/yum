@@ -6,18 +6,28 @@
     top: 120px;
     left: 280px;
     width: 1550px;
+    height: 800px;
     display: flex;
     
     .LeftBox {
+        position: relative;
         display: flex;
         flex-direction: column;
+        align-items: flex-end;
         box-sizing: border-box;
         background-color: #F9F9F9;
         text-align: center;
         width: 800px;
-        // height: 850px;
         padding: 15px 20px;
-        // margin: 10px 20px;
+
+        
+        .plusIcon {
+            position: absolute;
+            bottom: 0.8em;
+            right: 0.8em;
+            background-color: #FFFFFF;
+            border-radius: 100%;
+        }
     }
 
     .TopBox, .BottomBox {
@@ -27,8 +37,8 @@
         margin: 10px 20px;
         
         table {
+            flex: auto;
             clear: both; 
-            height: 70%;
             box-sizing: content-box;
             thead {
                 width: 650px;

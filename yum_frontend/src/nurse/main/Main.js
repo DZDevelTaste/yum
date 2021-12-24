@@ -1,12 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react'; 
+import React, { useEffect, useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import SockJsClient from 'react-stomp';
-import { Outlet } from 'react-router';
-import Msg from '../msg';
-import SiteLayout from '../layout/SiteLayout';
+import main from '../../assets/scss/nurse/Main.scss';
+import SiteLayout from '../../layout/SiteLayout';
+import Msg from '../../nurseMsg';
 import MainList from './MainList';
 
-import main from '../assets/scss/nurse/Main.scss';
-import toast, { Toaster } from 'react-hot-toast';
 
 
 const Main = () => {
@@ -16,7 +15,7 @@ const Main = () => {
     const [deleteNum, setDeleteNum] = useState();
     const [changeNum, setChangeNum] = useState(0);
 
-    const [modalData, setModalData] = useState({isOpen: false})
+    const [modalData, setModalData] = useState({isOpen: false});
     
     const $websocket = useRef(null); 
 
@@ -28,36 +27,9 @@ const Main = () => {
             setMessages(messages);
         }
     }, [deleteNum])
-    
-    const sendMessage = async () => {
-        try {
-            const response = await fetch('/message/api2', {
-                method: 'post',
-                mode: 'cors',  
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    "patientName": messages.patientName,
-                    "from": "nurse",
-                    "to": "doctor",
-                  })
-            });
-
-            if(!response.ok) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-
-        } catch (error) { 
-            console.error(error);
-        }
-    }
 
     useEffect(() => {
         setChangeNum(changeNum + 1);
-        console.log(changeNum);
     }, [messages])
 
 
@@ -66,7 +38,7 @@ const Main = () => {
     }
     return (
         <SiteLayout>
-            <SockJsClient url="http://localhost:8080/yum" 
+            <SockJsClient url="http://34.64.204.254:8080/yum" 
                     topics={['/topic/nurse']}
                     onMessage={msg => { 
                         setMessages([...messages, msg ]);

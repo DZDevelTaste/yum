@@ -5,7 +5,7 @@ import SiteLayout from '../layout/SiteLayout';
 import OrderForm from './OrderForm';
 import Patients from './Patients';
 import OrderList from './OrderList';
-import Msg from '../msg';
+import Msg from '../nurseMsg';
 
 import styles1 from '../assets/scss/Content.scss';
 import styles2 from '../assets/scss/Order.scss';
@@ -18,8 +18,13 @@ const Order = () => {
     const [currentPatientNo, setCurrentPatientNo] = useState(0);
     const [addPatient, setAddPatient] = useState({});
     const [addOrder, setAddOrder] = useState({});
+    const [changeNum, setChangeNum] = useState(0);
 
     const $websocket = useRef(null); 
+
+    useEffect(() => {
+        setChangeNum(changeNum + 1);
+    }, [messages])
 
     useEffect(() => {
         if(deleteNum !== ''){
@@ -57,7 +62,7 @@ const Order = () => {
                 <div className={styles1.BottomBox}>
                     <h2>접수 리스트</h2>
                     <OrderList
-                        addOrder={addOrder}/>
+                        addOrder={addOrder} changeState={changeNum}/>
                 </div>
             </div>
 
@@ -67,7 +72,7 @@ const Order = () => {
                     no={currentPatientNo} />
             </div>
             
-            <SockJsClient url="http://localhost:8080/yum" 
+            <SockJsClient url="http://34.64.204.254:8080/yum" 
                     topics={['/topic/nurse']}
                     onMessage={msg => { 
                         setMessages([...messages, msg ]);

@@ -15,10 +15,10 @@ import Timer from './Timer';
 import DoctorMain from './doctor/DoctorMain';
 import Update from './Main/Update';
 import Message from './nurseModal';
-import NurseMain from './nurse/Main';
+import NurseMain from './nurse/main/Main';
 import Order from './nurse/Order';
 import Reservation from './nurse/Reservation';
-import PatientList from './nurse/PatientList';
+import PatientList from './nurse/patientList/PatientList';
 import SocketTest from './socketTest';
 
 const App = () => {

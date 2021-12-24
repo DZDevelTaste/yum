@@ -1,40 +1,82 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import Modal from 'react-modal';
-import Postcode from '../Postcode';
 
 import styles1 from '../assets/scss/OrderForm.scss';
 import styles2 from '../assets/scss/Postcode.scss';
 
 
-Modal.setAppElement('body');
-
 const OrderForm = ({no, callback}) => {
     const [patientVo, setPatientVo] = useState({gender: 'M', insuarance: 'N'});
     const [phone, setPhone] = useState({phone1: '010'});
     const [rrn, setRrn] = useState({});
-    const [order, setOrder] = useState({orderstateNo: 2});
+    const [order, setOrder] = useState({userNo: sessionStorage.getItem('no'), orderstateNo: 2});
     const [addr, setAddr] = useState({});
-    const [isOpenHandler, setIsOpenHandler] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
-    const modalInnerRef = useRef(null);
+    const postcodeRef = useRef(null);
 
+    const loadLayout = (e) => {
+        e.preventDefault();
+        window.daum.postcode.load(() => {
+            const postcode = new window.daum.Postcode({
+                oncomplete: function (data) {
+                    let address = data.address;
+                    let extraAddress = ''; // 참고항목
+            
+                    // 내려오는 변수가 값이 없는 경우 공백('') 값을 가짐 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져옴
+                    if (data.addressType === 'R') { // addressType - 검색된 기본 주소 타입: R(도로명), J(지번)
+                        if (data.bname !== '') { // bname - 법정동/법정리 이름
+                            // bname 값이 있을 경우 extraAddress에 추가
+                            extraAddress += data.bname;
+                        }
+                        if (data.buildingName !== '') { // buidingName - 건물명
+                            // extraAddress가 빈값이 아니면 ', 건물명'으로 빈값일 경우 '건물명'으로 추가
+                            extraAddress += (
+                                extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName
+                            );
+                        }
+            
+                        if(extraAddress !== ''){
+                            address += ` (${extraAddress})`;
+                        }
+                    }
+                    // console.log(data.zonecode); 
+                    // console.log(fullAddress);   // e.g. '서울 성동구 왕십리로2길20 (성수동1가)'
+                    const addressData = {
+                        zonecode: data.zonecode,
+                        address: address,
+                    }
+            
+                    setAddr({ zonecode: data.zonecode, address: address });
+                },
+            });
+
+            postcode.open({
+                popupTitle: '주소 검색',
+                popupKey: 'addressPopup1',
+                left: (e.clientX / 2),
+                top: (e.clientY / 2)
+            });
+
+        });
+    };
+
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+        document.body.append(script);
+    }, []);
 
     useEffect(() => {
         if(no != 0 || no != '') {
             selectPatient();
-            if(order.desc != null) setOrder({});
+            if(order.desc != null) setOrder({userNo: sessionStorage.getItem('no'), orderstateNo: 2});
         }
     }, [no]);
 
-    const notifyAddr = (addrData) => {
-        setAddr(addrData);
-        setIsOpenHandler(false);
-    } 
 
     /* patientNo를 받아왔을 때 해당 환자의 정보를 가져온다 */
     const selectPatient = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/nurse/patientInfo/${no}`, {
+            const response = await fetch(`/api/nurse/patientInfo/${no}`, {
                 method: 'get',
                 mode: 'cors',
                 credentials: 'include',
@@ -118,22 +160,8 @@ const OrderForm = ({no, callback}) => {
         setPhone({phone1: '010'});
         setRrn({});
         setAddr({});
-        setOrder({orderstateNo: 2});
+        setOrder({userNo: sessionStorage.getItem('no'), orderstateNo: 2});
     }
-
-    const stateClickEvent = (e) => {
-        // 사용자가 클릭한 위치
-        let x = e.clientX;
-        let y = e.clientY;
-
-        setTimeout(() => {
-            const modalDiv = modalInnerRef.current.parentNode;
-            modalDiv.style.top = y + "px";
-            modalDiv.style.left = x + "px";
-        }, 0);
-        setIsOpenHandler(true);
-    } 
-
 
     /* 접수폼 입력 체크 */
     const formCheck = () => {
@@ -361,23 +389,25 @@ const OrderForm = ({no, callback}) => {
                             type='text'
                             placeholder='우편번호'
                             value={addr.zonecode || ''}
-                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
-                            onChange={ () => setAddr(Object.assign({}, addr, {zonecode: addr.zonecode}) )}
+                            onClick={loadLayout}
+                            onChange={ (e) =>  setAddr(Object.assign({}, addr, {zonecode: e.target.value})) }
                             />
-                        <button id='AddrBtn' className={styles2.AddrBtn} onClick={stateClickEvent}>주소찾기</button>
+                        <button id='AddrBtn' className={styles2.AddrBtn} onClick={loadLayout}>주소찾기</button>
                         <input
                             className={styles2.Address}
                             type='text'
                             placeholder='주소'
                             value={addr.address || ''}
-                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
-                            onChange={ () => setAddr(Object.assign({}, addr, {address: addr.address}) )}
+                            onClick={loadLayout}
+                            onChange={ (e) =>  setAddr(Object.assign({}, addr, {address: e.target.value})) }
                             />
+                        <div className='postcodeApi' ref={postcodeRef}></div> 
+
                         <input
                             className={styles2.DetailAddr}
                             type='text'
                             placeholder='상세주소'
-                            value={addr.detailAddress || ''}
+                            value={addr.detailAddr || ''}
                             onChange={ (e) =>  setAddr(Object.assign({}, addr, {detailAddr: e.target.value})) }
                             />
                     </div>
@@ -430,21 +460,6 @@ const OrderForm = ({no, callback}) => {
                     <button onClick={formCheck}>완료</button>
                 </div>
             </div>
-                        
-            {/* 주소찾기 모달 */}
-            <Modal 
-                className={styles2.Modal}
-                overlayClassName={styles2.Overlay}
-                onRequestClose={ () => setIsOpenHandler(false) }
-                isOpen={isOpenHandler}>
-                
-                <button
-                    className={styles2.Close}
-                    ref={modalInnerRef}
-                    onClick={() => {setIsOpenHandler(false)}}>X</button>
-                <Postcode callback={notifyAddr}/>
-
-            </Modal>
             
         </Fragment>
     );

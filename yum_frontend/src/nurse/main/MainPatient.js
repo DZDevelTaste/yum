@@ -1,9 +1,9 @@
 import React, { Fragment, useRef, useState } from 'react';
 import Modal from 'react-modal';
-import '../assets/scss/Content.scss';
-import main from '../assets/scss/nurse/Main.scss';
+// import '../../assets/scss/Content.scss';
+import main from '../../assets/scss/nurse/Main.scss';
 
-import modalStyles from '../assets/scss/Modal.scss';
+import modalStyles from '../../assets/scss/Modal.scss';
 import DetailInfo from './DetailInfo';
 import Receive from './receive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -163,6 +163,34 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
         }
     }
 
+    const sendMessage = async (order) => {
+        try {
+            const response = await fetch('/message/api2', {
+                method: 'post',
+                mode: 'cors',  
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    "patientName": order.patientVo.name,
+                    "from": "nurse",
+                    "to": "doctor",
+                    "state": "start",
+                    "order": order
+                  })
+            });
+
+            if(!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+
+        } catch (error) { 
+            console.error(error);
+        }
+    }
+
 
     return (
         <Fragment>
@@ -242,7 +270,7 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
                             <ul ref={modalInnerRef}>
                                 <li onClick={() => updateState(1)}>예약</li>
                                 <li onClick={() => updateState(2)}>진료대기</li>
-                                <li onClick={() => updateState(3)}>진료중</li>
+                                <li onClick={() => {updateState(3); sendMessage(order);}}>진료중</li>
                             </ul>
                         )
                         : modalData.kind === 'detailInfo' ?

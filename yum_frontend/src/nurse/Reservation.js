@@ -6,7 +6,7 @@ import styles2 from '../assets/scss/Order.scss';
 import Patients from './Patients';
 import ReservationList from './ReservationList';
 import ReservationForm from './ReservationForm';
-import Msg from '../msg';
+import Msg from '../nurseMsg';
 
 
 
@@ -66,7 +66,7 @@ const Reservation = () => {
                     setCurrentPatientNo={setCurrentPatientNo} />
             </div>
 
-            <SockJsClient url="http://localhost:8080/yum" 
+            <SockJsClient url="http://34.64.204.254:8080/yum" 
                     topics={['/topic/nurse']}
                     onMessage={msg => { 
                         setMessages([...messages, msg ]);

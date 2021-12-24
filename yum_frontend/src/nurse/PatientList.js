@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react'; 
 import styles1 from '../assets/scss/Content.scss';
-import SiteLayout from '../layout/SiteLayout';
+import SiteLayout from '../../layout/SiteLayout';
 import PatientInfo from './PatientInfo';
 import Patients from './Patients';
 import SockJsClient from 'react-stomp';
-import Msg from '../msg';
+import Msg from '../../nurseMsg';
 
 const PatientList = () => {
     
@@ -50,7 +50,7 @@ const PatientList = () => {
                     no={currentPatientNo} />
             </div>
 
-            <SockJsClient url="http://localhost:8080/yum" 
+            <SockJsClient url="http://34.64.204.254:8080/yum" 
                     topics={['/topic/nurse']}
                     onMessage={msg => { 
                         setMessages([...messages, msg ]);
