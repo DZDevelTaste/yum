@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import SiteLayout from '../layout/SiteLayout';
+import SiteLayout from '../../layout/SiteLayout';
 import MainList from './MainList';
 
-import main from '../assets/scss/nurse/Main.scss';
+import main from '../../assets/scss/nurse/Main.scss';
 import toast, { Toaster } from 'react-hot-toast';
 
 

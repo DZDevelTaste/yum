@@ -2,7 +2,6 @@
 
 .ListTable {
     height: 100%;
-    display: block;
 
     thead, tbody {
         display: block;
@@ -30,6 +29,10 @@
         }
         tr{
             cursor: pointer;
+            
+            &:hover {
+                background-color: #d3d3d3;
+            }
         }
     }
     
@@ -52,4 +55,3 @@
 
     }
 }
-

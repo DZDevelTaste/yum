@@ -1,13 +1,8 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import Modal from 'react-modal';
-import Postcode from '../Postcode';
 
 import styles1 from '../assets/scss/OrderForm.scss';
 import styles2 from '../assets/scss/Postcode.scss';
 
-
-Modal.setAppElement('body');
-const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
 
 const OrderForm = ({no, callback}) => {
     const [patientVo, setPatientVo] = useState({gender: 'M', insuarance: 'N'});
@@ -16,10 +11,10 @@ const OrderForm = ({no, callback}) => {
     const [order, setOrder] = useState({userNo: sessionStorage.getItem('no'), orderstateNo: 2});
     const [addr, setAddr] = useState({});
     const [formSuccess, setFormSuccess] = useState(false);
-    const modalInnerRef = useRef(null);
     const postcodeRef = useRef(null);
 
-    const loadLayout = () => {
+    const loadLayout = (e) => {
+        e.preventDefault();
         window.daum.postcode.load(() => {
             const postcode = new window.daum.Postcode({
                 oncomplete: function (data) {
@@ -50,18 +45,23 @@ const OrderForm = ({no, callback}) => {
                         address: address,
                     }
             
-                    setAddr(addressData);
+                    setAddr({ zonecode: data.zonecode, address: address });
                 },
             });
+
             postcode.open({
-                popupTitle: '주소 검색'
+                popupTitle: '주소 검색',
+                popupKey: 'addressPopup1',
+                left: (e.clientX / 2),
+                top: (e.clientY / 2)
             });
+
         });
     };
 
     useEffect(() => {
         const script = document.createElement("script");
-        script.src = src;
+        script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
         document.body.append(script);
     }, []);
 
@@ -390,7 +390,7 @@ const OrderForm = ({no, callback}) => {
                             placeholder='우편번호'
                             value={addr.zonecode || ''}
                             onClick={loadLayout}
-                            onChange={ () => setAddr(Object.assign({}, addr, {zonecode: addr.zonecode}) )}
+                            onChange={ (e) =>  setAddr(Object.assign({}, addr, {zonecode: e.target.value})) }
                             />
                         <button id='AddrBtn' className={styles2.AddrBtn} onClick={loadLayout}>주소찾기</button>
                         <input
@@ -399,18 +399,17 @@ const OrderForm = ({no, callback}) => {
                             placeholder='주소'
                             value={addr.address || ''}
                             onClick={loadLayout}
-                            onChange={ () => setAddr(Object.assign({}, addr, {address: addr.address}) )}
+                            onChange={ (e) =>  setAddr(Object.assign({}, addr, {address: e.target.value})) }
                             />
+                        <div className='postcodeApi' ref={postcodeRef}></div> 
+
                         <input
                             className={styles2.DetailAddr}
                             type='text'
                             placeholder='상세주소'
-                            value={addr.detailAddress || ''}
+                            value={addr.detailAddr || ''}
                             onChange={ (e) =>  setAddr(Object.assign({}, addr, {detailAddr: e.target.value})) }
                             />
-                        
-                        <div ref={postcodeRef}></div> 
-
                     </div>
                 </div>
                 <div>

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import styles from '../assets/scss/nurse/PatientDetailInfo.scss';
+import styles from '../../assets/scss/nurse/PatientDetailInfo.scss';
 
 const DetailInfo = ({patientNo, setModalData}) => {
     const [patientInfo, setPatientInfo] = useState({});

@@ -31,14 +31,19 @@ public class NurseController {
     @Autowired
     private OrderService orderService;
 
+    @PostMapping("/addPatient")
+    public JsonResult addPatient(@RequestBody PatientVo patientVo){
+        /* 환자 추가 */
+
+        patientService.addPatient(patientVo);
+
+        return JsonResult.success(patientVo);
+    }
+
     @PostMapping("/order")
     public JsonResult addOrder(@RequestBody OrderVo orderVo){
         /* 환자 접수/예약 */
-        // int receptionist = authUser.getNo();     // 접수하는 간호사(로그인한 user)
-        int receptionist = 5;   // 임시값
-        orderVo.setUserNo(receptionist);
 
-        System.out.println("제대로 들어왔니 ==== " + orderVo);
         orderService.addOrder(orderVo);
 
         return JsonResult.success(orderVo);

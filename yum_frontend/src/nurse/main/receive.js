@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
-import styles from '../assets/scss/nurse/Receive.scss';
+import styles from '../../assets/scss/nurse/Receive.scss';
 
 
 Modal.setAppElement('body');

@@ -1,10 +1,9 @@
 import moment from 'moment';
 import React, { Fragment, useEffect, useState } from 'react';
-import SearchBar from '../SearchBar';
+import SearchBar from '../../SearchBar';
 import MainPatient from './MainPatient';
 
-import main from '../assets/scss/nurse/Main.scss';
-import styles2 from '../assets/scss/OrderPatient.scss';
+import main from '../../assets/scss/nurse/Main.scss';
 
 const MainList = ({currentState, callback}) => {
     const today = moment().format('YYYY-MM-DD');

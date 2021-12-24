@@ -1,6 +1,10 @@
 @charset 'utf-8';
 
+h3 {
+    margin: 10px 0;
+}
 .patientInfo {
+    
     table {
         // margin-left: 20px;
         margin: 0 auto;
@@ -25,8 +29,9 @@
     }
 
     border-bottom: 2px solid #737373;
-    padding-bottom: 25px;
-
+    padding-bottom: 50px;
+    
+    
 }
 
 .diagnosisList {
@@ -84,20 +89,22 @@
 }
 
 .btnBox {
-    width: 100%;
+    position: absolute;
+    top: 43%;
+    right: 50px;
     text-align: center;
-    margin: 20px 0;
 
     
     button {
         box-sizing: border-box;
-        width: 140px;
-        height: 40px;
+        width: 80px;
+        height: 30px;
         padding: 5px;
+        margin: 0 10px;
         color: #333333;
         background-color: #ffffff;
         border: 1px solid #737373;
-        font-size: 18px;
+        font-size: 13px;
         font-weight: bold;
     }
 }

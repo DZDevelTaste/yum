@@ -1,37 +1,94 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import Modal from 'react-modal';
 
-import styles1 from '../assets/scss/nurse/PatientDetailInfo.scss';
-import postcodeStyles from '../assets/scss/Postcode.scss';
-import Postcode from '../Postcode';
+import InfoStyles from '../../assets/scss/nurse/PatientInfo.scss';
+import postcodeStyles from '../../assets/scss/Postcode.scss';
 
 
-Modal.setAppElement('body');
 
-const PatientInfo = ({no, setUpdatePatient}) => {
+const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, changeAddForm, setChangeAddForm}) => {
     const [chooseButton, setChooseButton] = useState(false);
     const [patientInfo, setPatientInfo] = useState({});
     const [diagnosisList, setDiagnosisList] = useState([]);
-    const [updateInfo, setUpdateInfo] = useState({});
+    const [updateInfo, setUpdateInfo] = useState({gender: 'M', insuarance: 'N'});
     const [phone, setPhone] = useState({phone1: '010'});
     const [rrn, setRrn] = useState({});
     const [addr, setAddr] = useState({});
-    const [isOpenHandler, setIsOpenHandler] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
-    const modalInnerRef = useRef(null);
+    const postcodeRef = useRef(null);
+
+    const loadLayout = (e) => {
+        window.daum.postcode.load(() => {
+            const postcode = new window.daum.Postcode({
+                oncomplete: function (data) {
+                    let address = data.address;
+                    let extraAddress = ''; // 참고항목
+            
+                    // 내려오는 변수가 값이 없는 경우 공백('') 값을 가짐 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져옴
+                    if (data.addressType === 'R') { // addressType - 검색된 기본 주소 타입: R(도로명), J(지번)
+                        if (data.bname !== '') { // bname - 법정동/법정리 이름
+                            // bname 값이 있을 경우 extraAddress에 추가
+                            extraAddress += data.bname;
+                        }
+                        if (data.buildingName !== '') { // buidingName - 건물명
+                            // extraAddress가 빈값이 아니면 ', 건물명'으로 빈값일 경우 '건물명'으로 추가
+                            extraAddress += (
+                                extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName
+                            );
+                        }
+            
+                        if(extraAddress !== ''){
+                            address += ` (${extraAddress})`;
+                        }
+                    }
+                    // console.log(data.zonecode); 
+                    // console.log(fullAddress);   // e.g. '서울 성동구 왕십리로2길20 (성수동1가)'
+                    const addressData = {
+                        zonecode: data.zonecode,
+                        address: address,
+                    }
+            
+                    setAddr({ zonecode: data.zonecode, address: address });
+                },
+            });
+
+            postcode.open({
+                popupTitle: '주소 검색',
+                popupKey: 'addressPopup1',
+                left: (e.clientX / 2),
+                top: (e.clientY / 2)
+            });
+
+        });
+    };
+
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+        document.body.append(script);
+    }, []);
 
     /* patientNo 값이 들어온 경우(환자를 선택한 경우) 실행 */
     useEffect(() => {
-        if(no !== 0) {
+        if(currentPatientNo !== 0) {
+            if(changeAddForm){
+                setChangeAddForm(false);
+            }
             selectPatient();
             setChooseButton(false);
         }
-    }, [no]);
+    }, [currentPatientNo]);
+
+    useEffect(() => {
+        if(changeAddForm){
+            cleanForm();
+            setChooseButton(true);
+        }
+    }, [changeAddForm]);
 
     /* patientNo를 받아왔을 때 해당 환자의 정보를 가져온다 */
     const selectPatient = async () => {
         try {
-            const response = await fetch(`/api/nurse/patientInfo/${no}`, {
+            const response = await fetch(`/api/nurse/patientInfo/${currentPatientNo}`, {
                 method: 'get',
                 mode: 'cors',
                 credentials: 'include',
@@ -109,24 +166,17 @@ const PatientInfo = ({no, setUpdatePatient}) => {
             console.error(err);
         }
     }
-
-    const notifyAddr = (addrData) => {
-        setAddr(addrData);
-        setIsOpenHandler(false);
+    
+    /* 닫기 버튼 이벤트 */
+    const cleanForm = () => {
+        setChooseButton(false);
+        setPatientInfo({});
+        setUpdateInfo({gender: 'M', insuarance: 'N'});
+        setRrn({});
+        setAddr({});
+        setPhone({phone1: '010'});
+        setCurrentPatientNo(0);
     }
-
-    const stateClickEvent = (e) => {
-        // 사용자가 클릭한 위치
-        let x = e.clientX;
-        let y = e.clientY;
-
-        setTimeout(() => {
-            const modalDiv = modalInnerRef.current.parentNode;
-            modalDiv.style.top = y + "px";
-            modalDiv.style.left = x + "px";
-        }, 0);
-        setIsOpenHandler(true);
-    } 
 
     const formCheck = () => {
         if(patientInfo === updateInfo) {
@@ -134,7 +184,7 @@ const PatientInfo = ({no, setUpdatePatient}) => {
             return;
         }
         
-        if(patientInfo.name == undefined || patientInfo.name.trim() === '') {
+        if(updateInfo.name == undefined || updateInfo.name.trim() === '') {
             alert('이름을 입력해주세요.');
             return;
         }
@@ -147,12 +197,12 @@ const PatientInfo = ({no, setUpdatePatient}) => {
             return;
         }
 
-        if(patientInfo.length == undefined || patientInfo.length === '') {
+        if(updateInfo.length == undefined || updateInfo.length === '') {
             alert('키를 입력해주세요.');
             return;
         }
 
-        if(patientInfo.weight == undefined || patientInfo.weight === '') {
+        if(updateInfo.weight == undefined || updateInfo.weight === '') {
             alert('몸무게를 입력해주세요.');
             return;
         }
@@ -175,18 +225,26 @@ const PatientInfo = ({no, setUpdatePatient}) => {
 
         // 연락처 'xxx-xxxx-xxxx' 형식으로 합치기
         let phoneResult = phone.phone1 + '-' + phone.phone2+ '-' + phone.phone3;
-        
-        setOrder(Object.assign({}, order, 
-                    {patientVo: 
-                        Object.assign({}, patientVo, {rrn: rrnResult, phone: phoneResult, address: addrResult})
-                    }
-                    ));
+        if (currentPatientNo !== 0){
+            setOrder(Object.assign({}, order, 
+                {patientVo: 
+                    Object.assign({}, patientVo, {rrn: rrnResult, phone: phoneResult, address: addrResult})
+                }
+            ));
+        } else {
+            setUpdateInfo(Object.assign({}, updateInfo,{rrn: rrnResult, phone: phoneResult, address: addrResult}));
+        }
         setFormSuccess(true);
     }
 
     useEffect(() => {
-        if(formSuccess){
+        if(formSuccess && (currentPatientNo !== 0)){
             updatePatientInfo();
+            return;
+        }
+        if(formSuccess && (currentPatientNo === 0)){
+            addPatientInfo();
+            return;
         }
     }, [formSuccess]);
 
@@ -195,7 +253,7 @@ const PatientInfo = ({no, setUpdatePatient}) => {
         확인/취소 버튼을 눌렸을 경우 text로 변경
      */
     const changeEditForm = (e) => {
-        if((!chooseButton) && (no != 0 || no != '')){
+        if((!chooseButton) && (currentPatientNo !== 0)){
             setChooseButton(true);
             setUpdateInfo(patientInfo);
             setFormSuccess(false);
@@ -205,11 +263,44 @@ const PatientInfo = ({no, setUpdatePatient}) => {
         setChooseButton(false);
     }
 
+    /* 환자 추가 이벤트 */
+    const addPatientInfo = async (e) => {
+        try {
+            const response = await fetch('/api/nurse/addPatient', {
+                method: 'post',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept' : 'application/json'
+                },
+                body: JSON.stringify(updateInfo)
+            });
+
+            if(!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+            
+            const jsonResult = await response.json();
+            
+            if(jsonResult.result !== 'success') {
+                throw new Error(`${jsonResult.result} ${jsonResult.message}`);
+            }
+
+            setPatientInfo(updateInfo);
+            setUpdatePatient(updateInfo);
+            changeEditForm();
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     /* 환자 업데이트 이벤트 */
     const updatePatientInfo = async (e) => {
         
         try {
-            const response = await fetch('http://localhost:8080/api/nurse/updatePatientInfo', {
+            const response = await fetch('/api/nurse/updatePatientInfo', {
                 method: 'put',
                 mode: 'cors',
                 credentials: 'include',
@@ -241,8 +332,8 @@ const PatientInfo = ({no, setUpdatePatient}) => {
 
     return (
         <Fragment>
-            <div className={styles1.patientInfo}>
-                <h2>환자 정보</h2>
+            <div className={InfoStyles.patientInfo}>
+                <h3>환자 정보</h3>
                 {
                     !chooseButton ? 
                         <Fragment>
@@ -283,23 +374,24 @@ const PatientInfo = ({no, setUpdatePatient}) => {
                                 </tbody>
                             </table>
                             {
-                                no !== 0
-                                ? <button onClick={changeEditForm}>수정</button>
+                                currentPatientNo !== 0
+                                ?   
+                                <div className={InfoStyles.btnBox}>
+                                    <button onClick={changeEditForm}>수정</button>
+                                    <button onClick={cleanForm}>닫기</button>
+                                </div>
                                 : null
                             }
                         </Fragment> :
                         <Fragment>
-                            <div className={styles1.OrderForm}>
+                            <div className={InfoStyles.OrderForm}>
                                 <div>
                                     <label>이름</label>
                                     <input 
                                         type='text' 
-                                        className={styles1.name}
+                                        className={InfoStyles.name}
                                         value={updateInfo.name || ''}
-                                        onChange=
-                                            {(e) => {
-                                                    if(no==0) setUpdateInfo(Object.assign({}, updateInfo, {name: e.target.value}))
-                                            }}/>
+                                        onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {name: e.target.value}))}/>
                                 </div>
                                 <div>
                                     <label>성별</label>
@@ -309,49 +401,34 @@ const PatientInfo = ({no, setUpdatePatient}) => {
                                         name='gender' 
                                         value={'M'}
                                         checked={updateInfo.gender === 'M' || patientInfo.gender == null}
-                                        onChange=
-                                            {(e) => {
-                                                        if(no==0) setUpdateInfo(Object.assign({}, updateInfo, {gender: e.target.value}))
-                                            }}/> <label>남</label>
+                                        onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {gender: e.target.value}))}/> <label>남</label>
                                     <input 
                                         type='radio' 
                                         name='gender' 
                                         value={'F'}
                                         checked={updateInfo.gender === 'F'}
-                                        onChange=
-                                            {(e) => {
-                                                if(no==0) setUpdateInfo(Object.assign({}, updateInfo, {gender: e.target.value}))
-                                            }}/><label>여</label>
+                                        onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {gender: e.target.value}))}/><label>여</label>
                                 </div>
                                 <div>
                                     <label>주민등록번호</label>
                                     <input 
                                         type='text' 
-                                        className={styles1.rrn}
+                                        className={InfoStyles.rrn}
                                         value={rrn.rrn1 || ''}
-                                        onChange=
-                                            {(e) => {
-                                                if(no==0) setRrn(Object.assign({}, rrn, {rrn1: e.target.value}))
-                                            }}/>
+                                        onChange={(e) => setRrn(Object.assign({}, rrn, {rrn1: e.target.value}))}/>
                                             -
                                     <input 
                                         type='text' 
-                                        className={styles1.rrn}
+                                        className={InfoStyles.rrn}
                                         value={rrn.rrn2 || ''}
-                                        onChange=
-                                            {(e) => {
-                                                if(no==0) setRrn(Object.assign({}, rrn, {rrn2: e.target.value}))
-                                            }}/>
+                                        onChange={(e) => setRrn(Object.assign({}, rrn, {rrn2: e.target.value}))}/>
                                 </div>
                                 <div>
                                     <label>연락처</label>
                                     <select 
-                                        className={styles1.phone1}
+                                        className={InfoStyles.phone1}
                                         value={phone.phone1} 
-                                        onChange=
-                                            {(e) => {
-                                                if(no==0) setPhone(Object.assign({}, phone, {phone1: e.target.value}))
-                                            }}>
+                                        onChange={(e) => setPhone(Object.assign({}, phone, {phone1: e.target.value}))}>
                                         <option value="010">010</option>
                                         <option value="016">016</option>
                                         <option value="017">017</option>
@@ -361,70 +438,58 @@ const PatientInfo = ({no, setUpdatePatient}) => {
                                     -
                                     <input 
                                         type='text' 
-                                        className={styles1.phone}
+                                        className={InfoStyles.phone}
                                         value={phone.phone2 || ''}
-                                        onChange=
-                                            {(e) => {
-                                                if(no==0) setPhone(Object.assign({}, phone, {phone2: e.target.value}))
-                                            }}/>
+                                        onChange={(e) => setPhone(Object.assign({}, phone, {phone2: e.target.value}))}/>
                                     -
                                     <input 
                                         type='text' 
-                                        className={styles1.phone}
+                                        className={InfoStyles.phone}
                                         value={phone.phone3 || ''}
-                                        onChange=
-                                            {(e) => {
-                                                if(no==0) setPhone(Object.assign({}, phone, {phone3: e.target.value}))
-                                            }}/>
+                                        onChange={(e) => setPhone(Object.assign({}, phone, {phone3: e.target.value}))}/>
                                 </div>
                                 <div>
                                     <label>키</label>
                                     <input 
                                             type='text' 
-                                            className={styles1.length}
+                                            className={InfoStyles.length}
                                             value={updateInfo.length || ''}
-                                            onChange=
-                                                {(e) => {
-                                                    if(no==0) setUpdateInfo(Object.assign({}, updateInfo, {length: e.target.value}))
-                                                }}/> cm
+                                            onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {length: e.target.value}))}/> cm
                                     <label>몸무게</label>
                                     <input 
                                         type='text' 
-                                        className={styles1.weight}
+                                        className={InfoStyles.weight}
                                         value={updateInfo.weight || ''}
-                                        onChange=
-                                            {(e) => {
-                                                if(no==0) setUpdateInfo(Object.assign({}, updateInfo, {weight: e.target.value}))
-                                            }}/> kg
+                                        onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {weight: e.target.value}))}/> kg
                                 </div>
                                 <div className={postcodeStyles.addr}>
                                     <label>주소</label>
-                                    <div>
-                                        <input
-                                            className={postcodeStyles.Zonecode}
-                                            type='text'
-                                            placeholder='우편번호'
-                                            value={addr.zonecode || ''}
-                                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
-                                            onChange={ () => setAddr(Object.assign({}, addr, {zonecode: addr.zonecode}) )}
-                                            />
-                                        <button id='AddrBtn' className={postcodeStyles.AddrBtn} onClick={stateClickEvent}>주소찾기</button>
-                                        <input
-                                            className={postcodeStyles.Address}
-                                            type='text'
-                                            placeholder='주소'
-                                            value={addr.address || ''}
-                                            onClick={ (e) => {e.target.blur(); stateClickEvent(e)} }
-                                            onChange={ () => setAddr(Object.assign({}, addr, {address: addr.address}) )}
-                                            />
-                                        <input
-                                            className={postcodeStyles.DetailAddr}
-                                            type='text'
-                                            placeholder='상세주소'
-                                            value={addr.detailAddress || ''}
-                                            onChange={ (e) =>  setAddr(Object.assign({}, addr, {detailAddr: e.target.value})) }
-                                            />
-                                    </div>
+                                    <input
+                                        className={postcodeStyles.Zonecode}
+                                        type='text'
+                                        placeholder='우편번호'
+                                        value={addr.zonecode || ''}
+                                        onClick={loadLayout}
+                                        onChange={ (e) =>  setAddr(Object.assign({}, addr, {zonecode: e.target.value})) }
+                                        />
+                                    <button id='AddrBtn' className={postcodeStyles.AddrBtn} onClick={loadLayout}>주소찾기</button>
+                                    <input
+                                        className={postcodeStyles.Address}
+                                        type='text'
+                                        placeholder='주소'
+                                        value={addr.address || ''}
+                                        onClick={loadLayout}
+                                        onChange={ (e) =>  setAddr(Object.assign({}, addr, {address: e.target.value})) }
+                                        />
+                                    <div className='postcodeApi' ref={postcodeRef}></div> 
+
+                                    <input
+                                        className={postcodeStyles.DetailAddr}
+                                        type='text'
+                                        placeholder='상세주소'
+                                        value={addr.detailAddr || ''}
+                                        onChange={ (e) => setAddr(Object.assign({}, addr, {detailAddr: e.target.value})) }
+                                        />
                                 </div>
                                 <div>
                                     <label>보험여부</label>
@@ -433,42 +498,34 @@ const PatientInfo = ({no, setUpdatePatient}) => {
                                             name='insuarance' 
                                             value={'Y'}
                                             checked={updateInfo.insuarance === 'Y'}
-                                            onChange=
-                                                {(e) => {
-                                                    if(no==0) setUpdateInfo(Object.assign({}, updateInfo, {insuarance: e.target.value}))
-                                                }}/>가입
+                                            onChange={(e) =>  setUpdateInfo(Object.assign({}, updateInfo, {insuarance: e.target.value}))}/>가입
                                         <input 
                                             type='radio' 
                                             name='insuarance' 
                                             value={'N'}
                                             checked={updateInfo.insuarance === 'N' || patientInfo.insuarance == null}
-                                            onChange=
-                                                {(e) => {
-                                                    if(no==0) setPatientVo(Object.assign({}, updateInfo, {insuarance: e.target.value}))
-                                                }}/>미가입
+                                            onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {insuarance: e.target.value}))}/>미가입
                                 </div>
                                 <div>
                                     <label>비고</label>
                                         <textarea 
-                                            className={styles1.desc}
+                                            className={InfoStyles.desc}
                                             value={updateInfo.desc || ''}
-                                            onChange=
-                                                {(e) => {
-                                                    if(no==0) setUpdateInfo(Object.assign({}, updateInfo, {desc: e.target.value}))
-                                                }}>
+                                            onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {desc: e.target.value}))}>
                                         </textarea>
                                 </div>
                             </div>
-                            <button onClick={changeEditForm}>취소</button>
-                            <button onClick={updatePatientInfo}>완료</button>
+                            <div className={InfoStyles.btnBox}>
+                                <button onClick={changeEditForm}>취소</button>
+                                <button onClick={formCheck}>완료</button>
+                            </div>
                         </Fragment>
                 }
                 
             </div>
 
-            <div className='diagnosisList'>
-                
-                <h2>진료 이력</h2>
+            <div className={InfoStyles.diagnosisList}>
+                <h3>진료 이력</h3>
                 <table>
                     <thead>
                     <tr>
@@ -511,19 +568,6 @@ const PatientInfo = ({no, setUpdatePatient}) => {
                     </tbody>
                 </table>
             </div>
-            <Modal 
-                className={postcodeStyles.Modal}
-                overlayClassName={postcodeStyles.Overlay}
-                onRequestClose={ () => setIsOpenHandler(false) }
-                isOpen={isOpenHandler}>
-                
-                <button
-                    className={postcodeStyles.Close}
-                    ref={modalInnerRef}
-                    onClick={() => {setIsOpenHandler(false)}}>X</button>
-                <Postcode callback={notifyAddr}/>
-
-            </Modal>
         </Fragment>
     );
 };

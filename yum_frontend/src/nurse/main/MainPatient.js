@@ -1,9 +1,9 @@
 import React, { Fragment, useRef, useState } from 'react';
 import Modal from 'react-modal';
-import '../assets/scss/Content.scss';
-import main from '../assets/scss/nurse/Main.scss';
+// import '../../assets/scss/Content.scss';
+import main from '../../assets/scss/nurse/Main.scss';
 
-import modalStyles from '../assets/scss/Modal.scss';
+import modalStyles from '../../assets/scss/Modal.scss';
 import DetailInfo from './DetailInfo';
 import Receive from './receive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
