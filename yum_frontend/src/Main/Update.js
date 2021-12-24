@@ -1,7 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState, useRef} from 'react';
 import style from '../assets/scss/main/update.scss'
 import Logo from '../../public/favicon.ico'
 import SemiLogo from '../../public/title.png'
+import Modal from 'react-modal';
+import Postcode from '../Postcode';
+import styles2 from '../assets/scss/Postcode.scss';
 
 const Update = () => {
     const [userVo, setUserVo] = useState([]);
@@ -74,6 +77,7 @@ const update = (e) => {
     alert("정상적으로 수정되었습니다.");
     fetchUpdate();
 }
+
     const fetchUpdate = async() => {
     try {
         const response = await fetch(`/api/update`, {
@@ -132,25 +136,56 @@ const checkcheck = () => {
         }
     }
 }
-
-// 주소찾기 API
-window.onload = function(){
-    document.getElementById("kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-        //카카오 지도 발생
-        new daum.Postcode({
-            onComplete: function(data) { //선택시 입력값 세팅
-                document.getElementById("zonecode_kakao").value = data.zonecode;
-                document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                setAddressNumber(data.zonecode);
-                setAddress(data.address);
-                
-                document.getElementById("addressDetail").focus(); //상세입력 포커싱
-            }
-        }).open();
+const loadLayout = (e) => {
+    e.preventDefault();
+    window.daum.postcode.load(() => {
+        const postcode = new window.daum.Postcode({
+            oncomplete: function (data) {
+                let address = data.address;
+                let extraAddress = ''; // 참고항목
+        
+                // 내려오는 변수가 값이 없는 경우 공백('') 값을 가짐 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져옴
+                if (data.addressType === 'R') { // addressType - 검색된 기본 주소 타입: R(도로명), J(지번)
+                    if (data.bname !== '') { // bname - 법정동/법정리 이름
+                        // bname 값이 있을 경우 extraAddress에 추가
+                        extraAddress += data.bname;
+                    }
+                    if (data.buildingName !== '') { // buidingName - 건물명
+                        // extraAddress가 빈값이 아니면 ', 건물명'으로 빈값일 경우 '건물명'으로 추가
+                        extraAddress += (
+                            extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName
+                        );
+                    }
+        
+                    if(extraAddress !== ''){
+                        address += ` (${extraAddress})`;
+                    }
+                }
+                // console.log(data.zonecode); 
+                // console.log(fullAddress);   // e.g. '서울 성동구 왕십리로2길20 (성수동1가)'
+                const addressData = {
+                    zonecode: data.zonecode,
+                    address: address,
+                }
+        
+                setAddressNumber(addressData.zonecode);
+                setAddress(addressData.address);
+            },
+        });
+        postcode.open({
+            popupTitle: '주소 검색'
+        });
     });
 };
 
+useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    document.body.append(script);
+}, []);
+
 return (
+    <Fragment>
     <div className={style.yammi}>
         <img className={style.image}src={Logo}/>
         <img className={style.image1}src={SemiLogo}/>
@@ -212,12 +247,34 @@ return (
                 </div>
             </div>
             <div className={style.address}>
-                <div>주소</div>
-                    <input type="text" className={style.number} id="zonecode_kakao" name="zonecode" value={`${addressNumber}`} onChange={(e) => setAddressNumber(e.target.value)}/>
-                    <input type='button' id="kakao" value="우편번호 입력"/>
-                    <input type="text" className={style.address} id="address_kakao" name="address" value={`${address}`} onChange={(e) => setAddress(e.target.value)}/>
-                    <input type="text" className={style.detail} name="addressDetail" id="addressDetail" value={`${addressDetail}`} onChange={(e) => setAddressDetail(e.target.value)}/>
-            </div>
+                    <div>주소</div>
+                    <div>
+                        <input
+                            className={style.number}
+                            type='text'
+                            placeholder='우편번호'
+                            value={addressNumber || ''}
+                            onClick={loadLayout}
+                            onChange={ (e) => setAddressNumber(e.target.value)}
+                            />
+                        <button id='AddrBtn' className={style.AddrBtn} onClick={loadLayout}>주소찾기</button>
+                        <input
+                            className={style.address}
+                            type='text'
+                            placeholder='주소'
+                            value={address || ''}
+                            onClick={loadLayout}
+                            onChange={ (e) => setAddress(e.target.value)}
+                            />
+                        <input
+                            className={style.detail}
+                            type='text'
+                            placeholder='상세주소'
+                            value={addressDetail || ''}
+                            onChange={ (e) =>  setAddressDetail(e.target.value) }
+                            />
+                    </div>
+                </div>
             <div className={style.gender}>
                 <div>성별</div>
                     <label className={style.male}>남</label> <input type="radio" className={style.maleBtn} name="gender" id="gender" value='M' checked={`${userVo.gender}` === 'M' ? true:false} disabled/>
@@ -226,6 +283,7 @@ return (
             <input type="submit" className={style.join} value="수정" />
         </form>        
     </div>
+    </Fragment>
 );
 };
 
