@@ -68,7 +68,7 @@ const OrderForm = ({no, callback}) => {
     useEffect(() => {
         if(no != 0 || no != '') {
             selectPatient();
-            if(order.desc != null) setOrder({});
+            if(order.desc != null) setOrder({userNo: sessionStorage.getItem('no'), orderstateNo: 2});
         }
     }, [no]);
 
@@ -160,7 +160,7 @@ const OrderForm = ({no, callback}) => {
         setPhone({phone1: '010'});
         setRrn({});
         setAddr({});
-        setOrder({orderstateNo: 2});
+        setOrder({userNo: sessionStorage.getItem('no'), orderstateNo: 2});
     }
 
     /* 접수폼 입력 체크 */

@@ -27,33 +27,6 @@ const Main = () => {
             setMessages(messages);
         }
     }, [deleteNum])
-    
-    const sendMessage = async () => {
-        try {
-            const response = await fetch('/message/api2', {
-                method: 'post',
-                mode: 'cors',  
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    "patientName": messages.patientName,
-                    "from": "nurse",
-                    "to": "doctor",
-                    "state": "start"
-                  })
-            });
-
-            if(!response.ok) {
-                throw new Error(`${response.status} ${response.statusText}`);
-            }
-
-        } catch (error) { 
-            console.error(error);
-        }
-    }
 
     useEffect(() => {
         setChangeNum(changeNum + 1);
