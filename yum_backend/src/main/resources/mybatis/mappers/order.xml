@@ -116,7 +116,7 @@
 			and t1.orderstate_no = t3."no"
 			and orderstate_no in (2, 3)
 			AND to_char(t1."date", 'YYYY-MM-DD') = to_char(CURRENT_DATE, 'YYYY-MM-DD')
-		order by orderstate_no desc
+		order by orderstate_no desc, date ASC;
 		]]>
 	</select>
 
