@@ -3,6 +3,8 @@ import Diagnosis from './diagnosis/Diagnosis';
 import Patient from './patient/Patient';
 import style from '../assets/scss/component/doctor/DoctorMain.scss';
 import SiteLayout from '../layout/SiteLayout';
+import Msg from '../doctorMsg';
+import SockJsClient from 'react-stomp';
 
 const App = () => {
 
@@ -13,6 +15,28 @@ const App = () => {
     const [patientName, setPatientName] = useState('');
     const [memo, setMemo] = useState('');;
     const [data, setData] = useState([]);
+    const [messages, setMessages] = useState([]);
+    const [deleteNum, setDeleteNum] = useState();
+    const [changeNum, setChangeNum] = useState(0);
+
+    const $websocket = useRef(null); 
+
+    useEffect(() => {
+        setChangeNum(changeNum + 1);
+    }, [messages])
+
+    useEffect(() => {
+        // fetchJoin();
+    }, [changeNum])
+
+    useEffect(() => {
+        if(deleteNum !== ''){
+            console.log('deleteNum:', deleteNum);
+            messages.splice(deleteNum, 1);
+            setDeleteNum('');
+            setMessages(messages);
+        }
+    }, [deleteNum])
 
     // 자식 컴포넌트에서 값 받아오기
         const getOrderNo = (orderNo) => {
@@ -128,9 +152,36 @@ const App = () => {
 
     return (
         <SiteLayout>
+            <SockJsClient url="http://localhost:8080/yum" 
+                    topics={['/topic/doctor']}
+                    onMessage={msg => { 
+                        setMessages([...messages, msg ]);
+                    }} 
+                    ref={$websocket} /> 
+            <div>
+                    {
+                        messages.map( msg => {
+                            return(
+                                <> 
+                                    <Msg
+                                        patientName={msg.patientName} 
+                                        from={msg.from} 
+                                        to={msg.to} 
+                                        timestamp={msg.timestamp} 
+                                        state={msg.state} 
+                                        height={messages.indexOf(msg) * 14}
+                                        indexNum = {messages.indexOf(msg)}
+                                        setDeleteNum={setDeleteNum}>
+                                    </Msg>
+                                </>
+                            )
+                        })
+                    }
+                </div>
+
             <div className={style.body} > 
                 <div className={style.patient} >
-                    <Patient callback1={getOrderNo} callback2={getPatientName}/>
+                    <Patient callback1={getOrderNo} callback2={getPatientName} changeState={changeNum} />
                 </div>
                 <div className={style.diagnosis}>
                     <div className={style.diagnosisTitle} >

@@ -1,7 +1,7 @@
 
 import React, {useEffect, useRef, useState} from 'react'; 
 import SockJsClient from 'react-stomp';
-import Msg from './msg';
+import Msg from './nurseMsg';
 
 
 function Messages () { 

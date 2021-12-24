@@ -5,11 +5,10 @@ import OrderPatient from './OrderPatient';
 
 
 
-const OrderList = ({addOrder}) => {
+const OrderList = ({addOrder, changeState}) => {
     const [orders, setOrders] = useState([]);
     const [keyword, setKeyword] = useState('');
     const [updateState, setUpdateState] = useState({});
-
 
     /* 접수 리스트 불러오기 */
     useEffect(async () => {
@@ -42,7 +41,7 @@ const OrderList = ({addOrder}) => {
         } catch (err) {
             console.error(err)
         }
-    }, [addOrder, updateState]);
+    }, [addOrder, updateState, changeState]);
     
     return (
         <Fragment>

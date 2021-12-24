@@ -6,7 +6,7 @@ import styles2 from '../assets/scss/Order.scss';
 import Patients from './Patients';
 import ReservationList from './ReservationList';
 import ReservationForm from './ReservationForm';
-import Msg from '../msg';
+import Msg from '../nurseMsg';
 
 
 

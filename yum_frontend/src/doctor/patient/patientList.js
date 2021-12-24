@@ -5,15 +5,20 @@ import SockJsClient from 'react-stomp';
 import Modal from 'react-modal';
 import style from '../../assets/scss/component/doctor/patient/PatientList.scss'
 
-const patientList = ({callback1, callback2}) => {
+const patientList = ({callback1, callback2, resetNum}) => {
     const [modalData, setModalData] = useState({isOpen: false})
     const [orders, setOrders] = useState([]);
     const [patientNo, setPatientNo] = useState(0);
     const [orderNo, setOrderNo] = useState(0);              // value for insert
     const [patientName, setPatientName] = useState('');     // value for doctorMain
     const [changeState, setChangeState] = useState(false);
+    const [changeNum, setChangeNum] = useState(0);
 
     const $websocket = useRef(null); 
+
+    useEffect(() => {
+        setChangeNum(changeNum + 1);
+    }, [resetNum])
 
     useEffect(() => {
         console.log(changeState);
@@ -29,7 +34,7 @@ const patientList = ({callback1, callback2}) => {
 
     useEffect(() => {
         fetchOrders();
-    }, [changeState])
+    }, [changeState, changeNum])
 
     // 진료 대기중인 환자 리스트를 출력
     const fetchOrders = async() => {
@@ -159,7 +164,6 @@ const patientList = ({callback1, callback2}) => {
                                                 sendMessage(order.patientName);
                                                 setPatientName(order.patientName);
                                             }
-                                            
                                         }}>
                                         
                                         <div className={style.firstDiv}>

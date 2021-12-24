@@ -4,7 +4,7 @@ import SiteLayout from '../layout/SiteLayout';
 import PatientInfo from './PatientInfo';
 import Patients from './Patients';
 import SockJsClient from 'react-stomp';
-import Msg from '../msg';
+import Msg from '../nurseMsg';
 
 const PatientList = () => {
     

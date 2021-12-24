@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'; 
 import SockJsClient from 'react-stomp';
 import { Outlet } from 'react-router';
-import Msg from '../msg';
+import Msg from '../nurseMsg';
 import SiteLayout from '../layout/SiteLayout';
 import MainList from './MainList';
 
@@ -16,7 +16,7 @@ const Main = () => {
     const [deleteNum, setDeleteNum] = useState();
     const [changeNum, setChangeNum] = useState(0);
 
-    const [modalData, setModalData] = useState({isOpen: false})
+    const [modalData, setModalData] = useState({isOpen: false});
     
     const $websocket = useRef(null); 
 
@@ -43,6 +43,7 @@ const Main = () => {
                     "patientName": messages.patientName,
                     "from": "nurse",
                     "to": "doctor",
+                    "state": "start"
                   })
             });
 
@@ -57,7 +58,6 @@ const Main = () => {
 
     useEffect(() => {
         setChangeNum(changeNum + 1);
-        console.log(changeNum);
     }, [messages])
 
 
