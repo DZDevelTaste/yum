@@ -130,7 +130,7 @@ const patientList = ({callback1, callback2, resetNum}) => {
 
     return (
         <>
-            <SockJsClient url="http://localhost:8080/yum" 
+            <SockJsClient url="http://34.64.204.254:8080/yum" 
                         topics={['/topic/doctor']}
                         onMessage={msg => { console.log (msg); }} 
                         ref={$websocket} /> 
