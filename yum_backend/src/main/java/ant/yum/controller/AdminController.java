@@ -36,8 +36,8 @@ public class AdminController {
         adminService.updateAuth(userVo);
 
         return JsonResult.success(userVo);
-    } 
-    
+    }
+
     @PostMapping("/delete")
     public JsonResult delete(@RequestBody UserVo userVo) {
         adminService.deleteByNo(userVo);
@@ -80,5 +80,4 @@ public class AdminController {
 
         return JsonResult.success(medicineVo);
     }
-   
 }

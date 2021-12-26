@@ -27,7 +27,6 @@ const Schedule = () => {
   const name = sessionStorage.getItem("name");
   
   useEffect(() => {
-
       setTitle(schedule1Vo ? schedule1Vo.title : '')
       setStart(schedule1Vo ? schedule1Vo.start : '')
       setEnd(schedule1Vo ? schedule1Vo.end : '')
@@ -217,7 +216,7 @@ const fetchdelete = async() => {
             eventBackgroundColor={'#6599FF'}
             locale="ko"
             nowIndicator
-            dateClick={(e) => {setStart(e.dateStr > nowTime ? e.dateStr : nowTime); setEnd(e.dateStr > nowTime ? e.dateStr : nowTime); setModalData({isOpen: true})} }
+            dateClick={(e) => {setModalData({isOpen: e.dateStr < nowTime ? false : true});setStart(e.dateStr > nowTime ? e.dateStr : nowTime); setEnd(e.dateStr > nowTime ? e.dateStr : nowTime)} }
             eventClick={(e) => {
                 selectScheduler(parseInt(e.event.id));
                 setModal1Data({isOpen: no == userNo ? true : false});
@@ -249,7 +248,7 @@ const fetchdelete = async() => {
                             <input type='date' className={style.end} min={nowTime} defaultValue={`${schedule1Vo.end}`} onChange={(e) => setEnd(e.target.value)}/>
                     </div>
                 </div>
-                { (`${schedule1Vo.end}`) > nowTime ?
+                { (`${schedule1Vo.end}`) >= nowTime ?
                 <div className={style.btn}>
                     <input className={style.deleteBtn}type="button" value="삭제" onClick={scheduleDelete} />
                     <input type="submit" value="수정" /> 

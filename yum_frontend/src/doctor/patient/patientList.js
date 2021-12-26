@@ -130,7 +130,7 @@ const patientList = ({callback1, callback2, resetNum}) => {
 
     return (
         <>
-            <SockJsClient url="http://localhost:8080/yum" 
+            <SockJsClient url="http://34.64.204.254:8080/yum" 
                         topics={['/topic/doctor']}
                         onMessage={msg => { console.log (msg); }} 
                         ref={$websocket} /> 
@@ -145,25 +145,25 @@ const patientList = ({callback1, callback2, resetNum}) => {
                             return (
                                 <div className={style.order} onClick={() => {
 
-                                            // changeState == true ?
-                                            // alert('동시 진료는 불가능합니다.') :
-                                            // (
-                                            //     confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true &&
-                                            //     updateOrderstate(order),
-                                            //     updatePatientNo(order.patientNo),
-                                            //     setOrderNo(order.no),
-                                            //     setChangeState(true),
-                                            //     sendMessage(order.patientName),
-                                            //     setPatientName(order.patientName)
-                                            // )
-                                            if(confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true){
-                                                updateOrderstate(order);
-                                                updatePatientNo(order.patientNo) ;
-                                                setOrderNo(order.no); 
-                                                setChangeState(true);
-                                                sendMessage(order.patientName);
-                                                setPatientName(order.patientName);
-                                            }
+                                            changeState == true ?
+                                            alert('동시 진료는 불가능합니다.') :
+                                            (
+                                                confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true &&
+                                                updateOrderstate(order),
+                                                updatePatientNo(order.patientNo),
+                                                setOrderNo(order.no),
+                                                setChangeState(true),
+                                                sendMessage(order.patientName),
+                                                setPatientName(order.patientName)
+                                            )
+                                            // if(confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true){
+                                            //     updateOrderstate(order);
+                                            //     updatePatientNo(order.patientNo) ;
+                                            //     setOrderNo(order.no); 
+                                            //     setChangeState(true);
+                                            //     sendMessage(order.patientName);
+                                            //     setPatientName(order.patientName);
+                                            // }
                                         }}>
                                         
                                         <div className={style.firstDiv}>

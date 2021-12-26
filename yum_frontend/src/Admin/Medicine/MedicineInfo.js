@@ -116,7 +116,6 @@ const MedicineInfo = ({no}) => {
     }
 
     const fetchadd = async() => {
-
         try {
             const response = await fetch('/api/admin/medicine/add', {
                 method: 'post',

@@ -36,7 +36,6 @@ const MedicineMain = () => {
 
             const json = await response.json();
 
-            console.log(json.data)
             setMedicines([...json.data,...medicines]);
             
 
@@ -49,7 +48,7 @@ const MedicineMain = () => {
           const wb = XLSX.utils.book_new();
           XLSX.utils.book_append_sheet(wb, dataWS, "nameData");
           XLSX.writeFile(wb, "YUM_Medicine.xlsx");
-        }
+    }
     return (
         <SiteLayout> 
         <div className={style.wangbody}>
@@ -70,7 +69,7 @@ const MedicineMain = () => {
                                     <span className={style.MediName}>{`${medicine.name}`}</span>
                                 </div>
                         )
-            })
+                    })
             }
             </div>
         </div>
@@ -81,4 +80,4 @@ const MedicineMain = () => {
     );
 };
 
-export default MedicineMain;
+export default MedicineMain

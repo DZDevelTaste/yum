@@ -44,7 +44,7 @@ const Main = () => {
     }
     return (
         <SiteLayout>
-            <SockJsClient url="http://localhost:8080/yum" 
+            <SockJsClient url="http://34.64.204.254:8080/yum" 
                     topics={['/topic/nurse']}
                     onMessage={msg => { 
                         setMessages([...messages, msg ]);
