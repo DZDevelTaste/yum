@@ -2,6 +2,7 @@
 @import "reset.scss";
 
 .Content{
+    color: #333333;
     position: absolute;
     top: 120px;
     left: 280px;
@@ -9,58 +10,103 @@
     height: 800px;
     display: flex;
     
-    .LeftBox {
-        position: relative;
+    .LeftBox{
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
         box-sizing: border-box;
-        background-color: #F9F9F9;
+        align-items: flex-end;
+        justify-content: space-between;
         text-align: center;
-        width: 800px;
-        padding: 15px 20px;
 
-        
-        .plusIcon {
-            position: absolute;
-            bottom: 0.8em;
-            right: 0.8em;
-            background-color: #FFFFFF;
-            border-radius: 100%;
+        &.oneBox {
+            position: relative;
+            background-color: #F9F9F9;
+            width: 800px;
+            padding: 15px 20px;
+            
+            .plusIcon {
+                position: absolute;
+                bottom: 0.8em;
+                right: 0.8em;
+                background-color: #FFFFFF;
+                border-radius: 100%;
+            }
         }
     }
 
     .TopBox, .BottomBox {
-        height: 370px;
+        h3 {
+            float: left;
+            margin: 0;
+            line-height: 42px;
+        }
+        box-sizing: border-box;
+        width: 800px;
+        height: 49%;
         background-color: #F9F9F9;
         padding: 15px 20px;
-        margin: 10px 20px;
         
         table {
+            width: 100%;
+            margin-top: 5px;
             flex: auto;
-            clear: both; 
             box-sizing: content-box;
             thead {
-                width: 650px;
+                width: 100%;
+                margin-top: 5px;
+                flex: auto;
+                box-sizing: content-box;
+                display: block;
             }
             tbody {
-                height: 90%;
+                height: 270px;
+                flex: auto;
+                display: block;
+                width: 100%;
+
+                border: 1px solid #737373;
+                overflow-y: scroll;
+                background-color: #ffffff;
+
+                &::-webkit-scrollbar {
+                    box-sizing: border-box;
+                    width: 7px;
+                }
+        
+                &::-webkit-scrollbar-thumb {
+                    background-color: #b5b5b5;
+                    border-radius: 10px;
+                    border: 2px solid transparent;
+                }
+        
+                &::-webkit-scrollbar-track {
+                    background-color: #dadada;
+                }
+
+                
             }
         }
+        
     }
+
+    
 
     .RightBox {
         display: flex;
         flex-direction: column;
-        width: 750px;
-        // height: 850px;
+        width: 80%;
         box-sizing: border-box;
-        padding: 10px 20px;
-        margin: 10px 20px;
+        padding: 15px 20px;
+        margin: 0 20px;
         border: 1px solid #737373;
+        
+        &.PatientBox {
+            width: 750px;
+        }
 
         h2 {
             text-align: center;
+            margin: 15px 0;
         }
     }
 

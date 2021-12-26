@@ -16,8 +16,8 @@ import DoctorMain from './doctor/DoctorMain';
 import Update from './Main/Update';
 import Message from './nurseModal';
 import NurseMain from './nurse/main/Main';
-import Order from './nurse/Order';
-import Reservation from './nurse/Reservation';
+import Order from './nurse/order/Order';
+import Reservation from './nurse/reservation/Reservation';
 import PatientList from './nurse/patientList/PatientList';
 import SocketTest from './socketTest';
 

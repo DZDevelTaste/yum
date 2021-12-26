@@ -1,0 +1,88 @@
+@charset 'utf-8';
+
+
+.ReservationForm{
+    padding: 0 20px;
+    
+    .patientInfo {
+        padding: 10px 40px 40px;
+        border-bottom: 2px solid #737373;
+        > div{
+            padding: 5px 0;
+            &:nth-child(1), &:nth-child(2){
+                display: inline-block;
+                width: 50%;
+            }
+        }
+    
+        span {
+            padding: 0 10px;
+            line-height: 35px;
+            
+            &:first-child {
+                width: 6em;
+                text-align: right;
+                font-weight: 500;
+                display: inline-block;
+            }
+        }
+    }
+
+    .dateForm {
+        padding-top: 40px;
+
+        .timeBtnBox {
+            margin: 25px 0;
+            font-weight: 500;
+            
+            .btnList {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 10px 0;
+    
+                .timebtn{
+                    border-width: 1px;
+                    font-size: 18px;
+                    padding: 7px 15px;
+                    margin: 0 20px 15px 0;
+                    background-color: #ffffff;
+                
+                    &.active {
+                        background-color: #6599FF;
+                        color: #ffffff;
+                    }
+                    
+                }
+            
+            }
+            
+        }
+    }
+
+    .btnBox {
+        display: flex;
+        justify-content: space-evenly;
+        text-align: center;
+        margin-top: 80px;
+        
+        button {
+            box-sizing: border-box;
+            width: 8em;
+            height: 2.5em;
+            padding: 5px;
+            margin: 0 20px;
+            color: #333333;
+            background-color: #ffffff;
+            border: 1px solid #737373;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+    
+            &:nth-child(2) {
+                background-color: #6599FF;
+                color: #ffffff;
+                border: none;
+            }
+        }
+    }
+}

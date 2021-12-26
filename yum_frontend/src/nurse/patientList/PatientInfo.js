@@ -69,6 +69,7 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
 
     /* patientNo 값이 들어온 경우(환자를 선택한 경우) 실행 */
     useEffect(() => {
+        setFormSuccess(false);
         if(currentPatientNo !== 0) {
             if(changeAddForm){
                 setChangeAddForm(false);
@@ -80,6 +81,7 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
 
     useEffect(() => {
         if(changeAddForm){
+            setFormSuccess(false);
             cleanForm();
             setChooseButton(true);
         }
@@ -137,8 +139,6 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                     }
                 )
             )
-            
-            
 
             setRrn(
                 {
@@ -158,7 +158,7 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                 {
                     zonecode: resultZonecode,
                     address: resultAddress,
-                    detailAddress: resultDetailAddress
+                    detailAddr: resultDetailAddress
                 }
             )
             setDiagnosisList(jsonResult.data.diagnosisList);
@@ -169,21 +169,18 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
     
     /* 닫기 버튼 이벤트 */
     const cleanForm = () => {
+        setFormSuccess(false);
         setChooseButton(false);
         setPatientInfo({});
         setUpdateInfo({gender: 'M', insuarance: 'N'});
         setRrn({});
         setAddr({});
         setPhone({phone1: '010'});
+        setDiagnosisList([]);
         setCurrentPatientNo(0);
     }
 
     const formCheck = () => {
-        if(patientInfo === updateInfo) {
-            changeEditForm();
-            return;
-        }
-        
         if(updateInfo.name == undefined || updateInfo.name.trim() === '') {
             alert('이름을 입력해주세요.');
             return;
@@ -219,21 +216,13 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
             (addr.detailAddr === undefined) 
             ? ('(' + addr.zonecode+ ') ' + addr.address) : (addr.detailAddr.trim() === '') 
             ? ('(' + addr.zonecode+ ') ' + addr.address) : ('(' + addr.zonecode+ ') ' + addr.address + ' / ' + addr.detailAddr);
-
+        console.log(addrResult);
         // 주민등록번호 'xxxxxx-xxxxxxx' 형식으로 합치기
         let rrnResult = rrn.rrn1 + '-' + rrn.rrn2;
 
         // 연락처 'xxx-xxxx-xxxx' 형식으로 합치기
         let phoneResult = phone.phone1 + '-' + phone.phone2+ '-' + phone.phone3;
-        if (currentPatientNo !== 0){
-            setOrder(Object.assign({}, order, 
-                {patientVo: 
-                    Object.assign({}, patientVo, {rrn: rrnResult, phone: phoneResult, address: addrResult})
-                }
-            ));
-        } else {
-            setUpdateInfo(Object.assign({}, updateInfo,{rrn: rrnResult, phone: phoneResult, address: addrResult}));
-        }
+        setUpdateInfo(Object.assign({}, updateInfo,{rrn: rrnResult, phone: phoneResult, address: addrResult}));
         setFormSuccess(true);
     }
 
@@ -259,7 +248,8 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
             setFormSuccess(false);
             return;
         }
-
+        
+        setChangeAddForm(false);
         setChooseButton(false);
     }
 
@@ -287,8 +277,8 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
             if(jsonResult.result !== 'success') {
                 throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
-
-            setPatientInfo(updateInfo);
+            
+            setPatientInfo(jsonResult.data);
             setUpdatePatient(updateInfo);
             changeEditForm();
         } catch (err) {
@@ -298,7 +288,7 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
 
     /* 환자 업데이트 이벤트 */
     const updatePatientInfo = async (e) => {
-        
+        console.log(updateInfo);
         try {
             const response = await fetch('/api/nurse/updatePatientInfo', {
                 method: 'put',
@@ -361,7 +351,9 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                                     </tr>
                                     <tr>
                                         <td>주소</td>
-                                        <td colSpan='3'>{patientInfo.address}</td>
+                                        <td colSpan='3'>
+                                            {patientInfo.address !== undefined ? patientInfo.address.indexOf(' / ') !== -1 ? patientInfo.address.replace(' / ', ' ') : patientInfo.address : patientInfo.address}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>보험여부</td>
@@ -376,7 +368,7 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                             {
                                 currentPatientNo !== 0
                                 ?   
-                                <div className={InfoStyles.btnBox + InfoStyles.update}>
+                                <div className={`${InfoStyles.btnBox} ${InfoStyles.infoForm}`}>
                                     <button onClick={changeEditForm}>수정</button>
                                     <button onClick={cleanForm}>닫기</button>
                                 </div>
@@ -384,33 +376,37 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                             }
                         </Fragment> :
                         <Fragment>
-                            <div className={InfoStyles.OrderForm}>
-                                <div>
-                                    <label>이름</label>
-                                    <input 
-                                        type='text' 
-                                        className={InfoStyles.name}
-                                        value={updateInfo.name || ''}
-                                        onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {name: e.target.value}))}/>
-                                </div>
-                                <div>
-                                    <label>성별</label>
+                            <div className={InfoStyles.inputForm}>
+                                <div className={InfoStyles.firstBox}>
+                                    <div className={InfoStyles.nameBox}>
+                                        <span>이름</span>
+                                        <input 
+                                            type='text' 
+                                            className={InfoStyles.name}
+                                            value={updateInfo.name || ''}
+                                            onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {name: e.target.value}))}/>
+                                    </div>
+                                    <div className={InfoStyles.genderBox}>
+                                        <span>성별</span>
+                                        <input 
+                                            type='radio' 
+                                            name='gender' 
+                                            className={InfoStyles.gender}
+                                            value={'M'}
+                                            checked={updateInfo.gender === 'M' || patientInfo.gender == null}
+                                            onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {gender: e.target.value}))}/>남
+                                        <input 
+                                            type='radio' 
+                                            name='gender' 
+                                            className={InfoStyles.gender}
+                                            value={'F'}
+                                            checked={updateInfo.gender === 'F'}
+                                            onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {gender: e.target.value}))}/>여
+                                    </div>
 
-                                    <input 
-                                        type='radio' 
-                                        name='gender' 
-                                        value={'M'}
-                                        checked={updateInfo.gender === 'M' || patientInfo.gender == null}
-                                        onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {gender: e.target.value}))}/> <label>남</label>
-                                    <input 
-                                        type='radio' 
-                                        name='gender' 
-                                        value={'F'}
-                                        checked={updateInfo.gender === 'F'}
-                                        onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {gender: e.target.value}))}/><label>여</label>
                                 </div>
-                                <div>
-                                    <label>주민등록번호</label>
+                                <div className={InfoStyles.rrnBox}>
+                                    <span>주민등록번호</span>
                                     <input 
                                         type='text' 
                                         className={InfoStyles.rrn}
@@ -418,13 +414,13 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                                         onChange={(e) => setRrn(Object.assign({}, rrn, {rrn1: e.target.value}))}/>
                                             -
                                     <input 
-                                        type='text' 
+                                        type='password' 
                                         className={InfoStyles.rrn}
                                         value={rrn.rrn2 || ''}
                                         onChange={(e) => setRrn(Object.assign({}, rrn, {rrn2: e.target.value}))}/>
                                 </div>
-                                <div>
-                                    <label>연락처</label>
+                                <div className={InfoStyles.phoneBox}>
+                                    <span>연락처</span>
                                     <select 
                                         className={InfoStyles.phone1}
                                         value={phone.phone1} 
@@ -448,66 +444,70 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                                         value={phone.phone3 || ''}
                                         onChange={(e) => setPhone(Object.assign({}, phone, {phone3: e.target.value}))}/>
                                 </div>
-                                <div>
-                                    <label>키</label>
+                                <div className={InfoStyles.bodyInfo}>
+                                    <span>키</span>
                                     <input 
-                                            type='text' 
-                                            className={InfoStyles.length}
-                                            value={updateInfo.length || ''}
-                                            onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {length: e.target.value}))}/> cm
-                                    <label>몸무게</label>
-                                    <input 
+                                        className={InfoStyles.length}
                                         type='text' 
+                                        value={updateInfo.length || ''}
+                                        onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {length: e.target.value}))}/> cm
+                                    <span>몸무게</span>
+                                    <input 
                                         className={InfoStyles.weight}
+                                        type='text' 
                                         value={updateInfo.weight || ''}
                                         onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {weight: e.target.value}))}/> kg
                                 </div>
                                 <div className={postcodeStyles.addr}>
-                                    <label>주소</label>
-                                    <input
-                                        className={postcodeStyles.Zonecode}
-                                        type='text'
-                                        placeholder='우편번호'
-                                        value={addr.zonecode || ''}
-                                        onClick={loadLayout}
-                                        onChange={ (e) =>  setAddr(Object.assign({}, addr, {zonecode: e.target.value})) }
-                                        />
-                                    <button id='AddrBtn' className={postcodeStyles.AddrBtn} onClick={loadLayout}>주소찾기</button>
-                                    <input
-                                        className={postcodeStyles.Address}
-                                        type='text'
-                                        placeholder='주소'
-                                        value={addr.address || ''}
-                                        onClick={loadLayout}
-                                        onChange={ (e) =>  setAddr(Object.assign({}, addr, {address: e.target.value})) }
-                                        />
-                                    <div className='postcodeApi' ref={postcodeRef}></div> 
+                                    <span>주소</span>
+                                    <div>
+                                        <input
+                                            className={postcodeStyles.Zonecode}
+                                            type='text'
+                                            placeholder='우편번호'
+                                            value={addr.zonecode || ''}
+                                            onClick={loadLayout}
+                                            onChange={ (e) =>  setAddr(Object.assign({}, addr, {zonecode: e.target.value})) }
+                                            />
+                                        <button id='AddrBtn' className={postcodeStyles.AddrBtn} onClick={loadLayout}>주소찾기</button>
+                                        <input
+                                            className={postcodeStyles.Address}
+                                            type='text'
+                                            placeholder='주소'
+                                            value={addr.address || ''}
+                                            onClick={loadLayout}
+                                            onChange={ (e) =>  setAddr(Object.assign({}, addr, {address: e.target.value})) }
+                                            />
+                                        <div className='postcodeApi' ref={postcodeRef}></div> 
 
-                                    <input
-                                        className={postcodeStyles.DetailAddr}
-                                        type='text'
-                                        placeholder='상세주소'
-                                        value={addr.detailAddr || ''}
-                                        onChange={ (e) => setAddr(Object.assign({}, addr, {detailAddr: e.target.value})) }
-                                        />
+                                        <input
+                                            className={postcodeStyles.DetailAddr}
+                                            type='text'
+                                            placeholder='상세주소'
+                                            value={addr.detailAddr || ''}
+                                            onChange={ (e) => setAddr(Object.assign({}, addr, {detailAddr: e.target.value})) }
+                                            />
+                                    </div>
                                 </div>
-                                <div>
-                                    <label>보험여부</label>
+                                <div className={InfoStyles.insuaranceBox}>
+                                    <span>보험여부</span>
                                         <input 
+                                            className={InfoStyles.insuarance}
                                             type='radio' 
                                             name='insuarance' 
                                             value={'Y'}
                                             checked={updateInfo.insuarance === 'Y'}
                                             onChange={(e) =>  setUpdateInfo(Object.assign({}, updateInfo, {insuarance: e.target.value}))}/>가입
                                         <input 
+                                            className={InfoStyles.insuarance}
                                             type='radio' 
                                             name='insuarance' 
                                             value={'N'}
-                                            checked={updateInfo.insuarance === 'N' || patientInfo.insuarance == null}
+                                            checked={updateInfo.insuarance === 'N' || updateInfo.insuarance == null}
                                             onChange={(e) => setUpdateInfo(Object.assign({}, updateInfo, {insuarance: e.target.value}))}/>미가입
                                 </div>
-                                <div>
-                                    <label>비고</label>
+                                <div className={InfoStyles.descBox}>
+                                    <span>비고</span>
                                         <textarea 
                                             className={InfoStyles.desc}
                                             value={updateInfo.desc || ''}
@@ -515,7 +515,7 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                                         </textarea>
                                 </div>
                             </div>
-                            <div className={InfoStyles.btnBox}>
+                            <div className={`${InfoStyles.btnBox} ${InfoStyles.updateForm}`}>
                                 <button onClick={changeEditForm}>취소</button>
                                 <button onClick={formCheck}>완료</button>
                             </div>
@@ -537,6 +537,7 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                     </thead>
                     <tbody>
                     {
+                        diagnosisList !== null ?
                         diagnosisList
                             .map(diagnosis => { 
                                 return (
@@ -546,24 +547,28 @@ const PatientInfo = ({currentPatientNo, setCurrentPatientNo, setUpdatePatient, c
                                         <td>{diagnosis.date}</td>
                                         <td>{diagnosis.name}</td>
                                         <td>
-                                            {
+                                        {
                                                 diagnosis.presDiseaseList   // 질병 리스트 출력
-                                                    .map(presDisease => {return `${presDisease.name}, `})
+                                                    .map((presDisease, index) => {return (index !== 0 ? `, ${presDisease.name}` : `${presDisease.name}` )})
                                             }
                                         </td>
                                         <td>
-                                            {
+                                        {
                                                 diagnosis.presMedicineList  // 처방 약품 리스트 출력
-                                                    .map(presMedicine => {return `${presMedicine.name}, `})
+                                                    .map((presMedicine, index) => {return (index !== 0 ? `, ${presMedicine.name}` : `${presMedicine.name}` )})
                                             }
                                             {
                                                 diagnosis.presClinicList    // 처방 약품외 리스트 출력
-                                                    .map(presClinic => {return `${presClinic.name}, `})
+                                                    .map((presClinic, index) => {return (index === 0 && diagnosis.presMedicineList.length < 1
+                                                                                        ? '' : index !== 0 
+                                                                                        ? `${presClinic.name}` 
+                                                                                        :  `, ${presClinic.name}`)})
                                             }
                                         </td>
                                     </tr>
                                 );
                             })
+                        : ''
                     }
                     </tbody>
                 </table>

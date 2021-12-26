@@ -12,11 +12,9 @@ const Main = () => {
     const [currentState, setCurrentState] = useState(0);
     const stateArray = ['전체', '예약', '진료대기', '진료중', '수납대기', '완료'];
     const [messages, setMessages] = useState([]);
-    const [deleteNum, setDeleteNum] = useState();
+    const [deleteNum, setDeleteNum] = useState('');
     const [changeNum, setChangeNum] = useState(0);
 
-    const [modalData, setModalData] = useState({isOpen: false});
-    
     const $websocket = useRef(null); 
 
     useEffect(() => {
@@ -34,7 +32,15 @@ const Main = () => {
 
 
     const NotifyToast = (data) => {
-        toast.success(`${data.patient.name}님의 진료상태가 변경되었습니다.`);
+        if(data.kind === 'state'){
+            toast.success(`${data.patient.name}님의 진료상태가 변경되었습니다.`);
+        }
+        if(data.kind === 'delete'){
+            toast.success(`${data.patient.name}님 접수를 취소하였습니다.`);
+        }
+        if(data.kind === 'receive'){
+            toast.success(`${data.patient.name}님이 수납 완료하였습니다.`);
+        }
     }
     return (
         <SiteLayout>

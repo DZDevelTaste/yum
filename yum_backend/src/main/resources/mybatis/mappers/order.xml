@@ -91,20 +91,12 @@
 		</choose>
 	</select>
 
-	<!-- <select id="findByOrderNo" resultMap="resultMapList" resultType="ordervo">
+	<select id="findByOrderNo" resultMap="resultMapList" resultType="ordervo">
 		<![CDATA[
 			SELECT o.no, o."date", o.patient_no, o.expenses, p.name, p.gender, p.rrn, p.insuarance, p.phone
 			FROM patient p, "order" o
 			WHERE o.patient_no=p.no
 				AND o.no=#{orderNo}
-		]]>
-	</select> -->
-
-	<select id="findByOrderNo" parameterType="integer" resultType="ordervo">
-		<![CDATA[
-			select no, date, expenses, "desc" as desc, user_no, orderstate_no, patient_no
-			from "order"
-			where no = #{orderNo }
 		]]>
 	</select>
 
@@ -128,6 +120,15 @@
 		]]>
 	</select>
 	
+	<select id="findByPatientNoAndDate" parameterType="ordervo" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			FROM "order"
+			WHERE patient_no = #{patientVo.no}
+				AND to_char("date", 'YYYY-MM-DD') = #{date}
+				AND orderstate_no IN (1, 2, 3)
+		]]>
+	</select>
 	
 	<insert id="insertOrder" parameterType="ordervo" >
 		<choose>

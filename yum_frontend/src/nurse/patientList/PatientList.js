@@ -18,7 +18,7 @@ const PatientList = () => {
 
     return (
         <SiteLayout>
-            <div className={styles.LeftBox}>
+            <div className={`${styles.LeftBox} ${styles.oneBox}`}>
                 <Patients 
                     setCurrentPatientNo={setCurrentPatientNo}
                     updateInfo={updatePatient}/>
@@ -29,7 +29,7 @@ const PatientList = () => {
                     className={styles.plusIcon}
                     onClick={() => setChangeAddForm(true)}/>
             </div>
-            <div className={styles.RightBox}>
+            <div className={`${styles.RightBox} ${styles.PatientBox}`}>
                 <PatientInfo 
                     setUpdatePatient={setUpdatePatient}
                     currentPatientNo={currentPatientNo}

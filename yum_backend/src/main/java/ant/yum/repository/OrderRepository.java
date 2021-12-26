@@ -1,6 +1,7 @@
 package ant.yum.repository;
 
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,15 @@ public class OrderRepository {
     public void updateOrder(OrderVo orderVo) {
 		sqlSession.update("order.updateOrder", orderVo);
     }
+
+	public boolean findByPatientNoAndDate(OrderVo orderVo) {
+		orderVo.setDate(orderVo.getDate().replaceAll(" \\d{2}:\\d{2}:\\d{2}", ""));
+		
+		int OrderCheck = sqlSession.selectOne("order.findByPatientNoAndDate", orderVo);
+		System.out.println(OrderCheck);
+
+		return OrderCheck == 0;
+	}
 
 
 }

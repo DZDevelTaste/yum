@@ -1,24 +1,15 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-import styles2 from '../assets/scss/OrderPatient.scss';
-import SearchBar from '../SearchBar';
+import styles2 from '../../assets/scss/nurse/OrderPatient.scss';
+import SearchBar from '../../SearchBar';
 import ReservationPatient from './ReservationPatient';
 
 
 
-const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, callback, changeState}) => {
+const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, setReservations, changeState, callback}) => {
     const [reservationList, setReservationList] = useState([]);
     const [keyword, setKeyword] = useState('');
     const [selectDate, setSelectDate] = useState('');
-    const [deleteOrderNo, setDeleteOrderNo] = useState(0);
-
-    const notifyKeywordChange = (keyword) => {
-        setKeyword(keyword);
-    }
-
-    useEffect(() => {
-        console.log('ReservationList:', changeState);
-    }, [changeState])
 
     /* 예약 리스트 불러오기 */
     useEffect(async () => {
@@ -48,7 +39,7 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, cal
 
             // console.log(jsonResult.data);
             setReservationList(jsonResult.data);
-            callback(jsonResult.data);
+            setReservations(jsonResult.data);
         } catch (err) {
             console.error(err)
         }
@@ -56,20 +47,22 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, cal
     
     return (
         <Fragment>
-            <input 
-                type='date' 
-                name='selectDate'
-                value={selectDate || ''}
-                onChange={e => setSelectDate(e.target.value)}
-                />
-            <SearchBar setKeyword={setKeyword} />
+            <div className={styles2.SearchBox}>
+                <input 
+                    type='date' 
+                    name='selectDate'
+                    value={selectDate || ''}
+                    onChange={e => setSelectDate(e.target.value)}
+                    />
+                <SearchBar setKeyword={setKeyword} title='환자 검색' />
+            </div>
             <table className={styles2.ListTable}>
                 <thead>
                     <tr>
                         <th className={styles2.name}>이름</th>
                         <th className={styles2.rrn}>주민등록번호</th>
                         <th className={styles2.phone}>연락처</th>
-                        <th className={styles2.date}>예약시간</th>
+                        <th className={styles2.reservationDate}>예약시간</th>
                         <th className={styles2.updateBtn}>수정</th>
                         <th className={styles2.cancleBtn}>예약취소</th>
                     </tr>
@@ -83,6 +76,7 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, cal
                                                     key={reservation.no}
                                                     reservation={reservation}
                                                     setUpdateList={setUpdateList}
+                                                    callback={callback}
                                                 />)
                     }
                 </tbody>

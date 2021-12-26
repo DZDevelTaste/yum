@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import patientStyles from '../assets/scss/PatientList.scss';
+import patientStyles from '../assets/scss/nurse/PatientList.scss';
 import SearchBar from '../SearchBar';
 import Patient from './Patient';
 
@@ -44,7 +44,7 @@ const Patients = ({updateInfo, setCurrentPatientNo}) => {
 
     return (
         <Fragment>
-            <SearchBar setKeyword={setKeyword} />
+            <SearchBar setKeyword={setKeyword} title='환자 검색' />
             <table className={patientStyles.ListTable}>
                 <thead>
                 <tr>

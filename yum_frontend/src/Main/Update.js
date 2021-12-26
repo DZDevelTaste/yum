@@ -1,10 +1,7 @@
-import React, {Fragment, useEffect, useState, useRef} from 'react';
-import style from '../assets/scss/main/update.scss'
-import Logo from '../../public/favicon.ico'
-import SemiLogo from '../../public/title.png'
-import Modal from 'react-modal';
-import Postcode from '../Postcode';
-import styles2 from '../assets/scss/Postcode.scss';
+import React, { Fragment, useEffect, useState } from 'react';
+import Logo from '../../public/favicon.ico';
+import SemiLogo from '../../public/title.png';
+import style from '../assets/scss/main/update.scss';
 
 const Update = () => {
     const [userVo, setUserVo] = useState([]);

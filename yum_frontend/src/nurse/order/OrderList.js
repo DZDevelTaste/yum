@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import styles2 from '../assets/scss/OrderPatient.scss';
-import SearchBar from '../SearchBar';
+import styles2 from '../../assets/scss/nurse/OrderPatient.scss';
+import SearchBar from '../../SearchBar';
 import OrderPatient from './OrderPatient';
 
 
 
-const OrderList = ({addOrder, changeState}) => {
+const OrderList = ({addOrder, changeState, callback}) => {
     const [orders, setOrders] = useState([]);
     const [keyword, setKeyword] = useState('');
-    const [updateState, setUpdateState] = useState({});
+    const [updateOrderList, setUpdateOrderList] = useState({});
 
     /* 접수 리스트 불러오기 */
     useEffect(async () => {
@@ -41,11 +41,11 @@ const OrderList = ({addOrder, changeState}) => {
         } catch (err) {
             console.error(err)
         }
-    }, [addOrder, updateState, changeState]);
-    
+    }, [addOrder, updateOrderList, changeState]);
+
     return (
         <Fragment>
-            <SearchBar setKeyword={setKeyword} />
+            <SearchBar setKeyword={setKeyword} title='환자 검색' />
             <table className={styles2.ListTable}>
                 <thead>
                     <tr>
@@ -55,6 +55,7 @@ const OrderList = ({addOrder, changeState}) => {
                         <th className={styles2.rrn}>주민등록번호</th>
                         <th className={styles2.state}>진료현황</th>
                         <th className={styles2.phone}>연락처</th>
+                        <th className={styles2.cancle}>취소</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,10 +63,11 @@ const OrderList = ({addOrder, changeState}) => {
                         orders
                             .filter( order => order.patientVo.name.indexOf(keyword) !== -1)
                             .map( order => <OrderPatient
-                                                    setUpdateState={setUpdateState}
-                                                    key={order.no}
-                                                    order={order}
-                                                />)
+                                                key={order.no}
+                                                order={order}
+                                                setUpdateOrderList={setUpdateOrderList}
+                                                callback={callback}
+                                            />)
                     }
                 </tbody>
             </table>

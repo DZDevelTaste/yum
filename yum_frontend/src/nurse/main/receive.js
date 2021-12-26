@@ -6,7 +6,7 @@ import styles from '../../assets/scss/nurse/Receive.scss';
 
 Modal.setAppElement('body');
 
-const DetailInfo = ({orderNo, setModalData, setUpdateState}) => {
+const DetailInfo = ({orderNo, setModalData, setUpdateState, callback}) => {
     console.log('orderNo~', orderNo)
     const [updateOrder, setUpdateOrder] = useState({no: orderNo, orderstateNo: 5, expenses: '7000'});
     const [payData, setPayData] = useState({clinic: 0, insuarance: 0});
@@ -46,6 +46,7 @@ const DetailInfo = ({orderNo, setModalData, setUpdateState}) => {
             }
 
             setOrder(jsonResult.data.orderVo);
+            console.log(jsonResult.data.orderVo.patientVo)
             setPatientInfo(jsonResult.data.orderVo.patientVo);
             setDiagnosisInfo(jsonResult.data.diagnosisVo);
 
@@ -92,6 +93,7 @@ const DetailInfo = ({orderNo, setModalData, setUpdateState}) => {
 
             setModalData({isOpen: false});
             setUpdateState(jsonResult.data);
+            callback({patient: patientInfo, kind: 'receive'});
         } catch (err) {
             console.error(err);
         }
@@ -105,15 +107,15 @@ const DetailInfo = ({orderNo, setModalData, setUpdateState}) => {
                     <tbody>
                         <tr>
                             <td>이름</td>
-                            <td>{patientInfo.name}</td>
+                            <td>{patientInfo.name || ''}</td>
                             <td>성별</td>
                             <td>{patientInfo.gender == null ? '' : patientInfo.gender === 'M' ? '남' : '여'}</td>
                         </tr>
                         <tr>
                             <td>주민등록번호</td>
-                            <td>{patientInfo.rrn}</td>
+                            <td>{patientInfo.rrn || ''}</td>
                             <td>연락처</td>
-                            <td>{patientInfo.phone}</td>
+                            <td>{patientInfo.phone || ''}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -124,11 +126,11 @@ const DetailInfo = ({orderNo, setModalData, setUpdateState}) => {
                     <h3>진료</h3>
                     <div>
                         <span>내원일</span>
-                        <span>{diagnosisInfo.date}</span>
+                        <span>{diagnosisInfo.date || ''}</span>
                     </div>  
                     <div>
                         <span>담당의</span>
-                        <span>{diagnosisInfo.name}</span>
+                        <span>{diagnosisInfo.name || ''}</span>
                     </div>
                     <div>
                         <span>병명</span>
