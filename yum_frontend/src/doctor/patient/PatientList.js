@@ -148,13 +148,17 @@ const patientList = ({callback1, callback2, resetNum}) => {
                                             changeState == true ?
                                             alert('동시 진료는 불가능합니다.') :
                                             (
-                                                confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true &&
+                                                confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true ? 
+                                                (
                                                 updateOrderstate(order),
                                                 updatePatientNo(order.patientNo),
                                                 setOrderNo(order.no),
                                                 setChangeState(true),
                                                 sendMessage(order.patientName),
                                                 setPatientName(order.patientName)
+                                                ):
+                                                alert('환자를 다시 선택해주세요')
+
                                             )
                                             // if(confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true){
                                             //     updateOrderstate(order);
