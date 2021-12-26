@@ -87,8 +87,8 @@ margin: 10px 0px;
         position: absolute;
         width: 142px;
         height: 45px;
-        left: 320px;
-        top: 56px;
+        left: 340px;
+        top: 58px;
         bottom : 30px;
         
         flex: none;
@@ -515,11 +515,10 @@ margin: 10px 0px;
     div {
         position: absolute;
         width: 30px;
+        height: 30px;
         left: 0%;
         right: 94.35%;
-        top: -10%;
         bottom: 95.04%;
-
         font-family: Roboto;
         font-style: normal;
         font-weight: normal;
@@ -528,13 +527,15 @@ margin: 10px 0px;
 
         color: #333333;
     }
-
+    .addBox{
+        margin-bottom: -30px;
+        margin-left: -5px;
     .AddrBtn {
         position: absolute;
         width: 150px;
         height: 45px;
         left: 280px;
-        bottom: -15px;
+        bottom: -20px;
         /* Inside Auto Layout */
 
         flex: none;
@@ -545,12 +546,9 @@ margin: 10px 0px;
     }
 
     .number {
-        position: static;
+        position: absolute;
         width: 280px;
         height: 45px;
-        left: 0px;
-        top: 0px;
-
         background: #FFFFFF;
         border: 1px solid #DADADA;
         box-sizing: border-box;
@@ -564,7 +562,7 @@ margin: 10px 0px;
     }
 
     .address {
-        position: static;
+        position: absolute;
         width: 460px;
         height: 45px;
         left: 0px;
@@ -592,7 +590,7 @@ margin: 10px 0px;
         background: #FFFFFF;
         border: 1px solid #DADADA;
         box-sizing: border-box;
-    }
+    }}
 }
   
   .gender {
@@ -603,7 +601,7 @@ margin: 10px 0px;
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
-
+    margin-bottom: -20px;
     position: absolute;
     width: 295px;
     height: 64px;
