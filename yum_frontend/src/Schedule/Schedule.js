@@ -248,7 +248,7 @@ const fetchdelete = async() => {
                             <input type='date' className={style.end} min={nowTime} defaultValue={`${schedule1Vo.end}`} onChange={(e) => setEnd(e.target.value)}/>
                     </div>
                 </div>
-                { (`${schedule1Vo.end}`) > nowTime ?
+                { (`${schedule1Vo.end}`) >= nowTime ?
                 <div className={style.btn}>
                     <input className={style.deleteBtn}type="button" value="삭제" onClick={scheduleDelete} />
                     <input type="submit" value="수정" /> 
