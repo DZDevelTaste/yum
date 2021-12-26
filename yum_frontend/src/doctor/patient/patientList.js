@@ -3,7 +3,7 @@ import PatientInfo from './PatientInfo';
 import PatientPastOrder from './PatientPastOrder';
 import SockJsClient from 'react-stomp';
 import Modal from 'react-modal';
-import style from '../../assets/scss/component/doctor/patient/nurse/PatientList.scss'
+import style from '../../assets/scss/component/doctor/patient/PatientList.scss'
 
 const patientList = ({callback1, callback2, resetNum}) => {
     const [modalData, setModalData] = useState({isOpen: false})
