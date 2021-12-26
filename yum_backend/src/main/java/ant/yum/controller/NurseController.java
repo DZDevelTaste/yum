@@ -43,9 +43,9 @@ public class NurseController {
     @PostMapping("/order")
     public JsonResult addOrder(@RequestBody OrderVo orderVo){
         /* 환자 접수/예약 */
-
+        System.out.println(orderVo + "들어왔닝~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         orderService.addOrder(orderVo);
-
+        System.out.println("결과가 어떻게 됐닝" + orderVo);
         return JsonResult.success(orderVo);
     }
 

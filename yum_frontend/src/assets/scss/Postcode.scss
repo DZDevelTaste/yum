@@ -1,31 +1,40 @@
 @charset 'utf-8';
 
-    .Zonecode {
-        cursor: default
-    }
-    
-    .addr {
-        align-items: flex-start;
-    }
-    .AddrBtn{
-        margin: 0 10px;
-        border: 1px solid #ccc;
-        border-color: #dbdbdb #d2d2d2 #b2b2b2 #d2d2d3;
-        cursor: pointer;
-        color: #464646;
-        border-radius: 0.2em;
-        font-size: 1em;
-        line-height: 30px;
-     }
-     .Address{
-        cursor: default;
-        margin: 5px 0;
-     }
 
-     .Address, .DetailAddr {
-        display: block;
-        width: 100%;
-     }
+.addr {
+    display: flex;
+    align-items: flex-start !important;
+}
+
+.Zonecode {
+    cursor: default;
+}
+
+
+input[type=text] {
+    margin: 5px !important;
+}
+
+.AddrBtn {
+    margin: 5px 10px;
+    border: 1px solid #ccc;
+    border-color: #dbdbdb #d2d2d2 #b2b2b2 #d2d2d3;
+    cursor: pointer;
+    color: #464646;
+    border-radius: 0.2em;
+    font-size: 1em;
+    font-weight: normal;
+    padding: 0.3em;
+}
+.Address {
+    cursor: default;
+}
+
+.Address,
+.DetailAddr {
+    display: block;
+    width: 95% !important;
+}
 
 .Modal {
     position: absolute;
@@ -55,7 +64,7 @@
 }
 
 .Overlay {
-    position: fixed; 
-    inset: 0px;
+    position: fixed;
+    inset: 0;
     background-color: rgba(255, 255, 255, 0);
 }

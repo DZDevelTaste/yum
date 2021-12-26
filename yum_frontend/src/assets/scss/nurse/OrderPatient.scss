@@ -1,47 +1,47 @@
 @charset 'utf-8';
-.ListTable {
-    height: 100%;
-    display: block;
-
-    thead, tbody {
-        display: block;
-        width: 100%;
+.SearchBox {
+    float: right;
+    input[type=date] {
+        margin: 0 10px;
     }
+}
+
+.ListTable {
 
     tr {
         th {
-            padding: 10px 7px;
+            padding: 5px;
         }
-        .date {
+        .date, .updateBtn {
             width: 80px;
         }
-        .name, .state{
-            width: 110px;
+        .name, .state, .cancleBtn{
+            width: 100px;
         }
-        .gender {
+        .gender{
             width: 50px;
         }
-        .rrn {
+        .cancle {
+            width: 50px;
+            padding-left: 0;
+        }
+        .rrn, .phone {
             width: 150px;
         }
-        .phone {
-            width: 150px; 
+        .reservationDate {
+            width: 120px; 
         }
+        
     }
 
-    
-    tbody {
-        height: 93%;
-        border: 1px solid #737373;
-        overflow-y: scroll;
-        background-color: #ffffff;
 
+    tbody {
         tr:hover {
             background-color: #d3d3d3;
         }
 
         td{
-            padding: 10px;
+            padding: 10px 5px;
             text-align: center;
             &.state {
                 cursor: pointer;
@@ -65,8 +65,15 @@
                 cursor: default;
                 color: #9A9A9A
             }
+
+            button {
+                border: none;
+                background-color: unset;
+                cursor: pointer;
+                padding: 0 20px;
+            }
         }
-    }   
+    }
 }
 
 

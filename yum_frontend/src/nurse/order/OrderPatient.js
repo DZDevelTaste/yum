@@ -1,11 +1,13 @@
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Fragment, useRef, useState } from 'react';
 import Modal from 'react-modal';
-import '../assets/scss/Content.scss';
-import styles2 from '../assets/scss/OrderPatient.scss';
+import '../../assets/scss/Content.scss';
+import styles2 from '../../assets/scss/nurse/OrderPatient.scss';
 
 Modal.setAppElement('body');
 
-const OrderPatient = ({order, setUpdateState}) => {
+const OrderPatient = ({order, setUpdateOrderList, callback}) => {
     const [isOpenHandler, setIsOpenHandler] = useState(false);
     const modalInnerRef = useRef(null);      // 모달 안의 ul useRef, Modal은 ref 적용 x
 
@@ -75,8 +77,44 @@ const OrderPatient = ({order, setUpdateState}) => {
             }
 
             setIsOpenHandler(false);
-            setUpdateState(updateOrder);
+            setUpdateOrderList(updateOrder);
+            callback({patient: order.patientVo, kind: 'state'});
+
         } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const cancleEvent = async () => {
+        if(!window.confirm(`${order.patientVo.name}님의 접수를 취소 하시겠습니까?`)){
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/nurse/deleteOrder/${order.no}`, {
+                method: 'delete',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: null
+            });
+
+            if(!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+
+            const jsonResult = await response.json();
+
+            if(jsonResult.result !== 'success') {
+                throw new Error(`${jsonResult.result} ${jsonResult.message}`);
+            }
+            setUpdateOrderList({no: jsonResult.data.no, date:jsonResult.data.date, kind: 'delete'});
+            callback({patient: order.patientVo, kind: 'delete'});
+        } catch(err) {
             console.error(err);
         }
     }
@@ -109,6 +147,17 @@ const OrderPatient = ({order, setUpdateState}) => {
                             ? phone.replace(/-[0-9]{3}-/g, "-***-")
                             : phone.replace(/-[0-9]{4}-/g, "-****-")
                     }
+                </td>
+                <td>
+                {
+                    order.orderstateNo === 1 || order.orderstateNo === 2 ? 
+                        <button
+                            className={styles2.cancleBtn}
+                            onClick={cancleEvent}>
+                                <FontAwesomeIcon icon={faTimes} size="lg" color="#CF1313"/>
+                        </button>
+                        : null
+                }
                 </td>
             </tr>
             

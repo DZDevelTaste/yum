@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 // import '../../assets/scss/Content.scss';
 import main from '../../assets/scss/nurse/Main.scss';
 
-import modalStyles from '../../assets/scss/Modal.scss';
+import modalStyles from '../../assets/scss/nurse/Modal.scss';
 import DetailInfo from './DetailInfo';
 import Receive from './receive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -84,7 +84,7 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
             // console.log(jsonResult.data);
             setModalData(Object.assign({}, modalData, {kind: 'state', isOpen: false}));
             setUpdateState(updateOrder);
-            callback({patient: order.patientVo});
+            callback({patient: order.patientVo, kind: 'state'});
         } catch (err) {
             console.error(err);
         }
@@ -119,6 +119,7 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
                 throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
             setUpdateList({no: jsonResult.data.no, date:jsonResult.data.date, kind: 'delete'});
+            callback({patient: order.patientVo, kind: 'delete'});
         } catch(err) {
             console.error(err);
         }
@@ -194,21 +195,21 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
 
     return (
         <Fragment>
-            <tr className={main.OrderPatient}>
+            <tr className={main.OrderPatientList}>
                 <td className={main.date}>{order.date}</td>
                 <td className={main.name}>{order.patientVo.name}</td>
                 <td className={main.age}>{order.patientVo.age}</td>
                 {
-                    (descForm.no === order.no && descForm.type === 'input') 
+                    (descForm.no === order.no && descForm.type === 'input' && (order.orderstateNo === 1 || order.orderstateNo === 2)) 
                     ? (<td className={main.desc}>
                         <input 
                             type='text' 
                             value={updateDesc} 
                             onChange={e => setUpdateDesc(e.target.value)}/>
-                        <button onClick={() => updateDescEvent()}><FontAwesomeIcon icon={faCheck} color='green'/></button>
+                        <button onClick={() => updateDescEvent()}><FontAwesomeIcon icon={faCheck}/></button>
                     </td>)
                     : <td 
-                        className={main.desc}
+                        className={`${main.desc} ${(order.orderstateNo === 1 || order.orderstateNo === 2) ? main.changeOk : ''}`}
                         onClick={() => setDescForm(Object.assign({}, descForm, {no: order.no, type: 'input'}))}>
                         {(order.desc === '' || order.desc === null ? '-' : order.desc)}
                     </td>
@@ -281,7 +282,8 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
                             <Receive
                                 orderNo={order.no}
                                 setModalData={setModalData}
-                                setUpdateState={setUpdateState}/>
+                                setUpdateState={setUpdateState}
+                                callback={callback}/>
                         : ''
                     }
             </Modal>

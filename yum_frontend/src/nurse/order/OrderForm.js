@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
-import styles1 from '../assets/scss/OrderForm.scss';
-import styles2 from '../assets/scss/Postcode.scss';
+import styles1 from '../../assets/scss/nurse/OrderForm.scss';
+import postcodeStyles from '../../assets/scss/Postcode.scss';
 
 
-const OrderForm = ({no, callback}) => {
+const OrderForm = ({no, notifyUpdateForm, callback}) => {
     const [patientVo, setPatientVo] = useState({gender: 'M', insuarance: 'N'});
     const [phone, setPhone] = useState({phone1: '010'});
     const [rrn, setRrn] = useState({});
@@ -155,7 +155,7 @@ const OrderForm = ({no, callback}) => {
     
     /* 초기화 버튼 클릭 시 값 초기화 */
     const resetForm = (e) => {
-        callback('reset');
+        notifyUpdateForm('reset');
         setPatientVo({gender: 'M', insuarance: 'N'});
         setPhone({phone1: '010'});
         setRrn({});
@@ -250,15 +250,20 @@ const OrderForm = ({no, callback}) => {
             if(jsonResult.result !== 'success') {
                 throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
-            // console.log('addOrder fetch 후 넘어온 data == ', jsonResult.data);
+            console.log('addOrder fetch 후 넘어온 data == ', jsonResult.data);
 
-            
-            // console.log('patientVo의 no가 있는가? ==', patientVo.no);
-            if(patientVo.no !== undefined) {
-                callback({orderNo : jsonResult.data.no});
+            if(jsonResult.data.no === 0) {
+                callback({patient : order.patientVo, result: false});
             } else {
-                callback({orderNo: jsonResult.data.no, newPatient: jsonResult.data.patientVo.no});
+                // console.log('patientVo의 no가 있는가? ==', patientVo.no);
+                callback({patient : order.patientVo, kind: 'order'});
+                if(patientVo.no !== undefined) {
+                    notifyUpdateForm({orderNo : jsonResult.data.no});
+                } else {
+                    notifyUpdateForm({orderNo: jsonResult.data.no, newPatient: jsonResult.data.patientVo.no});
+                }
             }
+            
 
             setFormSuccess(false);
 
@@ -274,7 +279,7 @@ const OrderForm = ({no, callback}) => {
             <h2>환자 접수</h2>
             <div className={styles1.OrderForm}>
                 <div>
-                    <label>이름</label>
+                    <span>이름</span>
                     <input 
                         type='text' 
                         className={styles1.name}
@@ -285,8 +290,7 @@ const OrderForm = ({no, callback}) => {
                             }}/>
                 </div>
                 <div>
-                    <label>성별</label>
-
+                    <span>성별</span>
                     <input 
                         type='radio' 
                         name='gender' 
@@ -295,7 +299,7 @@ const OrderForm = ({no, callback}) => {
                         onChange=
                             {(e) => {
                                         if(no==0) setPatientVo(Object.assign({}, patientVo, {gender: e.target.value}))
-                            }}/> <label>남</label>
+                            }}/>남
                     <input 
                         type='radio' 
                         name='gender' 
@@ -304,10 +308,10 @@ const OrderForm = ({no, callback}) => {
                         onChange=
                             {(e) => {
                                 if(no==0) setPatientVo(Object.assign({}, patientVo, {gender: e.target.value}))
-                            }}/><label>여</label>
+                            }}/>여
                 </div>
                 <div>
-                    <label>주민등록번호</label>
+                    <span>주민등록번호</span>
                     <input 
                         type='text' 
                         className={styles1.rrn}
@@ -318,7 +322,7 @@ const OrderForm = ({no, callback}) => {
                             }}/>
                             -
                     <input 
-                        type='text' 
+                        type='password' 
                         className={styles1.rrn}
                         value={rrn.rrn2 || ''}
                         onChange=
@@ -327,7 +331,7 @@ const OrderForm = ({no, callback}) => {
                             }}/>
                 </div>
                 <div>
-                    <label>연락처</label>
+                    <span>연락처</span>
                     <select 
                         className={styles1.phone1}
                         value={phone.phone1} 
@@ -361,8 +365,7 @@ const OrderForm = ({no, callback}) => {
                             }}/>
                 </div>
                 <div>
-
-                    <label>키</label>
+                    <span>키</span>
                     <input 
                             type='text' 
                             className={styles1.length}
@@ -371,7 +374,7 @@ const OrderForm = ({no, callback}) => {
                                 {(e) => {
                                     if(no==0) setPatientVo(Object.assign({}, patientVo, {length: e.target.value}))
                                 }}/> cm
-                    <label>몸무게</label>
+                    <span>몸무게</span>
                     <input 
                         type='text' 
                         className={styles1.weight}
@@ -381,20 +384,20 @@ const OrderForm = ({no, callback}) => {
                                 if(no==0) setPatientVo(Object.assign({}, patientVo, {weight: e.target.value}))
                             }}/> kg
                 </div>
-                <div className={styles2.addr}>
-                    <label>주소</label>
+                <div className={postcodeStyles.addr}>
+                    <span>주소</span>
                     <div>
                         <input
-                            className={styles2.Zonecode}
+                            className={postcodeStyles.Zonecode}
                             type='text'
                             placeholder='우편번호'
                             value={addr.zonecode || ''}
                             onClick={loadLayout}
                             onChange={ (e) =>  setAddr(Object.assign({}, addr, {zonecode: e.target.value})) }
                             />
-                        <button id='AddrBtn' className={styles2.AddrBtn} onClick={loadLayout}>주소찾기</button>
+                        <button id='AddrBtn' className={postcodeStyles.AddrBtn} onClick={loadLayout}>주소찾기</button>
                         <input
-                            className={styles2.Address}
+                            className={postcodeStyles.Address}
                             type='text'
                             placeholder='주소'
                             value={addr.address || ''}
@@ -404,7 +407,7 @@ const OrderForm = ({no, callback}) => {
                         <div className='postcodeApi' ref={postcodeRef}></div> 
 
                         <input
-                            className={styles2.DetailAddr}
+                            className={postcodeStyles.DetailAddr}
                             type='text'
                             placeholder='상세주소'
                             value={addr.detailAddr || ''}
@@ -413,7 +416,7 @@ const OrderForm = ({no, callback}) => {
                     </div>
                 </div>
                 <div>
-                    <label>보험여부</label>
+                    <span>보험여부</span>
                         <input 
                             type='radio' 
                             name='insuarance' 
@@ -434,7 +437,7 @@ const OrderForm = ({no, callback}) => {
                                 }}/>미가입
                 </div>
                 <div>
-                    <label>비고</label>
+                    <span>비고</span>
                         <textarea 
                             className={styles1.desc}
                             value={patientVo.desc || ''}
@@ -445,7 +448,7 @@ const OrderForm = ({no, callback}) => {
                         </textarea>
                 </div>
                 <div>
-                    <label>증상</label>
+                    <span>증상</span>
                         <textarea 
                             className={styles1.desc}
                             value={order.desc || ''}
@@ -455,12 +458,11 @@ const OrderForm = ({no, callback}) => {
                                 }} >
                         </textarea>
                 </div>
-                <div className={styles1.btn}>
-                    <button onClick={resetForm}>초기화</button>
-                    <button onClick={formCheck}>완료</button>
-                </div>
             </div>
-            
+            <div className={styles1.btnBox}>
+                <button onClick={resetForm}>초기화</button>
+                <button onClick={formCheck}>완료</button>
+            </div>
         </Fragment>
     );
 };
