@@ -5,10 +5,12 @@
     background: #F9F9F9;
     
     .searchBar {
+        padding-top: 10px;
+        padding-left: 30px;
         input{
-        width: 485.68px;
-        height: 45px;
-        margin: 30px 0 20px 30px;
+            width: 485px;
+            height: 45px;
+            margin: 30px 0 20px 50px;
         }
     }
     .input {
@@ -33,7 +35,7 @@
         input[type=submit] {
             width: 150px;
             height: 55px;
-            margin: -52px 0 0 1100px;
+            margin: -57px 0 0 1120px;
             background: #6599FF;
             border: 1px solid #737373;
             box-sizing: border-box;
@@ -51,10 +53,10 @@
             color: #FFFFFF;
         }
         .excel {
-            width: 150px;
+                width: 100px;
                 height: 55px;
                 background: #6599FF;
-                margin: -54px 0 0 1260px;
+                margin: -55px 0 0 1280px;
                 border: 1px solid #737373;
                 box-sizing: border-box;
                 border-radius: 5px;
