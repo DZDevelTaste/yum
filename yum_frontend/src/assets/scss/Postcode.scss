@@ -4,15 +4,15 @@
 .addr {
     display: flex;
     align-items: flex-start !important;
+
+    
+    input[type=text] {
+        margin: 5px !important;
+    }
 }
 
 .Zonecode {
     cursor: default;
-}
-
-
-input[type=text] {
-    margin: 5px !important;
 }
 
 .AddrBtn {
