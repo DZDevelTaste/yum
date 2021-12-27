@@ -22,7 +22,7 @@ const Header = () => {
         <div className={style.Header}>
             { 
                 job == '간호사' ?
-                <a href=''><img className={style.image1}src={SemiLogo}/></a> : job == '의사' ?
+                <a href='/nurse'><img className={style.image1}src={SemiLogo}/></a> : job == '의사' ?
                 <a href='/doctor'><img className={style.image1}src={SemiLogo}/></a> :
                 <a href='/admin'><img className={style.image1}src={SemiLogo}/></a>
             }

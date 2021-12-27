@@ -129,8 +129,8 @@ const clinic = ({callback1, callback2}) => {
                                 <div className={style.name}>{clinic.name}</div>
                                 <div className={style.mediDayAndCount}></div>
                                 <div className={style.mediDayAndCount}></div>
-                                <div className={style.deleteBtn}>
-                                    <button onClick={ () => {
+                                <div className={style.deleteBtnDiv}>
+                                    <button className={style.deleteBtn} onClick={ () => {
                                         if(confirm(`${clinic.name} 처방을 삭제하시겠습니까?`) == true){
                                             setChangeValue(changeValue + 1)
                                             clinicNo.splice(clinicNo.indexOf(clinic), 1)}

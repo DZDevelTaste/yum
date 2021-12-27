@@ -75,7 +75,7 @@ const disease = ({callback}) => {
                             <div className={style.selectedDisease}>
                                 <div className={style.disCode}>{presDisease.code}</div>
                                 <div className={style.disName}>{presDisease.name}</div>
-                                    <div className={style.deleteBtnDiv}>
+                                <div className={style.deleteBtnDiv}>
                                     <button className={style.deleteBtn} onClick={() => {
                                         if(confirm(`${presDisease.name} 병명을 삭제하시겠습니까?`) == true){
                                             console.log(presDiseases.indexOf(presDisease));
