@@ -11,4 +11,6 @@ public class MessageVo2 {
     private String to;
     private String timestamp;
     private String state;
+    private Object order;
+    private int no;
 }

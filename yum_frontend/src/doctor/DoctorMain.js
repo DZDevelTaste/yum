@@ -18,11 +18,14 @@ const App = () => {
     const [messages, setMessages] = useState([]);
     const [deleteNum, setDeleteNum] = useState();
     const [changeNum, setChangeNum] = useState(0);
+    const [inPatientNo, setInPatientNo] = useState(0);
 
     const $websocket = useRef(null); 
 
+
     useEffect(() => {
         setChangeNum(changeNum + 1);
+        
     }, [messages])
 
     useEffect(() => {
@@ -156,6 +159,7 @@ const App = () => {
                     topics={['/topic/doctor']}
                     onMessage={msg => { 
                         setMessages([...messages, msg ]);
+                        setInPatientNo(msg.no);
                     }} 
                     ref={$websocket} /> 
             <div>
@@ -181,7 +185,7 @@ const App = () => {
 
             <div className={style.body} > 
                 <div className={style.patient} >
-                    <Patient callback1={getOrderNo} callback2={getPatientName} changeState={changeNum} />
+                    <Patient callback1={getOrderNo} callback2={getPatientName} changeState={changeNum} sendPatientNo={inPatientNo} />
                 </div>
                 <div className={style.diagnosis}>
                     <div className={style.diagnosisTitle} >
