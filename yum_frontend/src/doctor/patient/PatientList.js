@@ -136,7 +136,7 @@ const patientList = ({callback1, callback2, resetNum, sendPatientNo}) => {
                         ref={$websocket} /> 
             <div className={style.patientList} >
                 <div className={style.patientListTitle}>
-                    환자 리스트
+                    환자 리스트1
                 </div>
                 <div className={style.orders} >
                     
