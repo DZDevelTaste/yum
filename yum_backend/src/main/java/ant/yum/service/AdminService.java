@@ -30,11 +30,11 @@ public class AdminService {
 	public List<MedicineVo> findByMedicine() {
 		return medicineRepository.findByMedicine();
 	}
-	public boolean deleteByNo(UserVo userVo) {
-		return adminRepository.deleteByNo(userVo);
+	public void deleteByNo(List<UserVo> userVo) {
+		adminRepository.deleteByNo(userVo);
 	}
-	public boolean updateAuth(UserVo userVo) {
-		return adminRepository.updateAuth(userVo);
+	public void updateAuth(List<UserVo> userVo) {
+		adminRepository.updateAuth(userVo);
 	}
 	public boolean updateMedicine(MedicineVo medicineVo) {
 		return medicineRepository.updateMedicine(medicineVo);

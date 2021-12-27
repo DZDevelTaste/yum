@@ -125,7 +125,7 @@
         width: 142px;
         height: 45px;
         left: 319px;
-        top: 26px;
+        margin-top: 30px;
 
     }
 
@@ -209,6 +209,7 @@
     .rrn1 {
         position: absolute;
         width: 215px;
+        height: 45px;
         left: 0%;
         right: 52.45%;
         top: 36.62%;
@@ -222,9 +223,9 @@
         position: absolute;
         width: 215px;
         left: 52.45%;
+        height: 45px;
         right: 0%;
-        top: 36.62%;
-        bottom: 0%;
+        bottom: -5%;
 
         background: #FFFFFF;
         border: 1px solid #DADADA;

@@ -5,7 +5,7 @@ import SockJsClient from 'react-stomp';
 import Modal from 'react-modal';
 import style from '../../assets/scss/component/doctor/patient/PatientList.scss'
 
-const patientList = ({callback1, callback2, resetNum}) => {
+const patientList = ({callback1, callback2, resetNum, sendPatientNo}) => {
     const [modalData, setModalData] = useState({isOpen: false})
     const [orders, setOrders] = useState([]);
     const [patientNo, setPatientNo] = useState(0);
@@ -15,6 +15,10 @@ const patientList = ({callback1, callback2, resetNum}) => {
     const [changeNum, setChangeNum] = useState(0);
 
     const $websocket = useRef(null); 
+
+    useEffect(() => {
+        setPatientNo(sendPatientNo);
+    }, [sendPatientNo])
 
     useEffect(() => {
         setChangeNum(changeNum + 1);
@@ -148,13 +152,17 @@ const patientList = ({callback1, callback2, resetNum}) => {
                                             changeState == true ?
                                             alert('동시 진료는 불가능합니다.') :
                                             (
-                                                confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true &&
+                                                confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true ? 
+                                                (
                                                 updateOrderstate(order),
                                                 updatePatientNo(order.patientNo),
                                                 setOrderNo(order.no),
                                                 setChangeState(true),
                                                 sendMessage(order.patientName),
                                                 setPatientName(order.patientName)
+                                                ):
+                                                alert('환자를 다시 선택해주세요')
+
                                             )
                                             // if(confirm(`${order.patientName} 환자의 진료를 시작하시겠습니까?`) == true){
                                             //     updateOrderstate(order);

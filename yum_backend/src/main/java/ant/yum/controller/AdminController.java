@@ -32,18 +32,19 @@ public class AdminController {
         return JsonResult.success(list);
     }
     @PostMapping("/update")
-    public JsonResult update(@RequestBody UserVo userVo) {
+    public JsonResult update(@RequestBody List<UserVo> userVo) {
         adminService.updateAuth(userVo);
 
         return JsonResult.success(userVo);
     }
 
     @PostMapping("/delete")
-    public JsonResult delete(@RequestBody UserVo userVo) {
+    public JsonResult delete(@RequestBody List<UserVo> userVo) {
         adminService.deleteByNo(userVo);
 
         return JsonResult.success(userVo);
     }
+
     @GetMapping("/disease")
     public JsonResult diseaseList() {
         List<DiseaseVo> list = adminService.findByDisease();

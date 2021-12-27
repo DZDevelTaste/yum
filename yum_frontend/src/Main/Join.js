@@ -293,7 +293,7 @@ const Join = () => {
                 </div>
                 <div className={style.address}>
                     <div>주소</div>
-                    <div>
+                    <div className={style.addBox}>
                         <input
                             className={style.number}
                             type='text'

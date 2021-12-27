@@ -132,6 +132,7 @@
     input[type=text] {
         position: absolute;
         width: 215px;
+        height: 45px;
         left: 0%;
         right: 52.45%;
         top: 36.62%;
@@ -144,10 +145,10 @@
     input[type=password] {
         position: absolute;
         width: 215px;
+        height: 45px;
         left: 52.45%;
         right: 0%;
-        top: 36.62%;
-        bottom: 0%;
+        bottom: -5%;
 
         background: #FFFFFF;
         border: 1px solid #DADADA;
