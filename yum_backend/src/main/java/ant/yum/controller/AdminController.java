@@ -32,7 +32,9 @@ public class AdminController {
         return JsonResult.success(list);
     }
     @PostMapping("/update")
-    public JsonResult update(@RequestBody UserVo userVo) {
+    public JsonResult update(@RequestBody List<UserVo> userVo) {
+        System.out.println("========================" + userVo);
+
         adminService.updateAuth(userVo);
 
         return JsonResult.success(userVo);
@@ -44,6 +46,7 @@ public class AdminController {
 
         return JsonResult.success(userVo);
     }
+
     @GetMapping("/disease")
     public JsonResult diseaseList() {
         List<DiseaseVo> list = adminService.findByDisease();
