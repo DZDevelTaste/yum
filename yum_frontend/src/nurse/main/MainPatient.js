@@ -179,7 +179,8 @@ const MainPatient = ({order, setUpdateState, setUpdateList, descForm, setDescFor
                     "from": "nurse",
                     "to": "doctor",
                     "state": "start",
-                    "order": order
+                    "order": order,
+                    "no": order.patientVo.no 
                   })
             });
 
