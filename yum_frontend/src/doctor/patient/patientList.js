@@ -25,10 +25,6 @@ const patientList = ({callback1, callback2, resetNum, sendPatientNo}) => {
     }, [resetNum])
 
     useEffect(() => {
-        console.log(changeState);
-    }, []);
-
-    useEffect(() => {
         callback1(orderNo);
     }, [orderNo])
 
@@ -38,11 +34,11 @@ const patientList = ({callback1, callback2, resetNum, sendPatientNo}) => {
 
     useEffect(() => {
         fetchOrders();
+        console.log(changeState);
     }, [changeState, changeNum])
 
     // 진료 대기중인 환자 리스트를 출력
     const fetchOrders = async() => {
-
         try {
             const response = await fetch(`/api/doctor`, {
                 method: 'get',
@@ -157,7 +153,7 @@ const patientList = ({callback1, callback2, resetNum, sendPatientNo}) => {
                                                 updateOrderstate(order),
                                                 updatePatientNo(order.patientNo),
                                                 setOrderNo(order.no),
-                                                setChangeState(true),
+                                                setChangeState(!changeState),
                                                 sendMessage(order.patientName),
                                                 setPatientName(order.patientName)
                                                 ):
