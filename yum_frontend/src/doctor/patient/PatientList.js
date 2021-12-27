@@ -34,8 +34,7 @@ const patientList = ({callback1, callback2, resetNum, sendPatientNo}) => {
 
     useEffect(() => {
         fetchOrders();
-        console.log(changeState);
-    }, [changeState, changeNum])
+    }, [orderNo, changeNum])
 
     // 진료 대기중인 환자 리스트를 출력
     const fetchOrders = async() => {
@@ -136,7 +135,7 @@ const patientList = ({callback1, callback2, resetNum, sendPatientNo}) => {
                         ref={$websocket} /> 
             <div className={style.patientList} >
                 <div className={style.patientListTitle}>
-                    환자 리스트1
+                    환자 리스트
                 </div>
                 <div className={style.orders} >
                     
