@@ -68,6 +68,10 @@
                 overflow-y: scroll;
                 background-color: #ffffff;
 
+                tr {
+                    display: block;
+                }
+
                 &::-webkit-scrollbar {
                     box-sizing: border-box;
                     width: 7px;

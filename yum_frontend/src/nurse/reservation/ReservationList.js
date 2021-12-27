@@ -64,7 +64,7 @@ const ReservationList = ({updateList, setUpdateList, setSelectReservationNo, set
                         <th className={styles2.phone}>연락처</th>
                         <th className={styles2.reservationDate}>예약시간</th>
                         <th className={styles2.updateBtn}>수정</th>
-                        <th className={styles2.cancleBtn}>예약취소</th>
+                        <th className={styles2.cancle}>예약취소</th>
                     </tr>
                 </thead>
                 <tbody>

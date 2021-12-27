@@ -148,7 +148,7 @@ const OrderPatient = ({order, setUpdateOrderList, callback}) => {
                             : phone.replace(/-[0-9]{4}-/g, "-****-")
                     }
                 </td>
-                <td>
+                <td className={styles2.cancle}>
                 {
                     order.orderstateNo === 1 || order.orderstateNo === 2 ? 
                         <button

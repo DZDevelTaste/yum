@@ -63,7 +63,7 @@ const ReservationPatient = ({reservation, setSelectReservationNo, setUpdateList,
                     <FontAwesomeIcon icon={faEdit} size="lg" />
                 </button>
             </td>
-            <td className={styles2.cancleBtn}>
+            <td className={styles2.cancle}>
                 <button onClick={cancleEvent}>
                     <FontAwesomeIcon icon={faTimes} size="lg" color="#CF1313"/>
                 </button>

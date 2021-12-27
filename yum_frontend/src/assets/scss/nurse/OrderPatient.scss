@@ -15,21 +15,21 @@
         .date, .updateBtn {
             width: 80px;
         }
-        .name, .state, .cancleBtn{
+        .name, .state{
             width: 100px;
         }
         .gender{
             width: 50px;
         }
         .cancle {
-            width: 50px;
+            width: 60px;
             padding-left: 0;
         }
         .rrn, .phone {
-            width: 150px;
+            width: 145px;
         }
         .reservationDate {
-            width: 120px; 
+            width: 145px; 
         }
         
     }
@@ -65,12 +65,11 @@
                 cursor: default;
                 color: #9A9A9A
             }
-
             button {
                 border: none;
                 background-color: unset;
                 cursor: pointer;
-                padding: 0 20px;
+                padding: 0 10px;
             }
         }
     }
