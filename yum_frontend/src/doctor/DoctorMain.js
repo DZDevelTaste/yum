@@ -162,6 +162,7 @@ const App = () => {
                         setMessages([...messages, msg ]);
                         setInPatientNo(msg.no);
                         setOrderNo(msg.order.no);
+                        setPatientName(msg.patientName);
                     }} 
                     ref={$websocket} /> 
             <div>
