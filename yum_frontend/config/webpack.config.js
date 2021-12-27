@@ -6,7 +6,7 @@ module.exports = (env) => {
         entry: path.resolve(`src/index.js`),
         output: {
             path: path.resolve('../yum_backend/src/main/webapp/assets'),
-            filename: 'js/bundle.js',
+            filename: '/js/bundle.js',
             assetModuleFilename: 'images/[hash][ext]'
         },
         module: {
