@@ -19,6 +19,7 @@ const App = () => {
     const [deleteNum, setDeleteNum] = useState();
     const [changeNum, setChangeNum] = useState(0);
     const [inPatientNo, setInPatientNo] = useState(0);
+    
 
     const $websocket = useRef(null); 
 
@@ -160,6 +161,7 @@ const App = () => {
                     onMessage={msg => { 
                         setMessages([...messages, msg ]);
                         setInPatientNo(msg.no);
+                        setOrderNo(msg.order.no);
                     }} 
                     ref={$websocket} /> 
             <div>
