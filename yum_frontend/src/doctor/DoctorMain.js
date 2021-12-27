@@ -95,11 +95,13 @@ const App = () => {
             if(confirm('약품과 치료를 처방하지 않았습니다. 진료를 마치시겠습니까?') == true){
                 sendMessage();
                 fetchJoin();
+                setOrderNo(0);
             }
         }
         else{
             sendMessage();
             fetchJoin();
+            setOrderNo(0);
         }
     }
 
