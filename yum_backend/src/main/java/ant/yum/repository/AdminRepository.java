@@ -19,9 +19,15 @@ public class AdminRepository {
 		return sqlSession.selectList("main.findByAll");
 	}
 	
-	public boolean deleteByNo(UserVo userVo) {
-		int count = sqlSession.delete("main.deleteByNo", userVo);
-		return count == 1;
+	public void deleteByNo(List<UserVo> userVo) {
+		for (UserVo userlist : userVo) {
+
+			Map<String, Object> map = new HashMap<>();
+
+			map.put("no", userlist.getNo());
+
+			sqlSession.delete("main.deleteByNo", map);
+		}
 	}
 	public void updateAuth(List<UserVo> userVo) {
 		for (UserVo userlist : userVo) {

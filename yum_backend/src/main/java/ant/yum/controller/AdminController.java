@@ -33,15 +33,13 @@ public class AdminController {
     }
     @PostMapping("/update")
     public JsonResult update(@RequestBody List<UserVo> userVo) {
-        System.out.println("========================" + userVo);
-
         adminService.updateAuth(userVo);
 
         return JsonResult.success(userVo);
     }
 
     @PostMapping("/delete")
-    public JsonResult delete(@RequestBody UserVo userVo) {
+    public JsonResult delete(@RequestBody List<UserVo> userVo) {
         adminService.deleteByNo(userVo);
 
         return JsonResult.success(userVo);
