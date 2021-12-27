@@ -22,7 +22,7 @@ const DiseaseMain = () => {
 
     const push = (e) => {
         e.preventDefault();
-        alert("질병이 추가되었습니다." + put.code + put.name + put.engName);
+        alert("질병이 추가되었습니다.");
         fetchadd();
         return true;
     };
