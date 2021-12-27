@@ -5,20 +5,20 @@ import SiteLayout from '../layout/SiteLayout';
 import '../assets/scss/Content.scss';
 const AdminMain = () => {
     const [users, setUsers] = useState([]);
-    const [check, setCheck] = useState([]);
+    const [check, setCheck] = useState([]);             // use for insert
     const [keyword, setKeyword] = useState('');
     
     const notifyKeywordChanged = (keyword) => {
         setKeyword(keyword);
       };
-    let Check ={
-        no: check
-    }
+
+
     useEffect(() => {
         fetchAdmin();
     }, []);
 
     const fetchAdmin = async() => {
+        
         try {
             const response = await fetch('/api/admin', {
                 method: 'get',
@@ -42,6 +42,7 @@ const AdminMain = () => {
             console.error(error);
         }
     }
+  
     const update = (e) => {
         e.preventDefault();
         alert("승인 되었습니다.");
@@ -55,7 +56,7 @@ const AdminMain = () => {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify(Check)
+                body: JSON.stringify(check)
             });
 
             if(!response.ok) {
@@ -83,7 +84,7 @@ const AdminMain = () => {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify(Check)
+                body: JSON.stringify(check)
             });
 
             if(!response.ok) {
@@ -122,7 +123,7 @@ const AdminMain = () => {
                         .map(user => {
                         return (
                             <div className={style.small}>
-                                <input type="checkbox" className = {style.checks} name="checkList" value={`${user.no}`}  onClick={(e) => {setCheck(e.target.value)}}/>
+                                <input type="checkbox" className = {style.checks} name="checkList" value={`${user.no}`}  onClick={(e) => {setCheck([{'no': e.target.value}, ...check])}}/>
                                 <span className={style.number}>{`${user.no}`}</span>
                                 <span className={style.name}>{`${user.name}`}</span>
                                 <span className={style.gender}>{`${user.gender}`=== 'M' ? '남' : '여'}</span>
